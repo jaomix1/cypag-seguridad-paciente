@@ -1,0 +1,17 @@
+<div [nbSpinner]="loadingMain" nbSpinnerSize="giant" nbSpinnerStatus="success">
+  <div class="row">
+    <div class="col-12">
+      <h4>Esta seguro que desea eliminar este registro?</h4>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col"></div>
+    <div class="col-12 col-md-3">
+      <button nbButton (click)="cancelar()" fullWidth shape="semi-round" status="warning">Cancelar</button>
+    </div>
+    <div class="col-12 col-md-3">
+      <button nbButton (click)="Eliminar()" fullWidth shape="semi-round" status="danger">Eliminar</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+https://akveo.github.io/
+
+https://ng-bootstrap.github.io/#/home
+
+
+comando para publicar
+ng build --prod --aot --outputHashing=all

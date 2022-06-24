@@ -1,0 +1,38 @@
+<nb-card [nbSpinner]="loadingMain" nbSpinnerSize="giant" nbSpinnerStatus="success" accent="info" status="info">
+  <nb-card-header>
+    Regionales
+  </nb-card-header>
+  <nb-card-body>
+    <button nbButton size="giant" class="mb-3" (click)="create()">
+      <nb-icon icon="plus-circle-outline" status="success"></nb-icon>
+    </button>
+    <nb-card>
+      <nb-card-body>
+        <label class="search-label" for="search">Buscar:</label>
+        <input nbInput [nbFilterInput]="dataSource" id="search" class="search-input">
+        <table [nbTreeGrid]="dataSource" [nbSort]="dataSource" (sort)="updateSort($event)">
+          <tr nbTreeGridHeaderRow *nbTreeGridHeaderRowDef="allColumns"></tr>
+          <tr nbTreeGridRow *nbTreeGridRowDef="let row; columns: allColumns"></tr>
+          <ng-container *ngFor="let column of allColumns; let index = index" [nbTreeGridColumnDef]="column" [showOn]="getShowOn(index)">
+            <th nbTreeGridHeaderCell [nbSortHeader]="getSortDirection(column)" *nbTreeGridHeaderCellDef>
+              {{column | uppercase}}
+            </th>
+            <td nbTreeGridCell *nbTreeGridCellDef="let row">
+              {{row.data[column]}}
+              <div *ngIf="column === 'acciones'">
+                <nb-button-group ghost status="info" size="small">
+                  <button nbButton (click)="edit(row.data['id'])">
+                    <nb-icon icon="edit-2-outline"></nb-icon>
+                  </button>
+                  <button nbButton (click)="delete(row.data['id'])">
+                    <nb-icon icon="trash-2-outline"></nb-icon>
+                  </button>
+                </nb-button-group>
+              </div>
+            </td>
+          </ng-container>
+        </table>
+      </nb-card-body>
+    </nb-card>
+  </nb-card-body>
+</nb-card>

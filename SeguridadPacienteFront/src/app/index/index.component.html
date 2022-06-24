@@ -1,0 +1,23 @@
+<nb-layout>
+    <nb-layout-header fixed>
+        <nb-actions size="small">
+            <!-- <nb-action icon="menu-2-outline" (click)="toggle()"></nb-action> -->
+            <nb-action icon="menu-2-outline" (click)="compact()"></nb-action>
+          </nb-actions>
+        
+        Demanda Inducida
+    </nb-layout-header>
+    <nb-sidebar state="compacted">
+            <nb-menu [items]="items">
+            </nb-menu>
+            
+      
+    </nb-sidebar>
+
+    <nb-layout-column class="colored-column-success">
+        <router-outlet></router-outlet>
+    </nb-layout-column>
+    <nb-layout-footer>Derechos reservados</nb-layout-footer>
+  </nb-layout>
+  
+

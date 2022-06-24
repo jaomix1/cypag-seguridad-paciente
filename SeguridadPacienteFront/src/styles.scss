@@ -1,0 +1,26 @@
+@use "themes" as *;
+
+@use "@nebular/theme/styles/globals" as *;
+
+@include nb-install() {
+  @include nb-theme-global();
+}
+/* You can add global styles to this file, and also import other style files */
+
+/* Importing Bootstrap SCSS file. */
+@import "~bootstrap/scss/bootstrap";
+
+.full-screen {
+  width: 50% !important;
+  height: 50% !important;
+
+  .cdk-visually-hidden {
+    width: 99% !important;
+    height: 99% !important;
+  }
+
+  nb-dialog-container {
+    width: 100% !important;
+    height: 100% !important;
+  }
+}
