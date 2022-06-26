@@ -1,0 +1,41 @@
+<div class="example-container">
+    <mat-grid-list cols="3" rowHeight="500">
+        <mat-grid-tile [colspan]="this.tamano.col"></mat-grid-tile>
+        <mat-grid-tile [colspan]="this.tamano2.col">
+            <mat-card class="dashboard-card">
+                <mat-card-title>
+                    <img src="assets/logo2.jpg"/>
+                </mat-card-title>
+                <mat-card-content>
+                    <form [formGroup]="loginForm" (ngSubmit)="login()">
+                        <mat-form-field>
+                            <mat-label>Usuario</mat-label>
+                            <input matInput formControlName="Correo" placeholder="999999999" maxlength="60" required>
+                            <mat-error *ngIf="!loginForm.valid">error</mat-error>
+                            <mat-icon matSuffix>sentiment_very_satisfied</mat-icon>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field>
+                            <mat-label>Contraseña</mat-label>
+                            <input matInput formControlName="Clave" [type]="hidePassword ? 'password' : 'text'" required>
+                            <mat-error *ngIf="!loginForm.valid">error</mat-error>
+                            <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                        </mat-form-field>
+                        <mat-card-actions align="end">
+                            <mat-progress-bar *ngIf="loanding" mode="indeterminate"></mat-progress-bar>
+                            <button mat-raised-button color="primary" [disabled]="!loginForm.valid" *ngIf="!loanding">LOGIN</button>
+                        </mat-card-actions>
+                    </form>
+                </mat-card-content>
+                <mat-card-footer>
+                    <button mat-raised-button color="warn"  (click)="cancelar()" *ngIf="!loanding">CANCELAR</button>
+                            
+                </mat-card-footer>
+            </mat-card>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="this.tamano.col"></mat-grid-tile>
+    </mat-grid-list>
+</div>
