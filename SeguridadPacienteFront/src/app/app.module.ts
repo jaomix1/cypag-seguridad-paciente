@@ -9,6 +9,9 @@ import { IndexModule } from './componentes/index/index.module';
 import { LoginModule } from './componentes/login/login.module';
 import { MainModule } from './componentes/main/main.module';
 
+
+import {  MatSnackBarModule } from '@angular/material/snack-bar';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,6 +29,8 @@ import { MainModule } from './componentes/main/main.module';
     
     //main
     MainModule,
+
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent] 

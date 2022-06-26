@@ -25,13 +25,13 @@
                             </button>
                         </mat-form-field>
                         <mat-card-actions align="end">
-                            <mat-progress-bar *ngIf="loanding" mode="indeterminate"></mat-progress-bar>
-                            <button mat-raised-button color="primary" [disabled]="!loginForm.valid" *ngIf="!loanding">LOGIN</button>
+                            <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+                            <button mat-raised-button color="primary" [disabled]="!loginForm.valid" *ngIf="!loading">LOGIN</button>
                         </mat-card-actions>
                     </form>
                 </mat-card-content>
                 <mat-card-footer>
-                    <button mat-raised-button color="warn"  (click)="cancelar()" *ngIf="!loanding">CANCELAR</button>
+                    <button mat-raised-button color="warn"  (click)="cancelar()" *ngIf="!loading">CANCELAR</button>
                             
                 </mat-card-footer>
             </mat-card>

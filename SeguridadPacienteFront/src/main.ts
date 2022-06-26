@@ -4,8 +4,18 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
-export function getUrlLogin() {
-  return "login";
+let URL = environment.apiUrl; //EXTE
+
+export function getUrlApi() {
+  return URL+ "/v1"
+}
+
+export function getUrlApiAuth() {
+  return URL+ "/v1"
+}
+
+export function getUrlLogout() {
+  return "login"
 }
 
 
@@ -14,7 +24,9 @@ if (environment.production) {
 }
 
 const provider = [
-  { provide: "UrlLogin", useFactory: getUrlLogin, deps: [] },
+  { provide: "UrlApi", useFactory: getUrlApi, deps: [] },
+  { provide: "UrlApiAuth", useFactory: getUrlApiAuth, deps: [] },
+  { provide: "UrlLogin", useFactory: getUrlLogout, deps: [] },
 ];
 
 platformBrowserDynamic(provider).bootstrapModule(AppModule)

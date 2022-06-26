@@ -2,9 +2,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { Acceso } from 'src/app/control/acceso';
+
 import { IndexComponent } from './index.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
 import { QueryComponent } from './query/query.component';
+
+import { TablaComponent } from './demos/tabla/tabla.component';
+import { FormularioComponent } from './demos/formulario/formulario.component';
 
 
 const routes: Routes = [
@@ -21,33 +25,16 @@ const routes: Routes = [
           component: QueryComponent,
           //canActivate: [Acceso]
       },
-    //   {
-    //       path: 'consultar',
-    //       component: Pag4Component,
-    //       canActivate: [Acceso]
-    //   },
-    //   {
-    //       path: 'estadistica',
-    //       component: EstadisticaComponent,
-    //       canActivate: [Acceso]
-    //   },
-    //   {
-    //       path: 'estadistica2',
-    //       component: EstadisticaEmpresaComponent,
-    //       canActivate: [Acceso]
-    //   },
-    //   {
-    //       path: 'estadistica3',
-    //       component: EstadisticaSedeComponent,
-    //       canActivate: [Acceso]
-    //   },
-    //   {
-    //       path: 'excel',
-    //       component: ExcelComponent,
-    //       canActivate: [Acceso]
-    //   },
-
-      
+      {
+          path: 'tabla',
+          component: TablaComponent,
+          //canActivate: [Acceso]
+      },
+      {
+          path: 'form',
+          component: FormularioComponent,
+          //canActivate: [Acceso]
+      },
     ]
   },
 //   {

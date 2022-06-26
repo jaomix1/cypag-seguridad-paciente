@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 
@@ -19,12 +19,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { IndexComponent } from './index.component';
 import { QueryComponent } from './query/query.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
+import { TablaComponent } from './demos/tabla/tabla.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { FormularioComponent } from './demos/formulario/formulario.component';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
     IndexComponent,
     QueryComponent,
     OpportunityComponent,
+    
+    TablaComponent,
+    FormularioComponent,
   ],
   imports: [    
     CommonModule,
@@ -41,7 +53,15 @@ import { OpportunityComponent } from './opportunity/opportunity.component';
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-    MatButtonModule, 
+    MatButtonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatInputModule,
+    MatSelectModule,
+    MatRadioModule,
+    MatCardModule,
+    ReactiveFormsModule, 
     // MatGridListModule,
     // MatProgressBarModule,
     
