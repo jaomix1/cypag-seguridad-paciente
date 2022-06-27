@@ -28,6 +28,10 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -62,12 +66,18 @@ import { MatCardModule } from '@angular/material/card';
     MatRadioModule,
     MatCardModule,
     ReactiveFormsModule, 
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressBarModule,
+    MatDialogModule
     // MatGridListModule,
-    // MatProgressBarModule,
     
   ],
   exports :[
    IndexComponent,
+ ],
+ providers : [
+  {provide: MAT_DATE_LOCALE, useValue: 'fr'},
  ]
 })
 export class IndexModule { }

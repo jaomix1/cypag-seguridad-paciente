@@ -25,7 +25,9 @@ export class BaseService {
       errorMessage = 'Su sesión a finalizado, ingrese nuevamente';
     } else if (error.status == 401) {
       errorMessage = 'No autorizado para esta función';
-    } else if (error.status == 0) {
+    } else if (error.status == 404) {
+      errorMessage = 'Servicio no disponible';
+    }else if (error.status == 0) {
       errorMessage = 'No se puede conectar al Servicio';
     } else if (error.error) {
       // Get server-side error
