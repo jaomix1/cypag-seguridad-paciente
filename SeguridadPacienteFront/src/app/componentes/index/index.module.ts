@@ -34,6 +34,11 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     IndexComponent,
@@ -69,13 +74,17 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule,
-    // MatGridListModule,
-    // MatProgressBarModule,
-
+    ReactiveFormsModule, 
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatProgressBarModule,
+    MatDialogModule    
   ],
   exports :[
    IndexComponent,
+ ],
+ providers : [
+  {provide: MAT_DATE_LOCALE, useValue: 'fr'},
  ]
 })
 export class IndexModule { }

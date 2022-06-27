@@ -25,3 +25,11 @@ button{
   display: block !important;
   text-align: center;
 }
+
+.snackbar {
+  background: rgb(255, 255, 255);
+}
+
+.snackbar-error {
+  background: rgba(180, 2, 2, 0.693);
+}

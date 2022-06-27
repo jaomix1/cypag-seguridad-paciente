@@ -1,10 +1,5 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormControl,  FormGroup,  Validators,} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
 import { DemoService } from 'src/app/servicios/demo/demo.service';
