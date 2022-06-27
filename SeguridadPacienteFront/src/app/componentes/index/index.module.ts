@@ -28,6 +28,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { DetallesComponent } from './detalles/detalles.component';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,21 +44,24 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     IndexComponent,
     QueryComponent,
     OpportunityComponent,
-    
+    DetallesComponent,
     TablaComponent,
     FormularioComponent,
   ],
-  imports: [    
+  imports: [
     CommonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule, 
+    FormsModule,
     HttpClientModule,
-
+    MatGridListModule,
     IndexRoutingModule,
-    
+    MatAutocompleteModule,
+    MatStepperModule,
+    MatChipsModule ,
     MatSidenavModule,
     MatToolbarModule,
+    MatCheckboxModule,
     MatListModule,
     MatIconModule,
     MatMenuModule,
@@ -69,9 +78,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
-    MatDialogModule
-    // MatGridListModule,
-    
+    MatDialogModule    
   ],
   exports :[
    IndexComponent,

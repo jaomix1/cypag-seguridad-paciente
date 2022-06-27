@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {  margin: 0;  height: 100%; font-family: 'Inter', !important; }
 
 mat-form-field {
   display: block !important;
@@ -10,6 +8,22 @@ mat-form-field {
 
 button{
   width: 100%;
+}
+
+.bg-primary {
+  background-color: #1F9C3E !important;
+}
+.bg-secondary {
+  background-color: #182748 !important;
+  color: #FFFFFF !important;
+}
+.primary {
+  color: #1F9C3E !important;
+}
+
+.center{
+  display: block !important;
+  text-align: center;
 }
 
 .snackbar {

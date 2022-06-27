@@ -6,6 +6,7 @@ import { Acceso } from 'src/app/control/acceso';
 import { IndexComponent } from './index.component';
 import { OpportunityComponent } from './opportunity/opportunity.component';
 import { QueryComponent } from './query/query.component';
+import { DetallesComponent } from './detalles/detalles.component';
 
 import { TablaComponent } from './demos/tabla/tabla.component';
 import { FormularioComponent } from './demos/formulario/formulario.component';
@@ -35,6 +36,11 @@ const routes: Routes = [
           component: FormularioComponent,
           //canActivate: [Acceso]
       },
+      {
+        path: 'detalles',
+        component: DetallesComponent,
+        //canActivate: [Acceso]
+    },
     ]
   },
 //   {
