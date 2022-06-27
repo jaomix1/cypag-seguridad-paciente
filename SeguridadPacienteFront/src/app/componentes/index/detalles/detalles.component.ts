@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {FormBuilder, Validators} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export interface Testigo {
   name: string;
@@ -15,6 +16,8 @@ export interface Testigo {
 
 
 export class DetallesComponent implements OnInit {
+  private detalleId : string;
+
   tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -27,11 +30,25 @@ export class DetallesComponent implements OnInit {
     secondCtrl: ['', Validators.required],
   });
 
-  constructor( private _formBuilder: FormBuilder) { }
+  constructor( private _formBuilder: FormBuilder,
+    @Inject(MAT_DIALOG_DATA) public guid: string,
+    public dialogRef: MatDialogRef<DetallesComponent>,) {
+      this.detalleId = guid;
+      this.obtenerDetalle(this.detalleId)
+     }
 
   data: any = "Esta es una data de prueba";
 
   ngOnInit(): void {
+  }
+
+  obtenerDetalle(id : string){
+
+  }
+
+  //cerrar modal
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 
 
