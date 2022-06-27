@@ -13,7 +13,10 @@ button{
 .bg-primary {
   background-color: #1F9C3E !important;
 }
-
+.bg-secondary {
+  background-color: #182748 !important;
+  color: #FFFFFF !important;
+}
 .primary {
   color: #1F9C3E !important;
 }

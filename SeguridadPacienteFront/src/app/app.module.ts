@@ -26,13 +26,13 @@ import {  MatSnackBarModule } from '@angular/material/snack-bar';
 
     //login
     LoginModule,
-    
+
     //main
     MainModule,
 
     MatSnackBarModule
   ],
   providers: [],
-  bootstrap: [AppComponent] 
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
