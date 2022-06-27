@@ -14,6 +14,10 @@ button{
   background-color: #1F9C3E !important;
 }
 
+.primary {
+  color: #1F9C3E !important;
+}
+
 .center{
   display: block !important;
   text-align: center;
