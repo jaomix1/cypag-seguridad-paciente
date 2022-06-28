@@ -10,7 +10,11 @@ import { DetallesComponent } from './detalles/detalles.component';
 
 import { TablaComponent } from './demos/tabla/tabla.component';
 import { FormularioComponent } from './demos/formulario/formulario.component';
-
+import { MsPqComponent } from './investigaciones/ms-pq/ms-pq.component';
+import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
+import { LondresComponent } from './investigaciones/londres/londres.component';
+import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
+import { EventoAdversoComponent } from './evento-adverso/evento-adverso.component';
 
 const routes: Routes = [
   {
@@ -40,7 +44,27 @@ const routes: Routes = [
         path: 'detalles',
         component: DetallesComponent,
         //canActivate: [Acceso]
-    },
+      },
+      {
+        path: 'investigacion',
+        component: SelectInvestigacionComponent,
+        //canActivate: [Acceso]
+      },
+      {
+        path: 'naranjo',
+        component: NaranjoComponent,
+        //canActivate: [Acceso]
+      },
+      {
+        path: 'londres',
+        component: LondresComponent,
+        //canActivate: [Acceso]
+      },
+      {
+        path: 'evento',
+        component: EventoAdversoComponent,
+        //canActivate: [Acceso]
+      },
     ]
   },
 //   {

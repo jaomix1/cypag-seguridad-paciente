@@ -1,28 +1,28 @@
-<div class="example-container">
-  <h1 class="center">Clasificación</h1>
-  <mat-grid-list cols="2" rowHeight="1:1">
-      <mat-grid-tile [colspan]="this.tamano.col">
-        <div class="mat-grid-tile-content">
-          <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data}}</p>
-          <p> <span> <b>Nombre de quien reporta:</b> </span> {{data}}</p>
-          <p> <span> <b>Cargo de quien reporta:</b> </span> {{data}}</p>
-          <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data}}</p>
-          <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data}}</p>
-          <p> <span> <b>Nombre completo del paciente:</b> </span> {{data}}</p>
-          <p> <span> <b>Identificación:</b> </span> {{data}}</p>
-          <p> <span> <b>Sexo:</b> </span> {{data}}</p>
-          <p> <span> <b>Edad:</b> </span> {{data}}</p>
-          <p> <span> <b>Tipo de evento:</b> </span> {{data}}</p>
-          <p> <span> <b>Clasificación del evento:</b> </span> {{data}}</p>
-          <p> <span> <b>Descripción del evento:</b> </span> {{data}}</p>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile [colspan]="this.tamano.col" >
-        <div class="mat-grid-tile-content">
-          <mat-stepper orientation="vertical" [linear]="false" #stepper>
-            <mat-step [stepControl]="firstFormGroup">
+<mat-card class="shipping-card">
+  <mat-card-content>
+    <div class="example-container">
+      <h1 class="center">Clasificación</h1>
+      <mat-grid-list cols="2" rowHeight="1:1">
+          <mat-grid-tile [colspan]="this.tamano.col">
+            <div class="mat-grid-tile-content">
+              <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data}}</p>
+              <p> <span> <b>Nombre de quien reporta:</b> </span> {{data}}</p>
+              <p> <span> <b>Cargo de quien reporta:</b> </span> {{data}}</p>
+              <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data}}</p>
+              <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data}}</p>
+              <p> <span> <b>Nombre completo del paciente:</b> </span> {{data}}</p>
+              <p> <span> <b>Identificación:</b> </span> {{data}}</p>
+              <p> <span> <b>Sexo:</b> </span> {{data}}</p>
+              <p> <span> <b>Edad:</b> </span> {{data}}</p>
+              <p> <span> <b>Tipo de evento:</b> </span> {{data}}</p>
+              <p> <span> <b>Clasificación del evento:</b> </span> {{data}}</p>
+              <p> <span> <b>Descripción del evento:</b> </span> {{data}}</p>
+            </div>
+          </mat-grid-tile>
+          <mat-grid-tile [colspan]="this.tamano.col" >
+            <div class="mat-grid-tile-content">
               <form [formGroup]="firstFormGroup">
-                <ng-template matStepLabel>Triada</ng-template>
+                <h2>Triada</h2>
                 <section class="example-section">
                   <label class="example-margin">Involuntario:</label>
                   <mat-radio-group>
@@ -44,27 +44,17 @@
                     <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
                   </mat-radio-group>
                 </section>
-                <div>
-                  <button mat-button matStepperNext class="bg-primary" style="color: white">Siguiente</button>
-                </div>
               </form>
-            </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
               <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Selecciona un tipo</ng-template>
+                <h2 >Selecciona un tipo</h2>
                 <mat-grid-list cols="2" rowHeight="80px">
                   <mat-grid-tile> <button mat-button class="bg-secondary"> Farmacovigilancia </button> </mat-grid-tile>
                   <mat-grid-tile> <button mat-button class="bg-secondary"> Gestión clinica </button> </mat-grid-tile>
                   <mat-grid-tile> <button mat-button class="bg-secondary"> Reactovigilancia </button> </mat-grid-tile>
                   <mat-grid-tile> <button mat-button class="bg-secondary"> Tecnovigilancia </button> </mat-grid-tile>
                 </mat-grid-list>
-                <div>
-                  <button mat-button matStepperNext class="bg-primary">Siguiente</button>
-                </div>
               </form>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Responsables</ng-template>
+              <h2 >Responsables</h2>
               <mat-form-field appearance="outline">
                 <mat-label>¿Quién o quienes?</mat-label>
                 <mat-chip-list #chipList aria-label="responsables">
@@ -82,13 +72,11 @@
                 </mat-chip-list>
               </mat-form-field>
               <div>
-                <button mat-button matStepperPrevious class="bg-primary" style="margin-bottom: 10px">Guardar</button>
-                <br>
-                <button mat-button (click)="stepper.reset()" class="bg-secondary">Cancelar</button>
+                <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
               </div>
-            </mat-step>
-          </mat-stepper>
-        </div>
-      </mat-grid-tile>
-  </mat-grid-list>
-</div>
+            </div>
+          </mat-grid-tile>
+      </mat-grid-list>
+    </div>
+  </mat-card-content>
+</mat-card>

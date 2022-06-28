@@ -80,8 +80,8 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
         next: (req) => {
           this.mainService.showToast('Creado Correctamente');
           this.datos = req;
-          this.loadingMain = false; 
-          this.myForm.enable();   
+          this.loadingMain = false;
+          this.myForm.enable();
           //this.cancelar();
         },
         error: (err: string) => {
@@ -90,8 +90,8 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
           this.myForm.enable();
         },
         complete: () => {
-          this.loadingMain = false;    
-          this.myForm.enable();     
+          this.loadingMain = false;
+          this.myForm.enable();
         }
       });
     }
@@ -100,7 +100,6 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   detalles(guid : any){
     const dialogRef = this.dialog.open(DetallesComponent, {
       width: '100%',
-      height: '100%',
       data: guid,
       disableClose: false
     });
@@ -111,11 +110,11 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   cancelar() {
     this.myForm.reset();
   }
- 
+
   cambioFecha() {
     this.myForm.patchValue({
-      codigo: null, 
-      documento: null, 
+      codigo: null,
+      documento: null,
     });
   }
 

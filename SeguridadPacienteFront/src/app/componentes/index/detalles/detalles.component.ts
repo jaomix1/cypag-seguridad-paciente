@@ -35,7 +35,7 @@ export class DetallesComponent implements OnInit {
     public dialogRef: MatDialogRef<DetallesComponent>,) {
       this.detalleId = guid;
       this.obtenerDetalle(this.detalleId)
-     }
+    }
 
   data: any = "Esta es una data de prueba";
 
