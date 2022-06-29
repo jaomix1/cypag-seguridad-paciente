@@ -1,16 +1,5 @@
-const { Sequelize, DataTypes, Model } = require("sequelize");
-require("dotenv").config();
-
-const user = process.env.USER;
-const password = process.env.PASS;
-const host = process.env.SERVER_SQL;
-const database = process.env.BD;
-const dialect = process.env.DIALECT;
-
-const sequelize = new Sequelize(database, user, password, {
-  host,
-  dialect,
-});
+const { DataTypes, Model } = require("sequelize");
+const { sequelize } = require("../../../config/db");
 
 class TiposIdModel extends Model {}
 

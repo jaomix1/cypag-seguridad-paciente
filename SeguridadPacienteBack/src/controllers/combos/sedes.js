@@ -2,7 +2,7 @@ const SedesModel = require("../../models/combos/sedes");
 
 exports.obtenerSedes = async (req, res) => {
   try {
-    const { empresa } = req.body;
+    const { empresa } = req.query;
     const data = await SedesModel.findAll({
       where: { Id_Empresa: empresa, Estado: "ACT" },
       attributes: ["Id", "Nombre"],

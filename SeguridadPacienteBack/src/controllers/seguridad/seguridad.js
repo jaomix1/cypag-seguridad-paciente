@@ -1,39 +1,49 @@
-const moment = require("moment");
+/* eslint-disable camelcase */
+const PerfilesModel = require("../../models/seguridad/perfiles");
 const UsuarioModel = require("../../models/seguridad/usuarios");
+
+exports.obtenerPerfiles = async (req, res) => {
+  try {
+    if (req.Usuario.user.Perfil === "admin") {
+      const data = await PerfilesModel.findAll({
+        where: { Estado: "ACT" },
+        attributes: ["Id", "Descripcion"],
+      });
+      return res.status(200).json(data);
+    }
+    return res.status(401).send("Ingrese como un usuario Administrador");
+  } catch (err) {
+    return res.status(503).send("Error Procesando la Consulta");
+  }
+};
 
 exports.registrarUsuario = async (req, res) => {
   try {
-    if (req.Usuario.user.Perfil === "admin" || req.Usuario.user.Perfil === "enfermera") {
+    if (req.Usuario.user.Perfil === "admin") {
       const {
-        NombreCompleto, Usuario, Clave, Perfil, ipsId,
+        Usuario, NombreCompleto, Clave, Correo, Id_Perfil,
       } = req.body;
-      // console.log(req.body);
-      const date = moment()
-        .tz("America/New_York")
-        .format("MM/DD/YYYY HH:mm:ss");
-      // console.log(date);
       const usrBD = await UsuarioModel.create({
-        NombreCompleto,
         Usuario,
+        NombreCompleto,
         Clave,
-        Perfil,
-        ipsId,
-        Estado: "ACT",
-        FechaCreacion: date,
+        Correo,
+        Id_Perfil,
       });
-
+      const Perfil = await PerfilesModel.findOne({ where: { Id: Id_Perfil }, attributes: ["Descripcion"] });
       const tokenData = {
         NombreCompleto,
-        Perfil,
+        Perfil: Perfil.Descripcion,
         Usuario,
       };
 
       const token = usrBD.crearJsonWebToken(tokenData);
 
       return res.status(200).json({
+        message: "Usuario Creado",
         id: usrBD.id,
         NombreCompleto,
-        Perfil,
+        Perfil: Perfil.Descripcion,
         Usuario,
         token,
       });
@@ -65,18 +75,15 @@ exports.login = async (req, res) => {
       res.status(503).send("Las credenciales son incorrectas");
       return null;
     }
-
+    const Perfil = await PerfilesModel.findOne({ where: { Id: usuarioBD.Id_Perfil }, attributes: ["Descripcion"] });
     const tokenData = {
       NombreCompleto: usuarioBD.NombreCompleto,
       Id: usuarioBD.id,
-      Perfil: usuarioBD.Perfil,
+      Perfil: Perfil.Descripcion,
       Usuario: usuarioBD.Usuario,
-      IpsId: usuarioBD.ipsId,
     };
 
     const token = usuarioBD.crearJsonWebToken(tokenData);
-
-    // ojo cambio
     return res.json(token);
   } catch (err) {
     return res.status(503).send("Error en el Login");
@@ -85,13 +92,13 @@ exports.login = async (req, res) => {
 
 exports.getAllUsers = async (req, res) => {
   try {
-    if (req.Usuario.user.Perfil === "admin" || req.Usuario.user.Perfil === "enfermera") {
+    if (req.Usuario.user.Perfil === "admin") {
       const data = await UsuarioModel.findAll({
         where: { Estado: "ACT" },
         order: [
           ["NombreCompleto", "ASC"],
         ],
-        attributes: ["id", "NombreCompleto", "Usuario", "Perfil"],
+        attributes: ["id", "NombreCompleto", "Usuario", "Correo", "Id_Perfil"],
       });
       return res.status(200).json(data);
     }
@@ -103,15 +110,17 @@ exports.getAllUsers = async (req, res) => {
 
 exports.inactiveUser = async (req, res) => {
   try {
-    if (req.Usuario.user.Perfil === "admin" || req.Usuario.user.Perfil === "enfermera") {
+    if (req.Usuario.user.Perfil === "admin") {
       const { id } = req.body;
-      const data = await UsuarioModel.update({
+      const [data] = await UsuarioModel.update({
         Estado: "INA",
       }, {
         where: { id, Estado: "ACT" },
       });
-
-      return res.status(200).json(data);
+      if (data > 0) {
+        return res.status(200).send("Usuario inhabilitado exitosamente");
+      }
+      return res.status(200).send("Usuario no encontrado");
     }
     return res.status(401).send("Ingrese como un usuario Administrador");
   } catch (err) {
