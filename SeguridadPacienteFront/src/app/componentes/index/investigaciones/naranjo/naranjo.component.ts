@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-naranjo',
@@ -12,7 +13,8 @@ export class NaranjoComponent implements OnInit {
 
   constructor(
     public mainService: MainService,
-    public NaranjoService: NaranjoService
+    public NaranjoService: NaranjoService,
+    public dialogRef: MatDialogRef<NaranjoComponent>,
   ) { }
 
   form = new FormGroup({
@@ -55,6 +57,6 @@ export class NaranjoComponent implements OnInit {
   }
 
   cancelar(){
-
+    this.dialogRef.close();
   }
 }

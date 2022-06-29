@@ -1,149 +1,133 @@
 <form novalidate (ngSubmit)="submitPQ()" [formGroup]="formPQ" *ngIf="type === 'pq'">
-  <mat-card class="shipping-card">
-    <mat-card-header class="center">
-      <mat-card-title> <h2> <b> Intestigacion </b></h2> </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Por qué?</mat-label>
-            <input matInput placeholder="¿Por qué?" formControlName="pq1" maxlength="50" required>
-            <mat-error *ngIf="validatePQ('pq1')">
-              {{ checkPQ('pq1') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Por qué?</mat-label>
-            <input matInput placeholder="¿Por qué?" formControlName="pq2" maxlength="50" required>
-            <mat-error *ngIf="validatePQ('pq2')">
-              {{ checkPQ('pq2') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Por qué?</mat-label>
-            <input matInput placeholder="¿Por qué?" formControlName="pq3" maxlength="50" required>
-            <mat-error *ngIf="validatePQ('pq3')">
-              {{ checkPQ('pq3') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Por qué?</mat-label>
-            <input matInput placeholder="¿Por qué?" formControlName="pq4" maxlength="50" required>
-            <mat-error *ngIf="validatePQ('pq4')">
-              {{ checkPQ('pq4') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Por qué?</mat-label>
-            <input matInput placeholder="¿Por qué?" formControlName="pq5" maxlength="50" required>
-            <mat-error *ngIf="validatePQ('pq5')">
-              {{ checkPQ('pq5') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <mat-card-actions>
-        <div class="row">
-          <div class="col">
-            <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
-          </div>
-          <div class="col">
-            <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
-          </div>
-        </div>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+  <h2> <b> Investigación 5Porque`s </b></h2>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <input matInput placeholder="¿Por qué?" formControlName="pq1" maxlength="50" required>
+        <mat-error *ngIf="validatePQ('pq1')">
+          {{ checkPQ('pq1') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <input matInput placeholder="¿Por qué?" formControlName="pq2" maxlength="50" required>
+        <mat-error *ngIf="validatePQ('pq2')">
+          {{ checkPQ('pq2') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <input matInput placeholder="¿Por qué?" formControlName="pq3" maxlength="50" required>
+        <mat-error *ngIf="validatePQ('pq3')">
+          {{ checkPQ('pq3') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <input matInput placeholder="¿Por qué?" formControlName="pq4" maxlength="50" required>
+        <mat-error *ngIf="validatePQ('pq4')">
+          {{ checkPQ('pq4') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <input matInput placeholder="¿Por qué?" formControlName="pq5" maxlength="50" required>
+        <mat-error *ngIf="validatePQ('pq5')">
+          {{ checkPQ('pq5') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col">
+      <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
+    </div>
+  </div>
 </form>
 <form novalidate (ngSubmit)="submitMS()" [formGroup]="formMS" *ngIf="type === 'ms'">
-  <mat-card class="shipping-card">
-    <mat-card-header class="center">
-      <mat-card-title> <h2> <b> Intestigacion </b></h2> </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Mano de obra / Persona</mat-label>
-            <input matInput placeholder="Mano de obra / Persona" formControlName="ms1" maxlength="50" required>
-            <mat-error *ngIf="validateMS('ms1')">
-              {{ checkMS('ms1') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Metodo / Procedimiento</mat-label>
-            <input matInput placeholder="Metodo / Procedimiento" formControlName="ms2" maxlength="50" required>
-            <mat-error *ngIf="validateMS('ms2')">
-              {{ checkMS('ms2') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Materia prima / insumo</mat-label>
-            <input matInput placeholder="Materia prima / insumo" formControlName="ms3" maxlength="50" required>
-            <mat-error *ngIf="validateMS('ms3')">
-              {{ checkMS('ms3') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Maquinaria / Equipos</mat-label>
-            <input matInput placeholder="Maquinaria / Equipos" formControlName="ms4" maxlength="50" required>
-            <mat-error *ngIf="validateMS('ms4')">
-              {{ checkMS('ms4') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Medio ambiente</mat-label>
-            <input matInput placeholder="Medio ambiente" formControlName="ms5" maxlength="50" required>
-            <mat-error *ngIf="validateMS('ms5')">
-              {{ checkMS('ms5') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Otro...</mat-label>
-            <input matInput placeholder="Otro" formControlName="msOtro" maxlength="50" required>
-            <mat-error *ngIf="validateMS('msOtro')">
-              {{ checkMS('msOtro') }}
-            </mat-error>
-          </mat-form-field>
-        </div>
-      </div>
-      <mat-card-actions>
-        <div class="row">
-          <div class="col">
-            <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
-          </div>
-          <div class="col">
-            <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
-          </div>
-        </div>
-      </mat-card-actions>
-    </mat-card-content>
-  </mat-card>
+  <h2> <b> Investigación 5Ms </b></h2>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Mano de obra / Persona</mat-label>
+        <input matInput placeholder="Mano de obra / Persona" formControlName="ms1" maxlength="50" required>
+        <mat-error *ngIf="validateMS('ms1')">
+          {{ checkMS('ms1') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Metodo / Procedimiento</mat-label>
+        <input matInput placeholder="Metodo / Procedimiento" formControlName="ms2" maxlength="50" required>
+        <mat-error *ngIf="validateMS('ms2')">
+          {{ checkMS('ms2') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Materia prima / insumo</mat-label>
+        <input matInput placeholder="Materia prima / insumo" formControlName="ms3" maxlength="50" required>
+        <mat-error *ngIf="validateMS('ms3')">
+          {{ checkMS('ms3') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Maquinaria / Equipos</mat-label>
+        <input matInput placeholder="Maquinaria / Equipos" formControlName="ms4" maxlength="50" required>
+        <mat-error *ngIf="validateMS('ms4')">
+          {{ checkMS('ms4') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Medio ambiente</mat-label>
+        <input matInput placeholder="Medio ambiente" formControlName="ms5" maxlength="50" required>
+        <mat-error *ngIf="validateMS('ms5')">
+          {{ checkMS('ms5') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Otro...</mat-label>
+        <input matInput placeholder="Otro" formControlName="msOtro" maxlength="50" required>
+        <mat-error *ngIf="validateMS('msOtro')">
+          {{ checkMS('msOtro') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col">
+      <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
+    </div>
+  </div>
 </form>

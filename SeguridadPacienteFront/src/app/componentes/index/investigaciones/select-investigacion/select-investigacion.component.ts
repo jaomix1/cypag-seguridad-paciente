@@ -20,7 +20,7 @@ export class SelectInvestigacionComponent implements OnInit {
     console.log(option)
     const dialogRef = this.dialog.open(MsPqComponent, {
       width: '100%',
-      height: '80%',
+      height: '70%',
       data: option,
       disableClose: false
     });

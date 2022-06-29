@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-londres',
@@ -17,7 +18,7 @@ export class LondresComponent implements OnInit {
   });
 
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<LondresComponent>,) { }
 
   ngOnInit(): void {
   }
@@ -27,7 +28,7 @@ export class LondresComponent implements OnInit {
   }
 
   cancelar(){
-
+    this.dialogRef.close();
   }
 
 }

@@ -1,82 +1,91 @@
-<mat-card class="shipping-card">
-  <mat-card-content>
-    <div class="example-container">
-      <h1 class="center">Clasificación</h1>
-      <mat-grid-list cols="2" rowHeight="1:1">
-          <mat-grid-tile [colspan]="this.tamano.col">
-            <div class="mat-grid-tile-content">
-              <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data}}</p>
-              <p> <span> <b>Nombre de quien reporta:</b> </span> {{data}}</p>
-              <p> <span> <b>Cargo de quien reporta:</b> </span> {{data}}</p>
-              <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data}}</p>
-              <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data}}</p>
-              <p> <span> <b>Nombre completo del paciente:</b> </span> {{data}}</p>
-              <p> <span> <b>Identificación:</b> </span> {{data}}</p>
-              <p> <span> <b>Sexo:</b> </span> {{data}}</p>
-              <p> <span> <b>Edad:</b> </span> {{data}}</p>
-              <p> <span> <b>Tipo de evento:</b> </span> {{data}}</p>
-              <p> <span> <b>Clasificación del evento:</b> </span> {{data}}</p>
-              <p> <span> <b>Descripción del evento:</b> </span> {{data}}</p>
-            </div>
-          </mat-grid-tile>
-          <mat-grid-tile [colspan]="this.tamano.col" >
-            <div class="mat-grid-tile-content">
-              <form [formGroup]="firstFormGroup">
-                <h2>Triada</h2>
-                <section class="example-section">
-                  <label class="example-margin">Involuntario:</label>
-                  <mat-radio-group>
-                    <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-                  </mat-radio-group>
-                </section>
-                <section class="example-section">
-                  <label class="example-margin">¿Generó daño en el paciente?:</label>
-                  <mat-radio-group>
-                    <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-                  </mat-radio-group>
-                </section>
-                <section class="example-section">
-                  <label class="example-margin">Atención en salud:</label>
-                  <mat-radio-group>
-                    <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-                    <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-                  </mat-radio-group>
-                </section>
-              </form>
-              <form [formGroup]="secondFormGroup">
-                <h2 >Selecciona un tipo</h2>
-                <mat-grid-list cols="2" rowHeight="80px">
-                  <mat-grid-tile> <button mat-button class="bg-secondary"> Farmacovigilancia </button> </mat-grid-tile>
-                  <mat-grid-tile> <button mat-button class="bg-secondary"> Gestión clinica </button> </mat-grid-tile>
-                  <mat-grid-tile> <button mat-button class="bg-secondary"> Reactovigilancia </button> </mat-grid-tile>
-                  <mat-grid-tile> <button mat-button class="bg-secondary"> Tecnovigilancia </button> </mat-grid-tile>
-                </mat-grid-list>
-              </form>
-              <h2 >Responsables</h2>
-              <mat-form-field appearance="outline">
-                <mat-label>¿Quién o quienes?</mat-label>
-                <mat-chip-list #chipList aria-label="responsables">
-                  <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
-                    {{responsable.name}}
-                    <button matChipRemove>
-                      <mat-icon>cancelar</mat-icon>
-                    </button>
-                  </mat-chip>
-                  <input placeholder="nuevo.."
-                    [matChipInputFor]="chipList"
-                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                    [matChipInputAddOnBlur]="addOnBlur"
-                    (matChipInputTokenEnd)="add($event)">
-                </mat-chip-list>
-              </mat-form-field>
-              <div>
-                <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
-              </div>
-            </div>
-          </mat-grid-tile>
+<h1 class="center">Clasificación</h1>
+<div class="row">
+  <div class="col">
+    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data}}</p>
+    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data}}</p>
+    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data}}</p>
+    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data}}</p>
+    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data}}</p>
+    <p> <span> <b>Identificación:</b> </span> {{data}}</p>
+    <p> <span> <b>Sexo:</b> </span> {{data}}</p>
+    <p> <span> <b>Edad:</b> </span> {{data}}</p>
+    <p> <span> <b>Tipo de evento:</b> </span> {{data}}</p>
+    <p> <span> <b>Clasificación del evento:</b> </span> {{data}}</p>
+    <p> <span> <b>Descripción del evento:</b> </span> {{data}}</p>
+  </div>
+  <div class="col">
+    <form [formGroup]="firstFormGroup">
+      <h2>Triada</h2>
+      <div class="row">
+        <div class="col">
+          <mat-label>Involuntario</mat-label>
+          <section class="example-section">
+            <mat-radio-group>
+              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div class="col">
+          <mat-label>¿Generó daño en el paciente?</mat-label>
+          <section class="example-section">
+            <mat-radio-group>
+              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div class="col">
+          <mat-label>Atencion en salud</mat-label>
+          <section class="example-section">
+            <mat-radio-group>
+              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+      </div>
+    </form>
+    <form [formGroup]="secondFormGroup">
+      <h2 >Selecciona un tipo</h2>
+      <mat-grid-list cols="2" rowHeight="40px">
+        <mat-grid-tile> <button mat-button class="bg-secondary"> Farmacovigilancia </button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary"> Gestión clinica </button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary"> Reactovigilancia </button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary"> Tecnovigilancia </button> </mat-grid-tile>
       </mat-grid-list>
+    </form>
+    <h2 >Responsables</h2>
+    <mat-form-field appearance="outline">
+      <mat-label>¿Quién o quienes?</mat-label>
+      <mat-chip-list #chipList aria-label="responsables">
+        <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
+          {{responsable.name}}
+          <button matChipRemove>
+            <mat-icon>cancelar</mat-icon>
+          </button>
+        </mat-chip>
+        <input placeholder="nuevo.."
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          [matChipInputAddOnBlur]="addOnBlur"
+          (matChipInputTokenEnd)="add($event)">
+      </mat-chip-list>
+    </mat-form-field>
+    <div>
+      <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
     </div>
-  </mat-card-content>
-</mat-card>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <button mat-button (click)="pqms()" class="bg-secondary"> Pq'Ms </button>
+  </div>
+  <div class="col">
+    <button mat-button (click)="naranjo()" class="bg-secondary"> Naranjo </button>
+  </div>
+  <div class="col">
+    <button mat-button (click)="londres()" class="bg-secondary"> Londres </button>
+  </div>
+</div>

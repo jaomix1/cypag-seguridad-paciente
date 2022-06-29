@@ -12,6 +12,7 @@ import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
+import { FormularioComponent } from '../demos/formulario/formulario.component';
 
 @Component({
   selector: 'app-query',
@@ -100,6 +101,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   detalles(guid : any){
     const dialogRef = this.dialog.open(DetallesComponent, {
       width: '100%',
+      height: '100%',
       data: guid,
       disableClose: false
     });
