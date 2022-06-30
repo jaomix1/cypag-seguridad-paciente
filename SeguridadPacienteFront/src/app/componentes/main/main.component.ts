@@ -8,7 +8,7 @@ import { DemoService } from 'src/app/servicios/demo/demo.service';
 import { Demo } from 'src/app/modelos/demo/demo';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
-import { CombosService } from 'src/app/servicios/combos.service';
+import { ComboService } from 'src/app/servicios/combo/combo.service';
 
 import {
   FormBuilder,
@@ -16,6 +16,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 
 export interface Testigo {
   name: string;
@@ -27,6 +28,21 @@ export interface Testigo {
 })
 export class MainComponent extends BaseFormComponent implements OnInit  {
   datos: Demo = new Demo();
+  //combos
+  novedades!: ComboD[];
+  sedes!: Combo[];
+  empresas!: Combo[];
+  identificaciones!: ComboD[];
+
+  //cargar daños o testigos
+  hayDanos = false;
+  hayTestigos = false;
+
+
+  //autocompletar
+  addOnBlur = true;
+  readonly separatorKeysCodes = [ENTER, COMMA] as const;
+  testigos: Testigo[] = [{name: 'Jhonatan'}];
 
   form = new FormGroup({
     fecha:  new FormControl('', [
@@ -113,16 +129,15 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   constructor(
     private myService: DemoService,
-    public combosService: CombosService,
-    public mainService: MainService) {
+    public comboService: ComboService,
+    public mainService: MainService
+  ) {
     super();
-  }
 
-  addOnBlur = true;
-  hayDanos = false;
-  hayTestigos = false;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  testigos: Testigo[] = [{name: 'Jhonatan'}];
+    this.cargaEmpresas();
+    this.cargaIdentificaciones();
+    this.cargaNovedades();
+  }
 
   ngOnInit(): void {}
 
@@ -161,12 +176,33 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     }
   }
 
-  //cargar sedes depende de la empresa
-  sedes: any;
-  sede(empresa:any){
-    this.sedes = this.combosService.comboSedes.filter((s:any) => s.EmpresaId == empresa)
+  cargaIdentificaciones(){
+    this.comboService.getIdentificacion().subscribe((data:any)=>{
+      this.identificaciones = data;
+      console.log(this.identificaciones);
+    });
   }
 
+  cargaNovedades(){
+    this.comboService.getNovedades().subscribe((data:any)=>{
+      this.novedades = data;
+      console.log(this.novedades);
+    });
+  }
+
+  cargaEmpresas(){
+    this.comboService.getEmpresas().subscribe((data:any)=>{
+      this.empresas = data;
+      console.log(this.empresas);
+    });
+  }
+
+  sede(empresa:any){
+    this.comboService.getSedes(empresa).subscribe((data:any)=>{
+      this.sedes = data;
+      console.log(this.sedes);
+    });
+  }
 
   cancelar(status: boolean) {
     this.form.reset();

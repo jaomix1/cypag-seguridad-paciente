@@ -52,7 +52,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Empresa a la cual pertenece</mat-label>
             <mat-select formControlName="empresa" placeholder="Empresa a la cual pertenece" required>
-              <mat-option *ngFor="let c of combosService.comboEmpresas" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="sede(c.Id)">{{c.Nombre}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('empresa')">
               {{ check('empresa') }}
@@ -63,7 +63,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
             <mat-select formControlName="sede" placeholder="Sede donde presento el incidente" required>
-              <mat-option *ngFor="let c of combosService.comboEmpresas" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Nombre}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('sede')">
               {{ check('sede') }}
@@ -83,7 +83,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Tipo de identificación</mat-label>
             <mat-select formControlName="tipoDocumento" placeholder="Tipo de identificación" required>
-              <mat-option *ngFor="let c of combosService.comboIdentificacion" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of identificaciones" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('tipoDocumento')">
               {{ check('tipoDocumento') }}
@@ -105,7 +105,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sexo</mat-label>
             <mat-select formControlName="sexo" placeholder="Sexo" required>
-              <mat-option *ngFor="let c of combosService.comboSexo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSexo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-error *ngIf="validate('sexo')">
@@ -125,7 +125,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Tipo de novedad de seguridad</mat-label>
             <mat-select placeholder="Tipo de novedad de seguridad" formControlName="novedad" required>
-              <mat-option *ngFor="let c of combosService.comboNovedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-error *ngIf="validate('novedad')">
@@ -161,7 +161,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Hubo testigos?</mat-label>
             <mat-select formControlName="huboTestigos" placeholder="¿Hubo testigos?" required>
-              <mat-option *ngFor="let c of combosService.comboSiNo" value={{c.Id}} (click)="viewTestigos(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewTestigos(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('huboTestigos')">
               {{ check('huboTestigos') }}
@@ -192,7 +192,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Se produjo durante el proceso de atención?</mat-label>
             <mat-select formControlName="seProdujo" placeholder="¿Se produjo durante el proceso de atención?" required>
-              <mat-option *ngFor="let c of combosService.comboSiNo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('seProdujo')">
               {{ check('seProdujo') }}
@@ -203,7 +203,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Fue involuntario?</mat-label>
             <mat-select formControlName="involuntario" placeholder="¿Fue involuntario?" required>
-              <mat-option *ngFor="let c of combosService.comboSiNo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('involuntario')">
               {{ check('involuntario') }}
@@ -216,7 +216,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Generó daño en el paciente?</mat-label>
             <mat-select formControlName="generoDanos" placeholder="¿Generó daño en el paciente?" required>
-              <mat-option *ngFor="let c of combosService.comboSiNo" value={{c.Id}} (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('generoDanos')">
               {{ check('generoDanos') }}
@@ -236,7 +236,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Severidad del daño</mat-label>
             <mat-select formControlName="severidad" placeholder="Severidad del daño">
-              <mat-option *ngFor="let c of combosService.comboSeveridad" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSeveridad" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('severidad')">
               {{ check('severidad') }}

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://demandainducida.azurewebsites.net', //'https://localhost:44384'
+  apiUrl: 'https://seguridadpaciente.hannpark.repl.co', //'https://localhost:44384'
 };
 
 /*

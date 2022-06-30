@@ -1,18 +1,17 @@
 export class Combo {
-  public Id: number =0;
-  public Descripcion: string="";
+  public Id: number = 0;
+  public Nombre: string= "";
+}
+export class ComboD {
+  public Id: number = 0;
+  public Descripcion: string= "";
 }
 export class ComboText {
   public Id: string = "";
   public Descripcion: string = "";
 }
-export class ComboEmpresa {
-  public Id: string = "";
+export class ComboBoolean {
+  public Id: boolean = true;
   public Descripcion: string = "";
-  public SedeId: string = "";
 }
-export class ComboSede {
-  public Id: string = "";
-  public Descripcion: string = "";
-  public EmpresaId: string = "";
-}
+
