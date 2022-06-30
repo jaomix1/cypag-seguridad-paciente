@@ -257,13 +257,11 @@
       </div>
       <div class="row">
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Adjuntar evidencias (imagenes, fotos)</mat-label>
-            <input matInput formControlName="Imagen_Archivo" placeholder="Adjuntar evidencias (imagenes, fotos)">
-            <mat-error *ngIf="validate('Imagen_Archivo')">
-              {{ check('Imagen_Archivo') }}
-            </mat-error>
-          </mat-form-field>
+          <mat-label>Adjuntar evidencia (imagen, foto)</mat-label>
+          <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button>
+          <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file">
+          <br>
+          <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
         </div>
       </div>
     </mat-card-content>

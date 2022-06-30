@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
@@ -17,6 +17,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
+import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 
 export interface Testigo {
   name: string;
@@ -28,6 +29,8 @@ export interface Testigo {
 })
 export class MainComponent extends BaseFormComponent implements OnInit  {
   datos: Demo = new Demo();
+  imagen: any = null;
+
   //combos
   novedades!: ComboD[];
   sedes!: Combo[];
@@ -99,17 +102,17 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    Preg_Hay_Testigos:  new FormControl('', [
+    Preg_Hay_Testigos:  new FormControl(Boolean, [
       Validators.required
     ]),
     Preg_Quien:  new FormControl('', []),
     Preg_En_Atencion:  new FormControl('', [
       Validators.required
     ]),
-    Preg_Involuntario:  new FormControl('', [
+    Preg_Involuntario:  new FormControl(false, [
       Validators.required
     ]),
-    Preg_Genero_Dano:  new FormControl('', [
+    Preg_Genero_Dano:  new FormControl(false, [
       Validators.required
     ]),
     Preg_Dano_Generado:  new FormControl('', [
@@ -123,13 +126,11 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.pattern(this.latin),
     ]),
     Imagen_Evidencia:  new FormControl(null, []),
-    Imagen_Archivo:  new FormControl('', [
-      Validators.required
-    ]),
+    Imagen_Archivo:  new FormControl(null, []),
   });
 
   constructor(
-    private myService: DemoService,
+    private FormularioService: FormMasterService,
     public comboService: ComboService,
     public mainService: MainService
   ) {
@@ -145,13 +146,12 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   submit(): void {
     console.log(this.form.value)
     if (this.form.valid) {
+      this.form.value.Preg_Quien = this.testigos;
       this.loadingMain = true;
-      this.myService.create(this.form.value).subscribe({
+      this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
           this.loadingMain = false;
           this.mainService.showToast('Creado Correctamente');
-          this.datos = req;
-          this.cancelar(true);
         },
         error: (err: string) => {
           this.loadingMain = false;
@@ -218,18 +218,40 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   }
 
   viewTestigos(id: any){
-    if(id == "si"){
+    if(id == true){
       this.hayTestigos = true;
     }else{
       this.hayTestigos = false;
     }
   }
   viewDano(id: any){
-    if(id == "si"){
+    if(id == true){
       this.hayDanos = true;
     }else{
       this.hayDanos = false;
     }
   }
+
+  seleccionarImagen(event: any): void {
+    this.imagen = event.target.files[0] ?? null;
+    if(this.imagen.type.split("/")[0] == "image"){
+      this.convertFile(event.target.files[0]).subscribe(base64 => {
+        this.form.value.Imagen_Archivo = base64;
+      });
+    }else{
+      this.imagen = null;
+      alert("Por favor subir solo archivos: jpg, png, jpeg, svg")
+    }
+  }
+
+
+  convertFile(file : File) : Observable<string> {
+    const result = new ReplaySubject<string>(1);
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+    reader.onload = (event) => result.next(btoa(event!.target!.result!.toString()));
+    return result;
+  }
 }
+
 
