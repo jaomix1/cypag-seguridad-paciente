@@ -31,18 +31,18 @@ app.use(
 
 // Require ROUTES
 const combos = require("./src/routes/combos/combos");
-// const master = require("./src/routes/forms/master");
+const master = require("./src/routes/forms/master");
 const usuarios = require("./src/routes/seguridad/usuarios");
 
 dotenv.config();
 
 // USE RUTAS
 app.use("/v1/api/combos", combos);
-// app.use("/v1/api/master", master);
+app.use("/v1/api/master", master);
 app.use("/v1/api/usuarios", usuarios);
 
 app.get("/", (req, res) => {
-  res.send("20220628 1314");
+  res.send("20220629 1314");
 });
 
 app.listen(process.env.PORT, () => console.dir(`Running on PORT: ${process.env.PORT}`));
