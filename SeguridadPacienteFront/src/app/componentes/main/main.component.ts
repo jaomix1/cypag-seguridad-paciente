@@ -45,84 +45,85 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   testigos: Testigo[] = [{name: 'Jhonatan'}];
 
   form = new FormGroup({
-    fecha:  new FormControl('', [
+    Fecha_Incidente:  new FormControl('', [
       Validators.required,
     ]),
-    hora:  new FormControl('', [
+    Hora_Incidente:  new FormControl('', [
       Validators.required,
     ]),
-    nombre:  new FormControl('', [
+    Nombre_Quien_Reporta:  new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    cargo: new FormControl('', [
+    Cargo_Quien_Reporta: new FormControl('', [
       Validators.required,
       Validators.maxLength(30),
       Validators.pattern(this.latin),
     ]),
-    empresa:  new FormControl('', [
+    Empresa:  new FormControl('', [
       Validators.required
     ]),
-    sede:  new FormControl('', [
+    Sede:  new FormControl('', [
       Validators.required
     ]),
-    paciente:  new FormControl('', [
+    Nombre_Paciente:  new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    tipoDocumento:  new FormControl('', [
+    Tipo_Id:  new FormControl('', [
       Validators.required,
     ]),
-    documento:  new FormControl('', [
+    Numero_Id:  new FormControl('', [
       Validators.required,
       Validators.maxLength(11),
       Validators.pattern(this.latin),
     ]),
-    sexo:  new FormControl('', [
+    Sexo:  new FormControl('', [
       Validators.required
     ]),
-    edad:  new FormControl('', [
+    Edad:  new FormControl('', [
       Validators.required
     ]),
-    novedad:  new FormControl('', [
+    Tipo_Novedad:  new FormControl('', [
       Validators.required
     ]),
-    quePaso:  new FormControl('', [
+    Preg_Que:  new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    comoPaso:  new FormControl('', [
+    Preg_Como:  new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    huboTestigos:  new FormControl('', [
+    Preg_Hay_Testigos:  new FormControl('', [
       Validators.required
     ]),
-    testigos:  new FormControl('', []),
-    seProdujo:  new FormControl('', [
+    Preg_Quien:  new FormControl('', []),
+    Preg_En_Atencion:  new FormControl('', [
       Validators.required
     ]),
-    involuntario:  new FormControl('', [
+    Preg_Involuntario:  new FormControl('', [
       Validators.required
     ]),
-    generoDanos:  new FormControl('', [
+    Preg_Genero_Dano:  new FormControl('', [
       Validators.required
     ]),
-    dano:  new FormControl('', [
+    Preg_Dano_Generado:  new FormControl('', [
       Validators.maxLength(30),
       Validators.pattern(this.latin),
     ]),
-    severidad:  new FormControl('', []),
-    accionTomada:  new FormControl('', [
+    Preg_Dano_Severidad:  new FormControl('', []),
+    Accion_Tomada:  new FormControl('', [
       Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
-    evidencias:  new FormControl('', [
+    Imagen_Evidencia:  new FormControl(null, []),
+    Imagen_Archivo:  new FormControl('', [
       Validators.required
     ]),
   });
