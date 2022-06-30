@@ -173,7 +173,7 @@
             <mat-label>¿Quién o quienes?</mat-label>
             <mat-chip-list #chipList aria-label="Testigos">
               <mat-chip *ngFor="let testigo of testigos" (removed)="remove(testigo)">
-                {{testigo.name}}
+                {{testigo}}
                 <button matChipRemove>
                   <mat-icon>cancelar</mat-icon>
                 </button>
@@ -211,6 +211,7 @@
           </mat-form-field>
         </div>
       </div>
+      {{form.value | json}}
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">

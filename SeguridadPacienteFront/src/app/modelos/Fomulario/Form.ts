@@ -14,7 +14,7 @@ export class Form {
   quePaso!: string;
   comoPaso!: string;
   huboTestigos!: string;
-  testigos!: Array<string>;
+  testigos!: string;
   seProdujo!: string;
   involuntario!: string;
   generoDaños!: string;

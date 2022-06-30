@@ -45,7 +45,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   //autocompletar
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  testigos: Testigo[] = [{name: 'Jhonatan'}];
+  testigos: any = ['Jhonatan', 'Josue'];
 
   form = new FormGroup({
     Fecha_Incidente:  new FormControl('', [
@@ -146,26 +146,32 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   submit(): void {
     console.log(this.form.value)
     if (this.form.valid) {
-      this.form.value.Preg_Quien = this.testigos;
+      let string;
+      string = new String(this.testigos)
+      string = string.replace(/,/g, ';');
+      this.form.value.Preg_Quien = string;
       this.loadingMain = true;
       this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
+          console.log(req)
           this.loadingMain = false;
           this.mainService.showToast('Creado Correctamente');
         },
         error: (err: string) => {
+          console.log(err)
           this.loadingMain = false;
           this.mainService.showToast(err, 'error');
         },
         complete: () => (this.loadingMain = false),
       });
+
     }
   }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
-      this.testigos.push({name: value});
+      this.testigos.push(value);
     }
     event.chipInput!.clear();
   }
@@ -180,28 +186,24 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   cargaIdentificaciones(){
     this.comboService.getIdentificacion().subscribe((data:any)=>{
       this.identificaciones = data;
-      console.log(this.identificaciones);
     });
   }
 
   cargaNovedades(){
     this.comboService.getNovedades().subscribe((data:any)=>{
       this.novedades = data;
-      console.log(this.novedades);
     });
   }
 
   cargaEmpresas(){
     this.comboService.getEmpresas().subscribe((data:any)=>{
       this.empresas = data;
-      console.log(this.empresas);
     });
   }
 
   sede(empresa:any){
     this.comboService.getSedes(empresa).subscribe((data:any)=>{
       this.sedes = data;
-      console.log(this.sedes);
     });
   }
 

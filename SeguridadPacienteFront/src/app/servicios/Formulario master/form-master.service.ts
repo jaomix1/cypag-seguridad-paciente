@@ -12,22 +12,14 @@ import { Form } from '@angular/forms';
 })
 export class FormMasterService extends BaseService {
 
-  private apiUrl: string = '/api/master/';
+  private apiUrl: string = '/api/master';
 
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
 
   create(data: any): Observable<Form> {
-    return this.http
-      .post<Form>(this._baseUrl + this.apiUrl, data)
-      .pipe(
-        map((response) => response),
-        tap((a) => {
-          this.logs('Insertar nuevo registro al formulario principal');
-          this.logs(a);
-        }),
-        catchError(this.errorMgmt)
-      );
+    console.log("formulario",data)
+    return this.http.post<Form>(this._baseUrl + this.apiUrl, data)
   }
 }

@@ -29,11 +29,11 @@ export class ComboService extends BaseService {
   ];
   public comboSexo : ComboText[] = [
     {
-      Id: "Masculino",
+      Id: "M",
       Descripcion: "Masculino"
     },
     {
-      Id: "Femenino",
+      Id: "F",
       Descripcion: "Femenino"
     }
   ];
