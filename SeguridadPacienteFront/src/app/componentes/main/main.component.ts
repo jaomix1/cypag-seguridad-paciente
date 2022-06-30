@@ -9,15 +9,10 @@ import { Demo } from 'src/app/modelos/demo/demo';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
-
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
+import * as moment from 'moment';
 
 export interface Testigo {
   name: string;
@@ -146,11 +141,19 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   submit(): void {
     console.log(this.form.value)
     if (this.form.valid) {
+      this.loadingMain = true;
+
+      //testigos
       let string;
       string = new String(this.testigos)
       string = string.replace(/,/g, ';');
       this.form.value.Preg_Quien = string;
-      this.loadingMain = true;
+
+      //fecha
+      let date = moment(this.form.value.Fecha_Incidente);
+      date.locale('es')
+      this.form.value.Fecha_Incidente = date.format('YYYY-MM-DD')
+
       this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
           console.log(req)
