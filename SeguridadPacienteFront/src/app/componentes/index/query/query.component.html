@@ -42,8 +42,8 @@
                 <div class="col">
                     <mat-form-field class="full-width">
                         <mat-select placeholder="Tipo de novedad" formControlName="novedad">
-                            <mat-option *ngFor="let data of novedades" [value]="data.id">
-                                {{ data.descripcion }}
+                            <mat-option *ngFor="let data of novedades" [value]="data.Id">
+                                {{ data.Descripcion }}
                             </mat-option>
                         </mat-select>
                         <mat-error *ngIf="validate('novedad')">

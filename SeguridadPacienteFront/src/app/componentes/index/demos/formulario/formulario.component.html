@@ -25,7 +25,7 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="Last name" formControlName="lastName">            
+            <input matInput placeholder="Last name" formControlName="lastName">
             <mat-error *ngIf="validate('lastName')">
               {{ check('lastName') }}
             </mat-error>
@@ -35,7 +35,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <textarea matInput placeholder="Address" formControlName="address"></textarea>            
+            <textarea matInput placeholder="Address" formControlName="address"></textarea>
             <mat-error *ngIf="validate('address')">
               {{ check('address') }}
             </mat-error>
@@ -53,7 +53,7 @@
         <div class="col">
           <mat-form-field class="full-width">
             <textarea matInput placeholder="Address 2" formControlName="address2"></textarea>
-          </mat-form-field>            
+          </mat-form-field>
           <mat-error *ngIf="validate('address2')">
             {{ check('address2') }}
           </mat-error>
@@ -62,7 +62,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width">
-            <input matInput placeholder="City" formControlName="city">            
+            <input matInput placeholder="City" formControlName="city">
             <mat-error *ngIf="validate('city')">
               {{ check('city') }}
             </mat-error>
@@ -74,7 +74,7 @@
               <mat-option *ngFor="let state of states" [value]="state.abbreviation">
                 {{ state.name }}
               </mat-option>
-            </mat-select>            
+            </mat-select>
             <mat-error *ngIf="validate('state')">
               {{ check('state') }}
             </mat-error>
@@ -85,11 +85,11 @@
         <div class="col">
           <mat-form-field class="full-width">
             <input matInput #postalCode maxlength="5" placeholder="Postal Code" formControlName="postalCode">
-            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>  
+            <mat-hint align="end">{{postalCode.value.length}} / 5</mat-hint>
             <mat-error *ngIf="validate('postalCode')">
               {{ check('postalCode') }}
             </mat-error>
-          </mat-form-field>   
+          </mat-form-field>
         </div>
       </div>
       <div class="row">
@@ -98,11 +98,11 @@
             <mat-radio-button value="free">Free Shipping</mat-radio-button>
             <mat-radio-button value="priority">Priority Shipping</mat-radio-button>
             <mat-radio-button value="nextday">Next Day Shipping</mat-radio-button>
-          </mat-radio-group>      
+          </mat-radio-group>
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions>      
+    <mat-card-actions>
       <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
       <button mat-raised-button color="primary" type="submit">Submit</button>
     </mat-card-actions>

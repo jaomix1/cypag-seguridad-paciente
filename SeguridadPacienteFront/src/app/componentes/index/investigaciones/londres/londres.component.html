@@ -1,0 +1,11 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+  <h2> <b> Londres </b></h2>
+  <div class="row">
+    <div class="col">
+      <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col">
+      <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Guardar</button>
+    </div>
+  </div>
+</form>

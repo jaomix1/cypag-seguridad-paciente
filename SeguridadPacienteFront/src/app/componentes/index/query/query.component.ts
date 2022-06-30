@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { Combo } from 'src/app/modelos/combo';
+import { ComboD } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
@@ -12,6 +12,7 @@ import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
+import { FormularioComponent } from '../demos/formulario/formulario.component';
 
 @Component({
   selector: 'app-query',
@@ -26,7 +27,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
 
   displayedColumns = ['id', 'name', 'accion'];
 
-  novedades: Combo[] = [];
+  novedades: ComboD[] = [];
   datos: Query = new Query();
 
   myForm = new FormGroup({
@@ -55,9 +56,9 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   ngOnInit(): void {
 
     this.novedades = [
-      {id: 1, descripcion: 'Hydrogen'},
-      {id: 2, descripcion: 'Helium'},
-      {id: 3, descripcion: 'Lithium'},
+      {Id: 1, Descripcion: 'Hydrogen'},
+      {Id: 2, Descripcion: 'Helium'},
+      {Id: 3, Descripcion: 'Lithium'},
     ]
 
     this.comboService.getNovedades().subscribe({
@@ -80,8 +81,8 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
         next: (req) => {
           this.mainService.showToast('Creado Correctamente');
           this.datos = req;
-          this.loadingMain = false; 
-          this.myForm.enable();   
+          this.loadingMain = false;
+          this.myForm.enable();
           //this.cancelar();
         },
         error: (err: string) => {
@@ -90,8 +91,8 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
           this.myForm.enable();
         },
         complete: () => {
-          this.loadingMain = false;    
-          this.myForm.enable();     
+          this.loadingMain = false;
+          this.myForm.enable();
         }
       });
     }
@@ -111,11 +112,11 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   cancelar() {
     this.myForm.reset();
   }
- 
+
   cambioFecha() {
     this.myForm.patchValue({
-      codigo: null, 
-      documento: null, 
+      codigo: null,
+      documento: null,
     });
   }
 

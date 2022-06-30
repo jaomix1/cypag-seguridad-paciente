@@ -38,6 +38,11 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
+import { MsPqComponent } from './investigaciones/ms-pq/ms-pq.component';
+import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
+import { LondresComponent } from './investigaciones/londres/londres.component';
+import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
+import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-adverso.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +52,11 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     DetallesComponent,
     TablaComponent,
     FormularioComponent,
+    MsPqComponent,
+    NaranjoComponent,
+    LondresComponent,
+    SelectInvestigacionComponent,
+    EventoAdversoComponent,
   ],
   imports: [
     CommonModule,
@@ -74,11 +84,11 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatProgressBarModule,
-    MatDialogModule    
+    MatDialogModule
   ],
   exports :[
    IndexComponent,
