@@ -31,11 +31,11 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   datos: Query = new Query();
 
   myForm = new FormGroup({
-    codigo: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
-    documento: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
-    fechaInicio: new FormControl(null),
-    fechaFin: new FormControl(null),
-    novedad: new FormControl(null),
+    Id: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
+    Numero_Id: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
+    Start_Date: new FormControl(null),
+    End_Date: new FormControl(null),
+    Tipo_Novedad: new FormControl(null),
   });
 
   constructor(

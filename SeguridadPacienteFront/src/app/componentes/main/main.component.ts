@@ -50,12 +50,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.required,
     ]),
     Nombre_Quien_Reporta:  new FormControl('', [
-      Validators.required,
       Validators.maxLength(50),
       Validators.pattern(this.latin),
     ]),
     Cargo_Quien_Reporta: new FormControl('', [
-      Validators.required,
       Validators.maxLength(30),
       Validators.pattern(this.latin),
     ]),
@@ -63,6 +61,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.required
     ]),
     Sede:  new FormControl('', [
+      Validators.required
+    ]),
+    Servicio:  new FormControl('', [
       Validators.required
     ]),
     Nombre_Paciente:  new FormControl('', [
@@ -256,6 +257,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     reader.readAsBinaryString(file);
     reader.onload = (event) => result.next(btoa(event!.target!.result!.toString()));
     return result;
+  }
+
+  goLogin(){
+    window.open('http://localhost:4200/login');
   }
 }
 

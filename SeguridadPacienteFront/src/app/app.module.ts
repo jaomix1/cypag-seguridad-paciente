@@ -11,10 +11,12 @@ import { MainModule } from './componentes/main/main.module';
 
 
 import {  MatSnackBarModule } from '@angular/material/snack-bar';
+import { DialogConfirmacionComponent } from './componentes/dialog-confirmacion/dialog-confirmacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    DialogConfirmacionComponent,
   ],
   imports: [
     AppRoutingModule,
