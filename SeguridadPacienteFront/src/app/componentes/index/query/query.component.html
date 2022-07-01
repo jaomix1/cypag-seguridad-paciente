@@ -24,12 +24,30 @@
                 </div>
             </div>
             <div class="row">
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Empresa a la cual pertenece</mat-label>
+                  <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece">
+                    <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="cargaSedes(c.Id)">{{c.Nombre}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Sede donde se presento el incidente</mat-label>
+                  <mat-select formControlName="Sede" placeholder="Sede donde presento el incidente">
+                    <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Nombre}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Ingresa la fecha</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="Start_Date" (dateChange)="cambioFecha()"placeholder="fecha Inicio" (focus)="cancelar()">
-                            <input matEndDate formControlName="Fecha_Fin" (dateChange)="cambioFecha()"placeholder="fecha Fin" (focus)="cancelar()">
+                            <input matEndDate formControlName="End_Date" (dateChange)="cambioFecha()"placeholder="fecha Fin" (focus)="cancelar()">
                         </mat-date-range-input>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -38,7 +56,7 @@
                 </div>
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
-                        <mat-select placeholder="Tipo de novedad" formControlName="Novedad_Id" (focus)="cancelar()">
+                        <mat-select placeholder="Tipo de novedad" formControlName="Tipo_Novedad" (focus)="cancelar()">
                             <mat-option *ngFor="let data of novedades" [value]="data.Id">
                                 {{ data.Descripcion }}
                             </mat-option>

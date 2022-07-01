@@ -132,10 +132,14 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   ) {
     super();
 
+  }
+
+  ngAfterViewInit(): void {
     this.cargaEmpresas();
     this.cargaIdentificaciones();
     this.cargaNovedades();
   }
+
 
   ngOnInit(): void {}
 
