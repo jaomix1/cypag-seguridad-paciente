@@ -13,7 +13,7 @@ exports.createEntry = async (req, res) => {
   }
   try {
     await MasterModel.create(entry);
-    return res.status(200).send("Registro Creado");
+    return res.status(200).json({ message: "Registro Creado" });
   } catch (err) {
     // Implementar Error Responses
     return res.status(503).send(`No fue posible guardar el registro: , ${err.message}`);
