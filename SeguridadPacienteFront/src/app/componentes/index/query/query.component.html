@@ -7,7 +7,7 @@
             <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <input matInput placeholder="Codigo" (focus)="cancelar()" formControlName="codigo">
                         <mat-error *ngIf="validate('codigo')">
                             {{ check('codigo') }}
@@ -15,9 +15,8 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
-                        <input matInput placeholder="Numero de Documento" (focus)="cancelar()"
-                            formControlName="documento">
+                    <mat-form-field class="full-width" appearance="outline">
+                        <input matInput placeholder="Numero de Documento" (focus)="cancelar()"formControlName="documento">
                         <mat-error *ngIf="validate('documento')">
                             {{ check('documento') }}
                         </mat-error>
@@ -26,13 +25,11 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-label>Ingresa la fecha</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate formControlName="fechaInicio" (dateChange)="cambioFecha()"
-                                placeholder="fecha Inicio">
-                            <input matEndDate formControlName="fechaFin" (dateChange)="cambioFecha()"
-                                placeholder="fecha Fin">
+                            <input matStartDate formControlName="fechaInicio" (dateChange)="cambioFecha()"placeholder="fecha Inicio">
+                            <input matEndDate formControlName="fechaFin" (dateChange)="cambioFecha()"placeholder="fecha Fin">
                         </mat-date-range-input>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -40,7 +37,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <mat-select placeholder="Tipo de novedad" formControlName="novedad">
                             <mat-option *ngFor="let data of novedades" [value]="data.Id">
                                 {{ data.Descripcion }}
@@ -52,7 +49,6 @@
                     </mat-form-field>
                 </div>
             </div>
-            <!-- {{ myForm.value | json}} -->
         </mat-card-content>
         <mat-card-actions>
             <div class="row">

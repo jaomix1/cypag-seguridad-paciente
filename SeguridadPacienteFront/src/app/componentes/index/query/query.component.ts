@@ -54,13 +54,6 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   }
 
   ngOnInit(): void {
-
-    this.novedades = [
-      {Id: 1, Descripcion: 'Hydrogen'},
-      {Id: 2, Descripcion: 'Helium'},
-      {Id: 3, Descripcion: 'Lithium'},
-    ]
-
     this.comboService.getNovedades().subscribe({
       next: (req) => {
         this.novedades = req;
