@@ -10,7 +10,13 @@ class MasterModel extends Model {}
 MasterModel.init(
   {
     Id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
-    Fecha_Incidente: { type: DataTypes.STRING(50), allowNull: false },
+    Fecha_Incidente: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      // get() {
+      //   return new Date(this.getDataValue("Fecha_Incidente"));
+      // },
+    },
     Hora_Incidente: { type: DataTypes.STRING(50), allowNull: false },
     Nombre_Quien_Reporta: { type: DataTypes.STRING(80), allowNull: true },
     Cargo_Quien_Reporta: { type: DataTypes.STRING(40), allowNull: true },

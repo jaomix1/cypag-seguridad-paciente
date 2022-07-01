@@ -1,4 +1,5 @@
 /* eslint-disable camelcase */
+const moment = require("moment");
 const { Op } = require("sequelize");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
@@ -22,13 +23,26 @@ exports.createEntry = async (req, res) => {
 };
 
 exports.getAnswers = async (req, res) => {
-  const { Id, Numero_Id, Fecha_Incidente } = req.body;
+  const {
+    Id, Numero_Id, Start_Date, End_Date, Tipo_Novedad,
+  } = req.body;
   try {
     const answers = await MasterModel.findAll({
       where: {
-        [Op.or]: [{ Id }, { Numero_Id }, { Fecha_Incidente }],
+        [Op.or]: [
+          { Id },
+          { Numero_Id },
+          {
+            Fecha_Incidente: {
+              [Op.gte]: Start_Date,
+              [Op.lte]: End_Date || moment().format("YYYY-MM-DD"),
+              // [Op.between]: [`${Start_Date}T00:00.000Z`, `${End_Date}T23:59.000Z`],
+            },
+          },
+          { Tipo_Novedad },
+        ],
       },
-      order: [["Fecha_Incidente", "DESC"]],
+      order: [["Fecha_Incidente", "ASC"]],
       attributes: ["Id", "Nombre_Paciente", "Numero_Id", "Fecha_Incidente", "Hora_Incidente", "Tipo_Novedad", "Empresa", "Sede"],
       include: [{
         model: TiposNovedadModel,
