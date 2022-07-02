@@ -4,6 +4,7 @@ const { obtenerEmpresas } = require("../../controllers/combos/empresas");
 const { obtenerSedes } = require("../../controllers/combos/sedes");
 const { obtenerTiposId } = require("../../controllers/combos/tiposId");
 const { obtenerTiposNovedad } = require("../../controllers/combos/tiposNovedad");
+const { obtenerServicios } = require("../../controllers/combos/servicios");
 
 const router = express.Router();
 
@@ -14,5 +15,6 @@ router.route("/empresas").get(obtenerEmpresas);
 router.route("/sedes").get(obtenerSedes);
 router.route("/tipos-id").get(obtenerTiposId);
 router.route("/tipos-novedad").get(obtenerTiposNovedad);
+router.route("/servicios").get(obtenerServicios);
 
 module.exports = router;
