@@ -3,6 +3,8 @@ const moment = require("moment");
 const { Op } = require("sequelize");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
+const ServiciosModel = require("../../models/combos/servicios");
+const TiposIdModel = require("../../models/combos/tiposId");
 const TiposNovedadModel = require("../../models/combos/tiposNovedad");
 const MasterModel = require("../../models/forms/master");
 
@@ -60,6 +62,16 @@ exports.getAnswers = async (req, res) => {
         as: "Sede_Join",
         where: { Estado: "ACT" },
         attributes: ["Nombre"],
+      }, {
+        model: TiposIdModel,
+        as: "Tipo_Id_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
+      }, {
+        model: ServiciosModel,
+        as: "Servicio_Id_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
       }],
     });
     return res.status(200).json(answers);
