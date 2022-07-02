@@ -18,8 +18,8 @@ export class FormMasterService extends BaseService {
     super(baseUrl);
   }
 
-  create(data: any): Observable<Form> {
+  create(data: any): Observable<any> {
     console.log("formulario",data)
-    return this.http.post<Form>(this._baseUrl + this.apiUrl, data)
+    return this.http.post<any>(this._baseUrl + this.apiUrl, data)
   }
 }

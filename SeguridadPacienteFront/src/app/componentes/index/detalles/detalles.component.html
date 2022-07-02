@@ -50,13 +50,31 @@
     <form [formGroup]="secondFormGroup">
       <h2 >Selecciona un tipo</h2>
       <mat-grid-list cols="2" rowHeight="40px">
-        <mat-grid-tile> <button mat-button class="bg-secondary"> Farmacovigilancia </button> </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary"> Gestión clinica </button> </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary"> Reactovigilancia </button> </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary"> Tecnovigilancia </button> </mat-grid-tile>
+        <mat-grid-tile>
+          <button mat-button class="bg-secondary" (click)="obtenerTipo('Farmacovigilancia')"
+          [ngClass]="{
+            'bg-primary': type == 'Farmacovigilancia'
+          }"
+          > Farmacovigilancia </button>
+        </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Gestion Clinica')"
+          [ngClass]="{
+            'bg-primary': type == 'Gestion_Clinica'
+          }"
+          > Gestión clinica </button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Reactivovigilancia')"
+          [ngClass]="{
+            'bg-primary': type == 'Reactivovigilancia'
+          }"
+          >  Reactivovigilancia </button> </mat-grid-tile>
+        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Tecnovigilancia')"
+          [ngClass]="{
+            'bg-primary': type == 'Tecnovigilancia'
+          }"
+          >  Tecnovigilancia </button> </mat-grid-tile>
       </mat-grid-list>
     </form>
-    <h2 >Responsables</h2>
+    <h2 >Responsables de la investigacion</h2>
     <mat-form-field appearance="outline">
       <mat-label>¿Quién o quienes?</mat-label>
       <mat-chip-list #chipList aria-label="responsables">

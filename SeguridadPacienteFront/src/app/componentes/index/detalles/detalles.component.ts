@@ -8,6 +8,7 @@ import { NaranjoComponent } from '../investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from '../investigaciones/londres/londres.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectInvestigacionComponent } from '../investigaciones/select-investigacion/select-investigacion.component';
+import { DialogConfirmacionComponent } from '../../dialog-confirmacion/dialog-confirmacion.component';
 
 export interface Testigo {
   name: string;
@@ -58,6 +59,36 @@ export class DetallesComponent implements OnInit {
     this.dialogRef.close();
   }
 
+  type: any;
+  obtenerTipo(id : string){
+    this.dialog.open(DialogConfirmacionComponent, {
+      disableClose: true,
+      width: '300px',
+      data: {message: '¿Estas seguro de escoger el tipo: '+ id +'?'}
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        switch (id) {
+          case "Farmacovigilancia":
+            this.type = "Farmacovigilancia"
+            console.log(this.type)
+            break;
+          case "Gestion Clinica":
+            this.type = "Gestion_Clinica"
+            break;
+          case "Reactivovigilancia":
+            this.type = "Reactivovigilancia"
+            break;
+          case "Tecnovigilancia":
+            this.type = "Tecnovigilancia"
+            break;
+          default:
+            console.log('default');
+        }
+      }
+    });
+  }
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();

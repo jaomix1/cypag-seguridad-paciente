@@ -1,10 +1,7 @@
-<mat-toolbar class="bg-primary">
-  <!-- <span>Salud Social</span> -->
-</mat-toolbar>
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
   <mat-card class="shipping-card">
     <mat-card-header class="center">
-      <mat-card-title> <h2> <b> Reporte de seguridad del Nombre_Paciente </b></h2> </mat-card-title>
+      <mat-card-title> <h2> <b> Reporte de seguridad del Paciente </b></h2> </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -31,7 +28,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre de quien reporta</mat-label>
-            <input matInput placeholder="Nombre de quien reporta" formControlName="Nombre_Quien_Reporta" maxlength="50" required>
+            <input matInput placeholder="Nombre de quien reporta" formControlName="Nombre_Quien_Reporta" maxlength="50">
             <mat-error *ngIf="validate('Nombre_Quien_Reporta')">
               {{ check('Nombre_Quien_Reporta') }}
             </mat-error>
@@ -40,7 +37,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Cargo de quien reporta</mat-label>
-            <input matInput placeholder="Cargo de quien reporta" formControlName="Cargo_Quien_Reporta" maxlength="30" required>
+            <input matInput placeholder="Cargo de quien reporta" formControlName="Cargo_Quien_Reporta" maxlength="30">
             <mat-error *ngIf="validate('Cargo_Quien_Reporta')">
               {{ check('Cargo_Quien_Reporta') }}
             </mat-error>
@@ -72,6 +69,30 @@
         </div>
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Servicios</mat-label>
+            <mat-select formControlName="Servicio" placeholder="Servicio" required>
+              <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Nombre}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="validate('Servicio')">
+              {{ check('Servicio') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Tipo de novedad de seguridad</mat-label>
+            <mat-select placeholder="Tipo de novedad de seguridad" formControlName="Tipo_Novedad" required>
+              <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="validate('Tipo_Novedad')">
+            {{ check('Tipo_Novedad') }}
+          </mat-error>
+        </div>
+      </div>
+      <div class="row>">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre completo del paciente</mat-label>
             <input matInput placeholder="Nombre completo del paciente" formControlName="Nombre_Paciente" maxlength="50" required>
             <mat-error *ngIf="validate('Nombre_Paciente')">
@@ -79,6 +100,8 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Tipo de identificación</mat-label>
@@ -90,8 +113,6 @@
             </mat-error>
           </mat-form-field>
         </div>
-      </div>
-      <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>No. de identificación</mat-label>
@@ -121,24 +142,13 @@
             {{ check('Edad') }}
           </mat-error>
         </div>
-        <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Tipo de novedad de seguridad</mat-label>
-            <mat-select placeholder="Tipo de novedad de seguridad" formControlName="Tipo_Novedad" required>
-              <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <mat-error *ngIf="validate('Tipo_Novedad')">
-            {{ check('Tipo_Novedad') }}
-          </mat-error>
-        </div>
       </div>
       <h3>Describa la situacion presentada respondiendo con las siguientes preguntas</h3>
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Qué pasó?</mat-label>
-            <input matInput placeholder="¿Qué pasó?" formControlName="Preg_Que" required maxlength="50">
+            <input matInput placeholder="¿Qué pasó?" formControlName="Preg_Que" required maxlength="300">
             <mat-error *ngIf="validate('Preg_Que')">
               {{ check('Preg_Que') }}
             </mat-error>
@@ -149,7 +159,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Cómo pasó?</mat-label>
-            <input matInput placeholder="¿Cómo pasó?" formControlName="Preg_Como" required maxlength="50">
+            <input matInput placeholder="¿Cómo pasó?" formControlName="Preg_Como" required maxlength="500">
             <mat-error *ngIf="validate('Preg_Como')">
               {{ check('Preg_Como') }}
             </mat-error>
@@ -214,7 +224,7 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Generó daño en el Nombre_Paciente?</mat-label>
+            <mat-label>¿Generó daño en el paciente?</mat-label>
             <mat-select formControlName="Preg_Genero_Dano" placeholder="¿Generó daño en el Nombre_Paciente?" required>
               <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
@@ -248,7 +258,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Accion inmediatamente tomada</mat-label>
-            <input matInput placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada" required maxlength="50">
+            <input matInput placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada" required maxlength="500">
             <mat-error *ngIf="validate('Accion_Tomada')">
               {{ check('Accion_Tomada') }}
             </mat-error>
@@ -268,7 +278,14 @@
     <mat-card-actions>
       <div class="row">
         <div class="col">
-          <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
+          <div class="row">
+            <div class="col">
+              <button class="bg-secondary" type='button' mat-raised-button (click)="goLogin()">Iniciar sesion</button>
+            </div>
+            <div class="col">
+              <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
+            </div>
+          </div>
         </div>
         <div class="col">
           <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>

@@ -3,11 +3,11 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { ComboD } from 'src/app/modelos/combos/combo';
+import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
-import { QueryService } from 'src/app/servicios/query/opportunity.service';
+import { QueryService } from 'src/app/servicios/query/search.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
@@ -28,18 +28,22 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   displayedColumns = ['id', 'name', 'accion'];
 
   novedades: ComboD[] = [];
+  empresas: Combo[] = [];
+  sedes: Combo[] = [];
   datos: Query = new Query();
 
   myForm = new FormGroup({
-    codigo: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
-    documento: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
-    fechaInicio: new FormControl(null),
-    fechaFin: new FormControl(null),
-    novedad: new FormControl(null),
+    Id: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
+    Numero_Id: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
+    Start_Date: new FormControl(null),
+    End_Date: new FormControl(null),
+    Empresa: new FormControl(null),
+    Sede: new FormControl(null),
+    Tipo_Novedad: new FormControl(null),
   });
 
   constructor(
-    private myService: QueryService,
+    private QueryService: QueryService,
     public mainService: MainService,
     private comboService: ComboService,
     public dialog: MatDialog) {
@@ -51,16 +55,41 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
     this.table.dataSource = this.dataSource;
+    this.cargaNovedades();
+    this.cargaEmpresas();
   }
 
   ngOnInit(): void {
 
-    this.novedades = [
-      {Id: 1, Descripcion: 'Hydrogen'},
-      {Id: 2, Descripcion: 'Helium'},
-      {Id: 3, Descripcion: 'Lithium'},
-    ]
+  }
 
+  cargaEmpresas(){
+    this.comboService.getEmpresas().subscribe({
+      next: (req) => {
+        this.empresas = req;
+      },
+      error: (err: string) => {
+        this.loadingMain = false;
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => (this.loadingMain = false),
+    })
+  }
+
+  cargaSedes(empresa:any){
+    this.comboService.getSedes(empresa).subscribe({
+      next: (req) => {
+        this.sedes = req;
+      },
+      error: (err: string) => {
+        this.loadingMain = false;
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => (this.loadingMain = false),
+    })
+  }
+
+  cargaNovedades(){
     this.comboService.getNovedades().subscribe({
       next: (req) => {
         this.novedades = req;
@@ -77,10 +106,10 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     if (this.myForm.valid) {
       this.myForm.disable();
       this.loadingMain = true;
-      this.myService.create(this.myForm.value).subscribe({
+      this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
-          this.mainService.showToast('Creado Correctamente');
           this.datos = req;
+          console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();
           //this.cancelar();

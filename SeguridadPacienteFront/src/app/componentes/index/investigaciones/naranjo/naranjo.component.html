@@ -141,10 +141,7 @@
       <mat-label>Observacion</mat-label>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="max. 250 crarcteres" formControlName="naranjo1" maxlength="50" required></textarea>
-        <mat-error *ngIf="validate('observacion')">
-          {{ check('obervacion') }}
-        </mat-error>
+        <textarea matInput placeholder="max. 250 crarcteres" formControlName="observacion" maxlength="50" required></textarea>
       </mat-form-field>
     </div>
   </div>
