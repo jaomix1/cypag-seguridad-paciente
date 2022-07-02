@@ -24,7 +24,7 @@ exports.createEntry = async (req, res) => {
 
 exports.getAnswers = async (req, res) => {
   const {
-    Id, Numero_Id, Start_Date, End_Date, Tipo_Novedad,
+    Id, Numero_Id, Start_Date, End_Date, Tipo_Novedad, Empresa, Sede,
   } = req.body;
   try {
     const answers = await MasterModel.findAll({
@@ -40,6 +40,8 @@ exports.getAnswers = async (req, res) => {
             },
           },
           { Tipo_Novedad },
+          { Empresa },
+          { Sede },
         ],
       },
       order: [["Fecha_Incidente", "ASC"]],
