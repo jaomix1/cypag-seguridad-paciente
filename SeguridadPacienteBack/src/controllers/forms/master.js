@@ -45,7 +45,6 @@ exports.getAnswers = async (req, res) => {
         ],
       },
       order: [["Fecha_Incidente", "ASC"]],
-      attributes: ["Id", "Nombre_Paciente", "Numero_Id", "Fecha_Incidente", "Hora_Incidente", "Tipo_Novedad", "Empresa", "Sede"],
       include: [{
         model: TiposNovedadModel,
         as: "Tipo_Novedad_Join",
