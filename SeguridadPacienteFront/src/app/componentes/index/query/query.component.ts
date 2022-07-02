@@ -12,7 +12,6 @@ import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
-import { FormularioComponent } from '../demos/formulario/formulario.component';
 
 @Component({
   selector: 'app-query',
@@ -25,7 +24,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   @ViewChild(MatTable) table!: MatTable<TablaItem>;
   dataSource: TablaDataSource;
 
-  displayedColumns = ['id', 'name', 'accion'];
+  displayedColumns = ['id', 'fecha', 'empresa', 'tipo', 'name', 'externo', 'edad', 'sexo', 'accion'];
 
   novedades: ComboD[] = [];
   datos: Query = new Query();
