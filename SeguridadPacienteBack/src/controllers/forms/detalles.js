@@ -14,6 +14,7 @@ exports.createDetail = async (req, res) => {
       await MasterModel.update({
         Id_Detalle: result.Id,
         Estado_Proceso: 2,
+        Fecha_Modificacion: sequelize.literal("getdate()"),
       }, {
         where: { Id: entry.Id_Master },
       });
