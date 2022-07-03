@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -9,6 +9,9 @@ import { LondresComponent } from '../investigaciones/londres/londres.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SelectInvestigacionComponent } from '../investigaciones/select-investigacion/select-investigacion.component';
 import { DialogConfirmacionComponent } from '../../dialog-confirmacion/dialog-confirmacion.component';
+import { QueryService } from 'src/app/servicios/query/search.service';
+import { MainService } from 'src/app/servicios/main.service';
+import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 
 export interface Testigo {
   name: string;
@@ -27,36 +30,99 @@ export class DetallesComponent implements OnInit {
   tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  responsables: Testigo[] = [{name: 'Jhonatan'}];
+  responsables: Testigo[] = [];
+  data: any = "Esta es una data de prueba";
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+  form = new FormGroup({
+    id_Master: new FormControl(null, [Validators.required]),
+    Tipo_Investacion: new FormControl(null, [Validators.required]),
+    Triada_Involuntario: new FormControl(null, [Validators.required]),
+    Triada_Genero_Dano: new FormControl(null, [Validators.required]),
+    Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
+    Tipo_Detalle: new FormControl(null, [Validators.required]),
+    Responsables: new FormControl(null, [Validators.required]),
   });
 
   constructor(
+    public mainService: MainService,
+    public DetallesService: DetallesService,
+    private QueryService: QueryService,
     public dialog: MatDialog,
-    private _formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public guid: string,
-    public dialogRef: MatDialogRef<DetallesComponent>,) {
+    public dialogRef: MatDialogRef<DetallesComponent>,)
+    {
       this.detalleId = guid;
       this.obtenerDetalle(this.detalleId)
     }
-
-  data: any = "Esta es una data de prueba";
 
   ngOnInit(): void {
   }
 
   obtenerDetalle(id : string){
-
+    this.QueryService.get(id).subscribe({
+      next: (req) => {
+        this.data = req[0];
+        console.log(this.data)
+        //this.cancelar();
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      }
+    });
   }
 
   //cerrar modal
   onNoClick(): void {
     this.dialogRef.close();
+  }
+
+  submit(){
+    if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
+      this.form.value.Tipo_Investigacion = 1
+    }else{
+      if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && !this.data.Preg_Genero_Dano){
+        this.form.value.Tipo_Investigacion = 2
+      }else{
+        if(!this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
+          this.form.value.Tipo_Investigacion = 3
+        }else{
+          this.form.value.Tipo_Investigacion = 4
+        }
+      }
+    }
+
+    if(this.form.value){
+      this.DetallesService.create(this.form.value).subscribe({
+        next: (req:any) => {
+          console.log(req)
+          this.mainService.showToast('Guardado Correctamente');
+        },
+        error: (err: string) => {
+          console.log(err)
+          this.mainService.showToast(err, 'error');
+        },
+        complete: () => {
+          switch (this.form.value.Tipo_Investigacion) {
+            case 1:
+
+              break;
+            case 2:
+
+              break;
+            case 3:
+
+              break;
+            case 4:
+
+              break;
+
+            default:
+              break;
+          }
+        }
+      });
+    }
+
   }
 
   type: any;
@@ -72,7 +138,6 @@ export class DetallesComponent implements OnInit {
         switch (id) {
           case "Farmacovigilancia":
             this.type = "Farmacovigilancia"
-            console.log(this.type)
             break;
           case "Gestion Clinica":
             this.type = "Gestion_Clinica"

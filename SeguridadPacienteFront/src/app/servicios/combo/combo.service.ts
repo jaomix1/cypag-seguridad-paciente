@@ -103,4 +103,17 @@ export class ComboService extends BaseService {
         catchError(this.errorMgmt)
       );
   }
+
+  getServicios(): Observable<Combo[]> {
+    return this.http
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios")
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('consulta de servicios');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
 }

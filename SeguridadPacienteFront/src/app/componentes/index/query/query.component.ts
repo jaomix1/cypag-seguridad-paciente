@@ -9,7 +9,6 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { BaseFormComponent } from '../../baseComponent';
-import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
 import { FormularioComponent } from '../demos/formulario/formulario.component';
@@ -21,16 +20,14 @@ import { FormularioComponent } from '../demos/formulario/formulario.component';
 })
 export class QueryComponent extends BaseFormComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
-  @ViewChild(MatTable) table!: MatTable<TablaItem>;
-  dataSource: TablaDataSource;
+  dataSource: any;
 
-  displayedColumns = ['id', 'name', 'accion'];
+  displayedColumns = ['fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
   novedades: ComboD[] = [];
   empresas: Combo[] = [];
   sedes: Combo[] = [];
-  datos: Query = new Query();
+  datos: any = [];
 
   myForm = new FormGroup({
     Id: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
@@ -48,13 +45,10 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     private comboService: ComboService,
     public dialog: MatDialog) {
     super();
-    this.dataSource = new TablaDataSource();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
     this.cargaNovedades();
     this.cargaEmpresas();
   }
@@ -109,6 +103,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           this.datos = req;
+          this.dataSource = this.datos;
           console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();

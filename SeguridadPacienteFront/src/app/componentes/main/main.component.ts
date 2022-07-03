@@ -31,6 +31,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   sedes!: Combo[];
   empresas!: Combo[];
   identificaciones!: ComboD[];
+  servicios!: Combo[];
 
   //cargar daños o testigos
   hayDanos = false;
@@ -138,8 +139,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     this.cargaEmpresas();
     this.cargaIdentificaciones();
     this.cargaNovedades();
+    this.cargaServicios();
   }
-
 
   ngOnInit(): void {}
 
@@ -194,6 +195,12 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   cargaIdentificaciones(){
     this.comboService.getIdentificacion().subscribe((data:any)=>{
       this.identificaciones = data;
+    });
+  }
+
+  cargaServicios(){
+    this.comboService.getServicios().subscribe((data:any)=>{
+      this.servicios = data;
     });
   }
 
