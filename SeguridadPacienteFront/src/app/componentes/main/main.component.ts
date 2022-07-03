@@ -14,9 +14,6 @@ import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 import * as moment from 'moment';
 
-export interface Testigo {
-  name: string;
-}
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -185,8 +182,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     event.chipInput!.clear();
   }
 
-  remove(fruit: Testigo): void {
-    const index = this.testigos.indexOf(fruit);
+  remove(t: any): void {
+    const index = this.testigos.indexOf(t);
     if (index >= 0) {
       this.testigos.splice(index, 1);
     }

@@ -13,9 +13,6 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 
-export interface Testigo {
-  name: string;
-}
 
 @Component({
   selector: 'app-detalles',
@@ -25,17 +22,18 @@ export interface Testigo {
 
 
 export class DetallesComponent implements OnInit {
-  private detalleId : string;
+  private masterId : string;
 
   tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  responsables: Testigo[] = [];
+  responsables: any = [];
   data: any = "Esta es una data de prueba";
+  type: any;
 
   form = new FormGroup({
-    id_Master: new FormControl(null, [Validators.required]),
-    Tipo_Investacion: new FormControl(null, [Validators.required]),
+    Id_Master: new FormControl("", [Validators.required]),
+    Tipo_Investigacion: new FormControl(null, [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
@@ -51,11 +49,12 @@ export class DetallesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialogRef: MatDialogRef<DetallesComponent>,)
     {
-      this.detalleId = guid;
-      this.obtenerDetalle(this.detalleId)
+      this.masterId = guid;
+      this.obtenerDetalle(this.masterId)
     }
 
   ngOnInit(): void {
+    this.form.controls['Id_Master'].setValue(this.masterId);
   }
 
   obtenerDetalle(id : string){
@@ -77,21 +76,29 @@ export class DetallesComponent implements OnInit {
   }
 
   submit(){
+
+    //Saber el tipo de investigacion depende la triada
     if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-      this.form.value.Tipo_Investigacion = 1
+      this.form.controls['Tipo_Investigacion'].setValue(1);
     }else{
       if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && !this.data.Preg_Genero_Dano){
-        this.form.value.Tipo_Investigacion = 2
+        this.form.controls['Tipo_Investigacion'].setValue(2);
       }else{
         if(!this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-          this.form.value.Tipo_Investigacion = 3
+          this.form.controls['Tipo_Investigacion'].setValue(3);
         }else{
-          this.form.value.Tipo_Investigacion = 4
+          this.form.controls['Tipo_Investigacion'].setValue(4);
         }
       }
     }
 
-    if(this.form.value){
+    //responsables
+    let string;
+    string = new String(this.responsables)
+    string = string.replace(/,/g, ';');
+    this.form.controls['Responsables'].setValue(string);
+
+    if(this.form.valid){
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
           console.log(req)
@@ -102,30 +109,12 @@ export class DetallesComponent implements OnInit {
           this.mainService.showToast(err, 'error');
         },
         complete: () => {
-          switch (this.form.value.Tipo_Investigacion) {
-            case 1:
-
-              break;
-            case 2:
-
-              break;
-            case 3:
-
-              break;
-            case 4:
-
-              break;
-
-            default:
-              break;
-          }
         }
       });
     }
 
   }
 
-  type: any;
   obtenerTipo(id : string){
     this.dialog.open(DialogConfirmacionComponent, {
       disableClose: true,
@@ -151,6 +140,7 @@ export class DetallesComponent implements OnInit {
           default:
             console.log('default');
         }
+        this.form.controls['Tipo_Detalle'].setValue(this.type);
       }
     });
   }
@@ -158,13 +148,13 @@ export class DetallesComponent implements OnInit {
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
-      this.responsables.push({name: value});
+      this.responsables.push(value);
     }
     event.chipInput!.clear();
   }
 
-  remove(fruit: Testigo): void {
-    const index = this.responsables.indexOf(fruit);
+  remove(t: any): void {
+    const index = this.responsables.indexOf(t);
     if (index >= 0) {
       this.responsables.splice(index, 1);
     }

@@ -22,33 +22,33 @@
 
   </div>
   <div class="col">
-    <form [formGroup]="form">
+    <form [formGroup]="form" (ngSubmit)="submit()" >
       <h2>Triada</h2>
       <div class="row">
         <div class="col">
           <mat-label>Involuntario</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Involuntario">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
         <div class="col">
           <mat-label>¿Generó daño en el paciente?</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Genero_Dano">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
         <div class="col">
           <mat-label>Atencion en salud</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Atencion_Salud">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
@@ -83,12 +83,12 @@
         <mat-label>¿Quién o quienes?</mat-label>
         <mat-chip-list #chipList aria-label="responsables">
           <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
-            {{responsable.name}}
+            {{responsable}}
             <button matChipRemove>
               <mat-icon>cancelar</mat-icon>
             </button>
           </mat-chip>
-          <input placeholder="nuevo.."
+          <input formControlName="Responsables" placeholder="nuevo.."
             [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur"
