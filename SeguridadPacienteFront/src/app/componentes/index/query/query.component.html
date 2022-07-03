@@ -84,10 +84,16 @@
 
 <div class="mat-elevation-z8" *ngIf="this.datos.length > 0">
     <table mat-table class="full-width-table" [dataSource]="dataSource" matSort aria-label="Elements">
+        <!-- Fecha del Registro -->
+        <ng-container matColumnDef="fecha_R">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha del Registro</th>
+          <td mat-cell *matCellDef="let row">{{row.Fecha_Creacion | date:'dd/MM/yyyy, h:mm a'}}</td>
+        </ng-container>
+
         <!-- Fecha Column -->
         <ng-container matColumnDef="fecha">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Incidente</th>
-            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'dd/MM/yyyy'}}</td>
         </ng-container>
 
         <!-- Hora Column -->

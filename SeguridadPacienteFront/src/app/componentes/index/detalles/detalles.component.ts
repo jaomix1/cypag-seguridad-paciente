@@ -22,8 +22,9 @@ import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 
 
 export class DetallesComponent implements OnInit {
+  Id_Detalle: any;
   private masterId : string;
-
+  realizado: boolean = false;
   tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -61,8 +62,30 @@ export class DetallesComponent implements OnInit {
     this.QueryService.get(id).subscribe({
       next: (req) => {
         this.data = req[0];
+        if(this.data.Id_Detalle){
+          this.realizado = true;
+          this.getDetalle();
+        }
         console.log(this.data)
-        //this.cancelar();
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      }
+    });
+  }
+
+  getDetalle() {
+    this.DetallesService.get(this.data.Id_Detalle).subscribe({
+      next: (req) => {
+        this.form.controls['Tipo_Investigacion'].setValue(req.Tipo_Investigacion);
+        this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
+        this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
+        this.form.controls['Triada_Atencion_Salud'].setValue(req.Triada_Atencion_Salud);
+        this.type = req.Tipo_Detalle;
+        this.form.controls['Tipo_Detalle'].setValue(req.Tipo_Detalle);
+        let arr = req.Responsables.split(';');
+        this.responsables = arr;
+        this.Id_Detalle = req.Id;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -113,6 +136,21 @@ export class DetallesComponent implements OnInit {
       });
     }
 
+  }
+
+  delet(){
+    this.DetallesService.delete(this.Id_Detalle).subscribe({
+      next: (req:any) => {
+        console.log(req)
+        this.mainService.showToast('Eliminado Correctamente');
+      },
+      error: (err: string) => {
+        console.log(err)
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => {
+      }
+    });
   }
 
   obtenerTipo(id : string){

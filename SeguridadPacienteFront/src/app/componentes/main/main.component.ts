@@ -13,6 +13,8 @@ import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 import * as moment from 'moment';
+import { InfoComponent } from '../info/info.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-main',
@@ -28,7 +30,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   sedes!: Combo[];
   empresas!: Combo[];
   identificaciones!: ComboD[];
-  servicios!: Combo[];
+  servicios!: ComboD[];
 
   //cargar daños o testigos
   hayDanos = false;
@@ -126,7 +128,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   constructor(
     private FormularioService: FormMasterService,
     public comboService: ComboService,
-    public mainService: MainService
+    public mainService: MainService,
+    public dialog: MatDialog
   ) {
     super();
 
@@ -172,6 +175,34 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       });
 
     }
+  }
+
+  info_Novedad(){
+    let data: any = {
+      title: 'Información', 
+      message: 'Información de novedad blablablabla'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '250px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  info_Severidad(){
+    let data: any = {
+      title: 'Información', 
+      message: 'Información de la severidad blablablabla'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '250px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
   }
 
   add(event: MatChipInputEvent): void {

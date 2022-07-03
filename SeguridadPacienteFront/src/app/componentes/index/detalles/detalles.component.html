@@ -4,7 +4,7 @@
     <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data!.Fecha_Incidente}} {{data!.Hora_Incidente}}</p>
     <p> <span> <b>Nombre de quien reporta:</b> </span> {{data!.Nombre_Quien_Reporta}}</p>
     <p> <span> <b>Cargo de quien reporta:</b> </span> {{data!.Cargo_Quien_Reporta}}</p>
-    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join!.Nombre}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join!.Nombre ?? null}}</p>
     <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data!.Sede_Join!.Nombre}}</p>
     <p> <span> <b>Servicio:</b> </span> {{data!.Servicio_Id_Join.Descripcion}}</p>
     <p> <span> <b>Nombre completo del paciente:</b> </span> {{data!.Nombre_Paciente}}</p>
@@ -78,6 +78,7 @@
           }"
           >  Tecnovigilancia </button> </mat-grid-tile>
       </mat-grid-list>
+      <br>
       <h2 >Responsables de la investigacion</h2>
       <mat-form-field appearance="outline">
         <mat-label>¿Quién o quienes?</mat-label>
@@ -95,10 +96,15 @@
             (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
       </mat-form-field>
-      <div>
-        <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
+      <div class="row">
+        <div class="col">
+          <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
+        </div>
       </div>
     </form>
+    <div class="col" *ngIf="realizado">
+      <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="delet()">Borrar</button>
+    </div>
   </div>
 </div>
 <div class="row">

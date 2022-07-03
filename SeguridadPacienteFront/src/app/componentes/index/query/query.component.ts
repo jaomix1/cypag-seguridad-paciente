@@ -22,7 +22,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
 
-  displayedColumns = ['fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
+  displayedColumns = ['fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
   novedades: ComboD[] = [];
   empresas: Combo[] = [];

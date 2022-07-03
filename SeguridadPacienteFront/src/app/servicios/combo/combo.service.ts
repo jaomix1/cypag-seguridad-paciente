@@ -104,9 +104,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getServicios(): Observable<Combo[]> {
+  getServicios(): Observable<ComboD[]> {
     return this.http
-      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios")
+      .get<ComboD[]>(this._baseUrl + this.apiUrl + "servicios")
       .pipe(
         map((response) => response),
         tap((a) => {

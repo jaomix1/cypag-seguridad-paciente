@@ -71,7 +71,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Servicios</mat-label>
             <mat-select formControlName="Servicio" placeholder="Servicio" required>
-              <mat-option *ngFor="let c of servicios" value={{c.Id}}>{{c.Nombre}}</mat-option>
+              <mat-option *ngFor="let c of servicios" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Servicio')">
               {{ check('Servicio') }}
@@ -85,6 +85,7 @@
               <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
+          <a type="button" (click)="info_Novedad()"><mat-icon>info</mat-icon></a>
           <mat-error *ngIf="validate('Tipo_Novedad')">
             {{ check('Tipo_Novedad') }}
           </mat-error>
@@ -148,7 +149,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Qué pasó?</mat-label>
-            <input matInput placeholder="¿Qué pasó?" formControlName="Preg_Que" required maxlength="300">
+            <input matInput #Preg_Que placeholder="¿Qué pasó?" formControlName="Preg_Que" required maxlength="300">
+            <mat-hint align="end">{{Preg_Que.value.length}} / 300</mat-hint>
             <mat-error *ngIf="validate('Preg_Que')">
               {{ check('Preg_Que') }}
             </mat-error>
@@ -159,7 +161,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Cómo pasó?</mat-label>
-            <input matInput placeholder="¿Cómo pasó?" formControlName="Preg_Como" required maxlength="500">
+            <input matInput #Preg_Como placeholder="¿Cómo pasó?" formControlName="Preg_Como" required maxlength="500">
+            <mat-hint align="end">{{Preg_Como.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Preg_Como')">
               {{ check('Preg_Como') }}
             </mat-error>
@@ -243,8 +246,9 @@
           </mat-form-field>
         </div>
         <div class="col" *ngIf="hayDanos">
+          <a type="button" (click)="info_Severidad()"><mat-icon>info</mat-icon></a>
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>Severidad del daño</mat-label>
+            <mat-label>Severidad del daño </mat-label>
             <mat-select formControlName="Preg_Dano_Severidad" placeholder="Severidad del daño">
               <mat-option *ngFor="let c of comboService.comboSeveridad" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
@@ -258,7 +262,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Accion inmediatamente tomada</mat-label>
-            <input matInput placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada" required maxlength="500">
+            <input matInput #Accion_Tomada placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada" required maxlength="500">
+            <mat-hint align="end">{{Accion_Tomada.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Accion_Tomada')">
               {{ check('Accion_Tomada') }}
             </mat-error>
@@ -278,19 +283,16 @@
     <mat-card-actions>
       <div class="row">
         <div class="col">
-          <div class="row">
-            <div class="col">
-              <button class="bg-secondary" type='button' mat-raised-button (click)="goLogin()">Iniciar sesion</button>
-            </div>
-            <div class="col">
-              <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
-            </div>
+          <div class="col">
+            <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
           </div>
         </div>
         <div class="col">
           <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
         </div>
       </div>
+      <br>
+      <a class="secondary my-3" [routerLink]="['/login']" target="_blank" >Iniciar sesion</a>
     </mat-card-actions>
   </mat-card>
 </form>
