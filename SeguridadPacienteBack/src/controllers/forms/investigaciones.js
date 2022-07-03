@@ -1,36 +1,40 @@
 /* eslint-disable camelcase */
-const { sequelize } = require("../../models/forms/detalles");
-const DetallesModel = require("../../models/forms/detalles");
+const { sequelize } = require("../../../config/db");
+const InvestigacionesM5Model = require("../../models/forms/investigaciones5m");
+// const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
+// const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
+// const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
+// const DetallesModel = require("../../models/forms/detalles");
 const MasterModel = require("../../models/forms/master");
 
-exports.createDetail = async (req, res) => {
+exports.createInvM5 = async (req, res) => {
   const entry = { ...req.body };
   try {
-    const regExistente = await DetallesModel.findOne({
-      where: { Id_Master: entry.Id_Master, Estado: "ACT" },
+    const regExistente = await InvestigacionesM5Model.findOne({
+      where: { Id_Detalle: entry.Id_Detalle, Estado: "ACT" },
     });
     if (!regExistente) {
-      const result = await DetallesModel.create(entry);
+      const result = await InvestigacionesM5Model.create(entry);
       await MasterModel.update({
-        Id_Detalle: result.Id,
-        Estado_Proceso: 2,
+        Id_Investigacion: result.Id,
+        Estado_Proceso: 3,
         Fecha_Modificacion: sequelize.literal("getdate()"),
       }, {
-        where: { Id: entry.Id_Master },
+        where: { Id_Detalle: entry.Id_Detalle },
       });
       return res.status(200).json(result);
     }
-    return res.status(503).send("No fue posible guardar el detalle ya que existe uno activo");
+    return res.status(503).send("No fue posible guardar la investigación ya que existe una activa");
   } catch (err) {
     // Implementar Error Responses
     return res.status(503).send(`No fue posible guardar el detalle: , ${err.message}`);
   }
 };
 
-exports.getDetail = async (req, res) => {
+exports.getInvM5 = async (req, res) => {
   const { Id } = req.body;
   try {
-    const data = await DetallesModel.findOne({
+    const data = await InvestigacionesM5Model.findOne({
       where: { Id, Estado: "ACT" },
     });
     return res.status(200).json(data);
@@ -40,10 +44,10 @@ exports.getDetail = async (req, res) => {
   }
 };
 
-exports.deleteDetail = async (req, res) => {
+exports.deleteInvM5 = async (req, res) => {
   const { Id } = req.body;
   try {
-    const data = await DetallesModel.findOne({
+    const data = await InvestigacionesM5Model.findOne({
       where: { Id, Estado: "ACT" },
     });
     if (data) {

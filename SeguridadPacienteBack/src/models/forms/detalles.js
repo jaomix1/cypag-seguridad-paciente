@@ -7,7 +7,13 @@ DetallesModel.init(
   {
     Id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
     Id_Master: { type: DataTypes.UUID, allowNull: false },
-    Tipo_Investigacion: { type: DataTypes.STRING(500), allowNull: true },
+    Tipo_Investigacion: {
+      type: DataTypes.STRING(500),
+      allowNull: true,
+      validate: {
+        isIn: [["Investigaciones_M5/P5", "Investigaciones_Naranjo", "Investigaciones_Londres"]],
+      },
+    },
     Triada_Involuntario: { type: DataTypes.BOOLEAN, allowNull: true },
     Triada_Genero_Dano: { type: DataTypes.BOOLEAN, allowNull: true },
     Triada_Atencion_Salud: { type: DataTypes.BOOLEAN, allowNull: true },
