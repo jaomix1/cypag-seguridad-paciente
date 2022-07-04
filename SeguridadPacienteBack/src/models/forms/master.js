@@ -4,6 +4,7 @@ const TiposNovedadModel = require("../combos/tiposNovedad");
 const EmpresasModel = require("../combos/empresas");
 const SedesModel = require("../combos/sedes");
 const TiposIdModel = require("../combos/tiposId");
+const ServiciosModel = require("../combos/servicios");
 
 class MasterModel extends Model {}
 
@@ -22,6 +23,7 @@ MasterModel.init(
     Cargo_Quien_Reporta: { type: DataTypes.STRING(40), allowNull: true },
     Empresa: { type: DataTypes.INTEGER, allowNull: false },
     Sede: { type: DataTypes.INTEGER, allowNull: false },
+    Servicio_Id: { type: DataTypes.INTEGER, allowNull: false },
     Nombre_Paciente: { type: DataTypes.STRING(80), allowNull: true },
     Tipo_Id: { type: DataTypes.INTEGER, allowNull: true },
     Numero_Id: { type: DataTypes.INTEGER, allowNull: true },
@@ -61,5 +63,6 @@ MasterModel.belongsTo(TiposNovedadModel, { foreignKey: "Tipo_Novedad", as: "Tipo
 MasterModel.belongsTo(EmpresasModel, { foreignKey: "Empresa", as: "Empresa_Join", onDelete: "NO ACTION" });
 MasterModel.belongsTo(SedesModel, { foreignKey: "Sede", as: "Sede_Join", onDelete: "NO ACTION" });
 MasterModel.belongsTo(TiposIdModel, { foreignKey: "Tipo_Id", as: "Tipo_Id_Join", onDelete: "NO ACTION" });
+MasterModel.belongsTo(ServiciosModel, { foreignKey: "Servicio_Id", as: "Servicio_Id_Join", onDelete: "NO ACTION" });
 
 module.exports = MasterModel;

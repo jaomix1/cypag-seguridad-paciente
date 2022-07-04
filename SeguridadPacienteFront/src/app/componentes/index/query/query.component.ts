@@ -11,7 +11,6 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
-import { FormularioComponent } from '../demos/formulario/formulario.component';
 
 @Component({
   selector: 'app-query',

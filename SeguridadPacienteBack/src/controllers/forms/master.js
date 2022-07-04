@@ -3,6 +3,8 @@ const moment = require("moment");
 const { Op } = require("sequelize");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
+const ServiciosModel = require("../../models/combos/servicios");
+const TiposIdModel = require("../../models/combos/tiposId");
 const TiposNovedadModel = require("../../models/combos/tiposNovedad");
 const MasterModel = require("../../models/forms/master");
 
@@ -24,7 +26,7 @@ exports.createEntry = async (req, res) => {
 
 exports.getAnswers = async (req, res) => {
   const {
-    Id, Numero_Id, Start_Date, End_Date, Tipo_Novedad,
+    Id, Numero_Id, Start_Date, End_Date, Tipo_Novedad, Empresa, Sede,
   } = req.body;
   try {
     const answers = await MasterModel.findAll({
@@ -40,10 +42,11 @@ exports.getAnswers = async (req, res) => {
             },
           },
           { Tipo_Novedad },
+          { Empresa },
+          { Sede },
         ],
       },
       order: [["Fecha_Incidente", "ASC"]],
-      attributes: ["Id", "Nombre_Paciente", "Numero_Id", "Fecha_Incidente", "Hora_Incidente", "Tipo_Novedad", "Empresa", "Sede"],
       include: [{
         model: TiposNovedadModel,
         as: "Tipo_Novedad_Join",
@@ -59,6 +62,16 @@ exports.getAnswers = async (req, res) => {
         as: "Sede_Join",
         where: { Estado: "ACT" },
         attributes: ["Nombre"],
+      }, {
+        model: TiposIdModel,
+        as: "Tipo_Id_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
+      }, {
+        model: ServiciosModel,
+        as: "Servicio_Id_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
       }],
     });
     return res.status(200).json(answers);
