@@ -7,7 +7,7 @@ import { ComboD } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
-import { QueryService } from 'src/app/servicios/query/opportunity.service';
+import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
@@ -38,7 +38,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   });
 
   constructor(
-    private myService: QueryService,
+    private myService: OpportunityService,
     public mainService: MainService,
     private comboService: ComboService,
     public dialog: MatDialog) {
@@ -77,7 +77,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
       this.myForm.disable();
       this.loadingMain = true;
       this.myService.create(this.myForm.value).subscribe({
-        next: (req) => {
+        next: (req:any) => {
           this.mainService.showToast('Creado Correctamente');
           this.datos = req;
           this.loadingMain = false;
