@@ -13,10 +13,9 @@ import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 import * as moment from 'moment';
+import { InfoComponent } from '../info/info.component';
+import { MatDialog } from '@angular/material/dialog';
 
-export interface Testigo {
-  name: string;
-}
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
@@ -31,6 +30,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   sedes!: Combo[];
   empresas!: Combo[];
   identificaciones!: ComboD[];
+  servicios!: ComboD[];
 
   //cargar daños o testigos
   hayDanos = false;
@@ -128,7 +128,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   constructor(
     private FormularioService: FormMasterService,
     public comboService: ComboService,
-    public mainService: MainService
+    public mainService: MainService,
+    public dialog: MatDialog
   ) {
     super();
 
@@ -138,8 +139,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     this.cargaEmpresas();
     this.cargaIdentificaciones();
     this.cargaNovedades();
+    this.cargaServicios();
   }
-
 
   ngOnInit(): void {}
 
@@ -176,6 +177,34 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     }
   }
 
+  info_Novedad(){
+    let data: any = {
+      title: 'Información', 
+      message: 'Información de novedad blablablabla'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '250px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  info_Severidad(){
+    let data: any = {
+      title: 'Información', 
+      message: 'Información de la severidad blablablabla'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '250px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
     if (value) {
@@ -184,8 +213,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     event.chipInput!.clear();
   }
 
-  remove(fruit: Testigo): void {
-    const index = this.testigos.indexOf(fruit);
+  remove(t: any): void {
+    const index = this.testigos.indexOf(t);
     if (index >= 0) {
       this.testigos.splice(index, 1);
     }
@@ -194,6 +223,12 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   cargaIdentificaciones(){
     this.comboService.getIdentificacion().subscribe((data:any)=>{
       this.identificaciones = data;
+    });
+  }
+
+  cargaServicios(){
+    this.comboService.getServicios().subscribe((data:any)=>{
+      this.servicios = data;
     });
   }
 

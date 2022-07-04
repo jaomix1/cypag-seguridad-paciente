@@ -1,53 +1,58 @@
 <h1 class="center">Clasificación</h1>
 <div class="row">
   <div class="col">
-    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data}}</p>
-    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data}}</p>
-    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data}}</p>
-    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data}}</p>
-    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data}}</p>
-    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data}}</p>
-    <p> <span> <b>Identificación:</b> </span> {{data}}</p>
-    <p> <span> <b>Sexo:</b> </span> {{data}}</p>
-    <p> <span> <b>Edad:</b> </span> {{data}}</p>
-    <p> <span> <b>Tipo de evento:</b> </span> {{data}}</p>
-    <p> <span> <b>Clasificación del evento:</b> </span> {{data}}</p>
-    <p> <span> <b>Descripción del evento:</b> </span> {{data}}</p>
+    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data!.Fecha_Incidente}} {{data!.Hora_Incidente}}</p>
+    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data!.Nombre_Quien_Reporta}}</p>
+    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data!.Cargo_Quien_Reporta}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join!.Nombre ?? null}}</p>
+    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data!.Sede_Join!.Nombre}}</p>
+    <p> <span> <b>Servicio:</b> </span> {{data!.Servicio_Id_Join.Descripcion}}</p>
+    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data!.Nombre_Paciente}}</p>
+    <p> <span> <b>Identificación:</b> </span> {{data!.Tipo_Id}} {{data!.Numero_Id}}</p>
+    <p> <span> <b>Sexo:</b> </span> {{data!.Sexo}}</p>
+    <p> <span> <b>Edad:</b> </span> {{data!.Edad}}</p>
+    <p> <span> <b>Novedad:</b> </span> {{data!.Tipo_Novedad_Join!.Descripcion}}</p>
+    <p> <span> <b>¿Qué Pasó?:</b> </span> {{data!.Preg_Que}}</p>
+    <p> <span> <b>¿Comó Pasó?:</b> </span> {{data!.Preg_Como}}</p>
+    <p> <span> <b>Testigos:</b> </span> {{data!.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>
+    <p> <span> <b>Producido durante el proceso de atención:</b> </span> {{data!.Preg_En_Atencion ? "Sí" : "No"}}</p>
+    <p> <span> <b>Involuntario:</b> </span> {{data!.Preg_Involuntario ? "Sí" : "No"}}</p>
+    <p> <span> <b>Daños en el paciente:</b> </span> {{data!.Preg_Genero_Dano ? "Severidad: (" + data!.Preg_Dano_Severidad + ") " + data!.Preg_Dano_Generado : "No se genero daño en el paciente"}}</p>
+    <p> <span> <b>Accion tomada:</b> </span> {{data!.Accion_Tomada}}</p>
+
   </div>
   <div class="col">
-    <form [formGroup]="firstFormGroup">
+    <form [formGroup]="form" (ngSubmit)="submit()" >
       <h2>Triada</h2>
       <div class="row">
         <div class="col">
           <mat-label>Involuntario</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Involuntario">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
         <div class="col">
           <mat-label>¿Generó daño en el paciente?</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Genero_Dano">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
         <div class="col">
           <mat-label>Atencion en salud</mat-label>
           <section class="example-section">
-            <mat-radio-group>
-              <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-              <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
+            <mat-radio-group formControlName="Triada_Atencion_Salud">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
           </section>
         </div>
       </div>
-    </form>
-    <form [formGroup]="secondFormGroup">
       <h2 >Selecciona un tipo</h2>
       <mat-grid-list cols="2" rowHeight="40px">
         <mat-grid-tile>
@@ -73,26 +78,32 @@
           }"
           >  Tecnovigilancia </button> </mat-grid-tile>
       </mat-grid-list>
+      <br>
+      <h2 >Responsables de la investigacion</h2>
+      <mat-form-field appearance="outline">
+        <mat-label>¿Quién o quienes?</mat-label>
+        <mat-chip-list #chipList aria-label="responsables">
+          <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
+            {{responsable}}
+            <button matChipRemove>
+              <mat-icon>cancelar</mat-icon>
+            </button>
+          </mat-chip>
+          <input formControlName="Responsables" placeholder="nuevo.."
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+      <div class="row">
+        <div class="col">
+          <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
+        </div>
+      </div>
     </form>
-    <h2 >Responsables de la investigacion</h2>
-    <mat-form-field appearance="outline">
-      <mat-label>¿Quién o quienes?</mat-label>
-      <mat-chip-list #chipList aria-label="responsables">
-        <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
-          {{responsable.name}}
-          <button matChipRemove>
-            <mat-icon>cancelar</mat-icon>
-          </button>
-        </mat-chip>
-        <input placeholder="nuevo.."
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          [matChipInputAddOnBlur]="addOnBlur"
-          (matChipInputTokenEnd)="add($event)">
-      </mat-chip-list>
-    </mat-form-field>
-    <div>
-      <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
+    <div class="col" *ngIf="realizado">
+      <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="delet()">Borrar</button>
     </div>
   </div>
 </div>

@@ -28,11 +28,21 @@ export class QueryService extends BaseService {
     );
   }
 
-  get(dato: string): Observable<Query> {
+  get(id: string): Observable<any> {
+    let object = {
+      Id: id, 
+      Numero_Id: null,
+      Start_Date: null,
+      End_Date: null,
+      Fecha_Incidente: null,
+      Tipo_Novedad: null,
+      Empresa: null,
+      Sede: null
+  }
     return this.http
-      .get<ResponseContract<Query>>(this._baseUrl + this.apiUrl + dato)
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, object)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
           this.logs('consulta de Query');
           this.logs(a);
