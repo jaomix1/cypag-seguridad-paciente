@@ -47,7 +47,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    // this.dataSource.paginator = this.paginator;
     this.cargaNovedades();
     this.cargaEmpresas();
   }

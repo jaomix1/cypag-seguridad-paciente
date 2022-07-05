@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NaranjoService extends BaseService {
-  private apiUrl: string = '/api/ms/';
+  private apiUrl: string = '/api/investigaciones/naranjo';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }

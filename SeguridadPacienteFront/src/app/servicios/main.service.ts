@@ -11,11 +11,13 @@ export class MainService {
   showToast(sms: string, status: string = 'success') {
     switch (status) {
       case 'error':
-        this._snackBar.open(`Error: ` + `${sms}`, "", {duration: 5000, panelClass: ['snackbar-error'] } );
+        this._snackBar.open(`Error: ` + sms, "", {duration: 5000, panelClass: ['snackbar-error'] } );
         break;
-
+      case 'success':
+          this._snackBar.open(sms, "", {duration: 3000 } );
+          break;
       default:
-        this._snackBar.open(`OK: ` + `${sms}`, "", {duration: 3000, panelClass: ['snackbar'] });
+        this._snackBar.open(sms , "", {duration: 3000 });
         break;
     }
   }

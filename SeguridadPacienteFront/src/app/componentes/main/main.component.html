@@ -70,11 +70,11 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Servicios</mat-label>
-            <mat-select formControlName="Servicio" placeholder="Servicio" required>
+            <mat-select formControlName="Servicio_Id" placeholder="Servicio" required>
               <mat-option *ngFor="let c of servicios" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
-            <mat-error *ngIf="validate('Servicio')">
-              {{ check('Servicio') }}
+            <mat-error *ngIf="validate('Servicio_Id')">
+              {{ check('Servicio_Id') }}
             </mat-error>
           </mat-form-field>
         </div>

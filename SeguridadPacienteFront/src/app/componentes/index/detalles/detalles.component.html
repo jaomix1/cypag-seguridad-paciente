@@ -4,14 +4,14 @@
     <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data!.Fecha_Incidente}} {{data!.Hora_Incidente}}</p>
     <p> <span> <b>Nombre de quien reporta:</b> </span> {{data!.Nombre_Quien_Reporta}}</p>
     <p> <span> <b>Cargo de quien reporta:</b> </span> {{data!.Cargo_Quien_Reporta}}</p>
-    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join!.Nombre ?? null}}</p>
-    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data!.Sede_Join!.Nombre}}</p>
-    <p> <span> <b>Servicio:</b> </span> {{data!.Servicio_Id_Join.Descripcion}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join ? data.Empresa_Join.Nombre : ""}}</p>
+    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data!.Sede_Join ? data.Sede_Join.Nombre : ""}}</p>
+    <p> <span> <b>Servicio:</b> </span> {{data!.Servicio_Id_Join ? data.Servicio_Id_Join.Descripcion : ""}}</p>
     <p> <span> <b>Nombre completo del paciente:</b> </span> {{data!.Nombre_Paciente}}</p>
-    <p> <span> <b>Identificación:</b> </span> {{data!.Tipo_Id}} {{data!.Numero_Id}}</p>
+    <p> <span> <b>Identificación:</b> </span> {{data!.Tipo_Id ? data!.Tipo_Id_Join : ""}} {{data!.Numero_Id}}</p>
     <p> <span> <b>Sexo:</b> </span> {{data!.Sexo}}</p>
     <p> <span> <b>Edad:</b> </span> {{data!.Edad}}</p>
-    <p> <span> <b>Novedad:</b> </span> {{data!.Tipo_Novedad_Join!.Descripcion}}</p>
+    <p> <span> <b>Novedad:</b> </span> {{data!.Tipo_Novedad_Join ? data!.Tipo_Novedad_Join.Descripcion : ""}}</p>
     <p> <span> <b>¿Qué Pasó?:</b> </span> {{data!.Preg_Que}}</p>
     <p> <span> <b>¿Comó Pasó?:</b> </span> {{data!.Preg_Como}}</p>
     <p> <span> <b>Testigos:</b> </span> {{data!.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-naranjo',
@@ -14,24 +14,29 @@ export class NaranjoComponent implements OnInit {
   constructor(
     public mainService: MainService,
     public NaranjoService: NaranjoService,
-    public dialogRef: MatDialogRef<NaranjoComponent>,
-  ) { }
+    public dialog: MatDialogRef<NaranjoComponent>,
+    @Inject(MAT_DIALOG_DATA) public guid: string,
+  ) {
+    this.form.controls['Id_Detalle'].setValue(this.guid);
+  }
 
   form = new FormGroup({
-    naranjo1: new FormControl(''),
-    naranjo2: new FormControl(''),
-    naranjo3: new FormControl(''),
-    naranjo4: new FormControl(''),
-    naranjo5: new FormControl(''),
-    naranjo6: new FormControl(''),
-    naranjo7: new FormControl(''),
-    naranjo8: new FormControl(''),
-    naranjo9: new FormControl(''),
-    naranjo10: new FormControl(''),
-    observacion: new FormControl(''),
+    Id_Detalle: new FormControl(''),
+    Naranjo_1: new FormControl(''),
+    Naranjo_2: new FormControl(''),
+    Naranjo_3: new FormControl(''),
+    Naranjo_4: new FormControl(''),
+    Naranjo_5: new FormControl(''),
+    Naranjo_6: new FormControl(''),
+    Naranjo_7: new FormControl(''),
+    Naranjo_8: new FormControl(''),
+    Naranjo_9: new FormControl(''),
+    Naranjo_10: new FormControl(''),
+    Naranjo_Observaciones: new FormControl(''),
   });
 
   ngOnInit(): void {
+    console.log(this.guid)
   }
 
   submit() {
@@ -57,6 +62,6 @@ export class NaranjoComponent implements OnInit {
   }
 
   cancelar(){
-    this.dialogRef.close();
+    this.dialog.close();
   }
 }

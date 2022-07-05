@@ -34,7 +34,7 @@ export class DetallesComponent implements OnInit {
 
   form = new FormGroup({
     Id_Master: new FormControl("", [Validators.required]),
-    Tipo_Investigacion: new FormControl(null, [Validators.required]),
+    Tipo_Investigacion: new FormControl("Investigaciones_Londres", [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
@@ -77,6 +77,7 @@ export class DetallesComponent implements OnInit {
   getDetalle() {
     this.DetallesService.get(this.data.Id_Detalle).subscribe({
       next: (req) => {
+        console.log("data detalle", req)
         this.form.controls['Tipo_Investigacion'].setValue(req.Tipo_Investigacion);
         this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
         this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
@@ -102,15 +103,15 @@ export class DetallesComponent implements OnInit {
 
     //Saber el tipo de investigacion depende la triada
     if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-      this.form.controls['Tipo_Investigacion'].setValue(1);
+      // this.form.controls['Tipo_Investigacion'].setValue(1);
     }else{
       if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && !this.data.Preg_Genero_Dano){
-        this.form.controls['Tipo_Investigacion'].setValue(2);
+        // this.form.controls['Tipo_Investigacion'].setValue(2);
       }else{
         if(!this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-          this.form.controls['Tipo_Investigacion'].setValue(3);
+          // this.form.controls['Tipo_Investigacion'].setValue(3);
         }else{
-          this.form.controls['Tipo_Investigacion'].setValue(4);
+          // this.form.controls['Tipo_Investigacion'].setValue(4);
         }
       }
     }
@@ -142,6 +143,8 @@ export class DetallesComponent implements OnInit {
     this.DetallesService.delete(this.Id_Detalle).subscribe({
       next: (req:any) => {
         console.log(req)
+        this.form.reset();
+        this.type = "";
         this.mainService.showToast('Eliminado Correctamente');
       },
       error: (err: string) => {
@@ -202,7 +205,8 @@ export class DetallesComponent implements OnInit {
     const dialogRef = this.dialog.open(SelectInvestigacionComponent, {
       width: '100%',
       height: '50%',
-      disableClose: false
+      disableClose: false,
+      data: this.Id_Detalle
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -212,7 +216,8 @@ export class DetallesComponent implements OnInit {
     const dialogRef = this.dialog.open(NaranjoComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false
+      disableClose: false,
+      data: this.Id_Detalle
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -222,7 +227,8 @@ export class DetallesComponent implements OnInit {
     const dialogRef = this.dialog.open(LondresComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false
+      disableClose: false,
+      data: this.Id_Detalle
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

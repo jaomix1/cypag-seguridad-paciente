@@ -1,147 +1,147 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
-  <h2> <b> Análisis causalidad - Algoritmo de naranjo </b></h2>
+  <h2> <b> Análisis causalidad - Algoritmo de naranjo {{guid}} </b></h2>
   <div class="row">
     <div class="col">
       <mat-label>¿Existen informes previos concluyentes acerca de esta reacción?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_1">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo1')">
+      <!-- <mat-error *ngIf="validate('naranjo1')">
         {{ check('naranjo1') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>El acontecimiento adverso ¿apareció después de que se administrara el fármaco sospechoso?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_2">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo2')">
+      <!-- <mat-error *ngIf="validate('naranjo2')">
         {{ check('naranjo2') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>La reacción adversa ¿mejoró al interrumpirse el tratamiento o cuando se administró un antagonista específico?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_3">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo3')">
+      <!-- <mat-error *ngIf="validate('naranjo3')">
         {{ check('naranjo3') }}
-      </mat-error>
+      </mat-error> -->
     </div>
   </div>
   <div class="row">
     <div class="col">
       <mat-label>¿Reapareció la reacción adversa cuando se volvió a administrar el fármaco?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_4">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo4')">
+      <!-- <mat-error *ngIf="validate('naranjo4')">
         {{ check('naranjo4') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>¿Hay otras causas que puedan por sí mismas haber ocasionado la reacción?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_5">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo5')">
+      <!-- <mat-error *ngIf="validate('naranjo5')">
         {{ check('naranjo5') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>¿Se ha detectado el fármaco en sangre  en una concentración cuya toxicidad es conocida?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_6">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo6')">
+      <!-- <mat-error *ngIf="validate('naranjo6')">
         {{ check('naranjo6') }}
-      </mat-error>
+      </mat-error> -->
     </div>
   </div>
   <div class="row">
     <div class="col">
       <mat-label>¿Aumentó la gravedad de la reacción al aumentarse la dosis o disminuyó al reducirla? </mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_7">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo7')">
+      <!-- <mat-error *ngIf="validate('naranjo7')">
         {{ check('naranjo7') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>¿Tuvo el paciente una reacción similar al mismo fármaco o a fármacos análogos en alguna exposición previa?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_8">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo8')">
+      <!-- <mat-error *ngIf="validate('naranjo8')">
         {{ check('naranjo8') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>¿Se confirmó el acontecimiento adverso mediante pruebas objetivas?</mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_9">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo9')">
+      <!-- <mat-error *ngIf="validate('naranjo9')">
         {{ check('naranjo9') }}
-      </mat-error>
+      </mat-error> -->
     </div>
   </div>
   <div class="row">
     <div class="col">
       <mat-label> ¿Reaparecio la reacción adversa tras administrar un placebo? </mat-label>
       <section class="example-section">
-        <mat-radio-group>
-          <mat-radio-button class="example-margin" value="si">Sí</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no">No</mat-radio-button>
-          <mat-radio-button class="example-margin" value="no-aplica">No aplica</mat-radio-button>
+        <mat-radio-group formControlName="Naranjo_10">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NA">No aplica</mat-radio-button>
         </mat-radio-group>
       </section>
-      <mat-error *ngIf="validate('naranjo10')">
+      <!-- <mat-error *ngIf="validate('naranjo10')">
         {{ check('naranjo10') }}
-      </mat-error>
+      </mat-error> -->
     </div>
     <div class="col">
       <mat-label>Observacion</mat-label>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="max. 250 crarcteres" formControlName="observacion" maxlength="50" required></textarea>
+        <textarea matInput placeholder="max. 250 crarcteres" formControlName="Naranjo_Observaciones" maxlength="50" required></textarea>
       </mat-form-field>
     </div>
   </div>

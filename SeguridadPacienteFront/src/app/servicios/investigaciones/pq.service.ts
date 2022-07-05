@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PqService extends BaseService {
-  private apiUrl: string = '/api/pq/';
+  private apiUrl: string = '/api/investigaciones/5p';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
 
-  send(data: any): Observable<Query> {
+  send(data: any): Observable<any> {
     return this.http
-      .post<ResponseContract<Query>>(this._baseUrl + this.apiUrl, data)
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
       .pipe(
         map((response) => response.data),
         tap((a) => {
