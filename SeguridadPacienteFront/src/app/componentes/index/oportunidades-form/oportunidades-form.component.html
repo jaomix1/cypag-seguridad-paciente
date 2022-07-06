@@ -1,0 +1,43 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+  <h2> <b> Oportunidades de mejora</b></h2>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Código</mat-label>
+        <input matInput placeholder="¿Código?" formControlName="Code" maxlength="10" required>
+        <!-- <mat-error *ngIf="validatePQ('P51')">
+          {{ checkPQ('P51') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Cual?</mat-label>
+        <input matInput placeholder="¿Cual?" formControlName="Cual" maxlength="50" required>
+        <!-- <mat-error *ngIf="validatePQ('P5_2')">
+          {{ checkPQ('P5_2') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field appearance="outline">
+        <mat-label>¿Quién o quienes?</mat-label>
+        <mat-chip-list #chipList aria-label="responsables">
+          <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
+            {{responsable}}
+            <button matChipRemove>
+              <mat-icon>cancelar</mat-icon>
+            </button>
+          </mat-chip>
+          <input formControlName="Responsables" placeholder="nuevo.."
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+      </mat-form-field>
+    </div>
+  </div>
+</form>

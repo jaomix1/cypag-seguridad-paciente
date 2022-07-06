@@ -7,7 +7,7 @@
             <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
             <div class="row">
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <input matInput placeholder="Codigo interno" (focus)="cancelar()" formControlName="codigo">
                         <mat-error *ngIf="validate('codigo')">
                             {{ check('codigo') }}
@@ -15,7 +15,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <input matInput placeholder="Codigo externo" (focus)="cancelar()"
                             formControlName="documento">
                         <mat-error *ngIf="validate('documento')">
@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <mat-form-field>
+                    <mat-form-field appearance="outline">
                         <mat-label>Ingresa la fecha</mat-label>
                         <mat-date-range-input [rangePicker]="picker">
                             <input matStartDate formControlName="fechaInicio" (dateChange)="cambioFecha()"
@@ -40,7 +40,7 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field class="full-width">
+                    <mat-form-field class="full-width" appearance="outline">
                         <mat-select placeholder="Responsable" formControlName="novedad">
                             <mat-option *ngFor="let data of novedades" [value]="data.Id">
                                 {{ data.Descripcion }}

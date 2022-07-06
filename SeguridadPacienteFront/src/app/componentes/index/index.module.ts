@@ -43,6 +43,7 @@ import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
 import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-adverso.component';
+import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-form.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-
     LondresComponent,
     SelectInvestigacionComponent,
     EventoAdversoComponent,
+    OportunidadesFormComponent,
   ],
   imports: [
     CommonModule,

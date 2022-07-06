@@ -3,6 +3,7 @@ import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { EventoAdversoComponent } from '../evento-adverso/evento-adverso.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -14,7 +15,8 @@ export class NaranjoComponent implements OnInit {
   constructor(
     public mainService: MainService,
     public NaranjoService: NaranjoService,
-    public dialog: MatDialogRef<NaranjoComponent>,
+    public dialog: MatDialog,
+    public dialogRef: MatDialogRef<NaranjoComponent>,
     @Inject(MAT_DIALOG_DATA) public guid: string,
   ) {
     this.form.controls['Id_Detalle'].setValue(this.guid);
@@ -62,6 +64,16 @@ export class NaranjoComponent implements OnInit {
   }
 
   cancelar(){
-    this.dialog.close();
+    this.dialogRef.close();
+  }
+
+  adverso(){
+    const dialogRef = this.dialog.open(EventoAdversoComponent, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
   }
 }

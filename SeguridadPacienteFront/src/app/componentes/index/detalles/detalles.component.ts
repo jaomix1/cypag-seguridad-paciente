@@ -12,6 +12,7 @@ import { DialogConfirmacionComponent } from '../../dialog-confirmacion/dialog-co
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
+import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
 
 
 @Component({
@@ -34,7 +35,7 @@ export class DetallesComponent implements OnInit {
 
   form = new FormGroup({
     Id_Master: new FormControl("", [Validators.required]),
-    Tipo_Investigacion: new FormControl("Investigaciones_Londres", [Validators.required]),
+    Tipo_Investigacion: new FormControl(null, [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
@@ -144,6 +145,7 @@ export class DetallesComponent implements OnInit {
       next: (req:any) => {
         console.log(req)
         this.form.reset();
+        this.responsables = []        
         this.type = "";
         this.mainService.showToast('Eliminado Correctamente');
       },
@@ -225,6 +227,17 @@ export class DetallesComponent implements OnInit {
 
   londres(){
     const dialogRef = this.dialog.open(LondresComponent, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+      data: this.Id_Detalle
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  mejoras(){
+    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

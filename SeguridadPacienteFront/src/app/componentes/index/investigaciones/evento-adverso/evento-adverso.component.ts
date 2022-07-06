@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 
 @Component({
   selector: 'app-evento-adverso',
@@ -7,7 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class EventoAdversoComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public dialog: MatDialog,
+  ) { }
 
   ngOnInit(): void {
   }
@@ -20,4 +24,14 @@ export class EventoAdversoComponent implements OnInit {
     console.log(option)
   }
 
+
+  mejoras(){
+    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
 }

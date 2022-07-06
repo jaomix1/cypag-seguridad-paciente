@@ -3,7 +3,8 @@ import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { PqService } from 'src/app/servicios/investigaciones/pq.service';
 import { MsService } from 'src/app/servicios/investigaciones/ms.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class MsPqComponent implements OnInit {
     private MsService: MsService,
     private PqService: PqService,
     public mainService: MainService,
+    public dialog: MatDialog,
     public dialogRef: MatDialogRef<MsPqComponent>,
   ) {
     this.formMS.controls['Id_Detalle'].setValue(this.data.id);
@@ -97,6 +99,16 @@ export class MsPqComponent implements OnInit {
 
   cancelar(){
     this.dialogRef.close();
+  }
+
+  mejoras(){
+    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
   }
 }
 
