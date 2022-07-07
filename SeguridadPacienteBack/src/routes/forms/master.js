@@ -7,6 +7,9 @@ const router = express.Router();
 const {
   getAnswers,
   createEntry,
+  createMejora,
+  getMejora,
+  updateMejora,
 } = require("../../controllers/forms/master");
 
 router.route("/")
@@ -14,5 +17,14 @@ router.route("/")
 
 router.route("/registros")
   .post(getAnswers);
+
+router.route("/mejoras")
+  .post(createMejora);
+
+router.route("/mejoras/registros")
+  .post(getMejora);
+
+router.route("/mejoras/actualizar")
+  .post(updateMejora);
 
 module.exports = router;
