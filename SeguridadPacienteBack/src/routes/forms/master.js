@@ -7,10 +7,13 @@ const router = express.Router();
 const {
   getAnswers,
   createEntry,
+} = require("../../controllers/forms/master");
+
+const {
   createMejora,
   getMejora,
   updateMejora,
-} = require("../../controllers/forms/master");
+} = require("../../controllers/forms/mejoras");
 
 router.route("/")
   .post(createEntry);
