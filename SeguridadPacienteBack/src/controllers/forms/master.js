@@ -8,6 +8,7 @@ const TiposIdModel = require("../../models/combos/tiposId");
 const TiposNovedadModel = require("../../models/combos/tiposNovedad");
 const MasterModel = require("../../models/forms/master");
 
+// #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
   const entry = { ...req.body };
   // console.log("IMAGEN:::", entry.Imagen_Archivo);
@@ -19,7 +20,7 @@ exports.createEntry = async (req, res) => {
     return res.status(200).json({ message: "Registro Creado" });
   } catch (err) {
     // Implementar Error Responses
-    return res.status(503).send(`No fue posible guardar el registro: , ${err.message}`);
+    return res.status(503).send(`No fue posible guardar el registro: ${err.message}`);
   }
   // next();
 };
@@ -77,6 +78,6 @@ exports.getAnswers = async (req, res) => {
     return res.status(200).json(answers);
   } catch (err) {
     // Implementar Error Responses
-    return res.status(503).send("No fue posible consultar la tabla:", err);
+    return res.status(503).send("No fue posible consultar la tabla: ", err);
   }
 };
