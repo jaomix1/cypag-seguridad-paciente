@@ -23,7 +23,8 @@ export class DetallesService extends BaseService{
   }
 
   get(id: string): Observable<any> {
-    return this.http.post<any>(this._baseUrl + this.apiUrl + "/registros", {Id: id})
+    console.log(id)
+    return this.http.post<any>(this._baseUrl + this.apiUrl + "/registros", {Id_Master: id})
   }
 
   delete(id: string): Observable<any> {

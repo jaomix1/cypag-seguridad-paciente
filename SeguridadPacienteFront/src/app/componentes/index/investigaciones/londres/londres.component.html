@@ -2,6 +2,277 @@
   <h2> <b> Londres </b></h2>
   <div class="row">
     <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>RELACIONADOS CON EL TRÁMITE ADMINISTRATIVO PARA LA ATENCION</mat-label>
+        <mat-select placeholder="Seleccione..." required>
+          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- EVENTO ADVERSO TIPO/ESTADO -->
+  <h2> <b> Evento adverso </b></h2>
+  <section class="example-section">
+    <label class="example-margin center"> <h2> <b>Tipo:</b></h2> </label>
+    <div class="row" style="margin-top:20px">
+      <div class="col center my-3">
+        <button class="example-margin btn-rounded bg-secondary" (click)="tipo('leve')">Leve</button>
+      </div>
+      <div class="col center my-3">
+        <button class="example-margin btn-rounded bg-secondary" (click)="tipo('moderado')">Moderado</button>
+      </div>
+      <div class="col center my-3">
+        <button class="example-margin btn-rounded bg-secondary" (click)="tipo('grave')">Grave</button>
+      </div>
+    </div>
+  </section>
+  <section class="example-section">
+    <label class="example-margin center"> <h2> <b>Estado:</b></h2> </label>
+    <div class="row" style="margin-top:20px">
+      <div class="col center my-3">
+        <button class="example-margin btn-rounded bg-secondary" (click)="estado('prevenible')">Prevenible</button>
+      </div>
+      <div class="col center my-3">
+        <button class="example-margin btn-rounded bg-secondary" (click)="estado('noPrevenible')">No prevenible</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN -->
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Análisis de la Historia Clínica, Protocolos, Procedimientos</mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Entrevista a las personas que intervienen en el proceso</mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Otros mecanismos como: Declaraciones, Observaciones, etc.</mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>CRONOLOGÍA DEL INCIDENTE O EVENTO ADVERSO</mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <!-- FASE II: ÁRBOL DEL PROBLEMA -->
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>ACCIONES INSEGURAS</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Equipo</mat-label>
+        <mat-select formControlName="Preg_Dano_Severidad" placeholder="Seleccione...">
+          <mat-option *ngFor="let c of CombosLondresService.fase2_equipo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Preg_Dano_Severidad')">
+          {{ check('Preg_Dano_Severidad') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Individuo</mat-label>
+        <mat-select formControlName="Preg_Dano_Severidad" placeholder="Seleccione...">
+          <mat-option *ngFor="let c of CombosLondresService.fase2_individuo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Preg_Dano_Severidad')">
+          {{ check('Preg_Dano_Severidad') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Administrativos</mat-label>
+        <mat-select formControlName="Preg_Dano_Severidad" placeholder="Seleccione...">
+          <mat-option *ngFor="let c of CombosLondresService.fase2_administrativo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Preg_Dano_Severidad')">
+          {{ check('Preg_Dano_Severidad') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Tareas y tecnologias</mat-label>
+        <mat-select formControlName="Preg_Dano_Severidad" placeholder="Seleccione...">
+          <mat-option *ngFor="let c of CombosLondresService.fase2_tecnologia" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Preg_Dano_Severidad')">
+          {{ check('Preg_Dano_Severidad') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Paciente</mat-label>
+        <mat-select formControlName="Preg_Dano_Severidad" placeholder="Seleccione...">
+          <mat-option *ngFor="let c of CombosLondresService.fase2_paciente" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Preg_Dano_Severidad')">
+          {{ check('Preg_Dano_Severidad') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- FASE II: ANALISIS DEL PROBLEMA -->
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Análisis del problema </mat-label>
+        <textarea matInput placeholder="Observacion" formControlName="P5_4" maxlength="2000" required>
+        </textarea>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- FASE III: CLASIFICACION SEGÚN ANALISIS  -->
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Complicación / Incidente</mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-label>FUE ABORADADO LA SEGUNDA VICTIMA</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Naranjo_7">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <!-- <mat-error *ngIf="validate('naranjo7')">
+        {{ check('naranjo7') }}
+      </mat-error> -->
+    </div>
+    <div class="col">
+      <mat-label>FUE ABORADADO LA TERCERA  VICTIMA</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Naranjo_8">
+          <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" value="NO">No</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <!-- <mat-error *ngIf="validate('naranjo8')">
+        {{ check('naranjo8') }}
+      </mat-error> -->
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA SEGUNDA VICTIMA </mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA TERCERA VICTIMA </mat-label>
+        <input matInput placeholder="Observacion" formControlName="P5_4" maxlength="50" required>
+        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error> -->
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col">
       <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
     </div>
     <div class="col">

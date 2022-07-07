@@ -13,6 +13,7 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
+import { UsersService } from 'src/app/servicios/usuarios/users.service';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class DetallesComponent implements OnInit {
 
   form = new FormGroup({
     Id_Master: new FormControl("", [Validators.required]),
-    Tipo_Investigacion: new FormControl(null, [Validators.required]),
+    Tipo_Investigacion: new FormControl("Investigaciones_M5", [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
@@ -45,6 +46,7 @@ export class DetallesComponent implements OnInit {
 
   constructor(
     public mainService: MainService,
+    public UsersService: UsersService,
     public DetallesService: DetallesService,
     private QueryService: QueryService,
     public dialog: MatDialog,
@@ -52,18 +54,20 @@ export class DetallesComponent implements OnInit {
     public dialogRef: MatDialogRef<DetallesComponent>,)
     {
       this.masterId = guid;
-      this.obtenerDetalle(this.masterId)
+      this.obtenerMaster(this.masterId)
+      this.getResponsables();
     }
 
   ngOnInit(): void {
     this.form.controls['Id_Master'].setValue(this.masterId);
   }
 
-  obtenerDetalle(id : string){
+  obtenerMaster(id : string){
     this.QueryService.get(id).subscribe({
       next: (req) => {
-        this.data = req[0];
-        if(this.data.Id_Detalle){
+        console.log(req)
+        this.data = req.Master;
+        if(req.Detalle){
           this.realizado = true;
           this.getDetalle();
         }
@@ -76,7 +80,8 @@ export class DetallesComponent implements OnInit {
   }
 
   getDetalle() {
-    this.DetallesService.get(this.data.Id_Detalle).subscribe({
+    console.log("Hola")
+    this.DetallesService.get(this.masterId).subscribe({
       next: (req) => {
         console.log("data detalle", req)
         this.form.controls['Tipo_Investigacion'].setValue(req.Tipo_Investigacion);
@@ -88,6 +93,18 @@ export class DetallesComponent implements OnInit {
         let arr = req.Responsables.split(';');
         this.responsables = arr;
         this.Id_Detalle = req.Id;
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      }
+    });
+  }
+
+  getResponsables() {
+    this.UsersService.get().subscribe({
+      next: (req) => {
+        console.log("data users", req)
+        this.responsables = req;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -122,7 +139,7 @@ export class DetallesComponent implements OnInit {
     string = new String(this.responsables)
     string = string.replace(/,/g, ';');
     this.form.controls['Responsables'].setValue(string);
-
+    console.log(this.form.value)
     if(this.form.valid){
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
@@ -145,7 +162,7 @@ export class DetallesComponent implements OnInit {
       next: (req:any) => {
         console.log(req)
         this.form.reset();
-        this.responsables = []        
+        this.responsables = []
         this.type = "";
         this.mainService.showToast('Eliminado Correctamente');
       },

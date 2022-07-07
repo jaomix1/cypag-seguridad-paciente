@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class QueryService extends BaseService {
-  private apiUrl: string = '/api/master/registros';
+  private apiUrl: string = '/api/master/';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
 
   getAll(data:any): Observable<any> {
     return this.http
-    .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
+    .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "registros", data)
     .pipe(
       map((response) => response),
       tap((a) => {
@@ -29,22 +29,12 @@ export class QueryService extends BaseService {
   }
 
   get(id: string): Observable<any> {
-    let object = {
-      Id: id, 
-      Numero_Id: null,
-      Start_Date: null,
-      End_Date: null,
-      Fecha_Incidente: null,
-      Tipo_Novedad: null,
-      Empresa: null,
-      Sede: null
-  }
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, object)
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "det-inv", {Id_Master: id})
       .pipe(
         map((response) => response),
         tap((a) => {
-          this.logs('consulta de Query');
+          this.logs('consulta de detalle');
           this.logs(a);
         }),
         catchError(this.errorMgmt)
