@@ -11,6 +11,7 @@ class MasterModel extends Model {}
 MasterModel.init(
   {
     Id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
+    Codigo: { type: DataTypes.STRING(50), allowNull: true, unique: true },
     Fecha_Incidente: {
       type: DataTypes.STRING(50),
       allowNull: false,
@@ -41,8 +42,6 @@ MasterModel.init(
     Preg_Dano_Severidad: { type: DataTypes.STRING(20), allowNull: false },
     Accion_Tomada: { type: DataTypes.STRING(500), allowNull: true },
     Imagen_Evidencia: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), allowNull: true },
-    Id_Detalle: { type: DataTypes.UUID, defaultValue: null, allowNull: true },
-    Id_Investigacion: { type: DataTypes.UUID, defaultValue: null, allowNull: true },
     Estado_Proceso: { type: DataTypes.INTEGER, defaultValue: 1, allowNull: false },
     Estado: {
       type: DataTypes.STRING(3), defaultValue: "ACT", allowNull: false, validate: { isIn: [["ACT", "INA"]] },

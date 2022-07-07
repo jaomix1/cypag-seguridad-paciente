@@ -5,13 +5,14 @@ class DetallesModel extends Model {}
 
 DetallesModel.init(
   {
-    Id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
+    id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
     Id_Master: { type: DataTypes.UUID, allowNull: false },
     Tipo_Investigacion: {
       type: DataTypes.STRING(500),
       allowNull: true,
+      defaultValue: null,
       validate: {
-        isIn: [["Investigaciones_M5/P5", "Investigaciones_Naranjo", "Investigaciones_Londres"]],
+        isIn: [["Investigaciones_M5", "Investigaciones_P5", "Investigaciones_Naranjo", "Investigaciones_Londres"]],
       },
     },
     Triada_Involuntario: { type: DataTypes.BOOLEAN, allowNull: true },

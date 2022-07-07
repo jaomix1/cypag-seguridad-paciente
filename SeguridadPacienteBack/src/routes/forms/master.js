@@ -7,6 +7,7 @@ const router = express.Router();
 const {
   getAnswers,
   createEntry,
+  getAllData,
 } = require("../../controllers/forms/master");
 
 const {
@@ -17,6 +18,9 @@ const {
 
 router.route("/")
   .post(createEntry);
+
+router.route("/det-inv")
+  .post(getAllData);
 
 router.route("/registros")
   .post(getAnswers);
