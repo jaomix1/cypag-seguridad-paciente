@@ -3,7 +3,7 @@ import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EventoAdversoComponent } from '../evento-adverso/evento-adverso.component';
+import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -67,8 +67,16 @@ export class NaranjoComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  adverso(){
-    const dialogRef = this.dialog.open(EventoAdversoComponent, {
+  tipo(option: string){
+    console.log(option)
+  }
+
+  estado(option: string){
+    console.log(option)
+  }
+
+  mejoras(){
+    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

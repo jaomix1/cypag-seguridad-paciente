@@ -42,7 +42,6 @@ import { MsPqComponent } from './investigaciones/ms-pq/ms-pq.component';
 import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
-import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-adverso.component';
 import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-form.component';
 
 @NgModule({
@@ -57,8 +56,7 @@ import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-f
     NaranjoComponent,
     LondresComponent,
     SelectInvestigacionComponent,
-    EventoAdversoComponent,
-    OportunidadesFormComponent,
+    OportunidadesFormComponent
   ],
   imports: [
     CommonModule,
