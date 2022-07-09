@@ -42,7 +42,6 @@ exports.getDetail = async (req, res) => {
 
 exports.deleteDetail = async (req, res) => {
   const { Id_Master } = req.body;
-  let defaultMsg = "";
   try {
     const data = await DetallesModel.findOne({
       where: { Id_Master, Estado: "ACT" },
@@ -94,15 +93,14 @@ exports.deleteDetail = async (req, res) => {
           );
           break;
         default:
-          defaultMsg = "e Investigación ";
+          // Nothing
           break;
       }
-
       data.update({
         Estado: "INA",
         Fecha_Modificacion: sequelize.literal("getdate()"),
       });
-      return res.status(200).json({ message: `Registro ${defaultMsg}eliminado` });
+      return res.status(200).json({ message: "Registro eliminado" });
     }
     return res.status(200).json({ message: "No hay registros para eliminar" });
   } catch (error) {
