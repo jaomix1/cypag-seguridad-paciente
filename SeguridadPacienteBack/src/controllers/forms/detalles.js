@@ -8,6 +8,7 @@ const InvestigacionesLondresModel = require("../../models/forms/investigacionesL
 
 exports.createDetail = async (req, res) => {
   const entry = { ...req.body };
+  entry.Agente = req.Usuario.user.Usuario;
   try {
     const regExistente = await DetallesModel.findOne({
       where: { Id_Master: entry.Id_Master, Estado: "ACT" },

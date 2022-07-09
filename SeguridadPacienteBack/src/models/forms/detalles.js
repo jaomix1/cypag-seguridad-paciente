@@ -25,6 +25,7 @@ DetallesModel.init(
     },
     Fecha_Creacion: { type: DataTypes.DATE, defaultValue: sequelize.literal("getdate()"), allowNull: false },
     Fecha_Modificacion: { type: DataTypes.DATE, defaultValue: null, allowNull: true },
+    Agente: { type: DataTypes.STRING(50), allowNull: true },
   },
   {
     sequelize,
