@@ -19,6 +19,8 @@ OportunidadesMejoraModel.init(
     Estado: {
       type: DataTypes.STRING(3), defaultValue: "ACT", allowNull: false, validate: { isIn: [["ACT", "INA"]] },
     },
+    Fecha_Creacion: { type: DataTypes.DATE, defaultValue: sequelize.literal("getdate()"), allowNull: false },
+    Fecha_Modificacion: { type: DataTypes.DATE, defaultValue: null, allowNull: true },
   },
   {
     sequelize,
