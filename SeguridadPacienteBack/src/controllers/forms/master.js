@@ -102,6 +102,7 @@ exports.getAllData = async (req, res) => {
     const masterData = await MasterModel.findOne({
       where: { Id: Id_Master, Estado: "ACT" },
       raw: true,
+      nest: true,
       include: [{
         model: TiposNovedadModel,
         as: "Tipo_Novedad_Join",
