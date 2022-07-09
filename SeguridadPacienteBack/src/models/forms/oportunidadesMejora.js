@@ -1,3 +1,4 @@
+const moment = require("moment");
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
 
@@ -32,7 +33,7 @@ OportunidadesMejoraModel.init(
     },
     Fecha_Creacion: {
       type: DataTypes.STRING(50),
-      defaultValue: sequelize.literal("FORMAT (getdate(), 'yyyy-MM-dd HH:mm:ss.fff')"),
+      defaultValue: moment().format("YYYY-MM-DD"),
       allowNull: false,
     },
     Fecha_Modificacion: {

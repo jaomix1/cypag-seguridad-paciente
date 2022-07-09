@@ -1,5 +1,5 @@
 const express = require("express");
-const { seguridad } = require("../../middleware/seguridad");
+// const { seguridad } = require("../../middleware/seguridad");
 const {
   registrarUsuario,
   obtenerPerfiles,

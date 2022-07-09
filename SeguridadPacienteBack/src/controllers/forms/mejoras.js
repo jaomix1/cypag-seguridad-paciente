@@ -32,7 +32,8 @@ exports.getMejora = async (req, res) => {
     Id,
     Id_Master,
     Codigo_Externo,
-    Fecha,
+    Start_Date,
+    End_Date,
     Responsable,
   } = req.body;
   try {
@@ -44,7 +45,8 @@ exports.getMejora = async (req, res) => {
           { Id_Master },
           {
             Fecha_Creacion: {
-              [Op.startsWith]: Fecha,
+              [Op.gte]: Start_Date,
+              [Op.lte]: End_Date,
             },
           },
           { Responsable },
