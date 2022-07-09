@@ -1,11 +1,11 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
-  <h2> <b> Londres </b></h2>
+  <h2> <b> Londres {{guid}}</b></h2>
   <div class="row">
     <div class="col" *ngIf="type == 1">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON EL TRÁMITE ADMINISTRATIVO PARA LA ATENCION</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -15,8 +15,8 @@
     <div class="col" *ngIf="type == 2">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON  LOS PROCESOS O PROCEDIMIENTOS  ASISTENCIALES</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -26,8 +26,8 @@
     <div class="col" *ngIf="type == 3">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON FALLAS EN LOS REGISTROS CLINICOS</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -37,8 +37,8 @@
     <div class="col" *ngIf="type == 4">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>INFECCIÓN OCASIONADA POR LA ATENCIÓN EN SALUD</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -48,8 +48,8 @@
     <div class="col" *ngIf="type == 5">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON LA MEDICACIÓN O LA ADMINISTRACIÓN DE LÍQUIDOS PARENTERALES</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -59,8 +59,8 @@
     <div class="col" *ngIf="type == 6">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON LA SANGRE O SUS DERIVADOS</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -70,8 +70,8 @@
     <div class="col" *ngIf="type == 7">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON LA ELABORACIÓN DE DIETAS O DISPENSACIÓN DE ALIMENTOS</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -81,8 +81,8 @@
     <div class="col" *ngIf="type == 8">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON LA ADMINISTRACIÓN DE OXIGENO O GASES MEDICINALES</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -92,8 +92,8 @@
     <div class="col" *ngIf="type == 9">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS  CON LOS DISPOSITIVOS Y EQUIPOS MEDICOS</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -103,8 +103,8 @@
     <div class="col" *ngIf="type == 10">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS  CON COMPORTAMIENTO O CREENCIAS DEL PACIENTE- FAMILIA</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -114,8 +114,8 @@
     <div class="col" *ngIf="type == 11">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>CAÍDA DE PACIENTES</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -125,8 +125,8 @@
     <div class="col" *ngIf="type == 12">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>ACCIDENTES DE PACIENTES</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -136,8 +136,8 @@
     <div class="col" *ngIf="type == 13">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADOS CON LA INFRAESTRUCTURA O EL AMBIENTE FISICO</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -147,8 +147,8 @@
     <div class="col" *ngIf="type == 14">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADO CON LA GESTIÓN DE LOS RECURSOS O CON LA GESTION ORGANIZACIONAL</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -158,8 +158,8 @@
     <div class="col" *ngIf="type == 15">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>RELACIONADO CON LABORATORIO CLINICO / PATOLOGIA</mat-label>
-        <mat-select placeholder="Seleccione..." required>
-          <mat-option *ngFor="let c of combo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        <mat-select placeholder="Seleccione..." required formControlName="Select_Depende_Tipo">
+          <mat-option *ngFor="let c of options" value={{c.option}}>{{c.option}}</mat-option>
         </mat-select>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -168,6 +168,7 @@
     </div>
   </div>
 
+  <h2> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN </b></h2>
   <!-- FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN -->
   <div class="row">
     <div class="col">
@@ -210,7 +211,7 @@
     </div>
   </div>
 
-
+  <h2> <b> FASE II: ÁRBOL DEL PROBLEMA </b></h2>
   <!-- FASE II: ÁRBOL DEL PROBLEMA -->
   <div class="row">
     <div class="col">
@@ -322,6 +323,7 @@
     </div>
   </div>
 
+  <h2> <b> FASE II: ANALISIS DEL PROBLEMA </b></h2>
   <!-- FASE II: ANALISIS DEL PROBLEMA -->
   <div class="row">
     <div class="col">
@@ -336,42 +338,45 @@
     </div>
   </div>
 
-  <!-- EVENTO ADVERSO TIPO/ESTADO -->
-  <h2> <b> Evento adverso </b></h2>
-  <div class="row">
-    <div class="col">
-      <div class="row">
-        <label class="example-margin center"> <h2> <b>Tipo:</b></h2> </label>
-        <div class="col center my-3">
-          <button mat-raised-button class="bg-secondary" (click)="tipo('leve')">Leve</button>
-        </div>
-        <div class="col center my-3">
-          <button mat-raised-button class="bg-secondary" (click)="tipo('moderado')">Moderado</button>
-        </div>
-        <div class="col center my-3">
-          <button mat-raised-button class="bg-secondary" (click)="tipo('grave')">Grave</button>
-        </div>
-      </div>
-    </div>
-    <div class="col">
-      <div class="row">
-        <label class="example-margin center"> <h2> <b>Estado:</b></h2> </label>
-        <div class="col center my-3">
-          <button mat-raised-button class="bg-secondary" (click)="estado('prevenible')">Prevenible</button>
-        </div>
-        <div class="col center my-3">
-          <button mat-raised-button class="bg-secondary" (click)="estado('noPrevenible')">No prevenible</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
+
+  <h2> <b> FASE III: CLASIFICACION SEGÚN ANALISIS </b></h2>
+
+    <!-- EVENTO ADVERSO TIPO/ESTADO -->
+    <div class="row">
+      <div class="col">
+        <div class="row">
+          <label class="example-margin center"> <h2> <b>Tipo:</b></h2> </label>
+          <div class="col center my-3">
+            <button mat-raised-button class="bg-secondary" (click)="tipo('leve')">Leve</button>
+          </div>
+          <div class="col center my-3">
+            <button mat-raised-button class="bg-secondary" (click)="tipo('moderado')">Moderado</button>
+          </div>
+          <div class="col center my-3">
+            <button mat-raised-button class="bg-secondary" (click)="tipo('grave')">Grave</button>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="row">
+          <label class="example-margin center"> <h2> <b>Estado:</b></h2> </label>
+          <div class="col center my-3">
+            <button mat-raised-button class="bg-secondary" (click)="estado('prevenible')">Prevenible</button>
+          </div>
+          <div class="col center my-3">
+            <button mat-raised-button class="bg-secondary" (click)="estado('noPrevenible')">No prevenible</button>
+          </div>
+        </div>
+      </div>
+    </div>
   <!-- FASE III: CLASIFICACION SEGÚN ANALISIS  -->
   <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Complicación / Incidente</mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase3_Complicacion" maxlength="50" required>
+        <textarea matInput placeholder="Observacion" formControlName="Fase3_Complicacion" maxlength="50" required>
+        </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -419,7 +424,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA TERCERA VICTIMA </mat-label>
-        <input matInput placeholder="Observacion" formControlName="Frase3_Acciones_Tercera" maxlength="50" required>
+        <input matInput placeholder="Observacion" formControlName="Fase3_Acciones_Tercera" maxlength="50" required>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->

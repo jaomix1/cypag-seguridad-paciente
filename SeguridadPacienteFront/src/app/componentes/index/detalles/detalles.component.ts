@@ -65,13 +65,11 @@ export class DetallesComponent implements OnInit {
   obtenerMaster(id : string){
     this.QueryService.get(id).subscribe({
       next: (req) => {
-        console.log(req)
-        this.data = req.Master;
+        this.data= req.Master;
         if(req.Detalle){
           this.realizado = true;
           this.getDetalle();
         }
-        console.log(this.data)
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -80,7 +78,6 @@ export class DetallesComponent implements OnInit {
   }
 
   getDetalle() {
-    console.log("Hola")
     this.DetallesService.get(this.masterId).subscribe({
       next: (req) => {
         console.log("data detalle", req)
@@ -92,7 +89,7 @@ export class DetallesComponent implements OnInit {
         this.form.controls['Tipo_Detalle'].setValue(req.Tipo_Detalle);
         let arr = req.Responsables.split(';');
         this.responsables = arr;
-        this.Id_Detalle = req.Id;
+        this.Id_Detalle = req.id;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -158,7 +155,7 @@ export class DetallesComponent implements OnInit {
   }
 
   delet(){
-    this.DetallesService.delete(this.Id_Detalle).subscribe({
+    this.DetallesService.delete(this.masterId).subscribe({
       next: (req:any) => {
         console.log(req)
         this.form.reset();

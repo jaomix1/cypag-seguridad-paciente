@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
+import { MatPaginator } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-oportunidades-form',
@@ -11,6 +12,10 @@ import {MatChipInputEvent} from '@angular/material/chips';
   styleUrls: ['./oportunidades-form.component.css']
 })
 export class OportunidadesFormComponent implements OnInit {
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+  dataSource: any;
+
+  displayedColumns = ['Codigo','Descripcion', 'Responsable'];
 
   constructor(
     public mainService: MainService,
@@ -18,8 +23,7 @@ export class OportunidadesFormComponent implements OnInit {
   ) { }
 
   form = new FormGroup({
-    Id_Detalle: new FormControl(''),
-    Ins: new FormControl('5 M´s'),
+    Id_Master: new FormControl(''),
     Code: new FormControl(''),
     Cual: new FormControl(''),
     Responsables: new FormControl(''),
@@ -63,4 +67,19 @@ export class OportunidadesFormComponent implements OnInit {
     }
   }
 
+  mejoras: any[] = [];
+
+  agregar() {
+    if(this.form.valid){
+      let object = {
+        Codigo_Externo: this.form.value.Code,
+        Descripcion: this.form.value.Cual,
+        Responsable: this.responsables
+      }
+      this.mejoras.push(object);
+      this.form.reset();
+      this.responsables = [];
+      console.log(this.mejoras)
+    }
+  }
 }

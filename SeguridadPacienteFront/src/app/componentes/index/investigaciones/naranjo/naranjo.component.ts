@@ -35,6 +35,8 @@ export class NaranjoComponent implements OnInit {
     Naranjo_9: new FormControl(''),
     Naranjo_10: new FormControl(''),
     Naranjo_Observaciones: new FormControl(''),
+    Evento_Adverso_Tipo: new FormControl(''),
+    Evento_Adverso_Estado: new FormControl(''),
   });
 
   ngOnInit(): void {
@@ -68,11 +70,11 @@ export class NaranjoComponent implements OnInit {
   }
 
   tipo(option: string){
-    console.log(option)
+    this.form.controls['Evento_Adverso_Tipo'].setValue(option);
   }
 
   estado(option: string){
-    console.log(option)
+    this.form.controls['Evento_Adverso_Estado'].setValue(option);
   }
 
   mejoras(){

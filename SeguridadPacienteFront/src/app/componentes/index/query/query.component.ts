@@ -103,7 +103,6 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
         next: (req) => {
           this.datos = req;
           this.dataSource = this.datos;
-          console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();
           //this.cancelar();

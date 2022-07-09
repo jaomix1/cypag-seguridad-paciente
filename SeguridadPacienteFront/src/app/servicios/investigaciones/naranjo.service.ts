@@ -21,7 +21,7 @@ export class NaranjoService extends BaseService {
       .pipe(
         map((response) => response.data),
         tap((a) => {
-          this.logs('crear registro de MSs');
+          this.logs('crear registro de Naranjo');
           this.logs(a);
         }),
         catchError(this.errorMgmt)

@@ -10,16 +10,29 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class OpportunityService extends BaseService {
-  private apiUrl: string = '/api/opportunity/';
+  private apiUrl: string = '/api/master/mejoras/';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
 
-  getAll(): Observable<Opportunity[]> {
+  getAll(data:any): Observable<any[]> {
     return this.http
-      .get<ResponseContract<Opportunity[]>>(this._baseUrl + this.apiUrl)
+      .post<any[]>(this._baseUrl + this.apiUrl + "registros", data)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
+        tap((a) => {
+          this.logs('consulta de Oportunidades');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
+
+  get(dato: string): Observable<any> {
+    return this.http
+      .get<any>(this._baseUrl + this.apiUrl + dato)
+      .pipe(
+        map((response) => response),
         tap((a) => {
           this.logs('consulta de Opportunity');
           this.logs(a);
@@ -28,22 +41,9 @@ export class OpportunityService extends BaseService {
       );
   }
 
-  get(dato: string): Observable<Opportunity> {
+  create(data: any): Observable<any> {
     return this.http
-      .get<ResponseContract<Opportunity>>(this._baseUrl + this.apiUrl + dato)
-      .pipe(
-        map((response) => response.data),
-        tap((a) => {
-          this.logs('consulta de Opportunity');
-          this.logs(a);
-        }),
-        catchError(this.errorMgmt)
-      );
-  }
-
-  create(data: any): Observable<Opportunity> {
-    return this.http
-      .post<ResponseContract<Opportunity>>(this._baseUrl + this.apiUrl, data)
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
       .pipe(
         map((response) => response.data),
         tap((a) => {
