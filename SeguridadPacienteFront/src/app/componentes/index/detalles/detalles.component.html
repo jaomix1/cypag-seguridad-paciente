@@ -56,31 +56,31 @@
       <h2 >Selecciona un tipo</h2>
       <mat-grid-list cols="2" rowHeight="40px">
         <mat-grid-tile>
-          <button mat-button class="bg-secondary" (click)="obtenerTipo('Farmacovigilancia')"
+          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Farmacovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Farmacovigilancia'
           }"
-          > Farmacovigilancia </button>
+          > Farmacovigilancia </a>
         </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Gestion Clinica')"
+        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Gestion Clinica')"
           [ngClass]="{
             'bg-primary': type == 'Gestion_Clinica'
           }"
-          > Gestión clinica </button> </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Reactivovigilancia')"
+          > Gestión clinica </a> </mat-grid-tile>
+        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Reactivovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Reactivovigilancia'
           }"
-          >  Reactivovigilancia </button> </mat-grid-tile>
-        <mat-grid-tile> <button mat-button class="bg-secondary" (click)="obtenerTipo('Tecnovigilancia')"
+          >  Reactivovigilancia </a> </mat-grid-tile>
+        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Tecnovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Tecnovigilancia'
           }"
-          >  Tecnovigilancia </button> </mat-grid-tile>
+          >  Tecnovigilancia </a> </mat-grid-tile>
       </mat-grid-list>
       <br>
       <h2 >Responsables de la investigacion</h2>
-      <mat-form-field appearance="outline">
+      <!-- <mat-form-field appearance="outline">
         <mat-label>¿Quién o quienes?</mat-label>
         <mat-chip-list #chipList aria-label="responsables">
           <mat-chip *ngFor="let responsable of responsables" (removed)="remove(responsable)">
@@ -90,11 +90,43 @@
             </button>
           </mat-chip>
           <input placeholder="nuevo.."
+            [matAutocomplete]="auto"
             [matChipInputFor]="chipList"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
             [matChipInputAddOnBlur]="addOnBlur"
             (matChipInputTokenEnd)="add($event)">
         </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{user}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field> -->
+      <mat-form-field class="example-chip-list" appearance="outline">
+        <mat-label>¿Quién o quienes?</mat-label>
+        <mat-chip-list #chipList aria-label="User selection">
+          <mat-chip
+            *ngFor="let user of responsables"
+            (removed)="remove(user)">
+            {{user}}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="Seleccione....."
+            #UserInput
+            [formControl]="UserCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="add($event)">
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
+            {{user.Usuario}}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
       <div class="row">
         <div class="col">

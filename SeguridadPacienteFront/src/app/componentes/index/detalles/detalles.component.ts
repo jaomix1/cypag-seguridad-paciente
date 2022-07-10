@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MsPqComponent } from '../investigaciones/ms-pq/ms-pq.component';
 import { NaranjoComponent } from '../investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from '../investigaciones/londres/londres.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,7 +13,9 @@ import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
 import { UsersService } from 'src/app/servicios/usuarios/users.service';
-
+import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
+import {map, startWith} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-detalles',
@@ -30,13 +31,18 @@ export class DetallesComponent implements OnInit {
   tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  responsables: any = [];
-  data: any = "Esta es una data de prueba";
+  responsables: any[] = [];
+  data: any;
   type: any;
 
+  UserCtrl = new FormControl('');
+  filteredUsers: Observable<any[]>;
+  users: any[] = [];
+
+  @ViewChild('UserInput')
+  UserInput!: ElementRef<HTMLInputElement>;
   form = new FormGroup({
     Id_Master: new FormControl("", [Validators.required]),
-    Tipo_Investigacion: new FormControl("Investigaciones_M5", [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
@@ -56,6 +62,11 @@ export class DetallesComponent implements OnInit {
       this.masterId = guid;
       this.obtenerMaster(this.masterId)
       this.getResponsables();
+
+      this.filteredUsers = this.UserCtrl.valueChanges.pipe(
+        startWith(null),
+        map((user: any | null) => (user ? this._filter(user) : this.users.slice())),
+      );
     }
 
   ngOnInit(): void {
@@ -81,7 +92,6 @@ export class DetallesComponent implements OnInit {
     this.DetallesService.get(this.masterId).subscribe({
       next: (req) => {
         console.log("data detalle", req)
-        this.form.controls['Tipo_Investigacion'].setValue(req.Tipo_Investigacion);
         this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
         this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
         this.form.controls['Triada_Atencion_Salud'].setValue(req.Triada_Atencion_Salud);
@@ -100,8 +110,7 @@ export class DetallesComponent implements OnInit {
   getResponsables() {
     this.UsersService.get().subscribe({
       next: (req) => {
-        console.log("data users", req)
-        this.responsables = req;
+        this.users = req;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -115,22 +124,7 @@ export class DetallesComponent implements OnInit {
   }
 
   submit(){
-
-    //Saber el tipo de investigacion depende la triada
-    if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-      // this.form.controls['Tipo_Investigacion'].setValue(1);
-    }else{
-      if(this.data.Preg_En_Atencion && this.data.Preg_Involuntario && !this.data.Preg_Genero_Dano){
-        // this.form.controls['Tipo_Investigacion'].setValue(2);
-      }else{
-        if(!this.data.Preg_En_Atencion && this.data.Preg_Involuntario && this.data.Preg_Genero_Dano){
-          // this.form.controls['Tipo_Investigacion'].setValue(3);
-        }else{
-          // this.form.controls['Tipo_Investigacion'].setValue(4);
-        }
-      }
-    }
-
+    this.form.controls['Tipo_Detalle'].setValue(this.type);
     //responsables
     let string;
     string = new String(this.responsables)
@@ -138,6 +132,7 @@ export class DetallesComponent implements OnInit {
     this.form.controls['Responsables'].setValue(string);
     console.log(this.form.value)
     if(this.form.valid){
+    console.log("tra")
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
           console.log(req)
@@ -204,8 +199,16 @@ export class DetallesComponent implements OnInit {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    if (value) {
-      this.responsables.push(value);
+    let findUser = this.users.find(user => user.Usuario == value);
+    if (findUser) {
+      let existUser = this.responsables.find(a => a === value);
+      if(!existUser) {
+        this.responsables.push(value);
+      }else{
+        this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
+      }
+    }else{
+      this.mainService.showToast('Este usuario no existe', 'error')
     }
     event.chipInput!.clear();
   }
@@ -215,6 +218,23 @@ export class DetallesComponent implements OnInit {
     if (index >= 0) {
       this.responsables.splice(index, 1);
     }
+  }
+
+  selected(event: MatAutocompleteSelectedEvent): void {
+    let existUser = this.responsables.find(a => a === event.option.viewValue);
+    if(!existUser) {
+      this.responsables.push(event.option.viewValue);
+    }else{
+      this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
+    }
+    this.UserInput.nativeElement.value = '';
+    this.UserCtrl.setValue(null);
+  }
+
+  private _filter(value: any): any[] {
+    const filterValue = value.toLowerCase();
+
+    return this.users.filter(user => user.Usuario.toLowerCase().includes(filterValue));
   }
 
   pqms(){
