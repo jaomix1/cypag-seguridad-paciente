@@ -45,7 +45,7 @@ export class OpportunityService extends BaseService {
     return this.http
       .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
           this.logs('crear Opportunity');
           this.logs(a);

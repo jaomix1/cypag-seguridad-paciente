@@ -1,10 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
+import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-oportunidades-form',
@@ -14,33 +16,49 @@ import { MatPaginator } from '@angular/material/paginator';
 export class OportunidadesFormComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
+  private masterId : string;
+  mejoras: any[] = [];
+  responsables: any = [];
 
   displayedColumns = ['Codigo','Descripcion', 'Responsable'];
 
   constructor(
     public mainService: MainService,
-    public OpportunityService: OpportunityService
-  ) { }
+    public OpportunityService: OpportunityService,
+    public UsersService: UsersService,
+    @Inject(MAT_DIALOG_DATA) public guid: string,
+    public dialogRef: MatDialogRef<OportunidadesFormComponent>,)
+  {
+    this.masterId = guid;
+  }
 
   form = new FormGroup({
-    Id_Master: new FormControl(''),
-    Code: new FormControl(''),
-    Cual: new FormControl(''),
-    Responsables: new FormControl(''),
+    Code: new FormControl(null, [Validators.required]),
+    Cual: new FormControl(null, [Validators.required]),
+    Responsables: new FormControl(null, [Validators.required]),
   });
 
-  addOnBlur = true;
-  readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  responsables: any = [];
 
   ngOnInit(): void {
+    this.getResponsables();
   }
 
 
+  getResponsables() {
+    this.UsersService.get().subscribe({
+      next: (req) => {
+        console.log("data users", req)
+        this.responsables = req;
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      }
+    });
+  }
+
   submit() {
-    console.log(this.form.value)
-    if (this.form.valid) {
-      this.OpportunityService.create(this.form.value).subscribe({
+    if (this.mejoras.length > 0) {
+      this.OpportunityService.create(this.mejoras).subscribe({
         next: (req:any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
         },
@@ -51,35 +69,25 @@ export class OportunidadesFormComponent implements OnInit {
     }
   }
 
-
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    if (value) {
-      this.responsables.push(value);
-    }
-    event.chipInput!.clear();
-  }
-
-  remove(t: any): void {
-    const index = this.responsables.indexOf(t);
-    if (index >= 0) {
-      this.responsables.splice(index, 1);
-    }
-  }
-
-  mejoras: any[] = [];
-
   agregar() {
     if(this.form.valid){
       let object = {
+        Id_Master: this.masterId,
         Codigo_Externo: this.form.value.Code,
         Descripcion: this.form.value.Cual,
-        Responsable: this.responsables
+        Responsable: this.form.value.Responsables
       }
       this.mejoras.push(object);
       this.form.reset();
-      this.responsables = [];
       console.log(this.mejoras)
     }
+  }
+
+  validate(nameInput: string) {
+    return this.mainService.validateInput(this.form, nameInput);
+  }
+
+  check(nameInput: string) {
+    return this.mainService.checkInput(this.form, nameInput);
   }
 }

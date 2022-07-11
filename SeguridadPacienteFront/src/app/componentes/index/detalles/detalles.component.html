@@ -1,24 +1,24 @@
 <h1 class="center"><b>Clasificación</b></h1>
 <div class="row">
   <div class="col">
-    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data!.Fecha_Incidente}} {{data!.Hora_Incidente}}</p>
-    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data!.Nombre_Quien_Reporta}}</p>
-    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data!.Cargo_Quien_Reporta}}</p>
-    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data!.Empresa_Join ? data.Empresa_Join.Nombre : ""}}</p>
-    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data!.Sede_Join ? data.Sede_Join.Nombre : ""}}</p>
-    <p> <span> <b>Servicio:</b> </span> {{data!.Servicio_Id_Join ? data.Servicio_Id_Join.Descripcion : ""}}</p>
-    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data!.Nombre_Paciente}}</p>
-    <p> <span> <b>Identificación:</b> </span> {{data!.Tipo_Id_Join ? data.Tipo_Id_Join.Descripcion : ""}} {{data!.Numero_Id}}</p>
-    <p> <span> <b>Sexo:</b> </span> {{data!.Sexo}}</p>
-    <p> <span> <b>Edad:</b> </span> {{data!.Edad}}</p>
-    <p> <span> <b>Novedad:</b> </span> {{data!.Tipo_Novedad_Join ? data!.Tipo_Novedad_Join.Descripcion : ""}}</p>
-    <p> <span> <b>¿Qué Pasó?:</b> </span> {{data!.Preg_Que}}</p>
-    <p> <span> <b>¿Comó Pasó?:</b> </span> {{data!.Preg_Como}}</p>
-    <p> <span> <b>Testigos:</b> </span> {{data!.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>
-    <p> <span> <b>Producido durante el proceso de atención:</b> </span> {{data!.Preg_En_Atencion ? "Sí" : "No"}}</p>
-    <p> <span> <b>Involuntario:</b> </span> {{data!.Preg_Involuntario ? "Sí" : "No"}}</p>
-    <p> <span> <b>Daños en el paciente:</b> </span> {{data!.Preg_Genero_Dano ? "Severidad: (" + data!.Preg_Dano_Severidad + ") " + data!.Preg_Dano_Generado : "No se genero daño en el paciente"}}</p>
-    <p> <span> <b>Accion tomada:</b> </span> {{data!.Accion_Tomada}}</p>
+    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data?.Fecha_Incidente}} {{data?.Hora_Incidente}}</p>
+    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data?.Nombre_Quien_Reporta}}</p>
+    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data?.Cargo_Quien_Reporta}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data?.Empresa_Join ? data.Empresa_Join.Nombre : ""}}</p>
+    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data?.Sede_Join ? data.Sede_Join.Nombre : ""}}</p>
+    <p> <span> <b>Servicio:</b> </span> {{data?.Servicio_Id_Join ? data.Servicio_Id_Join.Descripcion : ""}}</p>
+    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data?.Nombre_Paciente}}</p>
+    <p> <span> <b>Identificación:</b> </span> {{data?.Tipo_Id_Join ? data.Tipo_Id_Join.Descripcion : ""}} {{data?.Numero_Id}}</p>
+    <p> <span> <b>Sexo:</b> </span> {{data?.Sexo}}</p>
+    <p> <span> <b>Edad:</b> </span> {{data?.Edad}}</p>
+    <p> <span> <b>Novedad:</b> </span> {{data?.Tipo_Novedad_Join ? data!.Tipo_Novedad_Join.Descripcion : ""}}</p>
+    <p> <span> <b>¿Qué Pasó?:</b> </span> {{data?.Preg_Que}}</p>
+    <p> <span> <b>¿Comó Pasó?:</b> </span> {{data?.Preg_Como}}</p>
+    <p> <span> <b>Testigos:</b> </span> {{data?.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>
+    <p> <span> <b>Producido durante el proceso de atención:</b> </span> {{data?.Preg_En_Atencion ? "Sí" : "No"}}</p>
+    <p> <span> <b>Involuntario:</b> </span> {{data?.Preg_Involuntario ? "Sí" : "No"}}</p>
+    <p> <span> <b>Daños en el paciente:</b> </span> {{data?.Preg_Genero_Dano ? "Severidad: (" + data!.Preg_Dano_Severidad + ") " + data!.Preg_Dano_Generado : "No se genero daño en el paciente"}}</p>
+    <p> <span> <b>Accion tomada:</b> </span> {{data?.Accion_Tomada}}</p>
 
   </div>
   <div class="col">
@@ -28,7 +28,7 @@
         <div class="col">
           <mat-label>Involuntario</mat-label>
           <section class="example-section">
-            <mat-radio-group formControlName="Triada_Involuntario">
+            <mat-radio-group formControlName="Triada_Involuntario" [disabled]="realizado">
               <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
@@ -37,7 +37,7 @@
         <div class="col">
           <mat-label>Daño en el paciente</mat-label>
           <section class="example-section">
-            <mat-radio-group formControlName="Triada_Genero_Dano">
+            <mat-radio-group formControlName="Triada_Genero_Dano" [disabled]="realizado">
               <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
@@ -46,7 +46,7 @@
         <div class="col">
           <mat-label>Atencion en salud</mat-label>
           <section class="example-section">
-            <mat-radio-group formControlName="Triada_Atencion_Salud">
+            <mat-radio-group formControlName="Triada_Atencion_Salud" [disabled]="realizado">
               <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
               <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
             </mat-radio-group>
@@ -56,23 +56,26 @@
       <h2 >Selecciona un tipo</h2>
       <mat-grid-list cols="2" rowHeight="40px">
         <mat-grid-tile>
-          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Farmacovigilancia')"
+          <a [disabled]="realizado" mat-button class="bg-secondary full-width" (click)="obtenerTipo('Farmacovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Farmacovigilancia'
           }"
           > Farmacovigilancia </a>
         </mat-grid-tile>
-        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Gestion Clinica')"
+        <mat-grid-tile> 
+          <a [disabled]="realizado" mat-button class="bg-secondary full-width" (click)="obtenerTipo('Gestion Clinica')"
           [ngClass]="{
             'bg-primary': type == 'Gestion_Clinica'
           }"
           > Gestión clinica </a> </mat-grid-tile>
-        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Reactivovigilancia')"
+        <mat-grid-tile> 
+          <a  [disabled]="realizado"mat-button class="bg-secondary full-width" (click)="obtenerTipo('Reactivovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Reactivovigilancia'
           }"
           >  Reactivovigilancia </a> </mat-grid-tile>
-        <mat-grid-tile> <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Tecnovigilancia')"
+        <mat-grid-tile> 
+          <a [disabled]="realizado" mat-button class="bg-secondary full-width" (click)="obtenerTipo('Tecnovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Tecnovigilancia'
           }"
@@ -104,7 +107,7 @@
       </mat-form-field> -->
       <mat-form-field class="example-chip-list" appearance="outline">
         <mat-label>¿Quién o quienes?</mat-label>
-        <mat-chip-list #chipList aria-label="User selection">
+            <mat-chip-list #chipList aria-label="User selection"  [disabled]="realizado">
           <mat-chip
             *ngFor="let user of responsables"
             (removed)="remove(user)">
@@ -114,6 +117,7 @@
             </button>
           </mat-chip>
           <input
+            [disabled]="realizado"
             placeholder="Seleccione....."
             #UserInput
             [formControl]="UserCtrl"
@@ -128,7 +132,7 @@
           </mat-option>
         </mat-autocomplete>
       </mat-form-field>
-      <div class="row">
+      <div class="row" *ngIf="!realizado">
         <div class="col">
           <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
         </div>
@@ -140,13 +144,19 @@
   </div>
 </div>
 <div class="row" *ngIf="realizado">
-  <div class="col">
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == null">
     <button mat-button (click)="pqms()" class="bg-secondary"> Pq'Ms </button>
   </div>
-  <div class="col">
+  <div class="col"  *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo'">
     <button mat-button (click)="naranjo()" class="bg-secondary"> Naranjo </button>
   </div>
-  <div class="col">
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'">
     <button mat-button (click)="londres()" class="bg-secondary"> Londres </button>
+  </div>
+  <div class="col"  *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5'">
+    <button mat-button (click)="m5()" class="bg-secondary"> 5 Ms </button>
+  </div>
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5'">
+    <button mat-button (click)="p5()" class="bg-secondary"> 5 Porque's </button>
   </div>
 </div>

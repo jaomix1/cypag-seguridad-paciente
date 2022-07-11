@@ -9,6 +9,7 @@ import { QueryComponent } from './query/query.component';
 
 import { TablaComponent } from './demos/tabla/tabla.component';
 import { FormularioComponent } from './demos/formulario/formulario.component';
+import { PdfComponent } from './investigaciones/londres/pdf/pdf.component';
 
 const routes: Routes = [
   {
@@ -32,6 +33,12 @@ const routes: Routes = [
       {
           path: 'form',
           component: FormularioComponent,
+          //canActivate: [Acceso]
+      }
+      ,
+      {
+          path: 'pdf',
+          component: PdfComponent,
           //canActivate: [Acceso]
       }
     ]

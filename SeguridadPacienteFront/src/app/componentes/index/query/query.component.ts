@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
@@ -19,7 +19,6 @@ import { DetallesComponent } from '../detalles/detalles.component';
 })
 export class QueryComponent extends BaseFormComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  dataSource: any;
 
   displayedColumns = ['fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
@@ -47,7 +46,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   }
 
   ngAfterViewInit(): void {
-    // this.dataSource.paginator = this.paginator;
+    this.datos.paginator = this.paginator;
     this.cargaNovedades();
     this.cargaEmpresas();
   }
@@ -102,7 +101,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           this.datos = req;
-          this.dataSource = this.datos;
+          console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();
           //this.cancelar();

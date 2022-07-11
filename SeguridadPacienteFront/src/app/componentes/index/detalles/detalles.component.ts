@@ -16,6 +16,8 @@ import { UsersService } from 'src/app/servicios/usuarios/users.service';
 import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
 import {map, startWith} from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { M5Component } from '../investigaciones/m5/m5.component';
+import { P5Component } from '../investigaciones/p5/p5.component';
 
 @Component({
   selector: 'app-detalles',
@@ -34,6 +36,8 @@ export class DetallesComponent implements OnInit {
   responsables: any[] = [];
   data: any;
   type: any;
+  detalle: any;
+  Alldata: any;
 
   UserCtrl = new FormControl('');
   filteredUsers: Observable<any[]>;
@@ -76,6 +80,7 @@ export class DetallesComponent implements OnInit {
   obtenerMaster(id : string){
     this.QueryService.get(id).subscribe({
       next: (req) => {
+        this.Alldata = req;
         this.data= req.Master;
         if(req.Detalle){
           this.realizado = true;
@@ -100,6 +105,7 @@ export class DetallesComponent implements OnInit {
         let arr = req.Responsables.split(';');
         this.responsables = arr;
         this.Id_Detalle = req.id;
+        this.detalle = req;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -132,7 +138,6 @@ export class DetallesComponent implements OnInit {
     this.form.controls['Responsables'].setValue(string);
     console.log(this.form.value)
     if(this.form.valid){
-    console.log("tra")
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
           console.log(req)
@@ -157,6 +162,7 @@ export class DetallesComponent implements OnInit {
         this.responsables = []
         this.type = "";
         this.mainService.showToast('Eliminado Correctamente');
+        this.realizado = false;
       },
       error: (err: string) => {
         console.log(err)
@@ -168,33 +174,35 @@ export class DetallesComponent implements OnInit {
   }
 
   obtenerTipo(id : string){
-    this.dialog.open(DialogConfirmacionComponent, {
-      disableClose: true,
-      width: '300px',
-      data: {message: '¿Estas seguro de escoger el tipo: '+ id +'?'}
-    })
-    .afterClosed()
-    .subscribe((confirmado: Boolean) => {
-      if (confirmado) {
-        switch (id) {
-          case "Farmacovigilancia":
-            this.type = "Farmacovigilancia"
-            break;
-          case "Gestion Clinica":
-            this.type = "Gestion_Clinica"
-            break;
-          case "Reactivovigilancia":
-            this.type = "Reactivovigilancia"
-            break;
-          case "Tecnovigilancia":
-            this.type = "Tecnovigilancia"
-            break;
-          default:
-            console.log('default');
+    if(!this.realizado){
+      this.dialog.open(DialogConfirmacionComponent, {
+        disableClose: true,
+        width: '300px',
+        data: {message: '¿Estas seguro de escoger el tipo: '+ id +'?'}
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if (confirmado) {
+          switch (id) {
+            case "Farmacovigilancia":
+              this.type = "Farmacovigilancia"
+              break;
+            case "Gestion Clinica":
+              this.type = "Gestion_Clinica"
+              break;
+            case "Reactivovigilancia":
+              this.type = "Reactivovigilancia"
+              break;
+            case "Tecnovigilancia":
+              this.type = "Tecnovigilancia"
+              break;
+            default:
+              console.log('default');
+          }
+          this.form.controls['Tipo_Detalle'].setValue(this.type);
         }
-        this.form.controls['Tipo_Detalle'].setValue(this.type);
-      }
-    });
+      });
+    }    
   }
 
   add(event: MatChipInputEvent): void {
@@ -249,22 +257,30 @@ export class DetallesComponent implements OnInit {
   }
 
   naranjo(){
+    const data = {
+      id_detalle: this.Id_Detalle,
+      all_data: this.Alldata
+    }
     const dialogRef = this.dialog.open(NaranjoComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,
-      data: this.Id_Detalle
+      data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
   }
 
   londres(){
+    const data = {
+      id_detalle: this.Id_Detalle,
+      all_data: this.Alldata
+    }
     const dialogRef = this.dialog.open(LondresComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,
-      data: this.Id_Detalle
+      data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -276,6 +292,36 @@ export class DetallesComponent implements OnInit {
       height: '100%',
       disableClose: false,
       data: this.Id_Detalle
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  m5(){
+    const data = {
+      id_detalle: this.Id_Detalle,
+      all_data: this.Alldata
+    }
+    const dialogRef = this.dialog.open(M5Component, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+      data: data
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  p5(){
+    const data = {
+      id_detalle: this.Id_Detalle,
+      all_data: this.Alldata
+    }
+    const dialogRef = this.dialog.open(P5Component, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+      data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

@@ -28,4 +28,17 @@ export class PqService extends BaseService {
       );
   }
 
+  borrar(id: string): Observable<any> {
+    return this.http
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "/borrar", {Id_Detalle: id})
+      .pipe(
+        map((response) => response.data),
+        tap((a) => {
+          this.logs('borrar registro de Porques');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
+
 }

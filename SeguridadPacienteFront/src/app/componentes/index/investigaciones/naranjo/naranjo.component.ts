@@ -17,9 +17,9 @@ export class NaranjoComponent implements OnInit {
     public NaranjoService: NaranjoService,
     public dialog: MatDialog,
     public dialogRef: MatDialogRef<NaranjoComponent>,
-    @Inject(MAT_DIALOG_DATA) public guid: string,
+    @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    this.form.controls['Id_Detalle'].setValue(this.guid);
+    this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
   }
 
   form = new FormGroup({
@@ -38,9 +38,17 @@ export class NaranjoComponent implements OnInit {
     Evento_Adverso_Tipo: new FormControl(''),
     Evento_Adverso_Estado: new FormControl(''),
   });
+  realizado: boolean = false;
+  naranjo:any;
 
   ngOnInit(): void {
-    console.log(this.guid)
+    console.log(this.data)
+    if (this.data.all_data.Naranjo != null){
+      this.naranjo = this.data.all_data.Naranjo;
+      this.realizado = true;
+    }else{
+      this.realizado = false;
+    }
   }
 
   submit() {
@@ -84,6 +92,23 @@ export class NaranjoComponent implements OnInit {
       disableClose: false,
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  delet(){
+    this.NaranjoService.borrar(this.data?.id_detalle).subscribe({
+      next: (req:any) => {
+        console.log(req)
+        this.form.reset();
+        this.mainService.showToast('Eliminado Correctamente');
+        this.realizado = false;
+      },
+      error: (err: string) => {
+        console.log(err)
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => {
+      }
     });
   }
 }
