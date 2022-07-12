@@ -12,6 +12,7 @@ const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
 const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const MasterModel = require("../../models/forms/master");
+const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
 
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
@@ -93,11 +94,12 @@ exports.getAllData = async (req, res) => {
   try {
     let [
       detalleData,
+      opcionesMejora,
       InvestigacionM5Data,
       InvestigacionP5Data,
       InvestigacionNaranjoData,
       InvestigacionLondresData,
-    ] = [null, null, null, null, null];
+    ] = [null, null, null, null, null, null];
 
     const masterData = await MasterModel.findOne({
       where: { Id: Id_Master, Estado: "ACT" },
@@ -136,6 +138,11 @@ exports.getAllData = async (req, res) => {
         where: { Id_Master, Estado: "ACT" },
         raw: true,
       });
+
+      opcionesMejora = await OportunidadesMejoraModel.findAll({
+        where: { Id_Master, Estado: "ACT" },
+        raw: true,
+      });
     }
 
     if (detalleData) {
@@ -162,6 +169,7 @@ exports.getAllData = async (req, res) => {
     const objFinal = {
       Master: masterData,
       Detalle: detalleData,
+      OpcionesMejora: opcionesMejora,
       M5: InvestigacionM5Data,
       P5: InvestigacionP5Data,
       Naranjo: InvestigacionNaranjoData,
