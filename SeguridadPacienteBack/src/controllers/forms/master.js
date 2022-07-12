@@ -136,7 +136,14 @@ exports.getAllData = async (req, res) => {
     if (masterData) {
       detalleData = await DetallesModel.findOne({
         where: { Id_Master, Estado: "ACT" },
+        include: [{
+          model: TiposNovedadModel,
+          as: "Tipo_Novedad_Join",
+          where: { Estado: "ACT" },
+          attributes: ["Descripcion"],
+        }],
         raw: true,
+        nest: true,
       });
 
       opcionesMejora = await OportunidadesMejoraModel.findAll({

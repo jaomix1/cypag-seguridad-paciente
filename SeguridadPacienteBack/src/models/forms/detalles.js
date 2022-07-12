@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
+const TiposNovedadModel = require("../combos/tiposNovedad");
 
 class DetallesModel extends Model {}
 
@@ -18,6 +19,7 @@ DetallesModel.init(
     Triada_Involuntario: { type: DataTypes.BOOLEAN, allowNull: true },
     Triada_Genero_Dano: { type: DataTypes.BOOLEAN, allowNull: true },
     Triada_Atencion_Salud: { type: DataTypes.BOOLEAN, allowNull: true },
+    Tipo_Novedad: { type: DataTypes.INTEGER, allowNull: false },
     Tipo_Detalle: { type: DataTypes.STRING(40), allowNull: true },
     Responsables: { type: DataTypes.STRING(500), allowNull: true },
     Estado: {
@@ -35,5 +37,7 @@ DetallesModel.init(
     timestamps: false,
   },
 );
+
+DetallesModel.belongsTo(TiposNovedadModel, { foreignKey: "Tipo_Novedad", as: "Tipo_Novedad_Join", onDelete: "NO ACTION" });
 
 module.exports = DetallesModel;

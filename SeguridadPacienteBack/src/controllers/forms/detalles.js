@@ -5,6 +5,7 @@ const InvestigacionesM5Model = require("../../models/forms/investigaciones5m");
 const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
+const TiposNovedadModel = require("../../models/combos/tiposNovedad");
 
 exports.createDetail = async (req, res) => {
   const entry = { ...req.body };
@@ -34,6 +35,12 @@ exports.getDetail = async (req, res) => {
   try {
     const data = await DetallesModel.findOne({
       where: { Id_Master, Estado: "ACT" },
+      include: [{
+        model: TiposNovedadModel,
+        as: "Tipo_Novedad_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
+      }],
     });
     return res.status(200).json(data);
   } catch (err) {
