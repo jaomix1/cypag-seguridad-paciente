@@ -18,6 +18,9 @@ import {map, startWith} from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { M5Component } from '../investigaciones/m5/m5.component';
 import { P5Component } from '../investigaciones/p5/p5.component';
+import { BaseFormComponent } from '../../baseComponent';
+import { ComboService } from 'src/app/servicios/combo/combo.service';
+import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 
 @Component({
   selector: 'app-detalles',
@@ -26,11 +29,10 @@ import { P5Component } from '../investigaciones/p5/p5.component';
 })
 
 
-export class DetallesComponent implements OnInit {
+export class DetallesComponent extends BaseFormComponent implements OnInit {
   Id_Detalle: any;
   private masterId : string;
   realizado: boolean = false;
-  tamano : any = { col : 1, row: 1};
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   responsables: any[] = [];
@@ -38,23 +40,25 @@ export class DetallesComponent implements OnInit {
   type: any;
   detalle: any;
   Alldata: any;
-
   UserCtrl = new FormControl('');
   filteredUsers: Observable<any[]>;
   users: any[] = [];
-
+  novedades: ComboD[] = [];
   @ViewChild('UserInput')
   UserInput!: ElementRef<HTMLInputElement>;
+
   form = new FormGroup({
     Id_Master: new FormControl("", [Validators.required]),
     Triada_Involuntario: new FormControl(null, [Validators.required]),
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
     Tipo_Detalle: new FormControl(null, [Validators.required]),
+    Tipo_Novedad: new FormControl(null, [Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
   });
 
   constructor(
+    private comboService: ComboService,
     public mainService: MainService,
     public UsersService: UsersService,
     public DetallesService: DetallesService,
@@ -63,10 +67,10 @@ export class DetallesComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialogRef: MatDialogRef<DetallesComponent>,)
     {
+      super()
       this.masterId = guid;
       this.obtenerMaster(this.masterId)
-      this.getResponsables();
-
+      this.loadingMain = true;
       this.filteredUsers = this.UserCtrl.valueChanges.pipe(
         startWith(null),
         map((user: any | null) => (user ? this._filter(user) : this.users.slice())),
@@ -77,15 +81,23 @@ export class DetallesComponent implements OnInit {
     this.form.controls['Id_Master'].setValue(this.masterId);
   }
 
+  ngAfterViewInit(): void {
+    this.getResponsables();
+    this.cargaNovedades();
+  }
+
   obtenerMaster(id : string){
     this.QueryService.get(id).subscribe({
       next: (req) => {
         this.Alldata = req;
         this.data= req.Master;
+        this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
         if(req.Detalle){
           this.realizado = true;
+          this.form.disable()
           this.getDetalle();
         }
+        this.loadingMain = false;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -132,6 +144,7 @@ export class DetallesComponent implements OnInit {
   submit(){
     this.form.controls['Id_Master'].setValue(this.masterId);
     this.form.controls['Tipo_Detalle'].setValue(this.type);
+
     //responsables
     let string;
     string = new String(this.responsables)
@@ -139,20 +152,28 @@ export class DetallesComponent implements OnInit {
     this.form.controls['Responsables'].setValue(string);
 
     console.log(this.form.value)
+
     if(this.form.valid){
+      this.loadingMain = true;
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
           console.log(req)
           this.mainService.showToast('Guardado Correctamente');
           this.realizado = true;
+          this.form.disable();
+          this.loadingMain = false;
         },
         error: (err: any) => {
           console.log(err)
           this.mainService.showToast(err.error, 'error');
+          this.loadingMain = false;
         },
         complete: () => {
+          this.loadingMain = false;
         }
       });
+    }else{
+      this.mainService.showToast("Por favor llenar todos los campos", 'error');
     }
 
   }
@@ -166,6 +187,8 @@ export class DetallesComponent implements OnInit {
         this.type = "";
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.form.enable();
+        this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
       },
       error: (err: string) => {
         console.log(err)
@@ -328,5 +351,26 @@ export class DetallesComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
+  }
+
+  cargaNovedades(){
+    this.comboService.getNovedades().subscribe({
+      next: (req) => {
+        this.novedades = req;
+      },
+      error: (err: string) => {
+        this.loadingMain = false;
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => (this.loadingMain = false),
+    })
+  }
+
+  validate(nameInput: string) {
+    return this.mainService.validateInput(this.form, nameInput);
+  }
+
+  check(nameInput: string) {
+    return this.mainService.checkInput(this.form, nameInput);
   }
 }

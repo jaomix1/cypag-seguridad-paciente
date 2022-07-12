@@ -67,6 +67,7 @@ export class LondresComponent implements OnInit {
     if (this.data.all_data.Londres != null){
       this.londres = this.data.all_data.Londres;
       this.realizado = true;
+      this.form.disable()
       this.setData();
     }else{
       this.realizado = false;
@@ -182,6 +183,7 @@ export class LondresComponent implements OnInit {
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.form.enable()
       },
       error: (err: string) => {
         console.log(err)

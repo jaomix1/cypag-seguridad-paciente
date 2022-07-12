@@ -25,6 +25,8 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
   responsables: any;
   datos: any = [];
+  maxDate: Date;
+
 
   form = new FormGroup({
     Id: new FormControl(null),
@@ -35,7 +37,6 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
     Responsable: new FormControl(null),
   });
 
-  maxDate: Date;
 
   constructor(
     private OpportunityService: OpportunityService,
