@@ -20,12 +20,14 @@ import { DetallesComponent } from '../detalles/detalles.component';
 export class QueryComponent extends BaseFormComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns = ['fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
+  displayedColumns = ['Codigo','fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
   novedades: ComboD[] = [];
   empresas: Combo[] = [];
   sedes: Combo[] = [];
   datos: any = [];
+
+  maxDate: Date;
 
   myForm = new FormGroup({
     Codigo: new FormControl(null, [Validators.maxLength(17), Validators.pattern(this.number)]),
@@ -41,8 +43,11 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     private QueryService: QueryService,
     public mainService: MainService,
     private comboService: ComboService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog
+  ) {
     super();
+
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {

@@ -452,6 +452,12 @@
   </div>
 </form>
 <div class="row my-3">
+  <div class="col" *ngIf="realizado">
+    <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
+  </div>
+  <div class="col">
+    <button type='button' mat-raised-button color="warn" [routerLink]="['/pdf/' + data.all_data.Master.id]" >Generar pdf</button>
+  </div>
   <div class="col">
     <button type='button' mat-raised-button class="bg-secondary"  (click)="mejoras()">Oportunidades Mejoras</button>
   </div>

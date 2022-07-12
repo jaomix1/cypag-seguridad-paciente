@@ -28,7 +28,7 @@
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Ingresa la fecha</mat-label>
-                        <mat-date-range-input [rangePicker]="picker">
+                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
                             <input matStartDate formControlName="Start_Date" (dateChange)="cambioFecha()"
                                 placeholder="fecha Inicio">
                             <input matEndDate formControlName="End_Date" (dateChange)="cambioFecha()"
@@ -103,7 +103,7 @@
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let row"> <button mat-raised-button color="primary"
-                    (click)="detalles(row.id)">Detalles</button></td>
+                    (click)="edit(row.Id)">Editar</button></td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -40,7 +40,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   //autocompletar
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  testigos: any = ['Jhonatan', 'Josue'];
+  testigos: any = [];
 
   form = new FormGroup({
     Fecha_Incidente:  new FormControl('', [
@@ -125,6 +125,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     Imagen_Archivo:  new FormControl(null, []),
   });
 
+  maxDate: Date;
+
   constructor(
     private FormularioService: FormMasterService,
     public comboService: ComboService,
@@ -132,7 +134,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     public dialog: MatDialog
   ) {
     super();
-
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {
@@ -145,8 +147,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   ngOnInit(): void {}
 
   submit(): void {
+    this.loadingMain = true;
     console.log(this.form.value)
     if (this.form.valid) {
+      this.form.disable()
       this.loadingMain = true;
 
       //testigos
@@ -171,7 +175,11 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
           this.loadingMain = false;
           this.mainService.showToast(err, 'error');
         },
-        complete: () => (this.loadingMain = false),
+        complete: () => {
+          this.loadingMain = false;
+          this.form.reset();
+          this.form.enable();
+        },
       });
 
     }
@@ -179,7 +187,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   info_Novedad(){
     let data: any = {
-      title: 'Información', 
+      title: 'Información',
       message: 'Información de novedad blablablabla'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -193,7 +201,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   info_Severidad(){
     let data: any = {
-      title: 'Información', 
+      title: 'Información',
       message: 'Información de la severidad blablablabla'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -250,7 +258,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     });
   }
 
-  cancelar(status: boolean) {
+  cancelar() {
     this.form.reset();
   }
 
@@ -266,6 +274,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     if(id == true){
       this.hayTestigos = true;
     }else{
+      this.form.controls['Preg_Quien'].setValue("");
+      this.testigos = [];
       this.hayTestigos = false;
     }
   }
@@ -274,6 +284,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       this.hayDanos = true;
     }else{
       this.hayDanos = false;
+      this.form.controls['Preg_Dano_Generado'].setValue("");
+      this.form.controls['Preg_Dano_Severidad'].setValue("");
+
     }
   }
 

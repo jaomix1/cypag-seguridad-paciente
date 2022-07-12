@@ -8,7 +8,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Fecha del incidente</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="Fecha_Incidente" required>
+            <input matInput [matDatepicker]="picker" [max]="maxDate" formControlName="Fecha_Incidente" required>
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="validate('Fecha_Incidente')">
@@ -79,23 +79,25 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-form-field class="full-width" appearance="outline">
+          <mat-form-field class="full-width" appearance="outline" style="padding-bottom: 0px !important">
             <mat-label>Tipo de novedad de seguridad</mat-label>
             <mat-select placeholder="Tipo de novedad de seguridad" formControlName="Tipo_Novedad" required>
               <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
-          <a type="button" (click)="info_Novedad()"><mat-icon>info</mat-icon></a>
           <mat-error *ngIf="validate('Tipo_Novedad')">
             {{ check('Tipo_Novedad') }}
           </mat-error>
+        </div>
+        <div class="col" style="max-width: 20px;">
+          <a type="button" (click)="info_Novedad()"><mat-icon>info</mat-icon></a>
         </div>
       </div>
       <div class="row>">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre completo del paciente</mat-label>
-            <input matInput placeholder="Nombre completo del paciente" formControlName="Nombre_Paciente" maxlength="50" required>
+            <input matInput placeholder="Nombre completo del paciente" class="upper" formControlName="Nombre_Paciente" maxlength="50" required>
             <mat-error *ngIf="validate('Nombre_Paciente')">
               {{ check('Nombre_Paciente') }}
             </mat-error>
@@ -246,7 +248,6 @@
           </mat-form-field>
         </div>
         <div class="col" *ngIf="hayDanos">
-          <a type="button" (click)="info_Severidad()"><mat-icon>info</mat-icon></a>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Severidad del daño </mat-label>
             <mat-select formControlName="Preg_Dano_Severidad" placeholder="Severidad del daño">
@@ -256,6 +257,9 @@
               {{ check('Preg_Dano_Severidad') }}
             </mat-error>
           </mat-form-field>
+        </div>
+        <div class="col" *ngIf="hayDanos" style="max-width: 20px !important;">
+          <a type="button" (click)="info_Severidad()"><mat-icon>info</mat-icon></a>
         </div>
       </div>
       <div class="row">
@@ -281,10 +285,11 @@
       </div>
     </mat-card-content>
     <mat-card-actions>
-      <div class="row">
+      <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
+      <div class="row my-3">
         <div class="col">
           <div class="col">
-            <button type='button' mat-raised-button color="warn" (click)="cancelar(false)">Cancelar</button>
+            <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
           </div>
         </div>
         <div class="col">

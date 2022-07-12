@@ -130,22 +130,25 @@ export class DetallesComponent implements OnInit {
   }
 
   submit(){
+    this.form.controls['Id_Master'].setValue(this.masterId);
     this.form.controls['Tipo_Detalle'].setValue(this.type);
     //responsables
     let string;
     string = new String(this.responsables)
     string = string.replace(/,/g, ';');
     this.form.controls['Responsables'].setValue(string);
+
     console.log(this.form.value)
     if(this.form.valid){
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
           console.log(req)
           this.mainService.showToast('Guardado Correctamente');
+          this.realizado = true;
         },
-        error: (err: string) => {
+        error: (err: any) => {
           console.log(err)
-          this.mainService.showToast(err, 'error');
+          this.mainService.showToast(err.error, 'error');
         },
         complete: () => {
         }
@@ -202,7 +205,7 @@ export class DetallesComponent implements OnInit {
           this.form.controls['Tipo_Detalle'].setValue(this.type);
         }
       });
-    }    
+    }
   }
 
   add(event: MatChipInputEvent): void {

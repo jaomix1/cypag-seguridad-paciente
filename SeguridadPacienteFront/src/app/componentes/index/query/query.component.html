@@ -45,9 +45,9 @@
                 <div class="col">
                     <mat-form-field appearance="outline">
                         <mat-label>Ingresa la fecha</mat-label>
-                        <mat-date-range-input [rangePicker]="picker">
-                            <input matStartDate formControlName="Start_Date" (dateChange)="cambioFecha()"placeholder="fecha Inicio" (focus)="cancelar()">
-                            <input matEndDate formControlName="End_Date" (dateChange)="cambioFecha()"placeholder="fecha Fin" (focus)="cancelar()">
+                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                            <input matStartDate formControlName="Start_Date" [max]="maxDate" (dateChange)="cambioFecha()"placeholder="fecha Inicio" (focus)="cancelar()">
+                            <input matEndDate formControlName="End_Date" [max]="maxDate" (dateChange)="cambioFecha()"placeholder="fecha Fin" (focus)="cancelar()">
                         </mat-date-range-input>
                         <mat-hint>DD/MM/YYYY</mat-hint>
                         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -84,6 +84,12 @@
 
 <div class="mat-elevation-z8" *ngIf="this.datos.length > 0">
     <table mat-table class="full-width-table" [dataSource]="datos" matSort aria-label="Elements">
+      <!-- Codigo de fecha -->
+      <ng-container matColumnDef="Codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+        <td mat-cell *matCellDef="let row">{{row.Codigo}}</td>
+      </ng-container>
+
         <!-- Fecha del Registro -->
         <ng-container matColumnDef="fecha_R">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha del Registro</th>

@@ -7,6 +7,7 @@ import {MatChipInputEvent} from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
 import { UsersService } from 'src/app/servicios/usuarios/users.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatTable } from '@angular/material/table';
 
 @Component({
   selector: 'app-oportunidades-form',
@@ -14,6 +15,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./oportunidades-form.component.css']
 })
 export class OportunidadesFormComponent implements OnInit {
+  @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
   private masterId : string;
@@ -29,6 +31,7 @@ export class OportunidadesFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialogRef: MatDialogRef<OportunidadesFormComponent>,)
   {
+    console.log(guid);
     this.masterId = guid;
   }
 
@@ -77,7 +80,13 @@ export class OportunidadesFormComponent implements OnInit {
         Descripcion: this.form.value.Cual,
         Responsable: this.form.value.Responsables
       }
-      this.mejoras.push(object);
+
+      let antes = this.mejoras;
+      antes.push(object);
+      this.mejoras = [];
+      this.mejoras = antes;
+      this.table.renderRows();
+      // this.mejoras.push(object);
       this.form.reset();
       console.log(this.mejoras)
     }

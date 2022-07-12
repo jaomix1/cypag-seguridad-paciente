@@ -95,7 +95,7 @@ export class NaranjoComponent implements OnInit {
     });
   }
 
-  delet(){
+  borrar(){
     this.NaranjoService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
         console.log(req)

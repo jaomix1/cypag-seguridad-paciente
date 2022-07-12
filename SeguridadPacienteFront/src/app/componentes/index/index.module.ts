@@ -42,9 +42,10 @@ import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
 import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-form.component';
-import { PdfComponent } from './investigaciones/londres/pdf/pdf.component';
 import { M5Component } from './investigaciones/m5/m5.component';
 import { P5Component } from './investigaciones/p5/p5.component';
+import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.component';
+import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
 
 @NgModule({
   declarations: [
@@ -58,9 +59,10 @@ import { P5Component } from './investigaciones/p5/p5.component';
     LondresComponent,
     SelectInvestigacionComponent,
     OportunidadesFormComponent,
-    PdfComponent,
     M5Component,
-    P5Component
+    P5Component,
+    EditOportunidadComponent,
+    DialogConfirmacionComponent
   ],
   imports: [
     CommonModule,

@@ -3,16 +3,13 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { ComboD } from 'src/app/modelos/combos/combo';
-import { Query } from 'src/app/modelos/query/query';
-import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
-import { DetallesComponent } from '../detalles/detalles.component';
 import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
 
 @Component({
   selector: 'app-opportunity',
@@ -38,12 +35,15 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
     Responsable: new FormControl(null),
   });
 
+  maxDate: Date;
+
   constructor(
     private OpportunityService: OpportunityService,
     public mainService: MainService,
     public UsersService: UsersService,
     public dialog: MatDialog) {
     super();
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {
@@ -90,14 +90,15 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
     });
   }
 
-  detalles(guid : any){
-    const dialogRef = this.dialog.open(DetallesComponent, {
-      width: '100%',
-      height: '100%',
+  edit(guid : any){
+    const dialogRef = this.dialog.open(EditOportunidadComponent, {
+      width: '600px',
+      height: '250px',
       data: guid,
       disableClose: false
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.submit()
     });
   }
 

@@ -54,26 +54,13 @@ export class OpportunityService extends BaseService {
       );
   }
 
-  edit(data: any): Observable<Opportunity> {
+  edit(data: any): Observable<any> {
     return this.http
-      .put<ResponseContract<Opportunity>>(this._baseUrl + this.apiUrl, data)
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "actualizar", data)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
-          this.logs('editar Opportunity');
-          this.logs(a);
-        }),
-        catchError(this.errorMgmt)
-      );
-  }
-
-  delete(data: string): Observable<Opportunity> {
-    return this.http
-      .delete<ResponseContract<Opportunity>>(this._baseUrl + this.apiUrl + data)
-      .pipe(
-        map((response) => response.data),
-        tap((a) => {
-          this.logs('eliminar Opportunity');
+          this.logs('Actualizar Oportunidad');
           this.logs(a);
         }),
         catchError(this.errorMgmt)

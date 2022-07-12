@@ -62,19 +62,19 @@
           }"
           > Farmacovigilancia </a>
         </mat-grid-tile>
-        <mat-grid-tile> 
+        <mat-grid-tile>
           <a [disabled]="realizado" mat-button class="bg-secondary full-width" (click)="obtenerTipo('Gestion Clinica')"
           [ngClass]="{
             'bg-primary': type == 'Gestion_Clinica'
           }"
           > Gestión clinica </a> </mat-grid-tile>
-        <mat-grid-tile> 
+        <mat-grid-tile>
           <a  [disabled]="realizado"mat-button class="bg-secondary full-width" (click)="obtenerTipo('Reactivovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Reactivovigilancia'
           }"
           >  Reactivovigilancia </a> </mat-grid-tile>
-        <mat-grid-tile> 
+        <mat-grid-tile>
           <a [disabled]="realizado" mat-button class="bg-secondary full-width" (click)="obtenerTipo('Tecnovigilancia')"
           [ngClass]="{
             'bg-primary': type == 'Tecnovigilancia'
@@ -147,16 +147,20 @@
   <div class="col" *ngIf="detalle?.Tipo_Investigacion == null">
     <button mat-button (click)="pqms()" class="bg-secondary"> Pq'Ms </button>
   </div>
-  <div class="col"  *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo'">
+  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo'" -->
+  <div class="col" >
     <button mat-button (click)="naranjo()" class="bg-secondary"> Naranjo </button>
   </div>
-  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'">
+  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'" -->
+  <div class="col" >
     <button mat-button (click)="londres()" class="bg-secondary"> Londres </button>
   </div>
-  <div class="col"  *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5'">
+  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5'" -->
+  <div class="col"  >
     <button mat-button (click)="m5()" class="bg-secondary"> 5 Ms </button>
   </div>
-  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5'">
+  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5'" -->
+  <div class="col" >
     <button mat-button (click)="p5()" class="bg-secondary"> 5 Porque's </button>
   </div>
 </div>

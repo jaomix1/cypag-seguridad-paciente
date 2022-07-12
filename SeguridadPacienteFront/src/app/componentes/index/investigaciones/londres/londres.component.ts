@@ -6,6 +6,7 @@ import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidad
 import { MainService } from 'src/app/servicios/main.service';
 import { LondresService } from 'src/app/servicios/investigaciones/londres.service';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
+import { PdfComponent } from '../../../pdf/pdf.component';
 @Component({
   selector: 'app-londres',
   templateUrl: './londres.component.html',
@@ -23,7 +24,7 @@ export class LondresComponent implements OnInit {
     Id_Detalle: new FormControl(''),
     Tipo_Adverso: new FormControl(''),
     Select_Depende_Tipo: new FormControl(''),
-    Fase1_Analisis: new FormControl({value: '', disabled: true}, Validators.required),
+    Fase1_Analisis: new FormControl(''),
     Fase1_Entrevista: new FormControl(''),
     Fase1_Otros_Mecanismos: new FormControl(''),
     Fase1_Cronologia: new FormControl(''),
@@ -156,12 +157,25 @@ export class LondresComponent implements OnInit {
       width: '100%',
       height: '100%',
       disableClose: false,
+      data: this.data?.all_data.Master.Id
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
   }
 
-  delet(){
+  pdf(){
+    const dialogRef = this.dialog.open(PdfComponent, {
+      width: '100%',
+      height: '100%',
+      disableClose: false,
+      data: this.data.all_data
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+
+  borrar(){
     this.LondresService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
         console.log(req)
