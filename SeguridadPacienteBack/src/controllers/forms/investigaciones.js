@@ -4,7 +4,7 @@ const InvestigacionesM5Model = require("../../models/forms/investigaciones5m");
 const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
-const MasterModel = require("../../models/forms/master");
+const DetallesModel = require("../../models/forms/detalles");
 
 // Metodos Investigaciones M5
 exports.createInvM5 = async (req, res) => {
@@ -15,12 +15,10 @@ exports.createInvM5 = async (req, res) => {
     });
     if (!regExistente) {
       const result = await InvestigacionesM5Model.create(entry);
-      await MasterModel.update({
-        Id_Investigacion: result.Id,
-        Estado_Proceso: 3,
-        Fecha_Modificacion: sequelize.literal("getdate()"),
+      await DetallesModel.update({
+        Tipo_Investigacion: "Investigaciones_M5",
       }, {
-        where: { Id_Detalle: entry.Id_Detalle },
+        where: { id: entry.Id_Detalle },
       });
       return res.status(200).json(result);
     }
@@ -32,10 +30,10 @@ exports.createInvM5 = async (req, res) => {
 };
 
 exports.getInvM5 = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesM5Model.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     return res.status(200).json(data);
   } catch (err) {
@@ -45,10 +43,10 @@ exports.getInvM5 = async (req, res) => {
 };
 
 exports.deleteInvM5 = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesM5Model.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     if (data) {
       data.update({ Estado: "INA", Fecha_Modificacion: sequelize.literal("getdate()") });
@@ -69,12 +67,10 @@ exports.createInvP5 = async (req, res) => {
     });
     if (!regExistente) {
       const result = await InvestigacionesP5Model.create(entry);
-      await MasterModel.update({
-        Id_Investigacion: result.Id,
-        Estado_Proceso: 3,
-        Fecha_Modificacion: sequelize.literal("getdate()"),
+      await DetallesModel.update({
+        Tipo_Investigacion: "Investigaciones_P5",
       }, {
-        where: { Id_Detalle: entry.Id_Detalle },
+        where: { id: entry.Id_Detalle },
       });
       return res.status(200).json(result);
     }
@@ -86,10 +82,10 @@ exports.createInvP5 = async (req, res) => {
 };
 
 exports.getInvP5 = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesP5Model.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     return res.status(200).json(data);
   } catch (err) {
@@ -99,10 +95,10 @@ exports.getInvP5 = async (req, res) => {
 };
 
 exports.deleteInvP5 = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesP5Model.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     if (data) {
       data.update({ Estado: "INA", Fecha_Modificacion: sequelize.literal("getdate()") });
@@ -123,12 +119,10 @@ exports.createInvNaranjo = async (req, res) => {
     });
     if (!regExistente) {
       const result = await InvestigacionesNaranjoModel.create(entry);
-      await MasterModel.update({
-        Id_Investigacion: result.Id,
-        Estado_Proceso: 3,
-        Fecha_Modificacion: sequelize.literal("getdate()"),
+      await DetallesModel.update({
+        Tipo_Investigacion: "Investigaciones_Naranjo",
       }, {
-        where: { Id_Detalle: entry.Id_Detalle },
+        where: { id: entry.Id_Detalle },
       });
       return res.status(200).json(result);
     }
@@ -140,10 +134,10 @@ exports.createInvNaranjo = async (req, res) => {
 };
 
 exports.getInvNaranjo = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesNaranjoModel.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     return res.status(200).json(data);
   } catch (err) {
@@ -153,10 +147,10 @@ exports.getInvNaranjo = async (req, res) => {
 };
 
 exports.deleteInvNaranjo = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesNaranjoModel.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     if (data) {
       data.update({ Estado: "INA", Fecha_Modificacion: sequelize.literal("getdate()") });
@@ -177,12 +171,10 @@ exports.createInvLondres = async (req, res) => {
     });
     if (!regExistente) {
       const result = await InvestigacionesLondresModel.create(entry);
-      await MasterModel.update({
-        Id_Investigacion: result.Id,
-        Estado_Proceso: 3,
-        Fecha_Modificacion: sequelize.literal("getdate()"),
+      await DetallesModel.update({
+        Tipo_Investigacion: "Investigaciones_Londres",
       }, {
-        where: { Id_Detalle: entry.Id_Detalle },
+        where: { id: entry.Id_Detalle },
       });
       return res.status(200).json(result);
     }
@@ -194,10 +186,10 @@ exports.createInvLondres = async (req, res) => {
 };
 
 exports.getInvLondres = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesLondresModel.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     return res.status(200).json(data);
   } catch (err) {
@@ -207,10 +199,10 @@ exports.getInvLondres = async (req, res) => {
 };
 
 exports.deleteInvLondres = async (req, res) => {
-  const { Id } = req.body;
+  const { Id_Detalle } = req.body;
   try {
     const data = await InvestigacionesLondresModel.findOne({
-      where: { Id, Estado: "ACT" },
+      where: { Id_Detalle, Estado: "ACT" },
     });
     if (data) {
       data.update({ Estado: "INA", Fecha_Modificacion: sequelize.literal("getdate()") });
