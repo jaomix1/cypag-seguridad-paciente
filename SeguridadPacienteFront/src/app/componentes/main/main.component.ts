@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
-import { DemoService } from 'src/app/servicios/demo/demo.service';
 import { Demo } from 'src/app/modelos/demo/demo';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
@@ -40,7 +37,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   //autocompletar
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  testigos: any = ['Jhonatan', 'Josue'];
+  testigos: any = [];
 
   form = new FormGroup({
     Fecha_Incidente:  new FormControl('', [
@@ -63,7 +60,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     Sede:  new FormControl('', [
       Validators.required
     ]),
-    Servicio:  new FormControl('', [
+    Servicio_Id:  new FormControl('', [
       Validators.required
     ]),
     Nombre_Paciente:  new FormControl('', [
@@ -90,12 +87,12 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     ]),
     Preg_Que:  new FormControl('', [
       Validators.required,
-      Validators.maxLength(50),
+      Validators.maxLength(300),
       Validators.pattern(this.latin),
     ]),
     Preg_Como:  new FormControl('', [
       Validators.required,
-      Validators.maxLength(50),
+      Validators.maxLength(500),
       Validators.pattern(this.latin),
     ]),
     Preg_Hay_Testigos:  new FormControl(Boolean, [
@@ -112,18 +109,20 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.required
     ]),
     Preg_Dano_Generado:  new FormControl('', [
-      Validators.maxLength(30),
+      Validators.maxLength(300),
       Validators.pattern(this.latin),
     ]),
     Preg_Dano_Severidad:  new FormControl('', []),
     Accion_Tomada:  new FormControl('', [
       Validators.required,
-      Validators.maxLength(50),
+      Validators.maxLength(500),
       Validators.pattern(this.latin),
     ]),
     Imagen_Evidencia:  new FormControl(null, []),
     Imagen_Archivo:  new FormControl(null, []),
   });
+
+  maxDate: Date;
 
   constructor(
     private FormularioService: FormMasterService,
@@ -132,7 +131,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     public dialog: MatDialog
   ) {
     super();
-
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {
@@ -145,8 +144,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   ngOnInit(): void {}
 
   submit(): void {
+    this.loadingMain = true;
     console.log(this.form.value)
     if (this.form.valid) {
+      this.form.disable()
       this.loadingMain = true;
 
       //testigos
@@ -171,7 +172,11 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
           this.loadingMain = false;
           this.mainService.showToast(err, 'error');
         },
-        complete: () => (this.loadingMain = false),
+        complete: () => {
+          this.loadingMain = false;
+          this.form.reset();
+          this.form.enable();
+        },
       });
 
     }
@@ -179,7 +184,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   info_Novedad(){
     let data: any = {
-      title: 'Información', 
+      title: 'Información',
       message: 'Información de novedad blablablabla'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -193,7 +198,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   info_Severidad(){
     let data: any = {
-      title: 'Información', 
+      title: 'Información',
       message: 'Información de la severidad blablablabla'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
@@ -250,7 +255,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     });
   }
 
-  cancelar(status: boolean) {
+  cancelar() {
     this.form.reset();
   }
 
@@ -266,6 +271,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     if(id == true){
       this.hayTestigos = true;
     }else{
+      this.form.controls['Preg_Quien'].setValue("");
+      this.testigos = [];
       this.hayTestigos = false;
     }
   }
@@ -274,6 +281,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       this.hayDanos = true;
     }else{
       this.hayDanos = false;
+      this.form.controls['Preg_Dano_Generado'].setValue("");
+      this.form.controls['Preg_Dano_Severidad'].setValue("");
+
     }
   }
 

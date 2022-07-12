@@ -5,6 +5,7 @@ export class Form {
   cargo!: string;
   empresa!: string;
   sede!: string;
+  Servicio_Id!: string;
   paciente!: string;
   tipoDocumento!: string;
   documento!: string;

@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class NaranjoService extends BaseService {
-  private apiUrl: string = '/api/ms/';
+  private apiUrl: string = '/api/investigaciones/naranjo';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
@@ -21,7 +21,20 @@ export class NaranjoService extends BaseService {
       .pipe(
         map((response) => response.data),
         tap((a) => {
-          this.logs('crear registro de MSs');
+          this.logs('crear registro de Naranjo');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
+
+  borrar(id: string): Observable<any> {
+    return this.http
+      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "/borrar", {Id_Detalle: id})
+      .pipe(
+        map((response) => response.data),
+        tap((a) => {
+          this.logs('borrar registro de Naranjo');
           this.logs(a);
         }),
         catchError(this.errorMgmt)

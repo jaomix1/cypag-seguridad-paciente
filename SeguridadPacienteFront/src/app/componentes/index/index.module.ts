@@ -38,11 +38,15 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
-import { MsPqComponent } from './investigaciones/ms-pq/ms-pq.component';
 import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
-import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-adverso.component';
+import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-form.component';
+import { M5Component } from './investigaciones/m5/m5.component';
+import { P5Component } from './investigaciones/p5/p5.component';
+import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.component';
+import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
+import { InfoComponent } from '../info/info.component';
 
 @NgModule({
   declarations: [
@@ -52,11 +56,15 @@ import { EventoAdversoComponent } from './investigaciones/evento-adverso/evento-
     DetallesComponent,
     TablaComponent,
     FormularioComponent,
-    MsPqComponent,
     NaranjoComponent,
     LondresComponent,
     SelectInvestigacionComponent,
-    EventoAdversoComponent,
+    OportunidadesFormComponent,
+    M5Component,
+    P5Component,
+    EditOportunidadComponent,
+    DialogConfirmacionComponent,
+    InfoComponent,
   ],
   imports: [
     CommonModule,

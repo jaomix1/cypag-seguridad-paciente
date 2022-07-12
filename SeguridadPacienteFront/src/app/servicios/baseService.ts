@@ -13,10 +13,11 @@ export class BaseService {
     if (!environment.production) {
       console.dir(data);
     }
-    
+
   }
 
   errorMgmt(error: HttpErrorResponse) {
+    debugger
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       // Get client-side error

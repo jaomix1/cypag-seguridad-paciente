@@ -3,15 +3,13 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
-import { ComboD } from 'src/app/modelos/combos/combo';
-import { Query } from 'src/app/modelos/query/query';
-import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog } from '@angular/material/dialog';
-import { DetallesComponent } from '../detalles/detalles.component';
+import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
 
 @Component({
   selector: 'app-opportunity',
@@ -22,108 +20,105 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablaItem>;
-  dataSource: TablaDataSource;
 
   displayedColumns = ['id', 'externo', 'responsable', 'oportunidad', 'porcentaje', 'accion'];
 
-  novedades: ComboD[] = [];
-  datos: Query = new Query();
+  responsables: any;
+  datos: any = [];
+  maxDate: Date;
 
-  myForm = new FormGroup({
-    codigo: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
-    documento: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
-    fechaInicio: new FormControl(null),
-    fechaFin: new FormControl(null),
-    novedad: new FormControl(null),
+
+  form = new FormGroup({
+    Id: new FormControl(null),
+    Id_Master: new FormControl(null),
+    Codigo_Externo: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
+    Start_Date: new FormControl(null),
+    End_Date: new FormControl(null),
+    Responsable: new FormControl(null),
   });
 
+
   constructor(
-    private myService: OpportunityService,
+    private OpportunityService: OpportunityService,
     public mainService: MainService,
-    private comboService: ComboService,
+    public UsersService: UsersService,
     public dialog: MatDialog) {
     super();
-    this.dataSource = new TablaDataSource();
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-    this.table.dataSource = this.dataSource;
+    this.getResponsables();
   }
 
   ngOnInit(): void {
-
-    this.novedades = [
-      {Id: 1, Descripcion: 'Hydrogen'},
-      {Id: 2, Descripcion: 'Helium'},
-      {Id: 3, Descripcion: 'Lithium'},
-    ]
-
-    this.comboService.getNovedades().subscribe({
-      next: (req) => {
-        this.novedades = req;
-      },
-      error: (err: string) => {
-        this.loadingMain = false;
-        this.mainService.showToast(err, 'error');
-      },
-      complete: () => (this.loadingMain = false),
-    })
   }
 
   submit(): void {
-    if (this.myForm.valid) {
-      this.myForm.disable();
+    console.log(this.form.value)
+    if (this.form.valid) {
+      this.form.disable();
       this.loadingMain = true;
-      this.myService.create(this.myForm.value).subscribe({
+      this.OpportunityService.getAll(this.form.value).subscribe({
         next: (req:any) => {
-          this.mainService.showToast('Creado Correctamente');
           this.datos = req;
           this.loadingMain = false;
-          this.myForm.enable();
+          this.form.enable();
           //this.cancelar();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
           this.loadingMain = false;
-          this.myForm.enable();
+          this.form.enable();
         },
         complete: () => {
           this.loadingMain = false;
-          this.myForm.enable();
+          this.form.enable();
         }
       });
     }
   }
 
-  detalles(guid : any){
-    const dialogRef = this.dialog.open(DetallesComponent, {
-      width: '100%',
-      height: '100%',
+  getResponsables() {
+    this.UsersService.get().subscribe({
+      next: (req) => {
+        console.log("data users", req)
+        this.responsables = req;
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      }
+    });
+  }
+
+  edit(guid : any){
+    const dialogRef = this.dialog.open(EditOportunidadComponent, {
+      width: '600px',
+      height: '250px',
       data: guid,
       disableClose: false
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.submit()
     });
   }
 
   cancelar() {
-    this.myForm.reset();
+    this.form.reset();
   }
 
   cambioFecha() {
-    this.myForm.patchValue({
+    this.form.patchValue({
       codigo: null,
       documento: null,
     });
   }
 
   validate(nameInput: string) {
-    return this.mainService.validateInput(this.myForm, nameInput);
+    return this.mainService.validateInput(this.form, nameInput);
   }
 
   check(nameInput: string) {
-    return this.mainService.checkInput(this.myForm, nameInput);
+    return this.mainService.checkInput(this.form, nameInput);
   }
 }

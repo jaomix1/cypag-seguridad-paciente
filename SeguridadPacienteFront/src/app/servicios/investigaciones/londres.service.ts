@@ -9,8 +9,8 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class PqService extends BaseService {
-  private apiUrl: string = '/api/investigaciones/5p';
+export class LondresService extends BaseService {
+  private apiUrl: string = '/api/investigaciones/londres';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
@@ -21,7 +21,7 @@ export class PqService extends BaseService {
       .pipe(
         map((response) => response.data),
         tap((a) => {
-          this.logs('crear registro de PQs');
+          this.logs('crear registro de Londres');
           this.logs(a);
         }),
         catchError(this.errorMgmt)
@@ -34,11 +34,10 @@ export class PqService extends BaseService {
       .pipe(
         map((response) => response.data),
         tap((a) => {
-          this.logs('borrar registro de Porques');
+          this.logs('borrar registro de Londres');
           this.logs(a);
         }),
         catchError(this.errorMgmt)
       );
   }
-
 }

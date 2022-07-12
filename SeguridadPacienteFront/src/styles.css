@@ -74,6 +74,10 @@ button{
   margin-right: 0;
 }
 
+.upper {
+  text-transform: uppercase !important;
+}
+
 @media only screen and (max-width: 500px) {
 
   .row{

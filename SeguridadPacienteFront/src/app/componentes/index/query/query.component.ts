@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Combo, ComboD } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
@@ -19,17 +19,18 @@ import { DetallesComponent } from '../detalles/detalles.component';
 })
 export class QueryComponent extends BaseFormComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
-  dataSource: any;
 
-  displayedColumns = ['fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
+  displayedColumns = ['Codigo','fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
   novedades: ComboD[] = [];
   empresas: Combo[] = [];
   sedes: Combo[] = [];
   datos: any = [];
 
+  maxDate: Date;
+
   myForm = new FormGroup({
-    Id: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
+    Codigo: new FormControl(null, [Validators.maxLength(17), Validators.pattern(this.number)]),
     Numero_Id: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
     Start_Date: new FormControl(null),
     End_Date: new FormControl(null),
@@ -42,12 +43,15 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     private QueryService: QueryService,
     public mainService: MainService,
     private comboService: ComboService,
-    public dialog: MatDialog) {
+    public dialog: MatDialog
+  ) {
     super();
+
+    this.maxDate = new Date();
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
+    this.datos.paginator = this.paginator;
     this.cargaNovedades();
     this.cargaEmpresas();
   }
@@ -102,7 +106,6 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           this.datos = req;
-          this.dataSource = this.datos;
           console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();
