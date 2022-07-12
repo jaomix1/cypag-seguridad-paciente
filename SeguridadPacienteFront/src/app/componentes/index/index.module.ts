@@ -46,6 +46,7 @@ import { M5Component } from './investigaciones/m5/m5.component';
 import { P5Component } from './investigaciones/p5/p5.component';
 import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.component';
 import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
+import { InfoComponent } from '../info/info.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confi
     M5Component,
     P5Component,
     EditOportunidadComponent,
-    DialogConfirmacionComponent
+    DialogConfirmacionComponent,
+    InfoComponent,
   ],
   imports: [
     CommonModule,

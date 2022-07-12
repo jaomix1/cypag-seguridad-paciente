@@ -59,6 +59,7 @@ export class LondresComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ){
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
+    this.type = this.data.all_data.Detalle.Tipo_Novedad;
     this.cargaOptions();
   }
 
@@ -183,6 +184,8 @@ export class LondresComponent implements OnInit {
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.type = this.data.all_data.Detalle.Tipo_Novedad;
+        this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
         this.form.enable()
       },
       error: (err: string) => {

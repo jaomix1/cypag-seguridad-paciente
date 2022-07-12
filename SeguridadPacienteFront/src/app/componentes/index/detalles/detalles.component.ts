@@ -373,4 +373,9 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   check(nameInput: string) {
     return this.mainService.checkInput(this.form, nameInput);
   }
+
+  pdf(){
+    console.log(this.masterId)
+    window.open("http://localhost:4200/pdf/"+ this.masterId, '_blank');
+  }
 }

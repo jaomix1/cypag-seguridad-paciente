@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable, ReplaySubject } from 'rxjs';
-import { map, shareReplay } from 'rxjs/operators';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
-import { DemoService } from 'src/app/servicios/demo/demo.service';
 import { Demo } from 'src/app/modelos/demo/demo';
 import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';

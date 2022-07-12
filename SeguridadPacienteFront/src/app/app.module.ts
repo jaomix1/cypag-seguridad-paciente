@@ -8,15 +8,14 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { IndexModule } from './componentes/index/index.module';
 import { LoginModule } from './componentes/login/login.module';
 import { MainModule } from './componentes/main/main.module';
+import { PdfModule } from './componentes/pdf/pdf.module';
 
 
 import {  MatSnackBarModule } from '@angular/material/snack-bar';
-import { InfoComponent } from './componentes/info/info.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    InfoComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -31,6 +30,10 @@ import { InfoComponent } from './componentes/info/info.component';
 
     //main
     MainModule,
+
+    //PdfComponent
+
+    PdfModule,
 
     MatSnackBarModule
   ],

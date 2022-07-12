@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/main', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'main', component: MainComponent },
-  { path: 'pdf/:id', component: PdfComponent },
+  { path: 'pdf/:token', component: PdfComponent },
   {
     path: 'index', component: IndexComponent, //canActivate: [Acceso]
   },

@@ -157,6 +157,6 @@
     <button mat-button (click)="p5()" class="bg-secondary"> 5 Porque's </button>
   </div>
   <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'">
-    <button type='button' mat-raised-button color="warn" [routerLink]="['/pdf/' + data?.all_data?.Master.id]" >Generar pdf</button>
+    <button type='button' mat-raised-button color="warn" (click)="pdf()" >Generar pdf</button>
   </div>
 </div>
