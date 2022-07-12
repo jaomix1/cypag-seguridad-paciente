@@ -162,6 +162,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
           this.realizado = true;
           this.form.disable();
           this.loadingMain = false;
+          this.obtenerMaster(this.masterId)
         },
         error: (err: any) => {
           console.log(err)
@@ -294,6 +295,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.obtenerMaster(this.masterId)
     });
   }
 
@@ -309,6 +311,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.obtenerMaster(this.masterId)
     });
   }
 
@@ -335,6 +338,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.obtenerMaster(this.masterId)
     });
   }
 
@@ -350,6 +354,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.obtenerMaster(this.masterId)
     });
   }
 

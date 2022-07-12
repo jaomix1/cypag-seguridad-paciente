@@ -59,6 +59,7 @@ export class LondresComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
   ){
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
+    this.form.controls['Tipo_Adverso'].setValue(this.data.all_data.Detalle.Tipo_Novedad_Join.Descripcion);
     this.type = this.data.all_data.Detalle.Tipo_Novedad;
     this.cargaOptions();
   }
@@ -115,6 +116,7 @@ export class LondresComponent implements OnInit {
     if (this.form.valid) {
       this.LondresService.send(this.form.value).subscribe({
         next: (req:any) => {
+          this.realizado = true;
           this.mainService.showToast('Guardado Correctamente');
         },
         error: (err: string) => {
@@ -186,6 +188,7 @@ export class LondresComponent implements OnInit {
         this.realizado = false;
         this.type = this.data.all_data.Detalle.Tipo_Novedad;
         this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
+        this.form.controls['Tipo_Adverso'].setValue(this.data.all_data.Detalle.Tipo_Novedad_Join.Descripcion);
         this.form.enable()
       },
       error: (err: string) => {

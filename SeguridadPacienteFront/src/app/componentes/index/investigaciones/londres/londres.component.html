@@ -194,19 +194,19 @@
         <div class="row">
           <label class="example-margin center"> <h2> <b>Tipo:</b></h2> </label>
           <div class="col center my-3">
-            <button mat-raised-button class="bg-secondary" (click)="tipo('leve')" [ngClass]="{
+            <a mat-raised-button class="bg-secondary" (click)="tipo('leve')" [ngClass]="{
               'bg-primary': form.value.Evento_Adverso_Tipo == 'leve'
-            }">Leve</button>
+            }">Leve</a>
           </div>
           <div class="col center my-3">
-            <button mat-raised-button class="bg-secondary" (click)="tipo('moderado')" [ngClass]="{
+            <a mat-raised-button class="bg-secondary" (click)="tipo('moderado')" [ngClass]="{
               'bg-primary': form.value.Evento_Adverso_Tipo == 'moderado'
-            }">Moderado</button>
+            }">Moderado</a>
           </div>
           <div class="col center my-3">
-            <button mat-raised-button class="bg-secondary" (click)="tipo('grave')" [ngClass]="{
+            <a mat-raised-button class="bg-secondary" (click)="tipo('grave')" [ngClass]="{
               'bg-primary': form.value.Evento_Adverso_Tipo == 'grave'
-            }">Grave</button>
+            }">Grave</a>
           </div>
         </div>
       </div>
@@ -214,14 +214,14 @@
         <div class="row">
           <label class="example-margin center"> <h2> <b>Estado:</b></h2> </label>
           <div class="col center my-3">
-            <button mat-raised-button class="bg-secondary" (click)="estado('prevenible')" [ngClass]="{
+            <a mat-raised-button class="bg-secondary" (click)="estado('prevenible')" [ngClass]="{
               'bg-primary': form.value.Evento_Adverso_Estado == 'prevenible'
-            }">Prevenible</button>
+            }">Prevenible</a>
           </div>
           <div class="col center my-3">
-            <button mat-raised-button class="bg-secondary" (click)="estado('noPrevenible')" [ngClass]="{
+            <a mat-raised-button class="bg-secondary" (click)="estado('noPrevenible')" [ngClass]="{
               'bg-primary': form.value.Evento_Adverso_Estado == 'noPrevenible'
-            }">No prevenible</button>
+            }">No prevenible</a>
           </div>
         </div>
       </div>
@@ -292,7 +292,7 @@
     <div class="col">
       <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="!realizado">
       <button mat-raised-button class="bg-primary" type="submit"  style="color: #fff">Guardar</button>
     </div>
   </div>
