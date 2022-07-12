@@ -37,20 +37,34 @@ export class M5Component implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data)
-    if (this.data.all_data.Ms != null){
-      this.m5 = this.data.all_data.Ms;
+    if (this.data.all_data.M5 != null){
+      this.m5 = this.data.all_data.M5;
       this.realizado = true;
+      this.form.disable();
+      this.setData();
     }else{
       this.realizado = false;
     }
   }
 
+  setData() {
+    this.form.controls['M5_1'].setValue(this.m5?.M5_1);
+    this.form.controls['M5_2'].setValue(this.m5?.M5_2);
+    this.form.controls['M5_3'].setValue(this.m5?.M5_3);
+    this.form.controls['M5_4'].setValue(this.m5?.M5_4);
+    this.form.controls['M5_5'].setValue(this.m5?.M5_5);
+    this.form.controls['M5_Otro'].setValue(this.m5?.M5_Otro);
+  }
+
   submit() {
+    this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
     console.log(this.form.value)
     if (this.form.valid) {
       this.MsService.send(this.form.value).subscribe({
         next: (req:any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
+          this.realizado = true;
+          this.form.disable();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -66,6 +80,7 @@ export class M5Component implements OnInit {
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.form.enable();
       },
       error: (err: string) => {
         console.log(err)

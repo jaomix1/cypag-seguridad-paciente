@@ -180,6 +180,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   delet(){
+    this.loadingMain = true;
     this.DetallesService.delete(this.masterId).subscribe({
       next: (req:any) => {
         console.log(req)
@@ -190,12 +191,15 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
         this.realizado = false;
         this.form.enable();
         this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
+        this.loadingMain = false;
       },
       error: (err: string) => {
         console.log(err)
         this.mainService.showToast(err, 'error');
+        this.loadingMain = false;
       },
       complete: () => {
+        this.loadingMain = false;
       }
     });
   }
@@ -273,11 +277,15 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   pqms(){
+    const data = {
+      id_detalle: this.Id_Detalle,
+      all_data: this.Alldata
+    }
     const dialogRef = this.dialog.open(SelectInvestigacionComponent, {
-      width: '100%',
+      width: '80%',
       height: '50%',
       disableClose: false,
-      data: this.Id_Detalle
+      data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

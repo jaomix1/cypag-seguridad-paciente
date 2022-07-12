@@ -4,6 +4,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { PqService } from 'src/app/servicios/investigaciones/pq.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
+import { T } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-p5',
@@ -36,20 +37,33 @@ export class P5Component implements OnInit {
 
   ngOnInit(): void {
     console.log(this.data)
-    if (this.data.all_data.Pq != null){
-      this.pq = this.data.all_data.Pq;
+    if (this.data.all_data.P5 != null){
+      this.pq = this.data.all_data.P5;
       this.realizado = true;
+      this.form.disable();
+      this.setData();
     }else{
       this.realizado = false;
     }
   }
 
+  setData(){
+    this.form.controls['P5_1'].setValue(this.pq?.P5_1);
+    this.form.controls['P5_2'].setValue(this.pq?.P5_2);
+    this.form.controls['P5_3'].setValue(this.pq?.P5_3);
+    this.form.controls['P5_4'].setValue(this.pq?.P5_4);
+    this.form.controls['P5_5'].setValue(this.pq?.P5_5);
+  }
+
   submit() {
+    this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
     console.log(this.form.value)
     if (this.form.valid) {
       this.PqService.send(this.form.value).subscribe({
         next: (req:any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
+          this.realizado = true;
+          this.form.disable();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -65,6 +79,7 @@ export class P5Component implements OnInit {
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.form.enable();
       },
       error: (err: string) => {
         console.log(err)

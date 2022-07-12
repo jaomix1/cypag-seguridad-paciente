@@ -4,6 +4,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
+import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -46,17 +47,22 @@ export class NaranjoComponent implements OnInit {
     if (this.data.all_data.Naranjo != null){
       this.naranjo = this.data.all_data.Naranjo;
       this.realizado = true;
+      this.setData();
+      this.form.disable();
     }else{
       this.realizado = false;
     }
   }
 
   submit() {
+    this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
     console.log(this.form.value)
     if (this.form.valid) {
       this.NaranjoService.send(this.form.value).subscribe({
         next: (req:any) => {
           this.mainService.showToast('Guardado Correctamente');
+          this.realizado = true;
+          this.form.disable();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -78,11 +84,41 @@ export class NaranjoComponent implements OnInit {
   }
 
   tipo(option: string){
-    this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+    if(!this.realizado){
+      this.dialog.open(DialogConfirmacionComponent, {
+        disableClose: true,
+        width: '300px',
+        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if(confirmado){
+          this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+        }
+      }
+    );
+    }else{
+      this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
+    }
   }
 
   estado(option: string){
-    this.form.controls['Evento_Adverso_Estado'].setValue(option);
+    if(!this.realizado){
+      this.dialog.open(DialogConfirmacionComponent, {
+        disableClose: true,
+        width: '300px',
+        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if(confirmado){
+          this.form.controls['Evento_Adverso_Estado'].setValue(option);
+        }
+      }
+    );
+    }else{
+      this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
+    }
   }
 
   mejoras(){
@@ -95,6 +131,22 @@ export class NaranjoComponent implements OnInit {
     });
   }
 
+  setData(){
+    this.form.controls['Naranjo_1'].setValue(this.naranjo.Naranjo_1);
+    this.form.controls['Naranjo_2'].setValue(this.naranjo.Naranjo_2);
+    this.form.controls['Naranjo_3'].setValue(this.naranjo.Naranjo_3);
+    this.form.controls['Naranjo_4'].setValue(this.naranjo.Naranjo_4);
+    this.form.controls['Naranjo_5'].setValue(this.naranjo.Naranjo_5);
+    this.form.controls['Naranjo_6'].setValue(this.naranjo.Naranjo_6);
+    this.form.controls['Naranjo_7'].setValue(this.naranjo.Naranjo_7);
+    this.form.controls['Naranjo_8'].setValue(this.naranjo.Naranjo_8);
+    this.form.controls['Naranjo_9'].setValue(this.naranjo.Naranjo_9);
+    this.form.controls['Naranjo_10'].setValue(this.naranjo.Naranjo_10);
+    this.form.controls['Naranjo_Observaciones'].setValue(this.naranjo.Naranjo_Observaciones);
+    this.form.controls['Evento_Adverso_Tipo'].setValue(this.naranjo.Evento_Adverso_Tipo);
+    this.form.controls['Evento_Adverso_Estado'].setValue(this.naranjo.Evento_Adverso_Estado);
+  }
+
   borrar(){
     this.NaranjoService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
@@ -102,6 +154,7 @@ export class NaranjoComponent implements OnInit {
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
+        this.form.enable();
       },
       error: (err: string) => {
         console.log(err)

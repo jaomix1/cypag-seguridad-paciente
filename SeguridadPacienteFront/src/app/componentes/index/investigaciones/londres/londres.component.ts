@@ -131,29 +131,41 @@ export class LondresComponent implements OnInit {
   }
 
   tipo(option: string){
-    this.dialog.open(DialogConfirmacionComponent, {
+    if(!this.realizado){
+      this.dialog.open(DialogConfirmacionComponent, {
         disableClose: true,
         width: '300px',
         data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
       })
       .afterClosed()
       .subscribe((confirmado: Boolean) => {
-        this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+        if(confirmado){
+          this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+        }
       }
     );
+    }else{
+      this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
+    }
   }
 
   estado(option: string){
-    this.dialog.open(DialogConfirmacionComponent, {
-      disableClose: true,
-      width: '300px',
-      data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
-    })
-    .afterClosed()
-    .subscribe((confirmado: Boolean) => {
-      this.form.controls['Evento_Adverso_Estado'].setValue(option);
+    if(!this.realizado){
+      this.dialog.open(DialogConfirmacionComponent, {
+        disableClose: true,
+        width: '300px',
+        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+      })
+      .afterClosed()
+      .subscribe((confirmado: Boolean) => {
+        if(confirmado){
+          this.form.controls['Evento_Adverso_Estado'].setValue(option);
+        }
+      }
+    );
+    }else{
+      this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
-  );
   }
 
   mejoras(){
