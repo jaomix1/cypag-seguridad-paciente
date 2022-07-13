@@ -19,7 +19,16 @@ export class DetallesService extends BaseService{
   }
 
   create(data: any): Observable<any> {
-    return this.http.post<any>(this._baseUrl + this.apiUrl, data)
+    return this.http
+      .post<any>(this._baseUrl + this.apiUrl, data)
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('crear detalle');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
   }
 
   get(id: string): Observable<any> {

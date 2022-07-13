@@ -49,7 +49,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Empresa a la cual pertenece</mat-label>
             <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece" required>
-              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="sede(c.Id)">{{c.Nombre}}</mat-option>
+              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="sede(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Empresa')">
               {{ check('Empresa') }}
@@ -60,7 +60,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
             <mat-select formControlName="Sede" placeholder="Sede donde presento el incidente" required>
-              <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Nombre}}</mat-option>
+              <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Sede')">
               {{ check('Sede') }}

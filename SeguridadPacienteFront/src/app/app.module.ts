@@ -42,7 +42,7 @@ import { ComboService } from './servicios/combo/combo.service';
 
     MatSnackBarModule
   ],
-  providers: [LoginService, CookieService, ComboService,
+  providers: [CookieService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,

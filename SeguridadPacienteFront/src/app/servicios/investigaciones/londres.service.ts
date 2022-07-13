@@ -17,9 +17,9 @@ export class LondresService extends BaseService {
 
   send(data: any): Observable<any> {
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
+      .post<any>(this._baseUrl + this.apiUrl, data)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
           this.logs('crear registro de Londres');
           this.logs(a);
@@ -30,9 +30,9 @@ export class LondresService extends BaseService {
 
   borrar(id: string): Observable<any> {
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "/borrar", {Id_Detalle: id})
+      .post<any>(this._baseUrl + this.apiUrl + "/borrar", {Id_Detalle: id})
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
           this.logs('borrar registro de Londres');
           this.logs(a);

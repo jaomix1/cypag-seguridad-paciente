@@ -20,7 +20,7 @@ import { M5Component } from '../investigaciones/m5/m5.component';
 import { P5Component } from '../investigaciones/p5/p5.component';
 import { BaseFormComponent } from '../../baseComponent';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
-import { Combo, ComboD } from 'src/app/modelos/combos/combo';
+import { Combo } from 'src/app/modelos/combos/combo';
 
 @Component({
   selector: 'app-detalles',
@@ -43,7 +43,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   UserCtrl = new FormControl('');
   filteredUsers: Observable<any[]>;
   users: any[] = [];
-  novedades: ComboD[] = [];
+  novedades: Combo[] = [];
   @ViewChild('UserInput')
   UserInput!: ElementRef<HTMLInputElement>;
 

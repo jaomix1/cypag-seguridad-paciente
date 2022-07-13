@@ -17,9 +17,9 @@ export class DemoService extends BaseService {
 
   getAll(): Observable<Demo[]> {
     return this.http
-      .get<ResponseContract<Demo[]>>(this._baseUrl + this.apiUrl)
+      .get<Demo[]>(this._baseUrl + this.apiUrl)
       .pipe(
-        map((response) => response.data),
+        map((response) => response),
         tap((a) => {
           this.logs('consulta de Demo');
           this.logs(a);
