@@ -22,7 +22,7 @@ exports.seguridad = async (req, res, next) => {
     next();
   } catch (err) {
     return next(
-      res.status(503).send("Error en el procesamiento del token"),
+      res.status(403).send("Error en el procesamiento del token"),
     );
   }
   return null;
