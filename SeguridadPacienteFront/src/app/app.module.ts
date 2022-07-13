@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { Interceptor } from './control/Interceptors';
+import { LoginService } from './servicios/usuarios/login.service';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +16,7 @@ import { PdfModule } from './componentes/pdf/pdf.module';
 
 
 import {  MatSnackBarModule } from '@angular/material/snack-bar';
+import { ComboService } from './servicios/combo/combo.service';
 
 @NgModule({
   declarations: [
@@ -37,7 +42,13 @@ import {  MatSnackBarModule } from '@angular/material/snack-bar';
 
     MatSnackBarModule
   ],
-  providers: [],
+  providers: [LoginService, CookieService, ComboService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: Interceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

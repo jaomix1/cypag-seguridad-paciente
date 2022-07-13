@@ -127,7 +127,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
 
   getResponsables() {
     this.UsersService.get().subscribe({
-      next: (req) => {
+      next: (req:any) => {
         this.users = req;
       },
       error: (err: string) => {

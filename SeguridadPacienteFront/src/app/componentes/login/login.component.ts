@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { BaseFormComponent } from '../baseComponent';
+import { LoginService } from 'src/app/servicios/usuarios/login.service';
+import { MainService } from 'src/app/servicios/main.service';
 
 
 @Component({
@@ -16,20 +18,22 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
   tamano : any = { col : 1};
   tamano2 : any = { col : 1};
   hidePassword = true;
-  loginForm = new FormGroup({
-    Correo: new FormControl('', [Validators.required,]),
+  form = new FormGroup({
+    Usuario: new FormControl('', [Validators.required,]),
     Clave: new FormControl('', [Validators.required]),
   })
 
 
   constructor(
+    public mainService: MainService,
+    private LoginService: LoginService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
     ) {
       super();
     }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
 
     this.breakpointObserver
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
@@ -45,11 +49,24 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
   }
 
   login() {
-    this.router.navigate(["/index"]);
+    if (this.form.valid) {
+      this.loadingMain = true;
+
+      this.LoginService.login(this.form.value).subscribe({
+        next: (req) => {
+          this.LoginService.setToken(req);
+            this.router.navigate(["/index"]);
+        },
+        error: (err: string) => {
+          this.mainService.showToast(err, 'error');
+          this.loadingMain = false
+        },
+        complete: () => this.loadingMain = false
+      })
+    }
   }
 
   cancelar(){
     this.router.navigate(["/main"]);
-
   }
 }

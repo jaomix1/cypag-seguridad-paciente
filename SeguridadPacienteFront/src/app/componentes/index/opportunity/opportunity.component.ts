@@ -81,7 +81,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
   getResponsables() {
     this.UsersService.get().subscribe({
-      next: (req) => {
+      next: (req:any) => {
         console.log("data users", req)
         this.responsables = req;
       },
