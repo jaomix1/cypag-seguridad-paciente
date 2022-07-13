@@ -1,12 +1,22 @@
 /* eslint-disable camelcase */
 const { Op } = require("sequelize");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
+const UsuarioModel = require("../../models/seguridad/usuarios");
+const { enviarMail } = require("../../services/mailer");
 
 // #### OPORTUNIDADES DE MEJORA ####
 exports.createMejora = async (req, res) => {
   const mejoraObject = req.body;
   try {
     const data = await OportunidadesMejoraModel.bulkCreate(mejoraObject);
+    mejoraObject.forEach(async (element) => {
+      const { Correo } = await UsuarioModel.findOne({
+        where: { Usuario: element.Responsable, Estado: "ACT" },
+        raw: true,
+        attributes: ["Correo"],
+      });
+      await enviarMail("M", element.Codigo_Externo, Correo);
+    });
     return res.status(200).json(data);
   } catch (err) {
     return res.status(503).send(`No fue posible guardar el registro: ${err}`);

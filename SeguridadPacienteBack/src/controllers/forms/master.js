@@ -187,3 +187,8 @@ exports.getAllData = async (req, res) => {
     return res.status(503).send("No fue posible consultar las tablas: ", err);
   }
 };
+
+exports.form = async (req, res) => {
+  console.log(req);
+  return res.status(200).send("Form-Data");
+};

@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-// const { seguridad } = require("../../../config/db");
+const { seguridad } = require("../../middleware/seguridad");
 
 const {
   createDetail,
@@ -11,12 +11,12 @@ const {
 } = require("../../controllers/forms/detalles");
 
 router.route("/")
-  .post(createDetail);
+  .post(seguridad, createDetail);
 
 router.route("/registros")
-  .post(getDetail);
+  .post(seguridad, getDetail);
 
 router.route("/borrar")
-  .post(deleteDetail);
+  .post(seguridad, deleteDetail);
 
 module.exports = router;

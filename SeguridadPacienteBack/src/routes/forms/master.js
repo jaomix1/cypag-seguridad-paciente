@@ -2,12 +2,13 @@ const express = require("express");
 
 const router = express.Router();
 
-// const { seguridad } = require("../../../config/db");
+const { seguridad } = require("../../middleware/seguridad");
 
 const {
   getAnswers,
   createEntry,
   getAllData,
+  form,
 } = require("../../controllers/forms/master");
 
 const {
@@ -20,18 +21,21 @@ router.route("/")
   .post(createEntry);
 
 router.route("/det-inv")
-  .post(getAllData);
+  .post(seguridad, getAllData);
 
 router.route("/registros")
-  .post(getAnswers);
+  .post(seguridad, getAnswers);
 
 router.route("/mejoras")
-  .post(createMejora);
+  .post(seguridad, createMejora);
 
 router.route("/mejoras/registros")
-  .post(getMejora);
+  .post(seguridad, getMejora);
 
 router.route("/mejoras/actualizar")
-  .post(updateMejora);
+  .post(seguridad, updateMejora);
+
+router.route("/test")
+  .post(form);
 
 module.exports = router;

@@ -6,17 +6,33 @@ const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
 const TiposNovedadModel = require("../../models/combos/tiposNovedad");
+const UsuarioModel = require("../../models/seguridad/usuarios");
+const MasterModel = require("../../models/forms/master");
+const { enviarMail } = require("../../services/mailer");
 
 exports.createDetail = async (req, res) => {
   const entry = { ...req.body };
-  entry.Agente = "admin";
-  // req.Usuario.user.Usuario
+  entry.Agente = req.Usuario.user.Usuario;
   try {
     const regExistente = await DetallesModel.findOne({
       where: { Id_Master: entry.Id_Master, Estado: "ACT" },
     });
     if (!regExistente) {
       const result = await DetallesModel.create(entry);
+      const { Codigo } = await MasterModel.findOne({
+        where: { Id: entry.Id_Master },
+        raw: true,
+      });
+      const usuarios = entry.Responsables.split(";");
+      const mails = await UsuarioModel.findAll({
+        where: { Usuario: usuarios, Estado: "ACT" },
+        raw: true,
+        attributes: ["Correo"],
+      });
+
+      mails.forEach(async (element) => {
+        await enviarMail("D", Codigo, element.Correo);
+      });
       return res.status(200).json(result);
     }
     return res

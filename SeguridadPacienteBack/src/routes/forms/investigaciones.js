@@ -2,7 +2,7 @@ const express = require("express");
 
 const router = express.Router();
 
-// const { seguridad } = require("../../../config/db");
+const { seguridad } = require("../../middleware/seguridad");
 
 const {
   createInvM5,
@@ -20,39 +20,39 @@ const {
 } = require("../../controllers/forms/investigaciones");
 
 router.route("/5m")
-  .post(createInvM5);
+  .post(seguridad, createInvM5);
 
 router.route("/5m/registros")
-  .post(getInvM5);
+  .post(seguridad, getInvM5);
 
 router.route("/5m/borrar")
-  .post(deleteInvM5);
+  .post(seguridad, deleteInvM5);
 
 router.route("/5p")
-  .post(createInvP5);
+  .post(seguridad, createInvP5);
 
 router.route("/5p/registros")
-  .post(getInvP5);
+  .post(seguridad, getInvP5);
 
 router.route("/5p/borrar")
-  .post(deleteInvP5);
+  .post(seguridad, deleteInvP5);
 
 router.route("/naranjo")
-  .post(createInvNaranjo);
+  .post(seguridad, createInvNaranjo);
 
 router.route("/naranjo/registros")
-  .post(getInvNaranjo);
+  .post(seguridad, getInvNaranjo);
 
 router.route("/naranjo/borrar")
-  .post(deleteInvNaranjo);
+  .post(seguridad, deleteInvNaranjo);
 
 router.route("/londres")
-  .post(createInvLondres);
+  .post(seguridad, createInvLondres);
 
 router.route("/londres/registros")
-  .post(getInvLondres);
+  .post(seguridad, getInvLondres);
 
 router.route("/londres/borrar")
-  .post(deleteInvLondres);
+  .post(seguridad, deleteInvLondres);
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const express = require("express");
-// const { seguridad } = require("../../middleware/seguridad");
+const { seguridad } = require("../../middleware/seguridad");
 const {
   registrarUsuario,
   obtenerPerfiles,
@@ -11,10 +11,10 @@ const {
 const router = express.Router();
 
 // Route: /V1/usuarios
-router.get("/", getAllUsers);
-router.post("/registrar", registrarUsuario);
+router.get("/", seguridad, getAllUsers);
+router.post("/registrar", seguridad, registrarUsuario);
 router.post("/login", login);
-router.put("/desactivar", inactiveUser);
-router.get("/perfiles", obtenerPerfiles);
+router.put("/desactivar", seguridad, inactiveUser);
+router.get("/perfiles", seguridad, obtenerPerfiles);
 
 module.exports = router;
