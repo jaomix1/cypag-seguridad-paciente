@@ -7,7 +7,7 @@ SedesModel.init(
   {
     Id: { type: DataTypes.INTEGER, primaryKey: true },
     Id_Empresa: { type: DataTypes.INTEGER, allowNull: false },
-    Nombre: { type: DataTypes.STRING(255), allowNull: false },
+    Descripcion: { type: DataTypes.STRING(255), allowNull: false },
     Estado: { type: DataTypes.STRING(3), allowNull: false },
   },
   {
