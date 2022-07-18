@@ -1,14 +1,15 @@
 /* eslint-disable no-console */
 const nodemailer = require("nodemailer");
+require("dotenv").config();
 
 exports.enviarMail = async (operacion, infoCorreo, destination) => {
   let mensaje = "";
   const transporter = nodemailer.createTransport({
-    pool: true,
-    service: "outlook",
+    host: "smtp.yandex.com",
+    port: 465,
     auth: {
-      user: "noresponder_previ_salud@outlook.com",
-      pass: "@PrevisaludNotifier2022",
+      user: "noresponder@previsalud.com.co",
+      pass: process.env.MAILPASS,
     },
   });
   if (operacion === "D") {
@@ -62,7 +63,7 @@ exports.enviarMail = async (operacion, infoCorreo, destination) => {
   }
 
   const mailOptions = {
-    from: "noresponder_previ_salud@outlook.com",
+    from: "noresponder@previsalud.com.co",
     to: destination,
     subject: "Notificacion Responsable SEG_PAC",
     html: mensaje,

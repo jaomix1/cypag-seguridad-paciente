@@ -1,5 +1,6 @@
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
+// const { sequelizeSeg } = require("../../../config/db");
 
 class PerfilesModel extends Model {}
 

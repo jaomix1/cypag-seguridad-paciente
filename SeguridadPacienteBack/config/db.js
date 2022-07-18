@@ -13,8 +13,18 @@ const sequelize = new Sequelize(database, user, password, {
   dialect,
 });
 
+// Seguridad
+const userSeg = process.env.SEG_USER;
+const passwordSeg = process.env.SEG_PASS;
+const hostSeg = process.env.SEG_SERVER;
+const databaseSeg = process.env.SEG_BD;
+
+const sequelizeSeg = new Sequelize(databaseSeg, userSeg, passwordSeg, {
+  hostSeg,
+  dialect,
+});
+
 const connectDatabase = async () => {
-  // Recuerda usar el config.env
   await sequelize
     .authenticate()
     .then(() => {
@@ -36,4 +46,9 @@ const config = {
   },
 };
 
-module.exports = { connectDatabase, sequelize, config };
+module.exports = {
+  connectDatabase,
+  sequelize,
+  config,
+  sequelizeSeg,
+};

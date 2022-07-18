@@ -4,6 +4,7 @@ const { DataTypes, Model } = require("sequelize");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { sequelize } = require("../../../config/db");
+// const { sequelizeSeg} = require("../../../config/db");
 require("dotenv").config();
 
 class UsuarioModel extends Model {
