@@ -1,5 +1,10 @@
+/* eslint-disable no-console */
+/* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
 const moment = require("moment");
+const formidable = require("formidable");
+const fs = require("fs");
+const path = require("path");
 const { Op } = require("sequelize");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
@@ -64,12 +69,12 @@ exports.getAnswers = async (req, res) => {
         model: EmpresasModel,
         as: "Empresa_Join",
         where: { Estado: "ACT" },
-        attributes: ["Nombre"],
+        attributes: ["Descripcion"],
       }, {
         model: SedesModel,
         as: "Sede_Join",
         where: { Estado: "ACT" },
-        attributes: ["Nombre"],
+        attributes: ["Descripcion"],
       }, {
         model: TiposIdModel,
         as: "Tipo_Id_Join",
@@ -114,12 +119,12 @@ exports.getAllData = async (req, res) => {
         model: EmpresasModel,
         as: "Empresa_Join",
         where: { Estado: "ACT" },
-        attributes: ["Nombre"],
+        attributes: ["Descripcion"],
       }, {
         model: SedesModel,
         as: "Sede_Join",
         where: { Estado: "ACT" },
-        attributes: ["Nombre"],
+        attributes: ["Descripcion"],
       }, {
         model: TiposIdModel,
         as: "Tipo_Id_Join",
@@ -189,6 +194,27 @@ exports.getAllData = async (req, res) => {
 };
 
 exports.form = async (req, res) => {
-  console.log(req);
-  return res.status(200).send("Form-Data");
+  const guid = req.params.IdMaster;
+  try {
+    const form = new formidable.IncomingForm();
+    const carpeta = path.join(process.cwd(), "src", "uploads", guid);
+    await fs.mkdir(carpeta, { recursive: true }, (error) => {
+      if (error) {
+        return console.error(error);
+      }
+      return console.log("Directory created successfully!");
+    });
+
+    await form.parse(req)
+      .on("fileBegin", (name, file) => {
+        file.filepath = `${carpeta}/imagen.jpg`;
+      })
+      .on("file", (name, file) => {
+        console.log("Uploaded file");
+      });
+
+    return res.status(200).send("Ok");
+  } catch (err) {
+    return res.status(503).send("No fue posible guardar la imagen: ", err);
+  }
 };

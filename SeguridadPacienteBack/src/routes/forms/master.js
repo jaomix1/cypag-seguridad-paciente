@@ -35,7 +35,7 @@ router.route("/mejoras/registros")
 router.route("/mejoras/actualizar")
   .post(seguridad, updateMejora);
 
-router.route("/test")
+router.route("/fileupload/:IdMaster")
   .post(form);
 
 module.exports = router;
