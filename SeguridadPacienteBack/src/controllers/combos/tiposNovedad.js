@@ -5,6 +5,7 @@ exports.obtenerTiposNovedad = async (req, res) => {
     const data = await TiposNovedadModel.findAll({
       where: { Estado: "ACT" },
       attributes: ["Id", "Descripcion"],
+      order: [["Descripcion", "ASC"]],
     });
     return res.status(200).json(data);
   } catch (err) {

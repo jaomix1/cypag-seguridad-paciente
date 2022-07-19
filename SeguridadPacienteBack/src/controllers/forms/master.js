@@ -59,7 +59,7 @@ exports.getAnswers = async (req, res) => {
           { Sede },
         ],
       },
-      order: [["Fecha_Incidente", "ASC"]],
+      order: [["Fecha_Incidente", "DESC"]],
       include: [{
         model: TiposNovedadModel,
         as: "Tipo_Novedad_Join",
