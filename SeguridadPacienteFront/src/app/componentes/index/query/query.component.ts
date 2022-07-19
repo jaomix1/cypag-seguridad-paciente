@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable, MatTableDataSource } from '@angular/material/table';
-import { Combo, ComboD } from 'src/app/modelos/combos/combo';
+import { Combo } from 'src/app/modelos/combos/combo';
 import { Query } from 'src/app/modelos/query/query';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
@@ -22,7 +22,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
 
   displayedColumns = ['Codigo','fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
 
-  novedades: ComboD[] = [];
+  novedades: Combo[] = [];
   empresas: Combo[] = [];
   sedes: Combo[] = [];
   datos: any = [];

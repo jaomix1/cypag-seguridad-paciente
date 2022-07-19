@@ -17,7 +17,7 @@ export class OpportunityService extends BaseService {
 
   getAll(data:any): Observable<any[]> {
     return this.http
-      .post<any[]>(this._baseUrl + this.apiUrl + "registros", data)
+      .post<any>(this._baseUrl + this.apiUrl + "registros", data)
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -43,7 +43,7 @@ export class OpportunityService extends BaseService {
 
   create(data: any): Observable<any> {
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl, data)
+      .post<any>(this._baseUrl + this.apiUrl, data)
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -56,7 +56,7 @@ export class OpportunityService extends BaseService {
 
   edit(data: any): Observable<any> {
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "actualizar", data)
+      .post<any>(this._baseUrl + this.apiUrl + "actualizar", data)
       .pipe(
         map((response) => response),
         tap((a) => {

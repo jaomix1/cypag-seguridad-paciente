@@ -19,7 +19,7 @@ export class OportunidadesFormComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
   private masterId : string;
-  mejoras: any[] = [];
+  mejoras: any = [];
   responsables: any = [];
 
   displayedColumns = ['Codigo','Descripcion', 'Responsable'];
@@ -71,8 +71,15 @@ export class OportunidadesFormComponent implements OnInit {
       });
     }
   }
-
+  sending: boolean = false;
   agregar() {
+    this.sending = true;
+    if(this.mejoras.length >= 1){
+      if(this.mejoras.find((mejora:any) => mejora.Codigo_Externo == this.form.value.Code)){
+        this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
+        this.form.reset();
+      }
+    }
     if(this.form.valid){
       let object = {
         Id_Master: this.masterId,
@@ -81,15 +88,14 @@ export class OportunidadesFormComponent implements OnInit {
         Responsable: this.form.value.Responsables
       }
 
-      let antes = this.mejoras;
-      antes.push(object);
-      this.mejoras = [];
-      this.mejoras = antes;
-      this.table.renderRows();
-      // this.mejoras.push(object);
+      this.mejoras.push(object);
+      if(this.mejoras.length > 1){
+        this.table.renderRows();
+      }
       this.form.reset();
       console.log(this.mejoras)
     }
+    this.sending = false;
   }
 
   validate(nameInput: string) {

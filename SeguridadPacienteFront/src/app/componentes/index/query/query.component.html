@@ -28,7 +28,7 @@
                 <mat-form-field class="full-width" appearance="outline">
                   <mat-label>Empresa a la cual pertenece</mat-label>
                   <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece">
-                    <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="cargaSedes(c.Id)">{{c.Nombre}}</mat-option>
+                    <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="cargaSedes(c.Id)">{{c.Descripcion}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -36,7 +36,7 @@
                 <mat-form-field class="full-width" appearance="outline">
                   <mat-label>Sede donde se presento el incidente</mat-label>
                   <mat-select formControlName="Sede" placeholder="Sede donde presento el incidente">
-                    <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Nombre}}</mat-option>
+                    <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Descripcion}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
@@ -123,13 +123,13 @@
         <!-- Empresa Column -->
         <ng-container matColumnDef="empresa">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
-          <td mat-cell *matCellDef="let row">{{row.Empresa_Join.Nombre}}</td>
+          <td mat-cell *matCellDef="let row">{{row.Empresa_Join.Descripcion}}</td>
         </ng-container>
 
         <!-- Sede Column -->
         <ng-container matColumnDef="sede">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
-            <td mat-cell *matCellDef="let row">{{row.Sede_Join.Nombre}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Sede_Join.Descripcion}}</td>
         </ng-container>
 
         <!-- Sede Column -->

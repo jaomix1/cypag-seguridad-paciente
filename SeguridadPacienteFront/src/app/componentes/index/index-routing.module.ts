@@ -17,22 +17,12 @@ const routes: Routes = [
       {
           path: 'oportunidad',
           component: OpportunityComponent,
-          //canActivate: [Acceso]
+          canActivate: [Acceso]
       },
       {
           path: 'consulta',
           component: QueryComponent,
-          //canActivate: [Acceso]
-      },
-      {
-          path: 'tabla',
-          component: TablaComponent,
-          //canActivate: [Acceso]
-      },
-      {
-          path: 'form',
-          component: FormularioComponent,
-          //canActivate: [Acceso]
+          canActivate: [Acceso]
       }
     ]
   },

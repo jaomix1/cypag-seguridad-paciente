@@ -17,7 +17,7 @@ export class QueryService extends BaseService {
 
   getAll(data:any): Observable<any> {
     return this.http
-    .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "registros", data)
+    .post<any>(this._baseUrl + this.apiUrl + "registros", data)
     .pipe(
       map((response) => response),
       tap((a) => {
@@ -30,7 +30,7 @@ export class QueryService extends BaseService {
 
   get(id: string): Observable<any> {
     return this.http
-      .post<ResponseContract<any>>(this._baseUrl + this.apiUrl + "det-inv", {Id_Master: id})
+      .post<any>(this._baseUrl + this.apiUrl + "det-inv", {Id_Master: id})
       .pipe(
         map((response) => response),
         tap((a) => {

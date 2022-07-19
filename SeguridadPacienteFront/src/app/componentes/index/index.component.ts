@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { LoginService } from 'src/app/servicios/usuarios/login.service';
 
 @Component({
   selector: 'app-index',
@@ -16,6 +17,14 @@ export class IndexComponent {
     shareReplay()
   );
 
-constructor(private breakpointObserver: BreakpointObserver) {}
+  Logout(){
+    this.LoginService.deleteToken()
+    location.href ="http://localhost:4200/login";
+  }
+
+constructor(
+  private LoginService: LoginService,
+  private breakpointObserver: BreakpointObserver
+  ) {}
 
 }

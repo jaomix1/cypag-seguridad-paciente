@@ -21,7 +21,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-  displayedColumns = ['id', 'externo', 'responsable', 'oportunidad', 'porcentaje', 'accion'];
+  displayedColumns = ['externo', 'responsable', 'oportunidad', 'porcentaje', 'accion'];
 
   responsables: any;
   datos: any = [];
@@ -81,7 +81,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
   getResponsables() {
     this.UsersService.get().subscribe({
-      next: (req) => {
+      next: (req:any) => {
         console.log("data users", req)
         this.responsables = req;
       },

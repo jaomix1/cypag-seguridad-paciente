@@ -12,7 +12,7 @@ const routes: Routes = [
   { path: 'main', component: MainComponent },
   { path: 'pdf/:token', component: PdfComponent },
   {
-    path: 'index', component: IndexComponent, //canActivate: [Acceso]
+    path: 'index', component: IndexComponent, canActivate: [Acceso]
   },
 ];
 

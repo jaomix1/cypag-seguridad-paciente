@@ -4,7 +4,7 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { BaseService } from '../baseService';
 import { ResponseContract } from 'src/app/modelos/responseContract';
 import { Observable } from 'rxjs';
-import { Combo, ComboBoolean, ComboD } from 'src/app/modelos/combos/combo';
+import { Combo, ComboBoolean } from 'src/app/modelos/combos/combo';
 import { ComboText } from 'src/app/modelos/combos/combo';
 
 @Injectable({
@@ -52,9 +52,9 @@ export class ComboService extends BaseService {
     }
   ];
 
-  getNovedades(): Observable<ComboD[]> {
+  getNovedades(): Observable<Combo[]> {
     return this.http
-      .get<ComboD[]>(this._baseUrl + this.apiUrl + "tipos-novedad")
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "tipos-novedad")
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -65,9 +65,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getIdentificacion(): Observable<ComboD[]>  {
+  getIdentificacion(): Observable<Combo[]>  {
     return this.http
-      .get<ComboD[]>(this._baseUrl + this.apiUrl + "tipos-id")
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "tipos-id")
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -104,9 +104,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getServicios(): Observable<ComboD[]> {
+  getServicios(): Observable<Combo[]> {
     return this.http
-      .get<ComboD[]>(this._baseUrl + this.apiUrl + "servicios")
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios")
       .pipe(
         map((response) => response),
         tap((a) => {

@@ -2,10 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 import { BaseService } from '../baseService';
-import { ResponseContract } from 'src/app/modelos/responseContract';
 import { Observable } from 'rxjs';
-import { Combo, ComboBoolean, ComboD } from 'src/app/modelos/combos/combo';
-import { ComboText } from 'src/app/modelos/combos/combo';
 
 @Injectable({
   providedIn: 'root'

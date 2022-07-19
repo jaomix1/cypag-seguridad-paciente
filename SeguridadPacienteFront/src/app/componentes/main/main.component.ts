@@ -7,7 +7,7 @@ import {COMMA, ENTER} from '@angular/cdk/keycodes';
 import {MatChipInputEvent} from '@angular/material/chips';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
-import { Combo, ComboD } from 'src/app/modelos/combos/combo';
+import { Combo } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 import * as moment from 'moment';
 import { InfoComponent } from '../info/info.component';
@@ -23,11 +23,11 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   imagen: any = null;
 
   //combos
-  novedades!: ComboD[];
+  novedades!: Combo[];
   sedes!: Combo[];
   empresas!: Combo[];
-  identificaciones!: ComboD[];
-  servicios!: ComboD[];
+  identificaciones!: Combo[];
+  servicios!: Combo[];
 
   //cargar daños o testigos
   hayDanos = false;

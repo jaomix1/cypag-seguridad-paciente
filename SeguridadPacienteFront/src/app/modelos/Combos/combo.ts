@@ -1,9 +1,5 @@
 export class Combo {
   public Id: number = 0;
-  public Nombre: string= "";
-}
-export class ComboD {
-  public Id: number = 0;
   public Descripcion: string= "";
 }
 export class ComboText {

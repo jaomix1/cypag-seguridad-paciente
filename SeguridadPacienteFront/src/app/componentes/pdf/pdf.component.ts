@@ -4,6 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { BaseFormComponent } from '../baseComponent';
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
+import { jsPDF } from "jspdf";
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-pdf',
   templateUrl: './pdf.component.html',
@@ -50,7 +52,30 @@ export class PdfComponent extends BaseFormComponent implements OnInit {
   }
 
   download() {
+    this.loadingMain = true;
+    // Extraemos el
+    const DATA: any = document.getElementById('htmlData');
+    const doc = new jsPDF('p', 'pt', 'a4');
+    const options = {
+      background: 'white',
+      scale: 1
+    };
+    html2canvas(DATA, options).then((canvas) => {
 
+      const img = canvas.toDataURL('image/PNG');
+
+      // Add image Canvas to PDF
+      const bufferX = 15;
+      const bufferY = 15;
+      const imgProps = (doc as any).getImageProperties(img);
+      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+      return doc;
+    }).then((docResult) => {
+      docResult.save(`${this.token}_Londres.pdf`);
+      this.loadingMain = false;
+    });
   }
 
 }
