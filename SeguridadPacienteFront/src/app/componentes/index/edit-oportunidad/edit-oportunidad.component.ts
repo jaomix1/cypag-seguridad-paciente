@@ -46,20 +46,24 @@ export class EditOportunidadComponent implements OnInit {
   }
 
   submit(){
-    let object = {
-      Id: this.datos.Id,
-      Porcentaje_Mejora: this.percent
-    }
-    this.OpportunityService.edit(object).subscribe({
-      next: (req:any) => {
-        this.mainService.showToast(req.message);
-      },
-      error: (err: string) => {
-        this.mainService.showToast(err, 'error');
-      },
-      complete: () => {
+    if(this.percent <= 100 && this.percent >= 0){
+      let object = {
+        Id: this.datos.Id,
+        Porcentaje_Mejora: this.percent
       }
-    });
+      this.OpportunityService.edit(object).subscribe({
+        next: (req:any) => {
+          this.mainService.showToast(req.message);
+        },
+        error: (err: string) => {
+          this.mainService.showToast(err, 'error');
+        },
+        complete: () => {
+        }
+      });
+    }else{
+      this.mainService.showToast("No se puede ingresar un porcentaje mayor a 100 o menor a 0", 'error');
+    }
   }
 
 }

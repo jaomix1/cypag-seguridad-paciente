@@ -230,7 +230,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Generó daño en el paciente?</mat-label>
-            <mat-select formControlName="Preg_Genero_Dano" placeholder="¿Generó daño en el Nombre_Paciente?" required>
+            <mat-select formControlName="Preg_Genero_Dano" placeholder="¿Generó daño en el paciente?" required>
               <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Preg_Genero_Dano')">
@@ -240,8 +240,8 @@
         </div>
         <div class="col" *ngIf="hayDanos">
           <mat-form-field class="full-width" appearance="outline">
-            <mat-label>¿Qué daño genero el Nombre_Paciente?</mat-label>
-              <input matInput placeholder="¿Qué daño genero el Nombre_Paciente?" formControlName="Preg_Dano_Generado" maxlength="30">
+            <mat-label>¿Qué daño genero?</mat-label>
+              <input matInput placeholder="¿Qué daño genero?" formControlName="Preg_Dano_Generado" maxlength="30">
             <mat-error *ngIf="validate('Preg_Dano_Generado')">
               {{ check('Preg_Dano_Generado') }}
             </mat-error>
