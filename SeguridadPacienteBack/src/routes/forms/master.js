@@ -8,7 +8,8 @@ const {
   getAnswers,
   createEntry,
   getAllData,
-  form,
+  fileUpload,
+  fileDownload,
 } = require("../../controllers/forms/master");
 
 const {
@@ -36,6 +37,9 @@ router.route("/mejoras/actualizar")
   .post(seguridad, updateMejora);
 
 router.route("/fileupload/:IdMaster")
-  .post(form);
+  .post(fileUpload);
+
+router.route("/filedownload/:IdMaster")
+  .get(fileDownload);
 
 module.exports = router;

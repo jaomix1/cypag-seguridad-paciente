@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
 /* eslint-disable camelcase */
@@ -193,7 +194,7 @@ exports.getAllData = async (req, res) => {
   }
 };
 
-exports.form = async (req, res) => {
+exports.fileUpload = async (req, res) => {
   const guid = req.params.IdMaster;
   try {
     const form = new formidable.IncomingForm();
@@ -216,5 +217,19 @@ exports.form = async (req, res) => {
     return res.status(200).send("Ok");
   } catch (err) {
     return res.status(503).send("No fue posible guardar la imagen: ", err);
+  }
+};
+
+exports.fileDownload = async (req, res) => {
+  try {
+    const guid = req.params.IdMaster;
+    const carpeta = path.join(process.cwd(), "src", "uploads", guid, "/imagen.jpg");
+    const fileExists = fs.existsSync(carpeta);
+    if (fileExists) {
+      return res.status(200).download(carpeta);
+    }
+    return res.status(503).send("La imagen no existe");
+  } catch (error) {
+    return res.status(503).send("Hubo un error en la busqueda de la imagen: ", error);
   }
 };
