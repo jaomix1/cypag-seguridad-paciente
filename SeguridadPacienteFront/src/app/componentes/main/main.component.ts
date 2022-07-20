@@ -12,6 +12,7 @@ import { FormMasterService } from 'src/app/servicios/Formulario master/form-mast
 import * as moment from 'moment';
 import { InfoComponent } from '../info/info.component';
 import { MatDialog } from '@angular/material/dialog';
+import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 
 @Component({
   selector: 'app-main',
@@ -47,11 +48,11 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.required,
     ]),
     Nombre_Quien_Reporta:  new FormControl('', [
-      Validators.maxLength(50),
+      Validators.maxLength(80),
       Validators.pattern(this.latin),
     ]),
     Cargo_Quien_Reporta: new FormControl('', [
-      Validators.maxLength(30),
+      Validators.maxLength(40),
       Validators.pattern(this.latin),
     ]),
     Empresa:  new FormControl('', [
@@ -65,7 +66,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     ]),
     Nombre_Paciente:  new FormControl('', [
       Validators.required,
-      Validators.maxLength(50),
+      Validators.maxLength(80),
       Validators.pattern(this.latin),
     ]),
     Tipo_Id:  new FormControl('', [
@@ -166,6 +167,19 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
           console.log(req)
           this.loadingMain = false;
           this.mainService.showToast('Creado Correctamente');
+          this.dialog.open(DialogMainComponent, {
+            disableClose: false,
+            width: '300px',
+            data: {
+              response: req,
+              message: 'Formualario registrado exitosamente'
+            }
+          })
+          .afterClosed()
+          .subscribe((confirmado: Boolean) => {
+            if (confirmado) {
+            }
+          });
         },
         error: (err: string) => {
           console.log(err)
@@ -174,6 +188,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
         },
         complete: () => {
           this.loadingMain = false;
+          this.testigos = [];
           this.form.reset();
           this.form.enable();
         },

@@ -431,6 +431,21 @@ export class CombosLondresService {
       Descripcion: "Estado Psicologico"
     }
   ];
+
+  public fase1_medios : ComboText[] = [
+    {
+      Id: "Análisis de la Historia Clínica, Protocolos, Procedimientos",
+      Descripcion: "Análisis de la Historia Clínica, Protocolos, Procedimientos"
+    },
+    {
+      Id: "Entrevista a las personas que intervienen en el proceso",
+      Descripcion: "Entrevista a las personas que intervienen en el proceso"
+    },
+    {
+      Id: "Otros mecanismos como: Declaraciones, Observaciones, etc.",
+      Descripcion: "Otros mecanismos como: Declaraciones, Observaciones, etc."
+    }
+  ];
 }
 
 

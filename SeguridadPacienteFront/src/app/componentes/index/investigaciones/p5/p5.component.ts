@@ -64,6 +64,7 @@ export class P5Component implements OnInit {
           this.mainService.showToast('Guardado Correctamente', 'success');
           this.realizado = true;
           this.form.disable();
+          this.mejoras();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');

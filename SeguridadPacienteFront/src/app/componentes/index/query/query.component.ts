@@ -20,7 +20,7 @@ import { DetallesComponent } from '../detalles/detalles.component';
 export class QueryComponent extends BaseFormComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-  displayedColumns = ['Codigo','fecha_R','fecha', 'hora', 'nombre', 'doc', 'empresa', 'sede', 'novedad', 'accion'];
+  displayedColumns = ['Codigo','fecha_R','fecha', 'hora', 'nombre', 'doc', 'sede', 'novedad', 'accion'];
 
   novedades: Combo[] = [];
   empresas: Combo[] = [];
@@ -30,7 +30,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   maxDate: Date;
 
   myForm = new FormGroup({
-    Codigo: new FormControl(null, [Validators.maxLength(17), Validators.pattern(this.number)]),
+    Codigo: new FormControl(null, [Validators.maxLength(50), Validators.pattern(this.number)]),
     Numero_Id: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
     Start_Date: new FormControl(null),
     End_Date: new FormControl(null),
@@ -109,6 +109,9 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
           console.log(this.datos)
           this.loadingMain = false;
           this.myForm.enable();
+          if(this.datos.length < 1) {
+            this.mainService.showToast("No se han encontrado registros, verifique los filtros", 'error');
+          }
           //this.cancelar();
         },
         error: (err: string) => {

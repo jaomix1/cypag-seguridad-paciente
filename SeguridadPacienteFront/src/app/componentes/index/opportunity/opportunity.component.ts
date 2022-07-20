@@ -31,7 +31,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   form = new FormGroup({
     Id: new FormControl(null),
     Id_Master: new FormControl(null),
-    Codigo_Externo: new FormControl(null, [Validators.maxLength(5), Validators.pattern(this.number)]),
+    Codigo_Externo: new FormControl(null, [Validators.maxLength(30)]),
     Start_Date: new FormControl(null),
     End_Date: new FormControl(null),
     Responsable: new FormControl(null),
@@ -64,6 +64,9 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
           this.datos = req;
           this.loadingMain = false;
           this.form.enable();
+          if(this.datos.length < 1) {
+            this.mainService.showToast("No se han encontrado oportunidades, verifique los filtros", 'error');
+          }
           //this.cancelar();
         },
         error: (err: string) => {

@@ -22,7 +22,7 @@ export class OportunidadesFormComponent implements OnInit {
   mejoras: any = [];
   responsables: any = [];
 
-  displayedColumns = ['Codigo','Descripcion', 'Responsable'];
+  displayedColumns = ['Codigo','Descripcion', 'Responsable', 'Accion'];
 
   constructor(
     public mainService: MainService,
@@ -36,8 +36,8 @@ export class OportunidadesFormComponent implements OnInit {
   }
 
   form = new FormGroup({
-    Code: new FormControl(null, [Validators.required]),
-    Cual: new FormControl(null, [Validators.required]),
+    Code: new FormControl(null, [Validators.maxLength(30), Validators.required]),
+    Cual: new FormControl(null, [Validators.maxLength(500), Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
   });
 
@@ -104,5 +104,10 @@ export class OportunidadesFormComponent implements OnInit {
 
   check(nameInput: string) {
     return this.mainService.checkInput(this.form, nameInput);
+  }
+
+  eliminar(codigo:any){
+    this.mejoras = this.mejoras.filter((item:any) => item.Codigo_Externo !== codigo)
+
   }
 }

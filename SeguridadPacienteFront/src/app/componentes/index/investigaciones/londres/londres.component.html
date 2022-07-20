@@ -17,28 +17,47 @@
   <h2> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN </b></h2>
   <!-- FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN -->
   <div class="row">
-    <div class="col">
+    <!-- <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Análisis de la Historia Clínica, Protocolos, Procedimientos</mat-label>
         <input matInput placeholder="Observacion" formControlName="Fase1_Analisis" maxlength="500" required >
-        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+        <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
-        </mat-error> -->
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Entrevista a las personas que intervienen en el proceso</mat-label>
         <input matInput placeholder="Observacion" formControlName="Fase1_Entrevista" maxlength="500" required >
-        <!-- <mat-error *ngIf="validate('Servicio_Id')">
+        <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
-        </mat-error> -->
+        </mat-error>
       </mat-form-field>
     </div>
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Otros mecanismos como: Declaraciones, Observaciones, etc.</mat-label>
         <input matInput placeholder="Observacion" formControlName="Fase1_Otros_Mecanismos" maxlength="50" required >
+        <mat-error *ngIf="validate('Servicio_Id')">
+          {{ check('Servicio_Id') }}
+        </mat-error>
+      </mat-form-field>
+    </div> -->
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>MEDIOS PARA OBTENCIÓN DE LA INFORMACIÓN</mat-label>
+        <mat-select formControlName="Fase1_Medio" placeholder="Seleccione..." >
+          <mat-option *ngFor="let c of CombosLondresService.fase1_medios" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+        </mat-select>
+        <!-- <mat-error *ngIf="validate('Fase2_d')">
+          {{ check('Fase2_d') }}
+        </mat-error> -->
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Observacion</mat-label>
+        <textarea  matInput placeholder="Observacion" formControlName="Fase1_Medio_Observaciones" maxlength="255">
+        </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -49,7 +68,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>CRONOLOGÍA DEL INCIDENTE O EVENTO ADVERSO</mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase1_Cronologia" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase1_Cronologia" maxlength="2000" required ></textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -84,7 +103,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea  matInput placeholder="Observacion" formControlName="Fase2_Equipo_Observaciones" maxlength="2000" required>
+        <textarea  matInput placeholder="Observacion" formControlName="Fase2_Equipo_Observaciones" maxlength="255">
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -103,7 +122,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase2_Individuo_Observaciones" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase2_Individuo_Observaciones" maxlength="255" >
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -122,7 +141,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase2_Administrativos_Observaciones" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase2_Administrativos_Observaciones" maxlength="255">
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -141,7 +160,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase2_Tareas_Observaciones" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase2_Tareas_Observaciones" maxlength="255">
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -160,7 +179,7 @@
       </mat-form-field>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase2_Paciente_Observaciones" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase2_Paciente_Observaciones" maxlength="255" >
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -231,7 +250,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Complicación / Incidente</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase3_Complicacion" maxlength="50" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase3_Complicacion" maxlength="255" required >
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -271,7 +290,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA SEGUNDA VICTIMA </mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase3_Acciones_Segunda" maxlength="50" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase3_Acciones_Segunda" maxlength="255" ></textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -280,7 +299,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA TERCERA VICTIMA </mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase3_Acciones_Tercera" maxlength="50" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase3_Acciones_Tercera" maxlength="255" ></textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -298,9 +317,9 @@
   </div>
 </form>
 <div class="row my-3">
-  <div class="col" *ngIf="realizado">
+  <!-- <div class="col" *ngIf="realizado">
     <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
-  </div>
+  </div> -->
   <div class="col">
     <button type='button' mat-raised-button class="bg-secondary"  (click)="mejoras()">Oportunidades Mejoras</button>
   </div>

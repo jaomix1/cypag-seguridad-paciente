@@ -12,17 +12,6 @@
     </div>
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>¿Cual?</mat-label>
-        <input matInput placeholder="¿Cual?" formControlName="Cual" maxlength="50" required>
-        <mat-error *ngIf="validate('Cual')">
-          {{ check('Cual') }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Responsable" formControlName="Responsables">
               <mat-option *ngFor="let data of responsables" [value]="data.Usuario">
                   {{ data.NombreCompleto }}
@@ -32,7 +21,19 @@
               {{ check('Responsables') }}
           </mat-error>
       </mat-form-field>
+    </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Cual?</mat-label>
+        <textarea matInput #oportunidad placeholder="¿Cual?" formControlName="Cual" maxlength="500" required></textarea>
+        <mat-hint align="end">{{oportunidad.value.length}} / 300</mat-hint>
+        <mat-error *ngIf="validate('Cual')">
+          {{ check('Cual') }}
+        </mat-error>
+      </mat-form-field>
+    </div>
   </div>
 </form>
 <div class="row my-3">
@@ -58,6 +59,12 @@
           <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
       </ng-container>
 
+      <ng-container matColumnDef="Accion">
+        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+        <td mat-cell *matCellDef="let row"> <button mat-raised-button color="warn"
+                (click)="eliminar(row.Codigo_Externo)">Eliminar</button></td>
+    </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
@@ -69,7 +76,7 @@
 
 <div class="row my-3"  *ngIf="this.mejoras.length > 0">
   <div class="col">
-    <button type='button' mat-raised-button class="bg-secondary"  (click)="submit()">Enviar</button>
+    <button type='button' mat-raised-button class="bg-primary"  (click)="submit()">Enviar</button>
   </div>
 </div>
 

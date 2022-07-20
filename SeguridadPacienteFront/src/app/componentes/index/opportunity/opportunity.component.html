@@ -8,8 +8,8 @@
             <div class="row">
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
-                        <input matInput placeholder="Codigo externo" (focus)="cancelar()"
-                            formControlName="Codigo_Externo">
+                        <input matInput placeholder="Codigo externo"
+                            formControlName="Codigo_Externo" maxlength="30">
                         <mat-error *ngIf="validate('Codigo_Externo')">
                             {{ check('Codigo_Externo') }}
                         </mat-error>
@@ -50,7 +50,7 @@
             <div class="row">
                 <div class="col">
                     <button type='button' mat-raised-button color="warn" [disabled]="loadingMain"
-                        (click)="cancelar()">Cancelar</button>
+                        (click)="cancelar()">Limpiar</button>
                 </div>
                 <div class="col">
                     <button mat-raised-button color="primary" [disabled]="loadingMain" type="submit">Consultar</button>
@@ -83,7 +83,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="porcentaje">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>porcentaje</th>
-            <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
         </ng-container>
 
         <ng-container matColumnDef="accion">

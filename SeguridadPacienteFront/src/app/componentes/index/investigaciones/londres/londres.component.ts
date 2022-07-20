@@ -22,31 +22,33 @@ export class LondresComponent implements OnInit {
 
   form = new FormGroup({
     Id_Detalle: new FormControl(''),
-    Tipo_Adverso: new FormControl(''),
-    Select_Depende_Tipo: new FormControl(''),
+    Tipo_Adverso: new FormControl('', [Validators.required]),
+    Select_Depende_Tipo: new FormControl('', [Validators.required]),
     Fase1_Analisis: new FormControl(''),
     Fase1_Entrevista: new FormControl(''),
     Fase1_Otros_Mecanismos: new FormControl(''),
-    Fase1_Cronologia: new FormControl(''),
-    Fase2_Acciones_Inseguras: new FormControl(''),
-    Fase2_Equipo: new FormControl(''),
-    Fase2_Individuo: new FormControl(''),
-    Fase2_Administrativos: new FormControl(''),
-    Fase2_Tareas: new FormControl(''),
-    Fase2_Paciente: new FormControl(''),
+    Fase1_Medio: new FormControl(''),
+    Fase1_Medio_Observaciones: new FormControl('',[Validators.maxLength(255), Validators.required]),
+    Fase1_Cronologia: new FormControl('', [Validators.maxLength(255), Validators.required]),
+    Fase2_Acciones_Inseguras: new FormControl('', [Validators.maxLength(255), Validators.required]),
+    Fase2_Equipo: new FormControl('', [Validators.required]),
+    Fase2_Individuo: new FormControl('', [Validators.required]),
+    Fase2_Administrativos: new FormControl('', [Validators.required]),
+    Fase2_Tareas: new FormControl('', [Validators.required]),
+    Fase2_Paciente: new FormControl('', [Validators.required]),
     Fase2_Equipo_Observaciones: new FormControl(''),
     Fase2_Individuo_Observaciones: new FormControl(''),
     Fase2_Administrativos_Observaciones: new FormControl(''),
     Fase2_Tareas_Observaciones: new FormControl(''),
     Fase2_Paciente_Observaciones: new FormControl(''),
-    Fase2_Analisis_Problema: new FormControl(''),
-    Fase3_Complicacion: new FormControl(''),
+    Fase2_Analisis_Problema: new FormControl('',[Validators.maxLength(255), Validators.required]),
+    Fase3_Complicacion: new FormControl('',[Validators.maxLength(255), Validators.required]),
     Evento_Adverso_Tipo: new FormControl(''),
     Evento_Adverso_Estado: new FormControl(''),
-    Fase3_Preg_Segunda: new FormControl(''),
-    Fase3_Acciones_Segunda: new FormControl(''),
-    Fase3_Preg_Tercera: new FormControl(''),
-    Fase3_Acciones_Tercera: new FormControl(''),
+    Fase3_Preg_Segunda: new FormControl('', [Validators.required]),
+    Fase3_Acciones_Segunda: new FormControl('', [Validators.maxLength(255)]),
+    Fase3_Preg_Tercera: new FormControl('', [Validators.required]),
+    Fase3_Acciones_Tercera: new FormControl('',[Validators.maxLength(255)]),
   });
 
 
@@ -82,6 +84,8 @@ export class LondresComponent implements OnInit {
     this.form.controls['Fase1_Analisis'].setValue(this.londres.Fase1_Analisis);
     this.form.controls['Fase1_Otros_Mecanismos'].setValue(this.londres.Fase1_Otros_Mecanismos);
     this.form.controls['Fase1_Entrevista'].setValue(this.londres.Fase1_Entrevista);
+    this.form.controls['Fase1_Medio'].setValue(this.londres.Fase1_Medio);
+    this.form.controls['Fase1_Medio_Observaciones'].setValue(this.londres.Fase1_Medio_Observaciones);
     this.form.controls['Fase1_Cronologia'].setValue(this.londres.Fase1_Cronologia);
 
     this.form.controls['Fase2_Acciones_Inseguras'].setValue(this.londres.Fase2_Acciones_Inseguras);
@@ -117,6 +121,8 @@ export class LondresComponent implements OnInit {
       this.LondresService.send(this.form.value).subscribe({
         next: (req:any) => {
           this.realizado = true;
+          this.form.disable();
+          this.mejoras();
           this.mainService.showToast('Guardado Correctamente');
         },
         error: (err: string) => {
