@@ -29,8 +29,8 @@ exports.createEntry = async (req, res) => {
   }
   entry.Codigo = moment().format("YYYYMMDDHHmmss");
   try {
-    await MasterModel.create(entry);
-    return res.status(200).json({ message: "Registro Creado" });
+    const data = await MasterModel.create(entry);
+    return res.status(200).json(data);
   } catch (err) {
     // Implementar Error Responses
     return res.status(503).send(`No fue posible guardar el registro: ${err.message}`);
