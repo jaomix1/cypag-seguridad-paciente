@@ -5,7 +5,12 @@
 <div>
   <div class="row">
     <div class="col">
-      <button type='button' mat-button (click)="copiar()" class="bg-secondary"> Copiar </button>
+      <p>{{data.response.Id}}</p>
+      <br>
+      <button mat-button matSuffix type="button" class="bg-secondary" (click)="copyToClipboard()">
+        <mat-icon>file_copy</mat-icon>
+        Copiar
+      </button>
     </div>
   </div>
 </div>

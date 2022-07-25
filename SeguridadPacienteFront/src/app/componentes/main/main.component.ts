@@ -75,7 +75,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     Numero_Id:  new FormControl('', [
       Validators.required,
       Validators.maxLength(11),
-      Validators.pattern(this.latin),
+      Validators.pattern(this.number),
     ]),
     Sexo:  new FormControl('', [
       Validators.required
@@ -184,6 +184,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
         error: (err: string) => {
           console.log(err)
           this.loadingMain = false;
+          this.testigos = [];
+          this.form.enable();
           this.mainService.showToast(err, 'error');
         },
         complete: () => {
