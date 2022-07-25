@@ -25,7 +25,7 @@ export class DialogMainComponent implements OnInit {
   }
 
   copyToClipboard(): void {
-    this.clipboard.copy(this.data.response.Id);
+    this.clipboard.copy(this.data.response.Codigo);
 
     this.mainService.showToast('Creado Correctamente');
   }

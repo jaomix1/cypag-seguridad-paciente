@@ -277,8 +277,17 @@
       <div class="row">
         <div class="col">
           <mat-label>Adjuntar evidencia (imagen, foto)</mat-label>
-          <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button>
-          <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file">
+          <ul>
+            <li *ngFor="let file of files">
+              <span id="file-label">
+                {{file.data.name}}
+              </span>
+            </li>
+          </ul>
+          <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
+          <button type="button" mat-raised-button (click)="cargar()">Seleccionar</button>
+          <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
+          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
           <br>
           <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
         </div>

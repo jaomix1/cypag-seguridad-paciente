@@ -391,4 +391,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     console.log(this.masterId)
     window.open("http://localhost:4200/pdf/"+ this.masterId, '_blank');
   }
+
+  downloadImage(){
+    window.open("https://seguridadpaciente.hannpark.repl.co/v1/api/master/filedownload/"+ this.masterId, '_blank');
+  }
 }

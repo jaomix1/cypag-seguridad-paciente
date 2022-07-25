@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable, ReplaySubject } from 'rxjs';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { catchError, map, Observable, of, ReplaySubject } from 'rxjs';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
 import { Demo } from 'src/app/modelos/demo/demo';
@@ -9,10 +9,12 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
+import { EvidenciasService } from 'src/app/servicios/imagen/evidencias.service';
 import * as moment from 'moment';
 import { InfoComponent } from '../info/info.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
+import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-main',
@@ -20,6 +22,9 @@ import { DialogMainComponent } from '../dialog-main/dialog-main.component';
   styleUrls: ['./main.component.css']
 })
 export class MainComponent extends BaseFormComponent implements OnInit  {
+  @ViewChild("fileUpload", { static: false })
+  fileUpload!: ElementRef;files: any = [];
+
   datos: Demo = new Demo();
   imagen: any = null;
 
@@ -33,6 +38,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   //cargar daños o testigos
   hayDanos = false;
   hayTestigos = false;
+
+  masterId: string = "";
 
 
   //autocompletar
@@ -126,6 +133,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   maxDate: Date;
 
   constructor(
+    private uploadService: EvidenciasService,
     private FormularioService: FormMasterService,
     public comboService: ComboService,
     public mainService: MainService,
@@ -165,7 +173,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
           console.log(req)
+          this.masterId = req.Id;
           this.loadingMain = false;
+          this.uploadFiles();
           this.mainService.showToast('Creado Correctamente');
           this.dialog.open(DialogMainComponent, {
             disableClose: false,
@@ -327,6 +337,53 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   goLogin(){
     window.open('http://localhost:4200/login');
+  }
+
+
+  cargar(){
+    const fileUpload = this.fileUpload.nativeElement;
+    console.log(fileUpload);
+    fileUpload.onchange = () => {
+      for (let index = 0; index < fileUpload.files.length; index++){
+        console.log(fileUpload.files[0]);
+        const file = fileUpload.files[index];
+        this.files.push({ data: file});
+        console.log(this.files);
+      }
+      };
+      fileUpload.click();
+  }
+
+  private uploadFiles() {
+    this.fileUpload.nativeElement.value = '';
+    this.files.forEach((file:any) => {
+      this.uploadFile(file);
+    });
+  }
+
+  uploadFile(file:any) {
+    const formData = new FormData();
+    formData.append('file', file.data);
+    console.log(formData)
+    this.uploadService.upload(formData, this.masterId).pipe(
+      map(event => {
+        switch (event.type) {
+          case HttpEventType.UploadProgress:
+            break;
+          case HttpEventType.Response:
+            return event;
+        }
+      }),
+      catchError((error: HttpErrorResponse) => {
+        console.log("error",error);
+        return of(`${file.data.name} upload failed.`);
+      })).subscribe((event: any) => {
+        if (typeof (event) === 'object') {
+          console.log(event.body);
+        }
+      });
+
+      this.files = [];
   }
 }
 

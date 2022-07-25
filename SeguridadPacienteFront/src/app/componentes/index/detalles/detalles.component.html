@@ -1,4 +1,4 @@
-<h1 class="center"><b>Clasificación</b></h1>
+ba<h1 class="center"><b>Clasificación</b></h1>
 <mat-progress-bar class="my-3" *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
 <div class="row">
   <div class="col">
@@ -20,6 +20,7 @@
     <p> <span> <b>Involuntario:</b> </span> {{data?.Preg_Involuntario ? "Sí" : "No"}}</p>
     <p> <span> <b>Daños en el paciente:</b> </span> {{data?.Preg_Genero_Dano ? "Severidad: (" + data!.Preg_Dano_Severidad + ") " + data!.Preg_Dano_Generado : "No se genero daño en el paciente"}}</p>
     <p> <span> <b>Accion tomada:</b> </span> {{data?.Accion_Tomada}}</p>
+    <p> <button (click)="downloadImage()"> Ver evidencias </button>
 
   </div>
   <div class="col">
