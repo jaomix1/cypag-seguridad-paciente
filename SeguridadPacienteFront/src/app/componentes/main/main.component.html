@@ -57,9 +57,10 @@
           </mat-form-field>
         </div>
         <div class="col">
+        <mat-progress-bar *ngIf="loandingCargaSedes" mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
-            <mat-select formControlName="Sede" placeholder="Sede donde presento el incidente" required>
+            <mat-select [disabled]="loandingCargaSedes" formControlName="Sede" placeholder="Sede donde presento el incidente" required>
               <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Sede')">
@@ -286,6 +287,8 @@
           </ul>
           <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
           <button type="button" mat-raised-button (click)="cargar()">Seleccionar</button>
+          <br>
+          <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button (click)="borrararchivos()">Borrar archivos</button>
           <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
           <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
           <br>

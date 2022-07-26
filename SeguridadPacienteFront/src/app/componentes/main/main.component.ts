@@ -276,9 +276,12 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     });
   }
 
+  loandingCargaSedes: boolean = false;
   sede(empresa:any){
+    this.loandingCargaSedes = true;
     this.comboService.getSedes(empresa).subscribe((data:any)=>{
       this.sedes = data;
+      this.loandingCargaSedes = false;
     });
   }
 
@@ -339,19 +342,27 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     window.open('http://localhost:4200/login');
   }
 
+  borrararchivos(){
+    this.fileUpload.nativeElement.value = '';
+    this.files = [];
+  }
 
   cargar(){
-    const fileUpload = this.fileUpload.nativeElement;
-    console.log(fileUpload);
-    fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++){
-        console.log(fileUpload.files[0]);
-        const file = fileUpload.files[index];
-        this.files.push({ data: file});
-        console.log(this.files);
-      }
-      };
-      fileUpload.click();
+    if(this.files.length < 1){
+      const fileUpload = this.fileUpload.nativeElement;
+      console.log(fileUpload);
+      fileUpload.onchange = () => {
+        for (let index = 0; index < fileUpload.files.length; index++){
+          console.log(fileUpload.files[0]);
+          const file = fileUpload.files[index];
+          this.files.push({ data: file});
+          console.log(this.files);
+        }
+        };
+        fileUpload.click();
+    }else{
+      alert("Por ahora solo se acepta un archivo")
+    }
   }
 
   private uploadFiles() {
