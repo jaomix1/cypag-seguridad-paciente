@@ -24,9 +24,6 @@ export class LondresComponent implements OnInit {
     Id_Detalle: new FormControl(''),
     Tipo_Adverso: new FormControl('', [Validators.required]),
     Select_Depende_Tipo: new FormControl('', [Validators.required]),
-    Fase1_Analisis: new FormControl(''),
-    Fase1_Entrevista: new FormControl(''),
-    Fase1_Otros_Mecanismos: new FormControl(''),
     Fase1_Medio: new FormControl(''),
     Fase1_Medio_Observaciones: new FormControl('',[Validators.maxLength(255), Validators.required]),
     Fase1_Cronologia: new FormControl('', [Validators.maxLength(255), Validators.required]),
@@ -81,9 +78,6 @@ export class LondresComponent implements OnInit {
   setData(){
     this.form.controls['Tipo_Adverso'].setValue(this.londres.Tipo_Adverso);
     this.form.controls['Select_Depende_Tipo'].setValue(this.londres.Select_Depende_Tipo);
-    this.form.controls['Fase1_Analisis'].setValue(this.londres.Fase1_Analisis);
-    this.form.controls['Fase1_Otros_Mecanismos'].setValue(this.londres.Fase1_Otros_Mecanismos);
-    this.form.controls['Fase1_Entrevista'].setValue(this.londres.Fase1_Entrevista);
     this.form.controls['Fase1_Medio'].setValue(this.londres.Fase1_Medio);
     this.form.controls['Fase1_Medio_Observaciones'].setValue(this.londres.Fase1_Medio_Observaciones);
     this.form.controls['Fase1_Cronologia'].setValue(this.londres.Fase1_Cronologia);

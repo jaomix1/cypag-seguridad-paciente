@@ -212,7 +212,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   info_Novedad(){
     let data: any = {
       title: 'Información',
-      message: 'Información de novedad blablablabla'
+      message: 'Falta informacion'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '250px',
@@ -226,7 +226,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   info_Severidad(){
     let data: any = {
       title: 'Información',
-      message: 'Información de la severidad blablablabla'
+      message: 'Falta informacion'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '250px',

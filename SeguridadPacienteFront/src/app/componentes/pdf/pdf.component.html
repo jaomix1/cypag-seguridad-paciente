@@ -182,8 +182,8 @@
     </div>
   </div>
   <h2 class="my-3"> <b> FASE IV: OPORTUNIDADES DE MEJORA  </b></h2>
-  <div class="row" *ngFor="let oportunidad of data.OpcionesMejora">
-    <div class="col">
+  <div *ngFor="let oportunidad of data.OpcionesMejora">
+    <div class="row">
       <p> <span> <b>Codigo Externo:</b> </span>{{oportunidad.Codigo_Externo}}</p>
       <p> <span> <b>Responsable:</b> </span>{{oportunidad.Responsable}}</p>
       <p> <span> <b>Porcentaje:</b> </span>{{oportunidad.Porcentaje_Mejora}}</p>
