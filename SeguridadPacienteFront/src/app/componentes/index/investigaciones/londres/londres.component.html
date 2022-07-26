@@ -1,5 +1,5 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
-  <h2> <b> Londres {{data.id_detalle}}</b></h2>
+  <h2> <b> Londres </b></h2>
   <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
@@ -90,6 +90,7 @@
       </mat-form-field>
     </div>
   </div>
+
   <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
@@ -101,6 +102,8 @@
           {{ check('Fase2_d') }}
         </mat-error> -->
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea  matInput placeholder="Observacion" formControlName="Fase2_Equipo_Observaciones" maxlength="255">
@@ -110,6 +113,14 @@
         </mat-error> -->
       </mat-form-field>
     </div>
+  </div>
+  <div class="col">
+
+  </div>
+  <div class="col">
+
+  </div>
+  <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Individuo</mat-label>
@@ -120,6 +131,8 @@
           {{ check('Fase2_d') }}
         </mat-error> -->
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Individuo_Observaciones" maxlength="255" >
@@ -129,6 +142,8 @@
         </mat-error> -->
       </mat-form-field>
     </div>
+  </div>
+  <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Administrativos</mat-label>
@@ -139,6 +154,8 @@
           {{ check('Fase2_d') }}
         </mat-error> -->
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Administrativos_Observaciones" maxlength="255">
@@ -148,6 +165,8 @@
         </mat-error> -->
       </mat-form-field>
     </div>
+  </div>
+  <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Tareas y tecnologias</mat-label>
@@ -158,6 +177,8 @@
           {{ check('Fase2_d') }}
         </mat-error> -->
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Tareas_Observaciones" maxlength="255">
@@ -167,6 +188,8 @@
         </mat-error> -->
       </mat-form-field>
     </div>
+  </div>
+  <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Paciente</mat-label>
@@ -177,6 +200,8 @@
           {{ check('Fase2_d') }}
         </mat-error> -->
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Paciente_Observaciones" maxlength="255" >
