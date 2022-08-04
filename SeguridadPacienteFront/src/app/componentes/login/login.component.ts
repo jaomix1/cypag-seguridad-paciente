@@ -55,7 +55,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
       this.LoginService.login(this.form.value).subscribe({
         next: (req) => {
           this.LoginService.setToken(req);
-            this.router.navigate(["/index"]);
+            this.router.navigate(["/index/consulta"]);
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');

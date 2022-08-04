@@ -155,6 +155,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   submit(): void {
     this.loadingMain = true;
     console.log(this.form.value)
+    this.masterId = "8FFB4807-8763-411A-A32C-2D4BC7B8A927";
+    this.uploadFiles();
+
     if (this.form.valid) {
       this.form.disable()
       this.loadingMain = true;
@@ -226,10 +229,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   info_Severidad(){
     let data: any = {
       title: 'Información',
-      message: 'Falta informacion'
+      message: 'daño'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
-      width: '250px',
+      width: '500px',
       data: data,
       disableClose: false
     });
@@ -348,33 +351,31 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   }
 
   cargar(){
-    if(this.files.length < 1){
-      const fileUpload = this.fileUpload.nativeElement;
-      console.log(fileUpload);
-      fileUpload.onchange = () => {
-        for (let index = 0; index < fileUpload.files.length; index++){
-          console.log(fileUpload.files[0]);
-          const file = fileUpload.files[index];
-          this.files.push({ data: file});
-          console.log(this.files);
-        }
-        };
-        fileUpload.click();
-    }else{
-      alert("Por ahora solo se acepta un archivo")
-    }
+    const fileUpload = this.fileUpload.nativeElement;
+    fileUpload.onchange = () => {
+      for (let index = 0; index < fileUpload.files.length; index++){
+        console.log(fileUpload.files[0]);
+        const file = fileUpload.files[index];
+        this.files.push({ data: file});
+        console.log(this.files);
+      }
+      };
+      fileUpload.click();
   }
 
   private uploadFiles() {
     this.fileUpload.nativeElement.value = '';
-    this.files.forEach((file:any) => {
-      this.uploadFile(file);
-    });
+    this.uploadFile(this.files);
   }
 
   uploadFile(file:any) {
     const formData = new FormData();
-    formData.append('file', file.data);
+
+    for (let index = 0; index < file.length; index++) {
+      formData.append('file', file[index].data);
+    }
+
+
     console.log(formData)
     this.uploadService.upload(formData, this.masterId).pipe(
       map(event => {
@@ -387,7 +388,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log("error",error);
-        return of(`${file.data.name} upload failed.`);
+        console.log()
+        return of(`${file} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
           console.log(event.body);

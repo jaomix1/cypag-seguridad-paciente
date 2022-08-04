@@ -79,6 +79,8 @@
             </mat-error>
           </mat-form-field>
         </div>
+      </div>
+      <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline" style="padding-bottom: 0px !important">
             <mat-label>Tipo de novedad de seguridad</mat-label>
@@ -290,7 +292,7 @@
           <br>
           <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button (click)="borrararchivos()">Borrar archivos</button>
           <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
-          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept="image/*" style="display:none;" />
+          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept=".jpg,.pdf,.zip,.rar" style="display:none;" />
           <br>
           <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
         </div>

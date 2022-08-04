@@ -49,7 +49,19 @@ export class ComboService extends BaseService {
     {
       Id: "Grave",
       Descripcion: "Grave"
-    }
+    },
+    {
+      Id: "Prevenible",
+      Descripcion: "Prevenible"
+    },
+    {
+      Id: "No Prevenible",
+      Descripcion: "No Prevenible"
+    },
+    {
+      Id: "Centinela",
+      Descripcion: "Centinela"
+    },
   ];
 
   getNovedades(): Observable<Combo[]> {
