@@ -21,6 +21,7 @@ import { P5Component } from '../investigaciones/p5/p5.component';
 import { BaseFormComponent } from '../../baseComponent';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-detalles',
@@ -389,10 +390,10 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
 
   pdf(){
     console.log(this.masterId)
-    window.open("http://localhost:4200/pdf/"+ this.masterId, '_blank');
+    window.open("/pdf/"+ this.masterId, '_blank');
   }
 
   downloadImage(){
-    window.open("https://seguridadpaciente.hannpark.repl.co/v1/api/master/filedownload/"+ this.masterId, '_blank');
+    window.open(environment.apiUrl + "/v1/api/master/filedownload/"+ this.masterId, '_blank');
   }
 }
