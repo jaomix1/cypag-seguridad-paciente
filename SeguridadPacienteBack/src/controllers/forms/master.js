@@ -209,7 +209,6 @@ exports.fileUpload = async (req, res) => {
     });
     await form.parse(req)
       .on("fileBegin", (name, file) => {
-        console.log(file);
         file.filepath = `${carpeta}/${file.originalFilename}`;
       })
       .on("file", (name, file) => {
