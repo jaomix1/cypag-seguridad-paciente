@@ -155,8 +155,6 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   submit(): void {
     this.loadingMain = true;
     console.log(this.form.value)
-    this.masterId = "8FFB4807-8763-411A-A32C-2D4BC7B8A927";
-    this.uploadFiles();
 
     if (this.form.valid) {
       this.form.disable()
