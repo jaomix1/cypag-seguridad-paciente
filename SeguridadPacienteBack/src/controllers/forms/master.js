@@ -6,6 +6,7 @@ const moment = require("moment");
 const formidable = require("formidable");
 const fs = require("fs");
 const path = require("path");
+const AdmZip = require("adm-zip");
 const { Op } = require("sequelize");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
@@ -199,16 +200,17 @@ exports.fileUpload = async (req, res) => {
   try {
     const form = new formidable.IncomingForm();
     const carpeta = path.join(process.cwd(), "src", "uploads", guid);
+    await fs.rmSync(carpeta, { recursive: true, force: true });
     await fs.mkdir(carpeta, { recursive: true }, (error) => {
       if (error) {
         return console.error(error);
       }
       return console.log("Directory created successfully!");
     });
-
     await form.parse(req)
       .on("fileBegin", (name, file) => {
-        file.filepath = `${carpeta}/imagen.jpg`;
+        console.log(file);
+        file.filepath = `${carpeta}/${file.originalFilename}`;
       })
       .on("file", (name, file) => {
         console.log("Uploaded file");
@@ -223,13 +225,24 @@ exports.fileUpload = async (req, res) => {
 exports.fileDownload = async (req, res) => {
   try {
     const guid = req.params.IdMaster;
-    const carpeta = path.join(process.cwd(), "src", "uploads", guid, "/imagen.jpg");
+    const carpeta = path.join(process.cwd(), "src", "uploads", guid);
+    const uploadDir = fs.readdirSync(carpeta);
+    if (uploadDir.length > 0) {
+      const zip = new AdmZip();
+      uploadDir.forEach((file) => {
+        if (file !== "segpac-files.zip") {
+          zip.addLocalFile(path.join(carpeta, file));
+        }
+      });
+      const data = zip.toBuffer();
+      zip.writeZip(path.join(carpeta, "segpac-files.zip"));
+    }
     const fileExists = fs.existsSync(carpeta);
     if (fileExists) {
-      return res.status(200).download(carpeta);
+      return res.status(200).download(path.join(carpeta, "segpac-files.zip"));
     }
-    return res.status(503).send("La imagen no existe");
+    return res.status(503).send("El registro de archivos para esta investigacion no existe");
   } catch (error) {
-    return res.status(503).send("Hubo un error en la busqueda de la imagen: ", error);
+    return res.status(503).send("Hubo un error en la busqueda: ", error);
   }
 };
