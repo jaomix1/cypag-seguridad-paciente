@@ -68,13 +68,13 @@ export class CombosLondresService {
       option: 'Neumonia'
     },
     { type: 4,
-      option: 'Canulas intravasculares(cateteres)'
+      option: 'Canulas intravasculares (cateteres)'
     },
     { type: 4,
       option: 'Protesis infectadas'
     },
     { type: 4,
-      option: 'Urinaria dren/tubo (sondas vesicales )'
+      option: 'Urinaria dren/tubo (sondas vesicales)'
     },
     { type: 4,
       option: 'Tejidos blandos'
@@ -248,10 +248,10 @@ export class CombosLondresService {
       option: 'Siendo llevado/apoyado por otra persona'
     },
     { type: 12,
-      option: 'Mecanismo(fuerza)contundente'
+      option: 'Mecanismo (fuerza) contundente'
     },
     { type: 12,
-      option: 'Mecanismo(fuerza)cortante penetrante'
+      option: 'Mecanismo (fuerza) cortante penetrante'
     },
     { type: 12,
       option: 'Otras fuerzas mecanicas'
@@ -269,7 +269,7 @@ export class CombosLondresService {
       option: 'Otros mecanismos especificos de lesion'
     },
     { type: 12,
-      option: 'Exposicion a (efectos de ) el tiempo, desastres naturales, u otra fuerza de la naturaleza'
+      option: 'Exposicion a efectos de el tiempo, desastres naturales, u otra fuerza de la naturaleza'
     },
     { type: 13,
       option: 'Inexistente/Inadecuado'
