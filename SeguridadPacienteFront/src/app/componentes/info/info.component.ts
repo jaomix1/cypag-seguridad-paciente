@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { CombosLondresService } from 'src/app/servicios/combo/combos-londres.service';
 
 @Component({
   selector: 'app-info',
@@ -11,6 +12,7 @@ export class InfoComponent implements OnInit {
   constructor(
     public dialog: MatDialogRef<InfoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    public CombosLondresService: CombosLondresService
   ) { }
 
   ngOnInit() {

@@ -1,7 +1,126 @@
 <h1 mat-dialog-title> <strong>{{data.title}}</strong> </h1>
 <div *ngIf="data.message != 'daño'">
   <div mat-dialog-content>
-    <p>{{data.message}}</p>
+    <p><strong>Accidentes de paciente</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 12"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Caída de pacientes</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 11"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Infeccion ocasionada por la atencion en salud</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 4"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con el comportamiento o las creencias del paciente</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 10"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con el laboratorio clínico o el de patología</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 15"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con fallas en los registros clínicos</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 3"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con fallas en procesos o procedimientos asistenciales</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 2"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la administracion de oxigeno o gases medicinales</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 8"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la elaboración de dietas o dispensación de alimentos</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 7"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la gestion de los recursos o con la gestion organizacional</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 14"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la infraestructura o el ambiente físico</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 13"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la medicacion o la administracion de liquidos</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 5"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con la sangre o sus derivados</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 6"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con los dispositivos 9 equipos médicos</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 6"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+
+    <br>
+    <p><strong>Relacionados con trámites administrativos para la atencion en salud</strong></p>
+    <div>
+      <span *ngFor="let novedad of CombosLondresService.arrayOptions">
+        <span *ngIf="novedad.type == 1"> {{" "+novedad.option}},</span>
+      </span>
+    </div>
+    <br>
+
   </div>
   <div>
     <div class="row">

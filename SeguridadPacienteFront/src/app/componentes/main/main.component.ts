@@ -216,7 +216,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       message: 'Falta informacion'
     }
     const dialogRef = this.dialog.open(InfoComponent, {
-      width: '250px',
+      width: '500px',
       data: data,
       disableClose: false
     });
