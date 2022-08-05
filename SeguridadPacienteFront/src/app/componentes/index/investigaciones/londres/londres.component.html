@@ -103,7 +103,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col"  *ngIf="this.form.value.Fase2_Equipo != 'No aplica'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea  matInput placeholder="Observacion" formControlName="Fase2_Equipo_Observaciones" maxlength="255">
@@ -132,7 +132,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase2_Individuo != 'No aplica'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Individuo_Observaciones" maxlength="255" >
@@ -155,7 +155,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase2_Administrativos != 'No aplica'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Administrativos_Observaciones" maxlength="255">
@@ -178,7 +178,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase2_Tareas != 'No aplica'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Tareas_Observaciones" maxlength="255">
@@ -201,7 +201,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase2_Paciente != 'No aplica'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase2_Paciente_Observaciones" maxlength="255" >
@@ -312,7 +312,7 @@
   </div>
 
   <div class="row">
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase3_Preg_Segunda == 'SI'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA SEGUNDA VICTIMA </mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase3_Acciones_Segunda" maxlength="255" ></textarea>
@@ -321,7 +321,7 @@
         </mat-error> -->
       </mat-form-field>
     </div>
-    <div class="col">
+    <div class="col" *ngIf="this.form.value.Fase3_Preg_Tercera == 'SI'">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>QUE ACCIONES SE TOMARON FRENTE A LA TERCERA VICTIMA </mat-label>
         <textarea matInput placeholder="Observacion" formControlName="Fase3_Acciones_Tercera" maxlength="255" ></textarea>

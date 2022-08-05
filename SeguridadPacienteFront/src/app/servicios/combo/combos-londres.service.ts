@@ -328,6 +328,10 @@ export class CombosLondresService {
     {
       Id: "Equipo en gerencia y estructura",
       Descripcion: "Equipo en gerencia y estructura"
+    },
+    {
+      Id: "No aplica",
+      Descripcion: "No aplica"
     }
   ];
 
@@ -359,6 +363,10 @@ export class CombosLondresService {
     {
       Id: "Exceso de personal temporal",
       Descripcion: "Exceso de personal temporal"
+    },
+    {
+      Id: "No aplica",
+      Descripcion: "No aplica"
     }
 
   ];
@@ -383,6 +391,10 @@ export class CombosLondresService {
     {
       Id: "No disponibilidad de equipos y medicamentos",
       Descripcion: "No disponibilidad de equipos y medicamentos"
+    },
+    {
+      Id: "No aplica",
+      Descripcion: "No aplica"
     }
   ];
 
@@ -410,6 +422,10 @@ export class CombosLondresService {
     {
       Id: "Carencia de Insumos",
       Descripcion: "Carencia de Insumos"
+    },
+    {
+      Id: "No aplica",
+      Descripcion: "No aplica"
     }
   ];
 
@@ -429,6 +445,10 @@ export class CombosLondresService {
     {
       Id: "Estado Psicologico",
       Descripcion: "Estado Psicologico"
+    },
+    {
+      Id: "No aplica",
+      Descripcion: "No aplica"
     }
   ];
 
