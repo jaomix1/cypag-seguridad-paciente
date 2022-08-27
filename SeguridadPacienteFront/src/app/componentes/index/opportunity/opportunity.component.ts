@@ -62,6 +62,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
       this.OpportunityService.getAll(this.form.value).subscribe({
         next: (req:any) => {
           this.datos = req;
+          console.log("response",this.datos)
           this.loadingMain = false;
           this.form.enable();
           if(this.datos.length < 1) {

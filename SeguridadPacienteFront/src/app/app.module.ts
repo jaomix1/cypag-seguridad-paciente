@@ -1,9 +1,15 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './control/Interceptors';
 import { LoginService } from './servicios/usuarios/login.service';
 import { CookieService } from 'ngx-cookie-service';
+
+/* This is to set the locale to spanish. */
+import localeEs from '@angular/common/locales/es';
+import { registerLocaleData} from '@angular/common';
+registerLocaleData(localeEs, 'es');
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +54,7 @@ import { ComboService } from './servicios/combo/combo.service';
       useClass: Interceptor,
       multi: true,
     },
+    {provide: LOCALE_ID, useValue: 'es-CO'}
   ],
   bootstrap: [AppComponent]
 })

@@ -130,6 +130,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.UsersService.get().subscribe({
       next: (req:any) => {
         this.users = req;
+        console.log(this.users)
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -239,7 +240,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
 
   add(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-    let findUser = this.users.find(user => user.Usuario == value);
+    let findUser = this.users.find(user => user.NombreCompleto == value);
     if (findUser) {
       let existUser = this.responsables.find(a => a === value);
       if(!existUser) {
@@ -274,7 +275,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   private _filter(value: any): any[] {
     const filterValue = value.toLowerCase();
 
-    return this.users.filter(user => user.Usuario.toLowerCase().includes(filterValue));
+    return this.users.filter(user => user.NombreCompleto.toLowerCase().includes(filterValue));
   }
 
   pqms(){

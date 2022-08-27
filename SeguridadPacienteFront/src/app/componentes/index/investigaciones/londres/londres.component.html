@@ -14,46 +14,18 @@
     </div>
   </div>
 
-  <h2> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN </b></h2>
   <!-- FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN -->
   <div class="row">
-    <!-- <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Análisis de la Historia Clínica, Protocolos, Procedimientos</mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase1_Analisis" maxlength="500" required >
-        <mat-error *ngIf="validate('Servicio_Id')">
-          {{ check('Servicio_Id') }}
-        </mat-error>
-      </mat-form-field>
-    </div>
     <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Entrevista a las personas que intervienen en el proceso</mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase1_Entrevista" maxlength="500" required >
-        <mat-error *ngIf="validate('Servicio_Id')">
-          {{ check('Servicio_Id') }}
-        </mat-error>
-      </mat-form-field>
-    </div>
-    <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Otros mecanismos como: Declaraciones, Observaciones, etc.</mat-label>
-        <input matInput placeholder="Observacion" formControlName="Fase1_Otros_Mecanismos" maxlength="50" required >
-        <mat-error *ngIf="validate('Servicio_Id')">
-          {{ check('Servicio_Id') }}
-        </mat-error>
-      </mat-form-field>
-    </div> -->
-    <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>MEDIOS PARA OBTENCIÓN DE LA INFORMACIÓN</mat-label>
-        <mat-select formControlName="Fase1_Medio" placeholder="Seleccione..." >
-          <mat-option *ngFor="let c of CombosLondresService.fase1_medios" value={{c.Id}}>{{c.Descripcion}}</mat-option>
-        </mat-select>
-        <!-- <mat-error *ngIf="validate('Fase2_d')">
-          {{ check('Fase2_d') }}
-        </mat-error> -->
-      </mat-form-field>
+      <mat-label>MEDIOS PARA OBTENCIÓN DE LA INFORMACIÓN</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Fase1_Medio" >
+          <mat-radio-button class="example-margin"*ngFor="let c of CombosLondresService.fase1_medios" value={{c.Id}} >{{c.Descripcion}}</mat-radio-button>
+        </mat-radio-group>
+      </section>
+      <!-- <mat-error *ngIf="validate('Fase2_d')">
+        {{ check('Fase2_d') }}
+      </mat-error> -->
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
         <textarea  matInput placeholder="Observacion" formControlName="Fase1_Medio_Observaciones" maxlength="255">
@@ -76,7 +48,6 @@
     </div>
   </div>
 
-  <h2> <b> FASE II: ÁRBOL DEL PROBLEMA </b></h2>
   <!-- FASE II: ÁRBOL DEL PROBLEMA -->
   <div class="row">
     <div class="col">
@@ -213,7 +184,6 @@
     </div>
   </div>
 
-  <h2> <b> FASE II: ANALISIS DEL PROBLEMA </b></h2>
   <!-- FASE II: ANALISIS DEL PROBLEMA -->
   <div class="row">
     <div class="col">
@@ -228,9 +198,6 @@
     </div>
   </div>
 
-
-
-  <h2> <b> FASE III: CLASIFICACION SEGÚN ANALISIS </b></h2>
 
     <!-- EVENTO ADVERSO TIPO/ESTADO -->
     <div class="row">

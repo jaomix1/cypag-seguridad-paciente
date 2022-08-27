@@ -409,7 +409,7 @@ export class CombosLondresService {
     },
     {
       Id: "Disponibilidad Pruebas Diagnosticas",
-      Descripcion: "Poca adherencia a Guias"
+      Descripcion: "Disponibilidad Pruebas Diagnosticas"
     },
     {
       Id: "Confiabilidad Pruebas Diagnosticas",

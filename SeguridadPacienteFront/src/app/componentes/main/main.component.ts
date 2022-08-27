@@ -71,6 +71,10 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     Servicio_Id:  new FormControl('', [
       Validators.required
     ]),
+    Otro_Servicio:  new FormControl('', [
+      Validators.maxLength(200),
+      Validators.pattern(this.latin),
+    ]),
     Nombre_Paciente:  new FormControl('', [
       Validators.required,
       Validators.maxLength(80),
@@ -88,7 +92,9 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.required
     ]),
     Edad:  new FormControl('', [
-      Validators.required
+      Validators.required,
+      Validators.max(105),
+      Validators.min(0),
     ]),
     Tipo_Novedad:  new FormControl('', [
       Validators.required
@@ -262,18 +268,21 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   cargaServicios(){
     this.comboService.getServicios().subscribe((data:any)=>{
       this.servicios = data;
+      this.servicios.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion));
     });
   }
 
   cargaNovedades(){
     this.comboService.getNovedades().subscribe((data:any)=>{
       this.novedades = data;
+      this.novedades.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
     });
   }
 
   cargaEmpresas(){
     this.comboService.getEmpresas().subscribe((data:any)=>{
       this.empresas = data;
+      this.empresas.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
     });
   }
 
@@ -282,6 +291,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     this.loandingCargaSedes = true;
     this.comboService.getSedes(empresa).subscribe((data:any)=>{
       this.sedes = data;
+      this.sedes.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
       this.loandingCargaSedes = false;
     });
   }
@@ -296,6 +306,16 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   check(nameInput: string) {
     return this.mainService.checkInput(this.form, nameInput);
+  }
+
+  viewOtroServicio(id: any){
+    if(id == 1){
+      this.form.controls['Otro_Servicio'].setValue("");
+      this.form.controls['Otro_Servicio'].setValidators(Validators.required);
+    }else{
+      this.form.controls['Otro_Servicio'].setValue("");
+      this.form.controls['Otro_Servicio'].clearValidators();
+    }
   }
 
   viewTestigos(id: any){

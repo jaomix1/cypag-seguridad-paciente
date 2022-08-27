@@ -1,5 +1,8 @@
+<div class="banner">
+
+</div>
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
-  <mat-card class="shipping-card">
+  <mat-card class="">
     <mat-card-header class="center">
       <mat-card-title> <h2> <b> Reporte de seguridad del Paciente </b></h2> </mat-card-title>
     </mat-card-header>
@@ -72,10 +75,22 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Servicios</mat-label>
             <mat-select formControlName="Servicio_Id" placeholder="Servicio" required>
-              <mat-option *ngFor="let c of servicios" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of servicios" value={{c.Id}}  (click)="viewOtroServicio(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Servicio_Id')">
               {{ check('Servicio_Id') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="form.value.Servicio_Id == 1">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Otro servicio</mat-label>
+            <textarea matInput #Otro_Servicio placeholder="Especifique el otro servicio" formControlName="Otro_Servicio" required maxlength="200"></textarea>
+            <mat-hint align="end">{{Otro_Servicio.value.length}} / 200</mat-hint>
+            <mat-error *ngIf="validate('Otro_Servicio')">
+              {{ check('Otro_Servicio') }}
             </mat-error>
           </mat-form-field>
         </div>
@@ -142,7 +157,7 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Edad</mat-label>
-            <input type="number" matInput placeholder="Edad" formControlName="Edad" required>
+            <input type="number" matInput placeholder="Edad" formControlName="Edad" min="0" max="105" required>
           </mat-form-field>
           <mat-error *ngIf="validate('Edad')">
             {{ check('Edad') }}

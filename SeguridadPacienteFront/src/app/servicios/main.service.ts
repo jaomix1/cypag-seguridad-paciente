@@ -37,6 +37,12 @@ export class MainService {
       (form.controls[nameInput].errors?.['maxlength']
         ? 'Se ha superado el max de caracteres permitidos | '
         : '') +
+      (form.controls[nameInput].errors?.['max']
+        ? 'Ingese una edad valida (0 a 100) | '
+        : '') +
+      (form.controls[nameInput].errors?.['min']
+        ? 'Ingese una edad valida (0 a 100) | '
+        : '') +
       (form.controls[nameInput].errors?.['pattern']
         ? 'El campo contiene caracteres no permitidos | '
         : '')

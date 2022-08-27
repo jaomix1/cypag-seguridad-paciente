@@ -6,11 +6,20 @@ img{
 .example-container {
   width: 100%;
   height: 100vh;
-  background-image: url(src/assets/images/fondo.png) !important;
+  background-image: url(src/assets/images/fondo1.jpg) !important;
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
 }
+.example-container2 {
+  width: 100%;
+  height: 100vh;
+  background-image: url(src/assets/images/fondo2.jpg) !important;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+
 
 .dashboard-card{
   padding: 58px !important;
