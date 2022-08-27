@@ -182,26 +182,36 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   delet(){
-    this.loadingMain = true;
-    this.DetallesService.delete(this.masterId).subscribe({
-      next: (req:any) => {
-        console.log(req)
-        this.form.reset();
-        this.responsables = []
-        this.type = "";
-        this.mainService.showToast('Eliminado Correctamente');
-        this.realizado = false;
-        this.form.enable();
-        this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
-        this.loadingMain = false;
-      },
-      error: (err: string) => {
-        console.log(err)
-        this.mainService.showToast(err, 'error');
-        this.loadingMain = false;
-      },
-      complete: () => {
-        this.loadingMain = false;
+    this.dialog.open(DialogConfirmacionComponent, {
+      disableClose: true,
+      width: '300px',
+      data: {message: '¿Estas seguro de borrar el detalle guardado previamente?'}
+    })
+    .afterClosed()
+    .subscribe((confirmado: Boolean) => {
+      if (confirmado) {
+        this.loadingMain = true;
+        this.DetallesService.delete(this.masterId).subscribe({
+          next: (req:any) => {
+            console.log(req)
+            this.form.reset();
+            this.responsables = []
+            this.type = "";
+            this.mainService.showToast('Eliminado Correctamente');
+            this.realizado = false;
+            this.form.enable();
+            this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
+            this.loadingMain = false;
+          },
+          error: (err: string) => {
+            console.log(err)
+            this.mainService.showToast(err, 'error');
+            this.loadingMain = false;
+          },
+          complete: () => {
+            this.loadingMain = false;
+          }
+        });
       }
     });
   }
