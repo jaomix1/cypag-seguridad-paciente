@@ -5,6 +5,7 @@ exports.obtenerEmpresas = async (req, res) => {
     const data = await EmpresasModel.findAll({
       where: { Estado: "ACT" },
       attributes: ["Id", "Descripcion"],
+      order: [["Descripcion", "ASC"]],
     });
     return res.status(200).json(data);
   } catch (err) {

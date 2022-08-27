@@ -20,6 +20,7 @@ const InvestigacionesLondresModel = require("../../models/forms/investigacionesL
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const MasterModel = require("../../models/forms/master");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
+const UsuarioModel = require("../../models/seguridad/usuarios");
 
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
@@ -156,6 +157,13 @@ exports.getAllData = async (req, res) => {
       opcionesMejora = await OportunidadesMejoraModel.findAll({
         where: { Id_Master, Estado: "ACT" },
         raw: true,
+        nest: true,
+        include: [{
+          model: UsuarioModel,
+          as: "Responsable_Join",
+          where: { Estado: "ACT" },
+          attributes: ["NombreCompleto"],
+        }],
       });
     }
 

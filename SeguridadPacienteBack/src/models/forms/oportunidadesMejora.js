@@ -1,6 +1,7 @@
 const moment = require("moment");
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
+const UsuarioModel = require("../seguridad/usuarios");
 
 class OportunidadesMejoraModel extends Model {}
 
@@ -24,7 +25,7 @@ OportunidadesMejoraModel.init(
       allowNull: true,
       validate: { min: 0, max: 100 },
     },
-    Responsable: { type: DataTypes.STRING(100), allowNull: true },
+    Responsable: { type: DataTypes.UUID, allowNull: true },
     Estado: {
       type: DataTypes.STRING(3),
       defaultValue: "ACT",
@@ -50,5 +51,5 @@ OportunidadesMejoraModel.init(
     timestamps: false,
   },
 );
-
+OportunidadesMejoraModel.belongsTo(UsuarioModel, { foreignKey: "Responsable", as: "Responsable_Join", onDelete: "NO ACTION" });
 module.exports = OportunidadesMejoraModel;
