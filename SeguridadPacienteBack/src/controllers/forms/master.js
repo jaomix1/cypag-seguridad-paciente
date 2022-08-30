@@ -44,6 +44,8 @@ exports.getAnswers = async (req, res) => {
   const {
     Codigo, Numero_Id, Start_Date, End_Date, Tipo_Novedad, Empresa, Sede,
   } = req.body;
+  const Start_Date_F = Start_Date ? Start_Date.split("T")[0] : null;
+  const End_Date_F = End_Date ? End_Date.split("T")[0] : null;
   try {
     const answers = await MasterModel.findAll({
       where: {
@@ -52,9 +54,8 @@ exports.getAnswers = async (req, res) => {
           { Numero_Id },
           {
             Fecha_Incidente: {
-              [Op.gte]: Start_Date,
-              [Op.lte]: End_Date || moment().format("YYYY-MM-DD"),
-              // [Op.between]: [`${Start_Date}T00:00.000Z`, `${End_Date}T23:59.000Z`],
+              [Op.gte]: Start_Date_F,
+              [Op.lte]: End_Date_F,
             },
           },
           { Tipo_Novedad },
