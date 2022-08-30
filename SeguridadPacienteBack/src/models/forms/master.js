@@ -25,6 +25,7 @@ MasterModel.init(
     Empresa: { type: DataTypes.INTEGER, allowNull: false },
     Sede: { type: DataTypes.INTEGER, allowNull: false },
     Servicio_Id: { type: DataTypes.INTEGER, allowNull: false },
+    Otro_Servicio: { type: DataTypes.STRING(100), allowNull: true },
     Nombre_Paciente: { type: DataTypes.STRING(80), allowNull: true },
     Tipo_Id: { type: DataTypes.INTEGER, allowNull: true },
     Numero_Id: { type: DataTypes.INTEGER, allowNull: true },

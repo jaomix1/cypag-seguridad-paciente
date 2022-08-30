@@ -11,7 +11,7 @@ exports.createMejora = async (req, res) => {
     const data = await OportunidadesMejoraModel.bulkCreate(mejoraObject);
     mejoraObject.forEach(async (element) => {
       const { Correo } = await UsuarioModel.findOne({
-        where: { Usuario: element.Responsable, Estado: "ACT" },
+        where: { Id: element.Responsable, Estado: "ACT" },
         raw: true,
         attributes: ["Correo"],
       });
@@ -50,6 +50,14 @@ exports.getMejora = async (req, res) => {
         Estado: "ACT",
       },
       order: [["Codigo_Externo", "ASC"]],
+      include: [{
+        model: UsuarioModel,
+        as: "Responsable_Join",
+        where: { Estado: "ACT" },
+        attributes: ["NombreCompleto"],
+      }],
+      raw: true,
+      nest: true,
     });
 
     return res.status(200).json(data);
