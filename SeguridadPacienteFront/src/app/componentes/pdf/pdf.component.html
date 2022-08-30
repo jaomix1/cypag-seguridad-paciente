@@ -45,7 +45,7 @@
       <p> {{data?.Master.Preg_Como}}</p>
     </div>
   </div>
-  <h2 class="my-3"> <b> ANÁLISIS DEL  EVENTO ADVERSO / COMPLICACIÓN  </b></h2>
+  <!-- <h2 class="my-3"> <b> ANÁLISIS DEL  EVENTO ADVERSO / COMPLICACIÓN  </b></h2>
   <div class="row">
     <div class="col">
       <p> <span> <b>Fecha</b> </span>{{data}}</p>
@@ -53,11 +53,16 @@
     <div class="col">
       <p> <span> <b>Proceso</b> </span>{{data}}</p>
     </div>
-  </div>
+  </div> -->
   <h2 class="my-3"> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN  </b></h2>
   <div class="row">
     <div class="col">
       <p> <span> <b>Investigadores</b> </span></p>
+      <div *ngFor="let responsable of data?.Detalle.Responsables">
+        <div class="row">
+          <p>{{responsable}}</p>
+        </div>
+      </div>
     </div>
     <div class="col">
       <p> <span> <b>Medios para obtención de la información</b> </span></p>
@@ -182,13 +187,15 @@
     </div>
   </div>
   <h2 class="my-3"> <b> FASE IV: OPORTUNIDADES DE MEJORA  </b></h2>
-  <div *ngFor="let oportunidad of data.OpcionesMejora">
-    <div class="row">
-      <p> <span> <b>Codigo Externo:</b> </span>{{oportunidad.Codigo_Externo}}</p>
-      <p> <span> <b>Responsable:</b> </span>{{oportunidad.Responsable}}</p>
-      <p> <span> <b>Porcentaje:</b> </span>{{oportunidad.Porcentaje_Mejora}}</p>
-      <p> <span> <b>Mejora:</b> </span>{{oportunidad.Descripcion}}</p>
-      <p> <span> <hr class="w-2"> </span></p>
+  <div *ngIf="data?.OpcionesMejora.length > 0">
+    <div *ngFor="let oportunidad of data.OpcionesMejora">
+      <div class="row">
+        <p> <span> <b>Codigo Externo:</b> </span>{{oportunidad.Codigo_Externo}}</p>
+        <p> <span> <b>Responsable:</b> </span>{{oportunidad.Responsable}}</p>
+        <p> <span> <b>Porcentaje:</b> </span>{{oportunidad.Porcentaje_Mejora}}</p>
+        <p> <span> <b>Mejora:</b> </span>{{oportunidad.Descripcion}}</p>
+        <p> <span> <hr class="w-2"> </span></p>
+      </div>
     </div>
   </div>
 </div>

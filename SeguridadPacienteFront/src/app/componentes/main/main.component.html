@@ -322,7 +322,7 @@
           </div>
         </div>
         <div class="col">
-          <button mat-button class="bg-primary" [disabled]="loadingMain && form.valid" type="submit" style="color: #fff">Enviar</button>
+          <button mat-button class="bg-primary" [disabled]="loadingMain || !form.valid" type="submit" style="color: #fff">Enviar</button>
         </div>
       </div>
       <br>
