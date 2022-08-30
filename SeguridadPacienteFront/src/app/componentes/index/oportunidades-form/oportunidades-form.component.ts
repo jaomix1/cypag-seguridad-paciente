@@ -22,7 +22,7 @@ export class OportunidadesFormComponent implements OnInit {
   mejoras: any = [];
   responsables: any = [];
 
-  displayedColumns = ['Codigo','Descripcion', 'Responsable', 'Accion'];
+  displayedColumns = ['Codigo','Descripcion', 'Accion'];
 
   constructor(
     public mainService: MainService,

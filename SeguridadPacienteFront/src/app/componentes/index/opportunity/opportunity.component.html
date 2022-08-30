@@ -34,7 +34,7 @@
                 <div class="col">
                     <mat-form-field class="full-width" appearance="outline">
                         <mat-select placeholder="Responsable" formControlName="Responsable">
-                            <mat-option *ngFor="let data of responsables" [value]="data.Usuario">
+                            <mat-option *ngFor="let data of responsables" [value]="data.id">
                                 {{ data.NombreCompleto }}
                             </mat-option>
                         </mat-select>
@@ -71,7 +71,7 @@
         <!-- Name Column -->
         <ng-container matColumnDef="responsable">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
-            <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Responsable_Join.NombreCompleto}}</td>
         </ng-container>
 
         <!-- Name Column -->
