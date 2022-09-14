@@ -52,7 +52,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Empresa a la cual pertenece</mat-label>
             <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece" required>
-              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="sede(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="cargarDatosEmpresa(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Empresa')">
               {{ check('Empresa') }}
@@ -60,7 +60,7 @@
           </mat-form-field>
         </div>
         <div class="col">
-        <mat-progress-bar *ngIf="loandingCargaSedes" mode="indeterminate"></mat-progress-bar>
+        <mat-progress-bar *ngIf="loandingCargaSedes || loandingCargaServicios" mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
             <mat-select [disabled]="loandingCargaSedes" formControlName="Sede" placeholder="Sede donde presento el incidente" required>
@@ -157,11 +157,14 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Edad</mat-label>
-            <input type="number" matInput placeholder="Edad" formControlName="Edad" min="0" max="105" required>
+            <input type="number" matInput placeholder="Edad" formControlName="Edad" required>
           </mat-form-field>
           <mat-error *ngIf="validate('Edad')">
             {{ check('Edad') }}
           </mat-error>
+        </div>
+        <div class="col">
+          <mat-checkbox placeholder="Edad en meses" formControlName="EdadMeses" (change)="validarEdad($event)">Edad en meses?</mat-checkbox>
         </div>
       </div>
       <h3>Describa la situacion presentada respondiendo con las siguientes preguntas</h3>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://seguridadpaciente.hannpark.repl.co', //'https://localhost:44384'
+  apiUrl: 'http://192.168.2.251:8078', //'https://localhost:44384'
   // apiUrl: 'http://192.168.2.251:8078', //'https://localhost:44384'
 };
 

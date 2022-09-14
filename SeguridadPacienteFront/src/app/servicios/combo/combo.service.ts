@@ -4,8 +4,7 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { BaseService } from '../baseService';
 import { ResponseContract } from 'src/app/modelos/responseContract';
 import { Observable } from 'rxjs';
-import { Combo, ComboBoolean } from 'src/app/modelos/combos/combo';
-import { ComboText } from 'src/app/modelos/combos/combo';
+import { ComboText, Combo, ComboBoolean } from 'src/app/modelos/combos/combo';
 
 @Injectable({
   providedIn: 'root',
@@ -45,19 +44,7 @@ export class ComboService extends BaseService {
     {
       Id: "Moderado",
       Descripcion: "Moderado"
-    },
-    {
-      Id: "Grave",
-      Descripcion: "Grave"
-    },
-    {
-      Id: "Prevenible",
-      Descripcion: "Prevenible"
-    },
-    {
-      Id: "No Prevenible",
-      Descripcion: "No Prevenible"
-    },
+    },    
     {
       Id: "Centinela",
       Descripcion: "Centinela"
@@ -116,9 +103,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getServicios(): Observable<Combo[]> {
+  getServicios(empresa:number): Observable<Combo[]> {
     return this.http
-      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios")
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios?empresa=" +empresa)
       .pipe(
         map((response) => response),
         tap((a) => {

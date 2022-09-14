@@ -2,8 +2,9 @@ const ServiciosModel = require("../../models/combos/servicios");
 
 exports.obtenerServicios = async (req, res) => {
   try {
+    const { empresa } = req.query;
     const data = await ServiciosModel.findAll({
-      where: { Estado: "ACT" },
+      where: { Id_Empresa: empresa, Estado: "ACT" },
       attributes: ["Id", "Descripcion"],
       order: [["Descripcion", "ASC"]],
     });

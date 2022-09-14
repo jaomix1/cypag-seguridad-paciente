@@ -96,6 +96,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.max(105),
       Validators.min(0),
     ]),
+    EdadMeses: new FormControl(false,[]),
     Tipo_Novedad:  new FormControl('', [
       Validators.required
     ]),
@@ -152,8 +153,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   ngAfterViewInit(): void {
     this.cargaEmpresas();
     this.cargaIdentificaciones();
-    this.cargaNovedades();
-    this.cargaServicios();
+    this.cargaNovedades();    
   }
 
   ngOnInit(): void {}
@@ -265,12 +265,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     });
   }
 
-  cargaServicios(){
-    this.comboService.getServicios().subscribe((data:any)=>{
-      this.servicios = data;
-      this.servicios.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion));
-    });
-  }
+
 
   cargaNovedades(){
     this.comboService.getNovedades().subscribe((data:any)=>{
@@ -287,12 +282,27 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   }
 
   loandingCargaSedes: boolean = false;
+  loandingCargaServicios : boolean = false;
+  cargarDatosEmpresa(empresa:any){
+    this.sede(empresa);
+    this.cargaServicios(empresa);
+  }
+
   sede(empresa:any){
     this.loandingCargaSedes = true;
     this.comboService.getSedes(empresa).subscribe((data:any)=>{
       this.sedes = data;
       this.sedes.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
       this.loandingCargaSedes = false;
+    });
+  }
+  cargaServicios(empresa:any){
+    this.loandingCargaServicios = true;
+    this.comboService.getServicios(empresa).subscribe((data:any)=>{
+      data.push({ Id : 1, Descripcion : " OTRO" })
+      this.servicios = data;
+      this.servicios.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion));
+      this.loandingCargaServicios = false;
     });
   }
 
@@ -315,6 +325,18 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     }else{
       this.form.controls['Otro_Servicio'].setValue("");
       this.form.controls['Otro_Servicio'].clearValidators();
+    }
+  }
+
+  
+  validarEdad(dato: any){
+    console.log(dato)
+    if(dato.checked == true){
+      this.form.controls['Edad'].setValue("");
+      this.form.controls['Edad'].setValidators([Validators.required, Validators.min(0), Validators.max(12)]);
+    }else{
+      this.form.controls['Edad'].setValue("");
+      this.form.controls['Edad'].setValidators([Validators.required, Validators.min(1), Validators.max(105)]);
     }
   }
 
