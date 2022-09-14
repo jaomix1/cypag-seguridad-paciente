@@ -23,15 +23,7 @@ export class EditOportunidadComponent implements OnInit {
   }
 
   getOportunidad() {
-    let object = {
-      Id: this.guid,
-      Codigo_Externo: null,
-      Id_Master: null,
-      Start_Date: null,
-      End_Date: null,
-      Responsable: null
-  }
-    this.OpportunityService.getAll(object).subscribe({
+    this.OpportunityService.get({ Id : this.guid}).subscribe({
       next: (req:any) => {
         this.datos = req[0];
         console.log(this.datos)

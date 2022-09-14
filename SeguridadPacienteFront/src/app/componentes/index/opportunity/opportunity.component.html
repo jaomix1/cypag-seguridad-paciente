@@ -1,4 +1,4 @@
-<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+<!-- <form novalidate (ngSubmit)="submit()" [formGroup]="form">
     <mat-card class="shipping-card">
         <mat-card-header>
             <mat-card-title>Oportunidades de mejora</mat-card-title>
@@ -44,7 +44,6 @@
                     </mat-form-field>
                 </div>
             </div>
-            <!-- {{ form.value | json}} -->
         </mat-card-content>
         <mat-card-actions>
             <div class="row">
@@ -58,9 +57,9 @@
             </div>
         </mat-card-actions>
     </mat-card>
-</form>
+</form> -->
 
-<div class="mat-elevation-z8" *ngIf="this.datos.length > 0">
+<div class="mat-elevation-z8" >
     <table mat-table class="full-width-table" [dataSource]="datos" matSort aria-label="Elements">
         <!-- Id Column -->
         <ng-container matColumnDef="externo">
@@ -88,7 +87,7 @@
 
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td mat-cell *matCellDef="let row"> <button mat-raised-button color="primary"
+            <td mat-cell *matCellDef="let row"> <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary"
                     (click)="edit(row.Id)">Editar</button></td>
         </ng-container>
 

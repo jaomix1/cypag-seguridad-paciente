@@ -4,7 +4,7 @@
 }
 .banner {
   width: 100%;
-  height: 250px;
+  height: 150px;
   background-image: url(src/assets/images/fondo1.jpg) !important;
   background-repeat: no-repeat;
   background-size: contain;

@@ -14,6 +14,7 @@ const {
 
 const {
   createMejora,
+  getMejoras,
   getMejora,
   updateMejora,
 } = require("../../controllers/forms/mejoras");
@@ -31,7 +32,10 @@ router.route("/mejoras")
   .post(seguridad, createMejora);
 
 router.route("/mejoras/registros")
-  .post(seguridad, getMejora);
+  .post(seguridad, getMejoras);
+  
+router.route("/mejoras/one")
+.post(seguridad, getMejora);
 
 router.route("/mejoras/actualizar")
   .post(seguridad, updateMejora);

@@ -11,6 +11,7 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { MatDialog } from '@angular/material/dialog';
 import { DetallesComponent } from '../detalles/detalles.component';
+import { OpportunityComponent } from '../opportunity/opportunity.component';
 
 @Component({
   selector: 'app-query',
@@ -129,6 +130,17 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
 
   detalles(guid : any){
     const dialogRef = this.dialog.open(DetallesComponent, {
+      width: '100%',
+      height: '100%',
+      data: guid,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
+
+  Oportunidades(guid : any){
+    const dialogRef = this.dialog.open(OpportunityComponent, {
       width: '100%',
       height: '100%',
       data: guid,

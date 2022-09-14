@@ -23,29 +23,47 @@ exports.createMejora = async (req, res) => {
   }
 };
 
+exports.getMejoras = async (req, res) => {
+  const {
+    Id_Master
+  } = req.body;
+  try {
+    const data = await OportunidadesMejoraModel.findAll({
+      where: {
+        [Op.or]: [
+          { Id_Master },
+        ],
+        Estado: "ACT",
+      },
+      order: [["Codigo_Externo", "ASC"]],
+      include: [{
+        model: UsuarioModel,
+        as: "Responsable_Join",
+        where: { Estado: "ACT" },
+        attributes: ["NombreCompleto"],
+      }],
+      raw: true,
+      nest: true,
+    });
+
+    return res.status(200).json(data);
+  } catch (err) {
+    return res
+      .status(503)
+      .send(`No fue posible consultar los registros: ${err.message}`);
+  }
+};
+
+
 exports.getMejora = async (req, res) => {
   const {
-    Id,
-    Id_Master,
-    Codigo_Externo,
-    Start_Date,
-    End_Date,
-    Responsable,
+    Id
   } = req.body;
   try {
     const data = await OportunidadesMejoraModel.findAll({
       where: {
         [Op.or]: [
           { Id },
-          { Codigo_Externo },
-          { Id_Master },
-          {
-            Fecha_Creacion: {
-              [Op.gte]: Start_Date,
-              [Op.lte]: End_Date,
-            },
-          },
-          { Responsable },
         ],
         Estado: "ACT",
       },

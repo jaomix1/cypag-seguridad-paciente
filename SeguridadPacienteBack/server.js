@@ -46,7 +46,7 @@ app.use("/v1/api/detalle", detalles);
 app.use("/v1/api/investigaciones", investigaciones);
 
 app.get("/", (req, res) => {
-  res.send("20220803 2047");
+  res.send("20220913 2047");
 });
 
 app.listen(process.env.PORT, () => console.dir(`Running on PORT: ${process.env.PORT}`));
