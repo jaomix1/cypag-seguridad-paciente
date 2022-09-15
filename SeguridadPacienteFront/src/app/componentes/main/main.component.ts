@@ -160,7 +160,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   submit(): void {
     this.loadingMain = true;
-    console.log(this.form.value)
+    
 
     if (this.form.valid) {
       this.form.disable()
@@ -179,7 +179,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
       this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
-          console.log(req)
+          
           this.masterId = req.Id;
           this.loadingMain = false;
           this.uploadFiles();
@@ -199,7 +199,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
           });
         },
         error: (err: string) => {
-          console.log(err)
+          
           this.loadingMain = false;
           this.testigos = [];
           this.form.enable();
@@ -330,7 +330,6 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   
   validarEdad(dato: any){
-    console.log(dato)
     if(dato.checked == true){
       this.form.controls['Edad'].setValue("");
       this.form.controls['Edad'].setValidators([Validators.required, Validators.min(0), Validators.max(12)]);
@@ -394,10 +393,8 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
       for (let index = 0; index < fileUpload.files.length; index++){
-        console.log(fileUpload.files[0]);
         const file = fileUpload.files[index];
         this.files.push({ data: file});
-        console.log(this.files);
       }
       };
       fileUpload.click();
@@ -415,8 +412,6 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       formData.append('file', file[index].data);
     }
 
-
-    console.log(formData)
     this.uploadService.upload(formData, this.masterId).pipe(
       map(event => {
         switch (event.type) {
@@ -428,7 +423,6 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       }),
       catchError((error: HttpErrorResponse) => {
         console.log("error",error);
-        console.log()
         return of(`${file} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {

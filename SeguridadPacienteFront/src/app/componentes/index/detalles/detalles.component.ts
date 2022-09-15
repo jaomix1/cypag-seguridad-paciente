@@ -109,7 +109,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   getDetalle() {
     this.DetallesService.get(this.masterId).subscribe({
       next: (req) => {
-        console.log("data detalle", req)
         this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
         this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
         this.form.controls['Triada_Atencion_Salud'].setValue(req.Triada_Atencion_Salud);
@@ -130,7 +129,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.UsersService.get().subscribe({
       next: (req:any) => {
         this.users = req;
-        console.log(this.users)
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
@@ -153,13 +151,11 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     string = string.replace(/,/g, ';');
     this.form.controls['Responsables'].setValue(string);
 
-    console.log(this.form.value)
-
     if(this.form.valid){
       this.loadingMain = true;
       this.DetallesService.create(this.form.value).subscribe({
         next: (req:any) => {
-          console.log(req)
+          
           this.mainService.showToast('Guardado Correctamente');
           this.realizado = true;
           this.form.disable();
@@ -167,7 +163,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
           this.obtenerMaster(this.masterId)
         },
         error: (err: any) => {
-          console.log(err)
+          
           this.mainService.showToast(err.error, 'error');
           this.loadingMain = false;
         },
@@ -193,7 +189,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
         this.loadingMain = true;
         this.DetallesService.delete(this.masterId).subscribe({
           next: (req:any) => {
-            console.log(req)
+            
             this.form.reset();
             this.responsables = []
             this.type = "";
@@ -204,7 +200,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
             this.loadingMain = false;
           },
           error: (err: string) => {
-            console.log(err)
+            
             this.mainService.showToast(err, 'error');
             this.loadingMain = false;
           },
@@ -400,7 +396,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   pdf(){
-    console.log(this.masterId)
     window.open("/pdf/"+ this.masterId, '_blank');
   }
 

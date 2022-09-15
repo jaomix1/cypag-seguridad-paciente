@@ -36,7 +36,7 @@ export class P5Component implements OnInit {
 
 
   ngOnInit(): void {
-    console.log(this.data)
+    
     if (this.data.all_data.P5 != null){
       this.pq = this.data.all_data.P5;
       this.realizado = true;
@@ -57,7 +57,7 @@ export class P5Component implements OnInit {
 
   submit() {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
-    console.log(this.form.value)
+    
     if (this.form.valid) {
       this.PqService.send(this.form.value).subscribe({
         next: (req:any) => {
@@ -76,14 +76,14 @@ export class P5Component implements OnInit {
   borrar(){
     this.PqService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
-        console.log(req)
+        
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
         this.form.enable();
       },
       error: (err: string) => {
-        console.log(err)
+        
         this.mainService.showToast(err, 'error');
       },
       complete: () => {

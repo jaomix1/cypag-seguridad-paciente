@@ -26,7 +26,6 @@ export class EditOportunidadComponent implements OnInit {
     this.OpportunityService.get({ Id : this.guid}).subscribe({
       next: (req:any) => {
         this.datos = req[0];
-        console.log(this.datos)
         this.percent = this.datos.Porcentaje_Mejora;
       },
       error: (err: string) => {

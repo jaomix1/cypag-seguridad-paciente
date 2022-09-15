@@ -16,7 +16,6 @@ export class EvidenciasService extends BaseService{
   }
 
   upload(data: any, id_master:string): Observable<any> {
-    console.log("servicio upload", data, id_master);
     return this.http
       .post<any>(this._baseUrl + this.apiUrl + "/fileupload/" + id_master, data, {
         reportProgress: true,

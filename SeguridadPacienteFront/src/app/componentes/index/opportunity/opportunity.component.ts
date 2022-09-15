@@ -61,7 +61,6 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
       this.OpportunityService.getAll({ Id_Master	: masterId }).subscribe({
         next: (req:any) => {
           this.datos = req;
-          console.log("response",this.datos)
           this.loadingMain = false;
           if(this.datos.length < 1) {
             this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
@@ -76,18 +75,6 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
         }
       });
   }
-
-  // getResponsables() {
-  //   this.UsersService.get().subscribe({
-  //     next: (req:any) => {
-  //       console.log("data users", req)
-  //       this.responsables = req;
-  //     },
-  //     error: (err: string) => {
-  //       this.mainService.showToast(err, 'error');
-  //     }
-  //   });
-  // }
 
   edit(guid : any){
     const dialogRef = this.dialog.open(EditOportunidadComponent, {

@@ -64,7 +64,7 @@ export class LondresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data)
+    
     if (this.data.all_data.Londres != null){
       this.londres = this.data.all_data.Londres;
       this.realizado = true;
@@ -106,11 +106,10 @@ export class LondresComponent implements OnInit {
 
   cargaOptions() {
     this.options = this.CombosLondresService.arrayOptions.filter((option:any) => option.type === this.type)
-    console.log("opciones",this.options)
   }
 
   submit() {
-    console.log(this.form.value)
+    
     if (this.form.valid) {
       this.LondresService.send(this.form.value).subscribe({
         next: (req:any) => {
@@ -194,7 +193,7 @@ export class LondresComponent implements OnInit {
   borrar(){
     this.LondresService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
-        console.log(req)
+        
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
@@ -204,7 +203,7 @@ export class LondresComponent implements OnInit {
         this.form.enable()
       },
       error: (err: string) => {
-        console.log(err)
+        
         this.mainService.showToast(err, 'error');
       },
       complete: () => {

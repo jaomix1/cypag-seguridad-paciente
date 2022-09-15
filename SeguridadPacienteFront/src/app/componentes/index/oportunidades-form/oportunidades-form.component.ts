@@ -31,7 +31,6 @@ export class OportunidadesFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialogRef: MatDialogRef<OportunidadesFormComponent>,)
   {
-    console.log(guid);
     this.masterId = guid;
   }
 
@@ -50,7 +49,6 @@ export class OportunidadesFormComponent implements OnInit {
   getResponsables() {
     this.UsersService.get().subscribe({
       next: (req) => {
-        console.log("data users", req)
         this.responsables = req;
       },
       error: (err: string) => {
@@ -93,7 +91,6 @@ export class OportunidadesFormComponent implements OnInit {
         this.table.renderRows();
       }
       this.form.reset();
-      console.log(this.mejoras)
     }
     this.sending = false;
   }

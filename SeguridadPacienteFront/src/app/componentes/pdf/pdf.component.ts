@@ -38,7 +38,7 @@ export class PdfComponent extends BaseFormComponent implements OnInit {
     this.Service.get(this.token).subscribe({
       next: (req) => {
         this.data = req;
-        console.log(this.data)
+        
         //Sacar iniciales
         let array = this.data.Master.Nombre_Paciente.split(" ");
         let total = array.length;

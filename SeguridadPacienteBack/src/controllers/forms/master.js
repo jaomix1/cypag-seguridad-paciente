@@ -92,8 +92,9 @@ exports.getAnswers = async (req, res) => {
       }, {
         model: OportunidadesMejoraModel,
         as: "Op_Mejora_Join",
+        required:false,
         where: { Estado: "ACT" },
-        attributes: ["Descripcion", "Responsable", "Porcentaje_Mejora"],
+        attributes: ["Porcentaje_Mejora"],
       }],
     });
     return res.status(200).json(answers);

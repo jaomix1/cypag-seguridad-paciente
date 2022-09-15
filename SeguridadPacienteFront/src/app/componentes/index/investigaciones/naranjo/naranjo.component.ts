@@ -43,7 +43,7 @@ export class NaranjoComponent implements OnInit {
   naranjo:any;
 
   ngOnInit(): void {
-    console.log(this.data)
+    
     if (this.data.all_data.Naranjo != null){
       this.naranjo = this.data.all_data.Naranjo;
       this.realizado = true;
@@ -56,7 +56,7 @@ export class NaranjoComponent implements OnInit {
 
   submit() {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
-    console.log(this.form.value)
+    
     if (this.form.valid) {
       this.NaranjoService.send(this.form.value).subscribe({
         next: (req:any) => {
@@ -151,14 +151,14 @@ export class NaranjoComponent implements OnInit {
   borrar(){
     this.NaranjoService.borrar(this.data?.id_detalle).subscribe({
       next: (req:any) => {
-        console.log(req)
+        
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
         this.form.enable();
       },
       error: (err: string) => {
-        console.log(err)
+        
         this.mainService.showToast(err, 'error');
       },
       complete: () => {

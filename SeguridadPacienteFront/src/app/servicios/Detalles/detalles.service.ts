@@ -32,7 +32,6 @@ export class DetallesService extends BaseService{
   }
 
   get(id: string): Observable<any> {
-    console.log(id)
     return this.http.post<any>(this._baseUrl + this.apiUrl + "/registros", {Id_Master: id})
   }
 
