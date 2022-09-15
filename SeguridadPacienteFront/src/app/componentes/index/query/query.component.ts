@@ -124,7 +124,9 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           let data = req.map(
-            (c:any) => { return { Codigo : c.Codigo,
+            (c:any) => { return { 
+              Id : c.Id,
+              Codigo : c.Codigo,
               Fecha_Creacion : c.Fecha_Creacion,
               Fecha_Incidente : c.Fecha_Incidente + " " + c.Hora_Incidente,
               Nombre_Paciente : c.Nombre_Paciente,

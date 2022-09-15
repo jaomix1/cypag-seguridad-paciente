@@ -3,8 +3,6 @@
         [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true">
         <mat-toolbar>Menu</mat-toolbar>
         <mat-nav-list>
-          <!-- <a mat-list-item [routerLink]="['/index/oportunidad']"
-            routerLinkActive="mat-list-single-selected-option">Oportunidades de mejora</a> -->
           <a mat-list-item [routerLink]="['/index/consulta']"
             routerLinkActive="mat-list-single-selected-option">Consulta</a>
         </mat-nav-list>

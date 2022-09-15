@@ -12,7 +12,6 @@ import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirma
   styleUrls: ['./naranjo.component.css']
 })
 export class NaranjoComponent implements OnInit {
-
   constructor(
     public mainService: MainService,
     public NaranjoService: NaranjoService,
@@ -127,6 +126,7 @@ export class NaranjoComponent implements OnInit {
       width: '100%',
       height: '100%',
       disableClose: false,
+      data: this.data?.all_data.Master.Id
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

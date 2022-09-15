@@ -109,6 +109,7 @@ export class M5Component implements OnInit {
       width: '100%',
       height: '100%',
       disableClose: false,
+      data: this.data?.all_data.Master.Id
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

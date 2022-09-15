@@ -18,7 +18,7 @@ export class OportunidadesFormComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
-  private masterId : string;
+  public masterId : string;
   mejoras: any = [];
   responsables: any = [];
 

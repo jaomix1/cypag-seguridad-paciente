@@ -8,7 +8,7 @@
     <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data?.Empresa_Join ? data.Empresa_Join.Descripcion : ""}}</p>
     <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data?.Sede_Join ? data.Sede_Join.Descripcion : ""}}</p>
     <p> <span> <b>Servicio:</b> </span> {{data?.Servicio_Id_Join ? data.Servicio_Id_Join.Descripcion : ""}}</p>
-    <p *ngIf="data.Servicio_Id_Join.Descripcion == 'OTRO' && data.Otro_Servicio"> <span> <b>Otro servicio:</b> </span> {{data?.Otro_Servicio}}</p>
+    <p *ngIf="data?.Servicio_Id_Join.Descripcion == 'OTRO' && data.Otro_Servicio"> <span> <b>Otro servicio:</b> </span> {{data?.Otro_Servicio}}</p>
     <p> <span> <b>Nombre completo del paciente:</b> </span> {{data?.Nombre_Paciente}}</p>
     <p> <span> <b>Identificación:</b> </span> {{data?.Tipo_Id_Join ? data.Tipo_Id_Join.Descripcion : ""}} {{data?.Numero_Id}}</p>
     <p> <span> <b>Sexo:</b> </span> {{data?.Sexo}}</p>
@@ -139,23 +139,20 @@
   </div>
 </div>
 <div class="row" *ngIf="realizado">
-  <!-- <div class="col" *ngIf="detalle?.Tipo_Investigacion == null">
-    <button mat-button (click)="pqms()" class="bg-secondary"> Pq'Ms </button>
-  </div> -->
-  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo'" -->
-  <div class="col" >
+  <!-- *ngIf="detalle?.Tipo_Investigacion == null" -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo' || detalle?.Tipo_Investigacion == null">
     <button mat-button (click)="naranjo()" class="bg-secondary"> Naranjo </button>
   </div>
-  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'" -->
-  <div class="col" >
+  <!--  -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres' || detalle?.Tipo_Investigacion == null">
     <button mat-button (click)="londres()" class="bg-secondary"> Londres </button>
   </div>
-  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5'" -->
-  <div class="col"  >
+  <!--  -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5' || detalle?.Tipo_Investigacion == null"  >
     <button mat-button (click)="m5()" class="bg-secondary"> 5 Ms </button>
   </div>
-  <!-- *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5'" -->
-  <div class="col" >
+  <!--  -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5' || detalle?.Tipo_Investigacion == null" >
     <button mat-button (click)="p5()" class="bg-secondary"> 5 Porque's </button>
   </div>
   <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'">
