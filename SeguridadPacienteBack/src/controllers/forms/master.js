@@ -89,6 +89,11 @@ exports.getAnswers = async (req, res) => {
         as: "Servicio_Id_Join",
         where: { Estado: "ACT" },
         attributes: ["Descripcion"],
+      }, {
+        model: OportunidadesMejoraModel,
+        as: "Op_Mejora_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion", "Responsable", "Porcentaje_Mejora"],
       }],
     });
     return res.status(200).json(answers);

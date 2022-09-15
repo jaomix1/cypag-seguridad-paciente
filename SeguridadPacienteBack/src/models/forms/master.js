@@ -5,6 +5,7 @@ const EmpresasModel = require("../combos/empresas");
 const SedesModel = require("../combos/sedes");
 const TiposIdModel = require("../combos/tiposId");
 const ServiciosModel = require("../combos/servicios");
+const OportunidadesMejoraModel = require("./oportunidadesMejora");
 
 class MasterModel extends Model {}
 
@@ -65,5 +66,6 @@ MasterModel.belongsTo(EmpresasModel, { foreignKey: "Empresa", as: "Empresa_Join"
 MasterModel.belongsTo(SedesModel, { foreignKey: "Sede", as: "Sede_Join", onDelete: "NO ACTION" });
 MasterModel.belongsTo(TiposIdModel, { foreignKey: "Tipo_Id", as: "Tipo_Id_Join", onDelete: "NO ACTION" });
 MasterModel.belongsTo(ServiciosModel, { foreignKey: "Servicio_Id", as: "Servicio_Id_Join", onDelete: "NO ACTION" });
+MasterModel.hasMany(OportunidadesMejoraModel, { foreignKey: "Id_Master", as: "Op_Mejora_Join", onDelete: "NO ACTION" });
 
 module.exports = MasterModel;
