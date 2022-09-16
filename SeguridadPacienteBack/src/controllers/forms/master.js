@@ -25,7 +25,6 @@ const UsuarioModel = require("../../models/seguridad/usuarios");
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
   const entry = { ...req.body };
-  // console.log("IMAGEN:::", entry.Imagen_Archivo);
   if (entry.Imagen_Archivo) {
     delete entry.Imagen_Evidencia;
   }
@@ -49,18 +48,13 @@ exports.getAnswers = async (req, res) => {
   try {
     const answers = await MasterModel.findAll({
       where: {
-        [Op.or]: [
-          { Codigo },
-          { Numero_Id },
-          {
-            Fecha_Incidente: {
-              [Op.gte]: Start_Date_F,
-              [Op.lte]: End_Date_F,
-            },
-          },
-          { Tipo_Novedad },
-          { Empresa },
-          { Sede },
+        [Op.and]: [
+          { Codigo: ((Codigo != '' && Codigo != null) ? Codigo : {[Op.not]: null}) },
+          { Numero_Id: ((Numero_Id != '' && Numero_Id != null) ? Numero_Id : {[Op.not]: null}) },
+          { Tipo_Novedad: ((Tipo_Novedad != '' && Tipo_Novedad != null) ? Tipo_Novedad : {[Op.not]: null}) },
+          { Empresa: ((Empresa != '' && Empresa != null) ? Empresa : {[Op.not]: null}) },
+          { Sede: ((Sede != '' && Sede != null) ? Sede : {[Op.not]: null}) },
+          { Fecha_Incidente : ( (Start_Date_F != null && End_Date_F != null ) ? { [Op.between]: [Start_Date_F, End_Date_F] } : {[Op.not]: null}  )}
         ],
       },
       order: [["Fecha_Incidente", "DESC"]],

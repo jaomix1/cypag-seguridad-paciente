@@ -36,9 +36,9 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   myForm = new FormGroup({
     Codigo: new FormControl(null, [Validators.maxLength(50), Validators.pattern(this.number)]),
     Numero_Id: new FormControl(null, [Validators.maxLength(15), Validators.pattern(this.number)]),
-    Start_Date: new FormControl(null),
-    End_Date: new FormControl(null),
-    Empresa: new FormControl(null),
+    Start_Date: new FormControl(null, [Validators.required]),
+    End_Date: new FormControl(null, [Validators.required]),
+    Empresa: new FormControl(null, [Validators.required]),
     Sede: new FormControl(null),
     Tipo_Novedad: new FormControl(null),
   });

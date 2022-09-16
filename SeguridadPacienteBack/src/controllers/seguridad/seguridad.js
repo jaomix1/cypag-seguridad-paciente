@@ -64,7 +64,6 @@ exports.login = async (req, res) => {
     const usuarioBD = await UsuarioModel.findOne({
       where: { Usuario, Estado: "ACT" },
     });
-    // console.log("USUARIO BD: ", usuarioBD);
     if (!usuarioBD) {
       return res.status(503).send("El usuario no existe en la base de datos o se encuentra inactivo");
     }
