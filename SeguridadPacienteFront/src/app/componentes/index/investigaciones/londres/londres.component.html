@@ -40,7 +40,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>CRONOLOGÍA DEL INCIDENTE O EVENTO ADVERSO</mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase1_Cronologia" maxlength="2000" required ></textarea>
+        <textarea matInput placeholder="Observacion" formControlName="Fase1_Cronologia" maxlength="500" required ></textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
         </mat-error> -->
@@ -53,7 +53,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>ACCIONES INSEGURAS</mat-label>
-        <textarea  matInput placeholder="Observacion" formControlName="Fase2_Acciones_Inseguras" maxlength="2000" required>
+        <textarea  matInput placeholder="Observacion" formControlName="Fase2_Acciones_Inseguras" maxlength="500" required>
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -189,7 +189,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Análisis del problema </mat-label>
-        <textarea matInput placeholder="Observacion" formControlName="Fase2_Analisis_Problema" maxlength="2000" required >
+        <textarea matInput placeholder="Observacion" formControlName="Fase2_Analisis_Problema" maxlength="500" required >
         </textarea>
         <!-- <mat-error *ngIf="validate('Servicio_Id')">
           {{ check('Servicio_Id') }}
@@ -253,7 +253,7 @@
 
   <div class="row">
     <div class="col">
-      <mat-label>FUE ABORADADO LA SEGUNDA VICTIMA</mat-label>
+      <mat-label>FUE ABORDADA LA SEGUNDA VICTIMA</mat-label>
       <section class="example-section my-3">
         <mat-radio-group formControlName="Fase3_Preg_Segunda" >
           <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
@@ -265,7 +265,7 @@
       </mat-error> -->
     </div>
     <div class="col">
-      <mat-label>FUE ABORADADO LA TERCERA  VICTIMA</mat-label>
+      <mat-label>FUE ABORDADA LA TERCERA  VICTIMA</mat-label>
       <section class="example-section my-3">
         <mat-radio-group formControlName="Fase3_Preg_Tercera" >
           <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
