@@ -1,4 +1,4 @@
-<div id="htmlData" class="container" >
+<div id="htmlData" class="container">
   <h1> <b> ESTUDIO DE INCIDENTES/ EVENTOS ADVERSOS/COMPLICACIONES </b></h1>
   <div class="row">
     <div class="col">
@@ -8,7 +8,8 @@
     </div>
     <div class="col">
       <p> <span> <b>No. de Reporte:</b> </span> {{data?.Master.Id}}</p>
-      <p> <span> <b>Servicio/Unidad:</b> </span> {{data?.Master?.Servicio_Id_Join ? data?.Master.Servicio_Id_Join.Descripcion : ""}}</p>
+      <p> <span> <b>Servicio/Unidad:</b> </span> {{data?.Master?.Servicio_Id_Join ?
+        data?.Master.Servicio_Id_Join.Descripcion : ""}}</p>
     </div>
   </div>
   <div class="row">
@@ -33,7 +34,7 @@
       <p> <span> {{data?.Londres.Select_Depende_Tipo}} </span></p>
     </div>
   </div>
-  <h2 class="my-3"> <b> DESCRIPCION DETALLADA EVENTO ADVERSO  </b></h2>
+  <h2 class="my-3"> <b> DESCRIPCION DETALLADA EVENTO ADVERSO </b></h2>
   <div class="row">
     <div class="col">
       <p> <span> <b>Como y que paso</b> </span></p>
@@ -54,7 +55,7 @@
       <p> <span> <b>Proceso</b> </span>{{data}}</p>
     </div>
   </div> -->
-  <h2 class="my-3"> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN  </b></h2>
+  <h2 class="my-3"> <b> FASE I: OBTENCIÓN Y ORGANIZACIÓN DE LA INFORMACIÓN </b></h2>
   <div class="row">
     <div class="col">
       <p> <span> <b>Investigadores</b> </span></p>
@@ -65,31 +66,41 @@
       </div>
     </div>
     <div class="col">
-      <p> <span> <b>Medios para obtención de la información</b> </span></p>
+      <p> <span> <b>Medios para obtención de la información:</b> </span></p>
       <div class="row">
         <div class="col">
-          <p> <span> <b>1. Análisis de la Historia Clínica, Protocolos, Procedimientos: </b> </span> {{data?.Londres.Fase1_Analisis}}</p>
+          <p> <span>{{data?.Londres.Fase1_Medio}}</span></p>
+          <p> <span> <b>OBSERVACIONES: </b>{{data?.Londres.Fase1_Medio_Observaciones}}</span></p>
+        </div>
+      </div>
+      <!-- <div class="row">
+        <div class="col">
+          <p> <span> <b> {{data?.Londres.Fase1_Medio_Observaciones}}</b></span></p>
+          <p> <span> <b>1. Análisis de la Historia Clínica, Protocolos, Procedimientos: </b> </span>
+            {{data?.Londres.Fase1_Analisis}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <p> <span> <b>2. Entrevista a las personas que intervienen en el proceso: </b> </span> {{data?.Londres.Fase1_Entrevista}}</p>
+          <p> <span> <b>2. Entrevista a las personas que intervienen en el proceso: </b> </span>
+            {{data?.Londres.Fase1_Entrevista}}</p>
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <p> <span> <b>3. Otros mecanismos como: Declaraciones, Observaciones, etc: </b> </span> {{data?.Londres.Fase1_Otros_Mecanismos}}</p>
+          <p> <span> <b>3. Otros mecanismos como: Declaraciones, Observaciones, etc: </b> </span>
+            {{data?.Londres.Fase1_Otros_Mecanismos}}</p>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
-  <h2 class="my-3"> <b> CRONOLOGÍA DEL INCIDENTE O EVENTO ADVERSO  </b></h2>
+  <h2 class="my-3"> <b> CRONOLOGÍA DEL INCIDENTE O EVENTO ADVERSO </b></h2>
   <div class="row">
     <div class="col">
       <p> {{data?.Londres.Fase1_Cronologia}}</p>
     </div>
   </div>
-  <h2 class="my-3"> <b> FASE II: ÁRBOL DEL PROBLEMA  </b></h2>
+  <h2 class="my-3"> <b> FASE II: ÁRBOL DEL PROBLEMA </b></h2>
   <div class="row">
     <div class="col">
       <p> <b>ACCIONES INSEGURAS</b> </p>
@@ -152,19 +163,20 @@
       </div>
     </div>
   </div>
-  <h2 class="my-3"> <b> FASE II: ANALISIS DEL PROBLEMA  </b></h2>
+  <h2 class="my-3"> <b> FASE II: ANALISIS DEL PROBLEMA </b></h2>
   <div class="row">
     <div class="col">
       <p> {{data?.Londres.Fase2_Analisis_Problema}} </p>
     </div>
   </div>
-  <h2 class="my-3"> <b> FASE III: CLASIFICACION SEGÚN ANALISIS   </b></h2>
+  <h2 class="my-3"> <b> FASE III: CLASIFICACION SEGÚN ANALISIS </b></h2>
   <div class="row">
     <div class="col">
       <p> <span> <b>Complicación / Incidente / Otro: </b> </span> {{data?.Londres.Fase3_Complicacion}}</p>
     </div>
     <div class="col">
-      <p> <span> <b>Evidencia de posibilidad de prevencion del incidente: </b> </span> {{data?.Londres.Evento_Adverso_Estado}}</p>
+      <p> <span> <b>Evidencia de posibilidad de prevencion del incidente: </b> </span>
+        {{data?.Londres.Evento_Adverso_Estado}}</p>
     </div>
     <div class="col">
       <p> <span> <b>Gravedad del evento adverso: </b> </span> {{data?.Londres.Evento_Adverso_Tipo}}</p>
@@ -180,13 +192,15 @@
   </div>
   <div class="row">
     <div class="col">
-      <p> <span> <b>Que acciones se tomaron frente a la segunda victima: </b> </span> {{data?.Londres.Fase3_Acciones_Segunda}}</p>
+      <p> <span> <b>Que acciones se tomaron frente a la segunda victima: </b> </span>
+        {{data?.Londres.Fase3_Acciones_Segunda}}</p>
     </div>
     <div class="col">
-      <p> <span> <b>Que acciones se tomaron frente a la tercera victima: </b> </span> {{data?.Londres.Fase3_Acciones_Tercera}}</p>
+      <p> <span> <b>Que acciones se tomaron frente a la tercera victima: </b> </span>
+        {{data?.Londres.Fase3_Acciones_Tercera}}</p>
     </div>
   </div>
-  <h2 class="my-3"> <b> FASE IV: OPORTUNIDADES DE MEJORA  </b></h2>
+  <h2 class="my-3"> <b> FASE IV: OPORTUNIDADES DE MEJORA </b></h2>
   <div *ngIf="data?.OpcionesMejora.length > 0">
     <div *ngFor="let oportunidad of data.OpcionesMejora">
       <div class="row">
@@ -194,12 +208,14 @@
         <p> <span> <b>Responsable:</b> </span>{{oportunidad.Responsable}}</p>
         <p> <span> <b>Porcentaje:</b> </span>{{oportunidad.Porcentaje_Mejora}}</p>
         <p> <span> <b>Mejora:</b> </span>{{oportunidad.Descripcion}}</p>
-        <p> <span> <hr class="w-2"> </span></p>
+        <p> <span>
+            <hr class="w-2">
+          </span></p>
       </div>
     </div>
   </div>
 </div>
 <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
 <div class="container row my-3">
-  <button type='button' mat-raised-button color="warn" [disabled]="loadingMain"  (click)="download()">Descargar</button>
+  <button type='button' mat-raised-button color="warn" [disabled]="loadingMain" (click)="download()">Descargar</button>
 </div>

@@ -1,7 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
 
-class InvestigacionesLondresModel extends Model {}
+class InvestigacionesLondresModel extends Model { }
 
 InvestigacionesLondresModel.init(
   {
@@ -9,7 +9,7 @@ InvestigacionesLondresModel.init(
     Id_Detalle: { type: DataTypes.UUID, allowNull: false },
     Tipo_Adverso: { type: DataTypes.STRING(255), allowNull: true },
     Select_Depende_Tipo: { type: DataTypes.STRING(255), allowNull: true },
-    Fase1_Medio: { type: DataTypes.STRING(255), allowNull: true },
+    Fase1_Medio: { type: DataTypes.STRING(2000), allowNull: true },
     Fase1_Medio_Observaciones: { type: DataTypes.STRING(255), allowNull: true },
     Fase1_Cronologia: { type: DataTypes.STRING(500), allowNull: true },
     Fase2_Acciones_Inseguras: { type: DataTypes.STRING(500), allowNull: true },

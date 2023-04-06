@@ -108,7 +108,7 @@
     <p><strong>Relacionados con los dispositivos 9 equipos médicos</strong></p>
     <div>
       <span *ngFor="let novedad of CombosLondresService.arrayOptions">
-        <span *ngIf="novedad.type == 6"> {{" "+novedad.option}},</span>
+        <span *ngIf="novedad.type == 16"> {{" "+novedad.option}},</span>
       </span>
     </div>
 
@@ -134,10 +134,12 @@
 <div *ngIf="data.message == 'daño'">
   <div mat-dialog-content>
     <p><strong>EVENTO LEVE</strong></p>
-    <p>Es aquel evento que produce lesión, pero no produce secuelas, no pone en riesgo la vida del paciente, no genera complicaciones.</p>
+    <p>Es aquel evento que produce lesión, pero no produce secuelas, no pone en riesgo la vida del paciente, no genera
+      complicaciones.</p>
 
     <p><strong>EVENTO MODERADO</strong></p>
-    <p>Es aquel que aunque produce complicaciones, estas son leves, no generan compromiso en los signos vitales ni ponen en riesgo la vida del paciente.</p>
+    <p>Es aquel que aunque produce complicaciones, estas son leves, no generan compromiso en los signos vitales ni ponen
+      en riesgo la vida del paciente.</p>
 
     <p><strong>EVENTO CENTINELA</strong></p>
     <p>Evento de gran magnitud, origina lesión o secuelas graves o muerte del paciente.</p>

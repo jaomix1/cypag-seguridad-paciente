@@ -3,10 +3,10 @@ import { catchError, map, Observable, of, ReplaySubject } from 'rxjs';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from 'src/app/componentes/baseComponent';
 import { Demo } from 'src/app/modelos/demo/demo';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
-import {FormBuilder,FormControl,FormGroup,Validators,} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators, } from '@angular/forms';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { FormMasterService } from 'src/app/servicios/Formulario master/form-master.service';
 import { EvidenciasService } from 'src/app/servicios/imagen/evidencias.service';
@@ -21,9 +21,9 @@ import { HttpErrorResponse, HttpEventType } from '@angular/common/http';
   templateUrl: './main.component.html',
   styleUrls: ['./main.component.css']
 })
-export class MainComponent extends BaseFormComponent implements OnInit  {
+export class MainComponent extends BaseFormComponent implements OnInit {
   @ViewChild("fileUpload", { static: false })
-  fileUpload!: ElementRef;files: any = [];
+  fileUpload!: ElementRef; files: any = [];
 
   datos: Demo = new Demo();
   imagen: any = null;
@@ -48,13 +48,13 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   testigos: any = [];
 
   form = new FormGroup({
-    Fecha_Incidente:  new FormControl('', [
+    Fecha_Incidente: new FormControl('', [
       Validators.required,
     ]),
-    Hora_Incidente:  new FormControl('', [
+    Hora_Incidente: new FormControl('', [
       Validators.required,
     ]),
-    Nombre_Quien_Reporta:  new FormControl('', [
+    Nombre_Quien_Reporta: new FormControl('', [
       Validators.maxLength(80),
       Validators.pattern(this.latin),
     ]),
@@ -62,79 +62,79 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
       Validators.maxLength(40),
       Validators.pattern(this.latin),
     ]),
-    Empresa:  new FormControl('', [
+    Empresa: new FormControl('', [
       Validators.required
     ]),
-    Sede:  new FormControl('', [
+    Sede: new FormControl('', [
       Validators.required
     ]),
-    Servicio_Id:  new FormControl('', [
+    Servicio_Id: new FormControl('', [
       Validators.required
     ]),
-    Otro_Servicio:  new FormControl('', [
+    Otro_Servicio: new FormControl('', [
       Validators.maxLength(200),
       Validators.pattern(this.latin),
     ]),
-    Nombre_Paciente:  new FormControl('', [
+    Nombre_Paciente: new FormControl('', [
       Validators.required,
       Validators.maxLength(80),
       Validators.pattern(this.latin),
     ]),
-    Tipo_Id:  new FormControl('', [
+    Tipo_Id: new FormControl('', [
       Validators.required,
     ]),
-    Numero_Id:  new FormControl('', [
+    Numero_Id: new FormControl('', [
       Validators.required,
       Validators.maxLength(11),
       Validators.pattern(this.number),
     ]),
-    Sexo:  new FormControl('', [
+    Sexo: new FormControl('', [
       Validators.required
     ]),
-    Edad:  new FormControl('', [
+    Edad: new FormControl('', [
       Validators.required,
       Validators.max(105),
       Validators.min(0),
     ]),
-    EdadMeses: new FormControl(false,[]),
-    Tipo_Novedad:  new FormControl('', [
+    EdadMeses: new FormControl(false, []),
+    Tipo_Novedad: new FormControl('', [
       Validators.required
     ]),
-    Preg_Que:  new FormControl('', [
+    Preg_Que: new FormControl('', [
       Validators.required,
+      Validators.maxLength(300),
+      Validators.pattern(this.latinExt),
+    ]),
+    Preg_Como: new FormControl('', [
+      Validators.required,
+      Validators.maxLength(500),
+      Validators.pattern(this.latinExt),
+    ]),
+    Preg_Hay_Testigos: new FormControl(Boolean, [
+      Validators.required
+    ]),
+    Preg_Quien: new FormControl('', []),
+    Preg_En_Atencion: new FormControl('', [
+      Validators.required
+    ]),
+    Preg_Involuntario: new FormControl(false, [
+      Validators.required
+    ]),
+    Preg_Genero_Dano: new FormControl(false, [
+      Validators.required
+    ]),
+    Preg_Dano_Generado: new FormControl('', [
       Validators.maxLength(300),
       Validators.pattern(this.latin),
     ]),
-    Preg_Como:  new FormControl('', [
+    Preg_Dano_Severidad: new FormControl('', []),
+    Accion_Tomada: new FormControl('', [
       Validators.required,
       Validators.maxLength(500),
       Validators.pattern(this.latin),
     ]),
-    Preg_Hay_Testigos:  new FormControl(Boolean, [
-      Validators.required
-    ]),
-    Preg_Quien:  new FormControl('', []),
-    Preg_En_Atencion:  new FormControl('', [
-      Validators.required
-    ]),
-    Preg_Involuntario:  new FormControl(false, [
-      Validators.required
-    ]),
-    Preg_Genero_Dano:  new FormControl(false, [
-      Validators.required
-    ]),
-    Preg_Dano_Generado:  new FormControl('', [
-      Validators.maxLength(300),
-      Validators.pattern(this.latin),
-    ]),
-    Preg_Dano_Severidad:  new FormControl('', []),
-    Accion_Tomada:  new FormControl('', [
-      Validators.required,
-      Validators.maxLength(500),
-      Validators.pattern(this.latin),
-    ]),
-    Imagen_Evidencia:  new FormControl(null, []),
-    Imagen_Archivo:  new FormControl(null, []),
+    Imagen_Evidencia: new FormControl(null, []),
+    Imagen_Archivo: new FormControl(null, []),
   });
 
   maxDate: Date;
@@ -153,14 +153,14 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
   ngAfterViewInit(): void {
     this.cargaEmpresas();
     this.cargaIdentificaciones();
-    this.cargaNovedades();    
+    this.cargaNovedades();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   submit(): void {
     this.loadingMain = true;
-    
+
 
     if (this.form.valid) {
       this.form.disable()
@@ -179,7 +179,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
       this.FormularioService.create(this.form.value).subscribe({
         next: (req) => {
-          
+
           this.masterId = req.Id;
           this.loadingMain = false;
           this.uploadFiles();
@@ -192,14 +192,14 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
               message: 'Formualario registrado exitosamente'
             }
           })
-          .afterClosed()
-          .subscribe((confirmado: Boolean) => {
-            if (confirmado) {
-            }
-          });
+            .afterClosed()
+            .subscribe((confirmado: Boolean) => {
+              if (confirmado) {
+              }
+            });
         },
         error: (err: string) => {
-          
+
           this.loadingMain = false;
           this.testigos = [];
           this.form.enable();
@@ -216,7 +216,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     }
   }
 
-  info_Novedad(){
+  info_Novedad() {
     let data: any = {
       title: 'Información',
       message: 'Falta informacion'
@@ -230,7 +230,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     });
   }
 
-  info_Severidad(){
+  info_Severidad() {
     let data: any = {
       title: 'Información',
       message: 'daño'
@@ -259,49 +259,49 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     }
   }
 
-  cargaIdentificaciones(){
-    this.comboService.getIdentificacion().subscribe((data:any)=>{
+  cargaIdentificaciones() {
+    this.comboService.getIdentificacion().subscribe((data: any) => {
       this.identificaciones = data;
     });
   }
 
 
 
-  cargaNovedades(){
-    this.comboService.getNovedades().subscribe((data:any)=>{
+  cargaNovedades() {
+    this.comboService.getNovedades().subscribe((data: any) => {
       this.novedades = data;
-      this.novedades.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.novedades.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
     });
   }
 
-  cargaEmpresas(){
-    this.comboService.getEmpresas().subscribe((data:any)=>{
+  cargaEmpresas() {
+    this.comboService.getEmpresas().subscribe((data: any) => {
       this.empresas = data;
-      this.empresas.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.empresas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
     });
   }
 
   loandingCargaSedes: boolean = false;
-  loandingCargaServicios : boolean = false;
-  cargarDatosEmpresa(empresa:any){
+  loandingCargaServicios: boolean = false;
+  cargarDatosEmpresa(empresa: any) {
     this.sede(empresa);
     this.cargaServicios(empresa);
   }
 
-  sede(empresa:any){
+  sede(empresa: any) {
     this.loandingCargaSedes = true;
-    this.comboService.getSedes(empresa).subscribe((data:any)=>{
+    this.comboService.getSedes(empresa).subscribe((data: any) => {
       this.sedes = data;
-      this.sedes.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.sedes.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
       this.loandingCargaSedes = false;
     });
   }
-  cargaServicios(empresa:any){
+  cargaServicios(empresa: any) {
     this.loandingCargaServicios = true;
-    this.comboService.getServicios(empresa).subscribe((data:any)=>{
-      data.push({ Id : 1, Descripcion : " OTRO" })
+    this.comboService.getServicios(empresa).subscribe((data: any) => {
+      data.push({ Id: 1, Descripcion: " OTRO" })
       this.servicios = data;
-      this.servicios.sort((a,b) => a.Descripcion.localeCompare(b.Descripcion));
+      this.servicios.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion));
       this.loandingCargaServicios = false;
     });
   }
@@ -318,40 +318,40 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  viewOtroServicio(id: any){
-    if(id == 1){
+  viewOtroServicio(id: any) {
+    if (id == 1) {
       this.form.controls['Otro_Servicio'].setValue("");
       this.form.controls['Otro_Servicio'].setValidators(Validators.required);
-    }else{
+    } else {
       this.form.controls['Otro_Servicio'].setValue("");
       this.form.controls['Otro_Servicio'].clearValidators();
     }
   }
 
-  
-  validarEdad(dato: any){
-    if(dato.checked == true){
+
+  validarEdad(dato: any) {
+    if (dato.checked == true) {
       this.form.controls['Edad'].setValue("");
       this.form.controls['Edad'].setValidators([Validators.required, Validators.min(0), Validators.max(12)]);
-    }else{
+    } else {
       this.form.controls['Edad'].setValue("");
       this.form.controls['Edad'].setValidators([Validators.required, Validators.min(1), Validators.max(105)]);
     }
   }
 
-  viewTestigos(id: any){
-    if(id == true){
+  viewTestigos(id: any) {
+    if (id == true) {
       this.hayTestigos = true;
-    }else{
+    } else {
       this.form.controls['Preg_Quien'].setValue("");
       this.testigos = [];
       this.hayTestigos = false;
     }
   }
-  viewDano(id: any){
-    if(id == true){
+  viewDano(id: any) {
+    if (id == true) {
       this.hayDanos = true;
-    }else{
+    } else {
       this.hayDanos = false;
       this.form.controls['Preg_Dano_Generado'].setValue("");
       this.form.controls['Preg_Dano_Severidad'].setValue("");
@@ -361,18 +361,18 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
 
   seleccionarImagen(event: any): void {
     this.imagen = event.target.files[0] ?? null;
-    if(this.imagen.type.split("/")[0] == "image"){
+    if (this.imagen.type.split("/")[0] == "image") {
       this.convertFile(event.target.files[0]).subscribe(base64 => {
         this.form.value.Imagen_Archivo = base64;
       });
-    }else{
+    } else {
       this.imagen = null;
       alert("Por favor subir solo archivos: jpg, png, jpeg, svg")
     }
   }
 
 
-  convertFile(file : File) : Observable<string> {
+  convertFile(file: File): Observable<string> {
     const result = new ReplaySubject<string>(1);
     const reader = new FileReader();
     reader.readAsBinaryString(file);
@@ -380,24 +380,24 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     return result;
   }
 
-  goLogin(){
+  goLogin() {
     window.open('http://localhost:4200/login');
   }
 
-  borrararchivos(){
+  borrararchivos() {
     this.fileUpload.nativeElement.value = '';
     this.files = [];
   }
 
-  cargar(){
+  cargar() {
     const fileUpload = this.fileUpload.nativeElement;
     fileUpload.onchange = () => {
-      for (let index = 0; index < fileUpload.files.length; index++){
+      for (let index = 0; index < fileUpload.files.length; index++) {
         const file = fileUpload.files[index];
-        this.files.push({ data: file});
+        this.files.push({ data: file });
       }
-      };
-      fileUpload.click();
+    };
+    fileUpload.click();
   }
 
   private uploadFiles() {
@@ -405,7 +405,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
     this.uploadFile(this.files);
   }
 
-  uploadFile(file:any) {
+  uploadFile(file: any) {
     const formData = new FormData();
 
     for (let index = 0; index < file.length; index++) {
@@ -422,7 +422,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
         }
       }),
       catchError((error: HttpErrorResponse) => {
-        console.log("error",error);
+        console.log("error", error);
         return of(`${file} upload failed.`);
       })).subscribe((event: any) => {
         if (typeof (event) === 'object') {
@@ -430,7 +430,7 @@ export class MainComponent extends BaseFormComponent implements OnInit  {
         }
       });
 
-      this.files = [];
+    this.files = [];
   }
 }
 

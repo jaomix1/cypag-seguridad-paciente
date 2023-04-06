@@ -12,19 +12,19 @@ import { LoginService } from 'src/app/servicios/usuarios/login.service';
 export class IndexComponent {
 
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-  .pipe(
-    map(result => result.matches),
-    shareReplay()
-  );
+    .pipe(
+      map(result => result.matches),
+      shareReplay()
+    );
 
-  Logout(){
+  Logout() {
     this.LoginService.deleteToken()
-    location.href ="http://localhost:4200/login";
+    location.href = "/login";
   }
 
-constructor(
-  private LoginService: LoginService,
-  private breakpointObserver: BreakpointObserver
-  ) {}
+  constructor(
+    private LoginService: LoginService,
+    private breakpointObserver: BreakpointObserver
+  ) { }
 
 }

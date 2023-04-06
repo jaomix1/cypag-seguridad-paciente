@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CombosLondresService } from 'src/app/servicios/combo/combos-londres.service';
 import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
@@ -18,14 +18,14 @@ export class LondresComponent implements OnInit {
   combo: any;
   options: any;
   realizado: boolean = false;
-  londres:any;
+  londres: any;
 
   form = new FormGroup({
     Id_Detalle: new FormControl(''),
     Tipo_Adverso: new FormControl('', [Validators.required]),
     Select_Depende_Tipo: new FormControl('', [Validators.required]),
-    Fase1_Medio: new FormControl(''),
-    Fase1_Medio_Observaciones: new FormControl('',[Validators.maxLength(255), Validators.required]),
+    Fase1_Medio: new FormControl(this.CombosLondresService.fase1_medios.filter(c => c.Checked)[0].Id, [Validators.maxLength(1000), Validators.required]),
+    Fase1_Medio_Observaciones: new FormControl('', [Validators.maxLength(255), Validators.required]),
     Fase1_Cronologia: new FormControl('', [Validators.maxLength(500), Validators.required]),
     Fase2_Acciones_Inseguras: new FormControl('', [Validators.maxLength(500), Validators.required]),
     Fase2_Equipo: new FormControl('', [Validators.required]),
@@ -38,14 +38,14 @@ export class LondresComponent implements OnInit {
     Fase2_Administrativos_Observaciones: new FormControl(''),
     Fase2_Tareas_Observaciones: new FormControl(''),
     Fase2_Paciente_Observaciones: new FormControl(''),
-    Fase2_Analisis_Problema: new FormControl('',[Validators.maxLength(500), Validators.required]),
-    Fase3_Complicacion: new FormControl('',[Validators.maxLength(255), Validators.required]),
+    Fase2_Analisis_Problema: new FormControl('', [Validators.maxLength(500), Validators.required]),
+    Fase3_Complicacion: new FormControl('', [Validators.maxLength(255), Validators.required]),
     Evento_Adverso_Tipo: new FormControl(''),
     Evento_Adverso_Estado: new FormControl(''),
     Fase3_Preg_Segunda: new FormControl('', [Validators.required]),
     Fase3_Acciones_Segunda: new FormControl('', [Validators.maxLength(255)]),
     Fase3_Preg_Tercera: new FormControl('', [Validators.required]),
-    Fase3_Acciones_Tercera: new FormControl('',[Validators.maxLength(255)]),
+    Fase3_Acciones_Tercera: new FormControl('', [Validators.maxLength(255)]),
   });
 
 
@@ -56,7 +56,7 @@ export class LondresComponent implements OnInit {
     public dialogRef: MatDialogRef<LondresComponent>,
     public CombosLondresService: CombosLondresService,
     @Inject(MAT_DIALOG_DATA) public data: any,
-  ){
+  ) {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
     this.form.controls['Tipo_Adverso'].setValue(this.data.all_data.Detalle.Tipo_Novedad_Join.Descripcion);
     this.type = this.data.all_data.Detalle.Tipo_Novedad;
@@ -64,18 +64,18 @@ export class LondresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
-    if (this.data.all_data.Londres != null){
+
+    if (this.data.all_data.Londres != null) {
       this.londres = this.data.all_data.Londres;
       this.realizado = true;
       this.form.disable()
       this.setData();
-    }else{
+    } else {
       this.realizado = false;
     }
   }
 
-  setData(){
+  setData() {
     this.form.controls['Tipo_Adverso'].setValue(this.londres.Tipo_Adverso);
     this.form.controls['Select_Depende_Tipo'].setValue(this.londres.Select_Depende_Tipo);
     this.form.controls['Fase1_Medio'].setValue(this.londres.Fase1_Medio);
@@ -105,14 +105,14 @@ export class LondresComponent implements OnInit {
   }
 
   cargaOptions() {
-    this.options = this.CombosLondresService.arrayOptions.filter((option:any) => option.type === this.type)
+    this.options = this.CombosLondresService.arrayOptions.filter((option: any) => option.type === this.type)
   }
 
   submit() {
-    
     if (this.form.valid) {
+
       this.LondresService.send(this.form.value).subscribe({
-        next: (req:any) => {
+        next: (req: any) => {
           this.realizado = true;
           this.form.disable();
           this.mejoras();
@@ -122,52 +122,57 @@ export class LondresComponent implements OnInit {
           this.mainService.showToast(err, 'error');
         },
       });
+    } else {
+      if (this.form.value.Fase1_Medio == "") {
+        this.mainService.showToast("El campo 'MEDIOS PARA OBTENCIÓN DE LA INFORMACIÓN' es requerido", 'error');
+      }
     }
+
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  tipo(option: string){
-    if(!this.realizado){
+  tipo(option: string) {
+    if (!this.realizado) {
       this.dialog.open(DialogConfirmacionComponent, {
         disableClose: true,
         width: '300px',
-        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+        data: { message: '¿Estas seguro de escoger el tipo: ' + option + '?' }
       })
-      .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if(confirmado){
-          this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
+            this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+          }
         }
-      }
-    );
-    }else{
+        );
+    } else {
       this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
   }
 
-  estado(option: string){
-    if(!this.realizado){
+  estado(option: string) {
+    if (!this.realizado) {
       this.dialog.open(DialogConfirmacionComponent, {
         disableClose: true,
         width: '300px',
-        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+        data: { message: '¿Estas seguro de escoger el tipo: ' + option + '?' }
       })
-      .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if(confirmado){
-          this.form.controls['Evento_Adverso_Estado'].setValue(option);
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
+            this.form.controls['Evento_Adverso_Estado'].setValue(option);
+          }
         }
-      }
-    );
-    }else{
+        );
+    } else {
       this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
   }
 
-  mejoras(){
+  mejoras() {
     const dialogRef = this.dialog.open(OportunidadesFormComponent, {
       width: '100%',
       height: '100%',
@@ -178,7 +183,7 @@ export class LondresComponent implements OnInit {
     });
   }
 
-  pdf(){
+  pdf() {
     const dialogRef = this.dialog.open(PdfComponent, {
       width: '100%',
       height: '100%',
@@ -190,10 +195,10 @@ export class LondresComponent implements OnInit {
   }
 
 
-  borrar(){
+  borrar() {
     this.LondresService.borrar(this.data?.id_detalle).subscribe({
-      next: (req:any) => {
-        
+      next: (req: any) => {
+
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
@@ -203,11 +208,24 @@ export class LondresComponent implements OnInit {
         this.form.enable()
       },
       error: (err: string) => {
-        
+
         this.mainService.showToast(err, 'error');
       },
       complete: () => {
       }
     });
+  }
+
+  toggleMedio(e: any) {
+    let tmp = "";
+    tmp = this.form.value.Fase1_Medio;
+    if (e.checked) {
+      if (!tmp.includes(e.source.value))
+        tmp = tmp + e.source.value
+    } else {
+      if (tmp.includes(e.source.value))
+        tmp = tmp.replace(e.source.value, "")
+    }
+    this.form.controls['Fase1_Medio'].setValue(tmp);
   }
 }

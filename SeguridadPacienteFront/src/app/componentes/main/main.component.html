@@ -4,7 +4,9 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
   <mat-card class="">
     <mat-card-header class="center">
-      <mat-card-title> <h2> <b> Reporte de seguridad del Paciente </b></h2> </mat-card-title>
+      <mat-card-title>
+        <h2> <b> Reporte de seguridad del Paciente </b></h2>
+      </mat-card-title>
     </mat-card-header>
     <mat-card-content>
       <div class="row">
@@ -52,7 +54,8 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Empresa a la cual pertenece</mat-label>
             <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece" required>
-              <mat-option *ngFor="let c of empresas" value={{c.Id}} (click)="cargarDatosEmpresa(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of empresas" value={{c.Id}}
+                (click)="cargarDatosEmpresa(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Empresa')">
               {{ check('Empresa') }}
@@ -60,10 +63,12 @@
           </mat-form-field>
         </div>
         <div class="col">
-        <mat-progress-bar *ngIf="loandingCargaSedes || loandingCargaServicios" mode="indeterminate"></mat-progress-bar>
+          <mat-progress-bar *ngIf="loandingCargaSedes || loandingCargaServicios"
+            mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
-            <mat-select [disabled]="loandingCargaSedes" formControlName="Sede" placeholder="Sede donde presento el incidente" required>
+            <mat-select [disabled]="loandingCargaSedes" formControlName="Sede"
+              placeholder="Sede donde presento el incidente" required>
               <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Sede')">
@@ -75,7 +80,8 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Servicios</mat-label>
             <mat-select formControlName="Servicio_Id" placeholder="Servicio" required>
-              <mat-option *ngFor="let c of servicios" value={{c.Id}}  (click)="viewOtroServicio(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of servicios" value={{c.Id}}
+                (click)="viewOtroServicio(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Servicio_Id')">
               {{ check('Servicio_Id') }}
@@ -87,7 +93,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Otro servicio</mat-label>
-            <textarea matInput #Otro_Servicio placeholder="Especifique el otro servicio" formControlName="Otro_Servicio" required maxlength="200"></textarea>
+            <textarea matInput #Otro_Servicio placeholder="Especifique el otro servicio" formControlName="Otro_Servicio"
+              required maxlength="200"></textarea>
             <mat-hint align="end">{{Otro_Servicio.value.length}} / 200</mat-hint>
             <mat-error *ngIf="validate('Otro_Servicio')">
               {{ check('Otro_Servicio') }}
@@ -115,7 +122,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Nombre completo del paciente</mat-label>
-            <input matInput placeholder="Nombre completo del paciente" class="upper" formControlName="Nombre_Paciente" maxlength="50" required>
+            <input matInput placeholder="Nombre completo del paciente" class="upper" formControlName="Nombre_Paciente"
+              maxlength="50" required>
             <mat-error *ngIf="validate('Nombre_Paciente')">
               {{ check('Nombre_Paciente') }}
             </mat-error>
@@ -164,7 +172,8 @@
           </mat-error>
         </div>
         <div class="col">
-          <mat-checkbox placeholder="Edad en meses" formControlName="EdadMeses" (change)="validarEdad($event)">Edad en meses?</mat-checkbox>
+          <mat-checkbox placeholder="Edad en meses" formControlName="EdadMeses" (change)="validarEdad($event)">Edad en
+            meses?</mat-checkbox>
         </div>
       </div>
       <h3>Describa la situacion presentada respondiendo con las siguientes preguntas</h3>
@@ -172,7 +181,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Qué pasó?</mat-label>
-            <textarea matInput #Preg_Que placeholder="¿Qué pasó?" formControlName="Preg_Que" required maxlength="300"></textarea>
+            <textarea matInput #Preg_Que placeholder="¿Qué pasó?" formControlName="Preg_Que" required
+              maxlength="300"></textarea>
             <mat-hint align="end">{{Preg_Que.value.length}} / 300</mat-hint>
             <mat-error *ngIf="validate('Preg_Que')">
               {{ check('Preg_Que') }}
@@ -184,7 +194,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Cómo pasó?</mat-label>
-            <textarea matInput #Preg_Como placeholder="¿Cómo pasó?" formControlName="Preg_Como" required maxlength="500"></textarea>
+            <textarea matInput #Preg_Como placeholder="¿Cómo pasó?" formControlName="Preg_Como" required
+              maxlength="500"></textarea>
             <mat-hint align="end">{{Preg_Como.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Preg_Como')">
               {{ check('Preg_Como') }}
@@ -197,7 +208,8 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Hubo testigos?</mat-label>
             <mat-select formControlName="Preg_Hay_Testigos" placeholder="¿Hubo testigos?" required>
-              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewTestigos(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}}
+                (click)="viewTestigos(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Preg_Hay_Testigos')">
               {{ check('Preg_Hay_Testigos') }}
@@ -214,10 +226,8 @@
                   <mat-icon>cancelar</mat-icon>
                 </button>
               </mat-chip>
-              <input formControlName="Preg_Quien" placeholder="nuevo.."
-                [matChipInputFor]="chipList"
-                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                [matChipInputAddOnBlur]="addOnBlur"
+              <input formControlName="Preg_Quien" placeholder="nuevo.." [matChipInputFor]="chipList"
+                [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur"
                 (matChipInputTokenEnd)="add($event)">
             </mat-chip-list>
           </mat-form-field>
@@ -227,7 +237,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Se produjo durante el proceso de atención?</mat-label>
-            <mat-select formControlName="Preg_En_Atencion" placeholder="¿Se produjo durante el proceso de atención?" required>
+            <mat-select formControlName="Preg_En_Atencion" placeholder="¿Se produjo durante el proceso de atención?"
+              required>
               <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Preg_En_Atencion')">
@@ -252,7 +263,8 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Generó daño en el paciente?</mat-label>
             <mat-select formControlName="Preg_Genero_Dano" placeholder="¿Generó daño en el paciente?" required>
-              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}} (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let c of comboService.comboSiNo" value={{c.Id}}
+                (click)="viewDano(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
             <mat-error *ngIf="validate('Preg_Genero_Dano')">
               {{ check('Preg_Genero_Dano') }}
@@ -262,7 +274,7 @@
         <div class="col" *ngIf="hayDanos">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Qué daño genero?</mat-label>
-              <input matInput placeholder="¿Qué daño genero?" formControlName="Preg_Dano_Generado" maxlength="30">
+            <input matInput placeholder="¿Qué daño genero?" formControlName="Preg_Dano_Generado" maxlength="30">
             <mat-error *ngIf="validate('Preg_Dano_Generado')">
               {{ check('Preg_Dano_Generado') }}
             </mat-error>
@@ -287,7 +299,8 @@
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Accion inmediatamente tomada</mat-label>
-            <textarea matInput #Accion_Tomada placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada" required maxlength="500"></textarea>
+            <textarea matInput #Accion_Tomada placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada"
+              required maxlength="500"></textarea>
             <mat-hint align="end">{{Accion_Tomada.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Accion_Tomada')">
               {{ check('Accion_Tomada') }}
@@ -308,9 +321,11 @@
           <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
           <button type="button" mat-raised-button (click)="cargar()">Seleccionar</button>
           <br>
-          <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button (click)="borrararchivos()">Borrar archivos</button>
+          <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button
+            (click)="borrararchivos()">Borrar archivos</button>
           <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
-          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept=".jpg,.pdf,.zip,.rar" style="display:none;" />
+          <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
+            accept=".jpg,.pdf,.zip,.rar" style="display:none;" />
           <br>
           <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
         </div>
@@ -325,11 +340,12 @@
           </div>
         </div>
         <div class="col">
-          <button mat-button class="bg-primary" [disabled]="loadingMain || !form.valid" type="submit" style="color: #fff">Enviar</button>
+          <button mat-button class="bg-primary" [disabled]="loadingMain || !form.valid" type="submit"
+            style="color: #fff">Enviar</button>
         </div>
       </div>
       <br>
-      <a class="secondary my-3" [routerLink]="['/login']" target="_blank" >Iniciar sesion</a>
+      <a class="secondary my-3" [routerLink]="['/login']" target="_blank">Iniciar sesion</a>
     </mat-card-actions>
   </mat-card>
 </form>
