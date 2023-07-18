@@ -30,12 +30,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { DetallesComponent } from './detalles/detalles.component';
-import {MatStepperModule} from '@angular/material/stepper';
-import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
@@ -48,11 +48,13 @@ import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.co
 import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
 import { InfoComponent } from '../info/info.component';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
+import { ExportarComponent } from './exportar/exportar.component';
 
 @NgModule({
   declarations: [
     IndexComponent,
     QueryComponent,
+    ExportarComponent,
     OpportunityComponent,
     DetallesComponent,
     TablaComponent,
@@ -78,7 +80,7 @@ import { DialogMainComponent } from '../dialog-main/dialog-main.component';
     IndexRoutingModule,
     MatAutocompleteModule,
     MatStepperModule,
-    MatChipsModule ,
+    MatChipsModule,
     MatSidenavModule,
     MatToolbarModule,
     MatCheckboxModule,
@@ -100,11 +102,11 @@ import { DialogMainComponent } from '../dialog-main/dialog-main.component';
     MatProgressBarModule,
     MatDialogModule
   ],
-  exports :[
-   IndexComponent,
- ],
- providers : [
-  {provide: MAT_DATE_LOCALE, useValue: 'fr'},
- ]
+  exports: [
+    IndexComponent,
+  ],
+  providers: [
+    { provide: MAT_DATE_LOCALE, useValue: 'fr' },
+  ]
 })
 export class IndexModule { }

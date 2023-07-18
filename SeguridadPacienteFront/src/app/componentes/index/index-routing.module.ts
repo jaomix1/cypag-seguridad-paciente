@@ -9,33 +9,39 @@ import { QueryComponent } from './query/query.component';
 
 import { TablaComponent } from './demos/tabla/tabla.component';
 import { FormularioComponent } from './demos/formulario/formulario.component';
+import { ExportarComponent } from './exportar/exportar.component';
 
 const routes: Routes = [
   {
-    path: 'index', component : IndexComponent, canActivate: [Acceso],
+    path: 'index', component: IndexComponent, canActivate: [Acceso],
     children: [
       {
-          path: 'oportunidad',
-          component: OpportunityComponent,
-          canActivate: [Acceso]
+        path: 'oportunidad',
+        component: OpportunityComponent,
+        canActivate: [Acceso]
       },
       {
-          path: 'consulta',
-          component: QueryComponent,
-          canActivate: [Acceso]
+        path: 'consulta',
+        component: QueryComponent,
+        canActivate: [Acceso]
+      },
+      {
+        path: 'exportar',
+        component: ExportarComponent,
+        canActivate: [Acceso]
       }
     ]
   },
-//   {
-//     path: 'admin', component : IndexComponent, canActivate: [AccesoAdmin],
-//     children: [
-//       {
-//           path: 'users',
-//           component: AdminComponent,
-//           canActivate: [AccesoAdmin]
-//       },
-//     ]
-//   },
+  //   {
+  //     path: 'admin', component : IndexComponent, canActivate: [AccesoAdmin],
+  //     children: [
+  //       {
+  //           path: 'users',
+  //           component: AdminComponent,
+  //           canActivate: [AccesoAdmin]
+  //       },
+  //     ]
+  //   },
 ];
 
 @NgModule({

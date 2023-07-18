@@ -33,9 +33,9 @@ router.route("/mejoras")
 
 router.route("/mejoras/registros")
   .post(seguridad, getMejoras);
-  
+
 router.route("/mejoras/one")
-.post(seguridad, getMejora);
+  .post(seguridad, getMejora);
 
 router.route("/mejoras/actualizar")
   .post(seguridad, updateMejora);
