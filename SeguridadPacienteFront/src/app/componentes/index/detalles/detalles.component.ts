@@ -1,7 +1,7 @@
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NaranjoComponent } from '../investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from '../investigaciones/londres/londres.component';
@@ -13,8 +13,8 @@ import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
 import { UsersService } from 'src/app/servicios/usuarios/users.service';
-import {MatAutocompleteSelectedEvent} from '@angular/material/autocomplete';
-import {map, startWith} from 'rxjs/operators';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { M5Component } from '../investigaciones/m5/m5.component';
 import { P5Component } from '../investigaciones/p5/p5.component';
@@ -32,7 +32,7 @@ import { environment } from 'src/environments/environment';
 
 export class DetallesComponent extends BaseFormComponent implements OnInit {
   Id_Detalle: any;
-  private masterId : string;
+  private masterId: string;
   realizado: boolean = false;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
@@ -66,17 +66,16 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     private QueryService: QueryService,
     public dialog: MatDialog,
     @Inject(MAT_DIALOG_DATA) public guid: string,
-    public dialogRef: MatDialogRef<DetallesComponent>,)
-    {
-      super()
-      this.masterId = guid;
-      this.obtenerMaster(this.masterId)
-      this.loadingMain = true;
-      this.filteredUsers = this.UserCtrl.valueChanges.pipe(
-        startWith(null),
-        map((user: any | null) => (user ? this._filter(user) : this.users.slice())),
-      );
-    }
+    public dialogRef: MatDialogRef<DetallesComponent>,) {
+    super()
+    this.masterId = guid;
+    this.obtenerMaster(this.masterId)
+    this.loadingMain = true;
+    this.filteredUsers = this.UserCtrl.valueChanges.pipe(
+      startWith(null),
+      map((user: any | null) => (user ? this._filter(user) : this.users.slice())),
+    );
+  }
 
   ngOnInit(): void {
     this.form.controls['Id_Master'].setValue(this.masterId);
@@ -87,13 +86,15 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.cargaNovedades();
   }
 
-  obtenerMaster(id : string){
+  obtenerMaster(id: string) {
     this.QueryService.get(id).subscribe({
       next: (req) => {
         this.Alldata = req;
-        this.data= req.Master;
-        this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
-        if(req.Detalle){
+        this.data = req.Master;
+        console.log(this.data)
+        if (this.Alldata.Detalle)
+          this.form.controls['Tipo_Novedad'].setValue(this.Alldata.Detalle.Tipo_Novedad);
+        if (req.Detalle) {
           this.realizado = true;
           this.form.disable()
           this.getDetalle();
@@ -127,7 +128,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
 
   getResponsables() {
     this.UsersService.get().subscribe({
-      next: (req:any) => {
+      next: (req: any) => {
         this.users = req;
       },
       error: (err: string) => {
@@ -141,7 +142,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  submit(){
+  submit() {
     this.form.controls['Id_Master'].setValue(this.masterId);
     this.form.controls['Tipo_Detalle'].setValue(this.type);
 
@@ -151,11 +152,11 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     string = string.replace(/,/g, ';');
     this.form.controls['Responsables'].setValue(string);
 
-    if(this.form.valid){
+    if (this.form.valid) {
       this.loadingMain = true;
       this.DetallesService.create(this.form.value).subscribe({
-        next: (req:any) => {
-          
+        next: (req: any) => {
+
           this.mainService.showToast('Guardado Correctamente');
           this.realizado = true;
           this.form.disable();
@@ -163,7 +164,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
           this.obtenerMaster(this.masterId)
         },
         error: (err: any) => {
-          
+
           this.mainService.showToast(err.error, 'error');
           this.loadingMain = false;
         },
@@ -171,76 +172,76 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
           this.loadingMain = false;
         }
       });
-    }else{
+    } else {
       this.mainService.showToast("Por favor llenar todos los campos", 'error');
     }
 
   }
 
-  delet(){
+  delet() {
     this.dialog.open(DialogConfirmacionComponent, {
       disableClose: true,
       width: '300px',
-      data: {message: '¿Estas seguro de borrar el detalle guardado previamente?'}
+      data: { message: '¿Estas seguro de borrar el detalle guardado previamente?' }
     })
-    .afterClosed()
-    .subscribe((confirmado: Boolean) => {
-      if (confirmado) {
-        this.loadingMain = true;
-        this.DetallesService.delete(this.masterId).subscribe({
-          next: (req:any) => {
-            
-            this.form.reset();
-            this.responsables = []
-            this.type = "";
-            this.mainService.showToast('Eliminado Correctamente');
-            this.realizado = false;
-            this.form.enable();
-            this.form.controls['Tipo_Novedad'].setValue(this.data.Tipo_Novedad);
-            this.loadingMain = false;
-          },
-          error: (err: string) => {
-            
-            this.mainService.showToast(err, 'error');
-            this.loadingMain = false;
-          },
-          complete: () => {
-            this.loadingMain = false;
-          }
-        });
-      }
-    });
-  }
-
-  obtenerTipo(id : string){
-    if(!this.realizado){
-      this.dialog.open(DialogConfirmacionComponent, {
-        disableClose: true,
-        width: '300px',
-        data: {message: '¿Estas seguro de escoger el tipo: '+ id +'?'}
-      })
       .afterClosed()
       .subscribe((confirmado: Boolean) => {
         if (confirmado) {
-          switch (id) {
-            case "Farmacovigilancia":
-              this.type = "Farmacovigilancia"
-              break;
-            case "Gestion Clinica":
-              this.type = "Gestion_Clinica"
-              break;
-            case "Reactivovigilancia":
-              this.type = "Reactivovigilancia"
-              break;
-            case "Tecnovigilancia":
-              this.type = "Tecnovigilancia"
-              break;
-            default:
-              console.log('default');
-          }
-          this.form.controls['Tipo_Detalle'].setValue(this.type);
+          this.loadingMain = true;
+          this.DetallesService.delete(this.masterId).subscribe({
+            next: (req: any) => {
+
+              this.form.reset();
+              this.responsables = []
+              this.type = "";
+              this.mainService.showToast('Eliminado Correctamente');
+              this.realizado = false;
+              this.form.enable();
+              this.form.controls['Tipo_Novedad'].setValue("");
+              this.loadingMain = false;
+            },
+            error: (err: string) => {
+
+              this.mainService.showToast(err, 'error');
+              this.loadingMain = false;
+            },
+            complete: () => {
+              this.loadingMain = false;
+            }
+          });
         }
       });
+  }
+
+  obtenerTipo(id: string) {
+    if (!this.realizado) {
+      this.dialog.open(DialogConfirmacionComponent, {
+        disableClose: true,
+        width: '300px',
+        data: { message: '¿Estas seguro de escoger el tipo: ' + id + '?' }
+      })
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
+            switch (id) {
+              case "Farmacovigilancia":
+                this.type = "Farmacovigilancia"
+                break;
+              case "Gestion Clinica":
+                this.type = "Gestion_Clinica"
+                break;
+              case "Reactivovigilancia":
+                this.type = "Reactivovigilancia"
+                break;
+              case "Tecnovigilancia":
+                this.type = "Tecnovigilancia"
+                break;
+              default:
+                console.log('default');
+            }
+            this.form.controls['Tipo_Detalle'].setValue(this.type);
+          }
+        });
     }
   }
 
@@ -249,12 +250,12 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     let findUser = this.users.find(user => user.NombreCompleto == value);
     if (findUser) {
       let existUser = this.responsables.find(a => a === value);
-      if(!existUser) {
+      if (!existUser) {
         this.responsables.push(value);
-      }else{
+      } else {
         this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
       }
-    }else{
+    } else {
       this.mainService.showToast('Este usuario no existe', 'error')
     }
     event.chipInput!.clear();
@@ -269,9 +270,9 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
 
   selected(event: MatAutocompleteSelectedEvent): void {
     let existUser = this.responsables.find(a => a === event.option.viewValue);
-    if(!existUser) {
+    if (!existUser) {
       this.responsables.push(event.option.viewValue);
-    }else{
+    } else {
       this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
     }
     this.UserInput.nativeElement.value = '';
@@ -284,7 +285,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     return this.users.filter(user => user.NombreCompleto.toLowerCase().includes(filterValue));
   }
 
-  pqms(){
+  pqms() {
     const data = {
       id_detalle: this.Id_Detalle,
       all_data: this.Alldata
@@ -299,7 +300,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  naranjo(){
+  naranjo() {
     const data = {
       id_detalle: this.Id_Detalle,
       all_data: this.Alldata
@@ -315,7 +316,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  londres(){
+  londres() {
     const data = {
       id_detalle: this.Id_Detalle,
       all_data: this.Alldata
@@ -331,7 +332,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  mejoras(){
+  mejoras() {
     const dialogRef = this.dialog.open(OportunidadesFormComponent, {
       width: '100%',
       height: '100%',
@@ -342,7 +343,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  m5(){
+  m5() {
     const data = {
       id_detalle: this.Id_Detalle,
       all_data: this.Alldata
@@ -358,7 +359,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  p5(){
+  p5() {
     const data = {
       id_detalle: this.Id_Detalle,
       all_data: this.Alldata
@@ -374,7 +375,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
   }
 
-  cargaNovedades(){
+  cargaNovedades() {
     this.comboService.getNovedades().subscribe({
       next: (req) => {
         this.novedades = req;
@@ -395,11 +396,11 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  pdf(){
-    window.open("/pdf/"+ this.masterId, '_blank');
+  pdf() {
+    window.open("/pdf/" + this.masterId, '_blank');
   }
 
-  downloadImage(){
-    window.open(environment.apiUrl + "/v1/api/master/filedownload/"+ this.masterId, '_blank');
+  downloadImage() {
+    window.open(environment.apiUrl + "/v1/api/master/filedownload/" + this.masterId, '_blank');
   }
 }
