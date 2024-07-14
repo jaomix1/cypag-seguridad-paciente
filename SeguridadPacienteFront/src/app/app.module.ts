@@ -2,12 +2,10 @@ import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Interceptor } from './control/Interceptors';
-import { LoginService } from './servicios/usuarios/login.service';
-import { CookieService } from 'ngx-cookie-service';
 
 /* This is to set the locale to spanish. */
 import localeEs from '@angular/common/locales/es';
-import { registerLocaleData} from '@angular/common';
+import { registerLocaleData } from '@angular/common';
 registerLocaleData(localeEs, 'es');
 
 
@@ -21,8 +19,8 @@ import { MainModule } from './componentes/main/main.module';
 import { PdfModule } from './componentes/pdf/pdf.module';
 
 
-import {  MatSnackBarModule } from '@angular/material/snack-bar';
-import { ComboService } from './servicios/combo/combo.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminModule } from './componentes/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -46,15 +44,16 @@ import { ComboService } from './servicios/combo/combo.service';
 
     PdfModule,
 
-    MatSnackBarModule
+    MatSnackBarModule,
+    AdminModule,
   ],
-  providers: [CookieService,
+  providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: Interceptor,
       multi: true,
     },
-    {provide: LOCALE_ID, useValue: 'es-CO'}
+    { provide: LOCALE_ID, useValue: 'es-CO' }
   ],
   bootstrap: [AppComponent]
 })

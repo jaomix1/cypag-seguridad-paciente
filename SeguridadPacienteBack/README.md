@@ -2,5 +2,7 @@
 
 https://.azurewebsites.net/
 
-para publicar ejecutar 
+para publicar ejecutar
 -> node publish
+
+nvm use 16

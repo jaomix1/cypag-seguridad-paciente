@@ -1,11 +1,11 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
-import {COMMA, ENTER} from '@angular/cdk/keycodes';
-import {MatChipInputEvent} from '@angular/material/chips';
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
-import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 
@@ -18,19 +18,18 @@ export class OportunidadesFormComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
-  public masterId : string;
+  public masterId: string;
   mejoras: any = [];
   responsables: any = [];
 
-  displayedColumns = ['Codigo','Descripcion', 'Accion'];
+  displayedColumns = ['Codigo', 'Descripcion', 'Accion'];
 
   constructor(
     public mainService: MainService,
     public OpportunityService: OpportunityService,
-    public UsersService: UsersService,
+    public UsersService: ResponsableService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
-    public dialogRef: MatDialogRef<OportunidadesFormComponent>,)
-  {
+    public dialogRef: MatDialogRef<OportunidadesFormComponent>,) {
     this.masterId = guid;
   }
 
@@ -60,7 +59,7 @@ export class OportunidadesFormComponent implements OnInit {
   submit() {
     if (this.mejoras.length > 0) {
       this.OpportunityService.create(this.mejoras).subscribe({
-        next: (req:any) => {
+        next: (req: any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
         },
         error: (err: string) => {
@@ -72,13 +71,13 @@ export class OportunidadesFormComponent implements OnInit {
   sending: boolean = false;
   agregar() {
     this.sending = true;
-    if(this.mejoras.length >= 1){
-      if(this.mejoras.find((mejora:any) => mejora.Codigo_Externo == this.form.value.Code)){
+    if (this.mejoras.length >= 1) {
+      if (this.mejoras.find((mejora: any) => mejora.Codigo_Externo == this.form.value.Code)) {
         this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
         this.form.reset();
       }
     }
-    if(this.form.valid){
+    if (this.form.valid) {
       let object = {
         Id_Master: this.masterId,
         Codigo_Externo: this.form.value.Code,
@@ -87,7 +86,7 @@ export class OportunidadesFormComponent implements OnInit {
       }
 
       this.mejoras.push(object);
-      if(this.mejoras.length > 1){
+      if (this.mejoras.length > 1) {
         this.table.renderRows();
       }
       this.form.reset();
@@ -103,8 +102,8 @@ export class OportunidadesFormComponent implements OnInit {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  eliminar(codigo:any){
-    this.mejoras = this.mejoras.filter((item:any) => item.Codigo_Externo !== codigo)
+  eliminar(codigo: any) {
+    this.mejoras = this.mejoras.filter((item: any) => item.Codigo_Externo !== codigo)
 
   }
 }

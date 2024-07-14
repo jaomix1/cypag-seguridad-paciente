@@ -3,6 +3,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { LoginService } from 'src/app/servicios/usuarios/login.service';
+import { MenuService } from 'src/app/servicios/usuarios/menu.service';
 
 @Component({
   selector: 'app-index',
@@ -24,7 +25,12 @@ export class IndexComponent {
 
   constructor(
     private LoginService: LoginService,
-    private breakpointObserver: BreakpointObserver
-  ) { }
+    private breakpointObserver: BreakpointObserver,
+
+    public m: MenuService,
+  ) {
+    let loginId = this.LoginService.getToken();
+    this.m.datos(loginId)
+  }
 
 }

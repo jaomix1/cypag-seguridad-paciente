@@ -1,8 +1,8 @@
 /* eslint-disable camelcase */
 const { Op } = require("sequelize");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
-const UsuarioModel = require("../../models/seguridad/usuarios");
 const { enviarMail } = require("../../services/mailer");
+const ResponsablesModel = require("../../models/combos/responsables");
 
 // #### OPORTUNIDADES DE MEJORA ####
 exports.createMejora = async (req, res) => {
@@ -10,7 +10,7 @@ exports.createMejora = async (req, res) => {
   try {
     const data = await OportunidadesMejoraModel.bulkCreate(mejoraObject);
     mejoraObject.forEach(async (element) => {
-      const { Correo } = await UsuarioModel.findOne({
+      const { Correo } = await ResponsablesModel.findOne({
         where: { Id: element.Responsable, Estado: "ACT" },
         raw: true,
         attributes: ["Correo"],
@@ -37,9 +37,9 @@ exports.getMejoras = async (req, res) => {
       },
       order: [["Codigo_Externo", "ASC"]],
       include: [{
-        model: UsuarioModel,
+        model: ResponsablesModel,
         as: "Responsable_Join",
-        where: { Estado: "ACT" },
+        where: { Estado: { [Op.or]: ["ACT", "INA"] } },
         attributes: ["NombreCompleto"],
       }],
       raw: true,
@@ -69,9 +69,9 @@ exports.getMejora = async (req, res) => {
       },
       order: [["Codigo_Externo", "ASC"]],
       include: [{
-        model: UsuarioModel,
+        model: ResponsablesModel,
         as: "Responsable_Join",
-        where: { Estado: "ACT" },
+        where: { Estado: { [Op.or]: ["ACT", "INA"] } },
         attributes: ["NombreCompleto"],
       }],
       raw: true,

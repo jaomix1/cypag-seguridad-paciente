@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>Crear Usuario</h1>
+<div mat-dialog-content>
+  <form [formGroup]="pacienteForm">
+
+    <mat-form-field>
+      <mat-label>Perfil</mat-label>
+      <mat-select formControlName="perfilId" matNativeControl>
+        <mat-option value="Admin">Administrador</mat-option>
+        <mat-option value="Comun">Gestor</mat-option>
+        <mat-option value="Gerente">Gerente</mat-option>
+        <mat-option value="Responsable">Responsable</mat-option>
+      </mat-select>
+  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Correo</mat-label>
+      <input type="email" matInput  formControlName="correo" maxlength="60">
+      <mat-error *ngIf="!pacienteForm.valid">{{getErrorMessage('email')}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Nombre Completo</mat-label>
+      <input type="text" matInput [readonly]="loanding" maxlength="60"  formControlName="nombreCompleto">
+      <mat-error *ngIf="!pacienteForm.valid">{{getErrorMessage('name')}}</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Usuario</mat-label>
+      <input type="text" matInput formControlName="usuario" maxlength="60">
+      <mat-error *ngIf="!pacienteForm.valid">{{getErrorMessage('user')}}</mat-error>
+    </mat-form-field>
+    <div formGroupName="passwords">
+      <mat-form-field>
+        <mat-label>Clave</mat-label>
+        <input type="password" matInput formControlName="clave" [type]="hidePassword ? 'password' : 'text'" maxlength="20">
+
+        <mat-error *ngIf="!pacienteForm.valid">{{getErrorMessage('pass')}}</mat-error>
+        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'"
+                                [attr.aria-pressed]="hidePassword">
+                                <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+      </mat-form-field> 
+      <mat-form-field>
+        <mat-label>Repetir Clave</mat-label>
+        <input type="password" matInput formControlName="repetirClave" maxlength="20">
+        <mat-error *ngIf="!pacienteForm.valid">{{getErrorMessage('rpass')}}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</div>
+<div mat-dialog-actions>
+    <button mat-flat-button color="primary" (click)="guardar()" [disabled]="!pacienteForm.valid" *ngIf="!loanding"
+    cdkFocusInitial>Crear</button> <br>
+  <button mat-flat-button color="warn" *ngIf="!loanding" (click)="onNoClick()">Cancelar</button>
+</div>
+
+<mat-progress-bar *ngIf="this.loanding" mode="indeterminate"></mat-progress-bar>

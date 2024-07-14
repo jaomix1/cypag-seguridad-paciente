@@ -3,15 +3,16 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
+import { never } from 'rxjs';
 
 let URL = environment.apiUrl; //EXTE
 
 export function getUrlApi() {
-  return URL+ "/v1"
+  return URL + "/v1"
 }
 
 export function getUrlApiAuth() {
-  return URL+ "/v1"
+  return URL + "/v1"
 }
 
 export function getUrlLogout() {

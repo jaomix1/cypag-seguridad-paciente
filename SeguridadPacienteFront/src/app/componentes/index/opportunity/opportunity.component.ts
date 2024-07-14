@@ -8,7 +8,7 @@ import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.se
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
 
 @Component({
@@ -25,7 +25,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
   //responsables: any;
   datos: any = [];
-  private masterId : string;
+  private masterId: string;
 
 
   // form = new FormGroup({
@@ -41,7 +41,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   constructor(
     private OpportunityService: OpportunityService,
     public mainService: MainService,
-    public UsersService: UsersService,
+    public UsersService: ResponsableService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialog: MatDialog) {
     super();
@@ -56,27 +56,27 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   ngOnInit(): void {
   }
 
-  submit(masterId : any): void {
-      this.loadingMain = true;
-      this.OpportunityService.getAll({ Id_Master	: masterId }).subscribe({
-        next: (req:any) => {
-          this.datos = req;
-          this.loadingMain = false;
-          if(this.datos.length < 1) {
-            this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
-          }
-        },
-        error: (err: string) => {
-          this.mainService.showToast(err, 'error');
-          this.loadingMain = false;
-        },
-        complete: () => {
-          this.loadingMain = false;
+  submit(masterId: any): void {
+    this.loadingMain = true;
+    this.OpportunityService.getAll({ Id_Master: masterId }).subscribe({
+      next: (req: any) => {
+        this.datos = req;
+        this.loadingMain = false;
+        if (this.datos.length < 1) {
+          this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
         }
-      });
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+        this.loadingMain = false;
+      },
+      complete: () => {
+        this.loadingMain = false;
+      }
+    });
   }
 
-  edit(guid : any){
+  edit(guid: any) {
     const dialogRef = this.dialog.open(EditOportunidadComponent, {
       width: '600px',
       height: '250px',

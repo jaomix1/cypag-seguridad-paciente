@@ -42,12 +42,12 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCheckboxModule
+    MatCheckboxModule,
   ],
   providers: [
     { provide: MAT_DATE_LOCALE, useValue: 'es-CO' },
   ],
-  exports :[
+  exports: [
     MainComponent,
   ]
 })

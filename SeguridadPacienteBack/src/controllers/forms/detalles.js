@@ -6,9 +6,9 @@ const InvestigacionesP5Model = require("../../models/forms/investigaciones5p");
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const InvestigacionesLondresModel = require("../../models/forms/investigacionesLondres");
 const TiposNovedadModel = require("../../models/combos/tiposNovedad");
-const UsuarioModel = require("../../models/seguridad/usuarios");
 const MasterModel = require("../../models/forms/master");
 const { enviarMail } = require("../../services/mailer");
+const ResponsablesModel = require("../../models/combos/responsables");
 
 exports.createDetail = async (req, res) => {
   const entry = { ...req.body };
@@ -24,7 +24,7 @@ exports.createDetail = async (req, res) => {
         raw: true,
       });
       const usuarios = entry.Responsables.split(";");
-      const mails = await UsuarioModel.findAll({
+      const mails = await ResponsablesModel.findAll({
         where: { Usuario: usuarios, Estado: "ACT" },
         raw: true,
         attributes: ["Correo"],

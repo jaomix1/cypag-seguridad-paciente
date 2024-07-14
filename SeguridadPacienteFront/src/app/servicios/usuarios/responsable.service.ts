@@ -7,9 +7,9 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class UsersService extends BaseService {
+export class ResponsableService extends BaseService {
 
-  private apiUrl: string = '/api/usuarios';
+  private apiUrl: string = '/api/combos/responsables';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }

@@ -1,7 +1,7 @@
 const moment = require("moment");
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
-const UsuarioModel = require("../seguridad/usuarios");
+const ResponsablesModel = require("../combos/responsables");
 
 class OportunidadesMejoraModel extends Model {}
 
@@ -51,5 +51,5 @@ OportunidadesMejoraModel.init(
     timestamps: false,
   },
 );
-OportunidadesMejoraModel.belongsTo(UsuarioModel, { foreignKey: "Responsable", as: "Responsable_Join", onDelete: "NO ACTION" });
+OportunidadesMejoraModel.belongsTo(ResponsablesModel, { foreignKey: "Responsable", as: "Responsable_Join", onDelete: "NO ACTION" });
 module.exports = OportunidadesMejoraModel;

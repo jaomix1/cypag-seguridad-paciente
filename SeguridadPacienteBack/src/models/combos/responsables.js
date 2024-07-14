@@ -7,7 +7,7 @@ const { sequelize } = require("../../../config/db");
 // const { sequelizeSeg} = require("../../../config/db");
 require("dotenv").config();
 
-class UsuarioModel extends Model {
+class ResponsablesModel extends Model {
   crearJsonWebToken(data) {
     return jwt.sign({ user: data }, process.env.TOKEN_SECRET, {
       expiresIn: process.env.JWT_EXPIRES,
@@ -19,23 +19,23 @@ class UsuarioModel extends Model {
   }
 }
 
-UsuarioModel.init(
+ResponsablesModel.init(
   {
     Id: { type: DataTypes.UUID, defaultValue: sequelize.literal("newid()"), primaryKey: true },
     Usuario: { type: DataTypes.STRING(50), allowNull: false, unique: true },
     NombreCompleto: { type: DataTypes.STRING(50), allowNull: false },
-    Clave: { type: DataTypes.STRING(500), allowNull: false },
+    //Clave: { type: DataTypes.STRING(500), allowNull: false },
     Correo: { type: DataTypes.STRING(100), validate: { isEmail: true } },
     Estado: {
       type: DataTypes.STRING(3), defaultValue: "ACT", allowNull: false, validate: { isIn: [["ACT", "INA"]] },
     },
     Fecha_Creacion: { type: DataTypes.DATE, defaultValue: sequelize.literal("getdate()"), allowNull: false },
     Fecha_Modificacion: { type: DataTypes.DATE },
-    Id_Perfil: { type: DataTypes.UUID, allowNull: false },
+    //Id_Perfil: { type: DataTypes.UUID, allowNull: false },
   },
   {
     sequelize,
-    tableName: "SEG_Usuarios",
+    tableName: "SEGPAC_Responsables",
     createdAt: false,
     updatedAt: false,
     timestamps: false,
@@ -52,4 +52,4 @@ UsuarioModel.init(
   },
 );
 
-module.exports = UsuarioModel;
+module.exports = ResponsablesModel;

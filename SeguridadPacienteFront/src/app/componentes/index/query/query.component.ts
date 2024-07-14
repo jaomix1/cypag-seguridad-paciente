@@ -23,13 +23,13 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('empTbSort') sort!: MatSort;
 
-  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente' , 'Numero_Id', 'Sede', 'Novedad', 'Oportunidades', 'Resuelto', 'accion'];
+  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente', 'Numero_Id', 'Sede', 'Novedad', 'Oportunidades', 'Resuelto', 'accion'];
   //displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente' ];
 
   novedades: Combo[] = [];
   empresas: Combo[] = [];
   sedes: Combo[] = [];
-  dataSource= new MatTableDataSource();
+  dataSource = new MatTableDataSource();
 
   maxDate: Date;
 
@@ -78,7 +78,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
 
   }
 
-  cargaEmpresas(){
+  cargaEmpresas() {
     this.comboService.getEmpresas().subscribe({
       next: (req) => {
         this.empresas = req;
@@ -91,10 +91,11 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     })
   }
 
-  cargaSedes(empresa:any){
+  cargaSedes(empresa: any) {
     this.comboService.getSedes(empresa).subscribe({
       next: (req) => {
         this.sedes = req;
+        this.myForm.patchValue({ Sede: null });
       },
       error: (err: string) => {
         this.loadingMain = false;
@@ -104,7 +105,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     })
   }
 
-  cargaNovedades(){
+  cargaNovedades() {
     this.comboService.getNovedades().subscribe({
       next: (req) => {
         this.novedades = req;
@@ -124,29 +125,31 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       this.QueryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           let data = req.map(
-            (c:any) => { return { 
-              Id : c.Id,
-              Codigo : c.Codigo,
-              Fecha_Creacion : c.Fecha_Creacion,
-              Fecha_Incidente : c.Fecha_Incidente + " " + c.Hora_Incidente,
-              Nombre_Paciente : c.Nombre_Paciente,
-              Numero_Id : c.Numero_Id,
-              Sede : c.Sede_Join.Descripcion,
-              Novedad : c.Tipo_Novedad_Join.Descripcion,
-              Oportunidades : (this.calcularProcesadas(c.Op_Mejora_Join) + "/" + c.Op_Mejora_Join.length),
-              Resuelto : this.calcularPorcentaje(c.Op_Mejora_Join)
-            } });
+            (c: any) => {
+              return {
+                Id: c.Id,
+                Codigo: c.Codigo,
+                Fecha_Creacion: c.Fecha_Creacion,
+                Fecha_Incidente: c.Fecha_Incidente + " " + c.Hora_Incidente,
+                Nombre_Paciente: c.Nombre_Paciente,
+                Numero_Id: c.Numero_Id,
+                Sede: c.Sede_Join.Descripcion,
+                Novedad: c.Tipo_Novedad_Join.Descripcion,
+                Oportunidades: (this.calcularProcesadas(c.Op_Mejora_Join) + "/" + c.Op_Mejora_Join.length),
+                Resuelto: this.calcularPorcentaje(c.Op_Mejora_Join)
+              }
+            });
           console.log(data)
 
           this.dataSource.data = data;
-          setTimeout(()=>{
+          setTimeout(() => {
             this.sort.disableClear = true;
             this.dataSource.paginator = this.paginator;
             this.dataSource.sort = this.sort;
-           })
+          })
           this.loadingMain = false;
           this.myForm.enable();
-          if(req.length < 1) {
+          if (req.length < 1) {
             this.mainService.showToast("No se han encontrado registros, verifique los filtros", 'error');
           }
           //this.cancelar();
@@ -164,7 +167,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     }
   }
 
-  detalles(guid : any){
+  detalles(guid: any) {
     const dialogRef = this.dialog.open(DetallesComponent, {
       width: '100%',
       height: '100%',
@@ -175,7 +178,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     });
   }
 
-  Oportunidades(guid : any){
+  Oportunidades(guid: any) {
     const dialogRef = this.dialog.open(OpportunityComponent, {
       width: '100%',
       height: '100%',
@@ -205,21 +208,21 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     return this.mainService.checkInput(this.myForm, nameInput);
   }
 
-  calcularPorcentaje(datos : any[]){    
-    if(datos.length == 0){
+  calcularPorcentaje(datos: any[]) {
+    if (datos.length == 0) {
       return 0;
     }
-    else{
-      let res = datos.map(c=> c.Porcentaje_Mejora);
+    else {
+      let res = datos.map(c => c.Porcentaje_Mejora);
       let por = res.reduce((partialSum, a) => partialSum + a, 0);
       return por / (datos.length * 100);
     }
-   
+
 
     //return  res + " de " +  datos.length;
   }
 
-  calcularProcesadas(datos : any[]){
-   return datos.filter(c=> c.Porcentaje_Mejora == 100).length
+  calcularProcesadas(datos: any[]) {
+    return datos.filter(c => c.Porcentaje_Mejora == 100).length
   }
 }

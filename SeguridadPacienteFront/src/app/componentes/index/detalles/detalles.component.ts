@@ -12,7 +12,7 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
 import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
-import { UsersService } from 'src/app/servicios/usuarios/users.service';
+import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
 import { Observable } from 'rxjs';
@@ -36,14 +36,14 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   realizado: boolean = false;
   addOnBlur = true;
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-  responsables: any[] = [];
+  public responsables: any[] = [];
+  users: any[] = [];
+
   data: any;
   type: any;
   detalle: any;
   Alldata: any;
   UserCtrl = new FormControl('');
-  filteredUsers: Observable<any[]>;
-  users: any[] = [];
   novedades: Combo[] = [];
   @ViewChild('UserInput')
   UserInput!: ElementRef<HTMLInputElement>;
@@ -61,7 +61,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   constructor(
     private comboService: ComboService,
     public mainService: MainService,
-    public UsersService: UsersService,
+    public UsersService: ResponsableService,
     public DetallesService: DetallesService,
     private QueryService: QueryService,
     public dialog: MatDialog,
@@ -71,10 +71,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.masterId = guid;
     this.obtenerMaster(this.masterId)
     this.loadingMain = true;
-    this.filteredUsers = this.UserCtrl.valueChanges.pipe(
-      startWith(null),
-      map((user: any | null) => (user ? this._filter(user) : this.users.slice())),
-    );
   }
 
   ngOnInit(): void {
@@ -245,45 +241,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  add(event: MatChipInputEvent): void {
-    const value = (event.value || '').trim();
-    let findUser = this.users.find(user => user.NombreCompleto == value);
-    if (findUser) {
-      let existUser = this.responsables.find(a => a === value);
-      if (!existUser) {
-        this.responsables.push(value);
-      } else {
-        this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
-      }
-    } else {
-      this.mainService.showToast('Este usuario no existe', 'error')
-    }
-    event.chipInput!.clear();
-  }
-
-  remove(t: any): void {
-    const index = this.responsables.indexOf(t);
-    if (index >= 0) {
-      this.responsables.splice(index, 1);
-    }
-  }
-
-  selected(event: MatAutocompleteSelectedEvent): void {
-    let existUser = this.responsables.find(a => a === event.option.viewValue);
-    if (!existUser) {
-      this.responsables.push(event.option.viewValue);
-    } else {
-      this.mainService.showToast('Este usuario ya ha sido agregado', 'error')
-    }
-    this.UserInput.nativeElement.value = '';
-    this.UserCtrl.setValue(null);
-  }
-
-  private _filter(value: any): any[] {
-    const filterValue = value.toLowerCase();
-
-    return this.users.filter(user => user.NombreCompleto.toLowerCase().includes(filterValue));
-  }
 
   pqms() {
     const data = {

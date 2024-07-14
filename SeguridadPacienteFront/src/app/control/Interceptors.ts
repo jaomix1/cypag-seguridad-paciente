@@ -9,14 +9,12 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 import { Router } from "@angular/router";
-import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
   providedIn: "root",
 })
 export class Interceptor implements HttpInterceptor {
   constructor(
-    public cookieService: CookieService,
     private router: Router,
   ) {
   }
@@ -28,11 +26,11 @@ export class Interceptor implements HttpInterceptor {
     const token: string = localStorage.getItem("tokens") ?? "";
     let request = req;
     if (token) {
-        request = req.clone({
-          setHeaders: {
-            authorization: `Bearer ${token}`,
-          },
-        });
+      request = req.clone({
+        setHeaders: {
+          authorization: `Bearer ${token}`,
+        },
+      });
     }
 
     return next.handle(request).pipe(

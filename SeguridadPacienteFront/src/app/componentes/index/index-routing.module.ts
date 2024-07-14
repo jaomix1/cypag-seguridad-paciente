@@ -10,6 +10,8 @@ import { QueryComponent } from './query/query.component';
 import { TablaComponent } from './demos/tabla/tabla.component';
 import { FormularioComponent } from './demos/formulario/formulario.component';
 import { ExportarComponent } from './exportar/exportar.component';
+import { AdminComponent } from '../admin/admin.component';
+import { AccesoAdmin } from 'src/app/control/accesoAdmin';
 
 const routes: Routes = [
   {
@@ -29,19 +31,19 @@ const routes: Routes = [
         path: 'exportar',
         component: ExportarComponent,
         canActivate: [Acceso]
-      }
+      },
     ]
   },
-  //   {
-  //     path: 'admin', component : IndexComponent, canActivate: [AccesoAdmin],
-  //     children: [
-  //       {
-  //           path: 'users',
-  //           component: AdminComponent,
-  //           canActivate: [AccesoAdmin]
-  //       },
-  //     ]
-  //   },
+  {
+    path: 'admin', component: IndexComponent, canActivate: [AccesoAdmin],
+    children: [
+      {
+        path: 'usuarios',
+        component: AdminComponent,
+        canActivate: [AccesoAdmin]
+      },
+    ]
+  },
 ];
 
 @NgModule({

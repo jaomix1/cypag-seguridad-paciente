@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { BaseFormComponent } from '../baseComponent';
 import { LoginService } from 'src/app/servicios/usuarios/login.service';
 import { MainService } from 'src/app/servicios/main.service';
+import { MenuService } from 'src/app/servicios/usuarios/menu.service';
 
 
 @Component({
@@ -12,11 +13,11 @@ import { MainService } from 'src/app/servicios/main.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent extends BaseFormComponent implements OnInit  {
+export class LoginComponent extends BaseFormComponent implements OnInit {
 
 
-  tamano : any = { col : 1};
-  tamano2 : any = { col : 1};
+  tamano: any = { col: 1 };
+  tamano2: any = { col: 1 };
   hidePassword = true;
   form = new FormGroup({
     Usuario: new FormControl('', [Validators.required,]),
@@ -29,9 +30,10 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
     private LoginService: LoginService,
     private breakpointObserver: BreakpointObserver,
     private router: Router,
-    ) {
-      super();
-    }
+    private menuService: MenuService
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
 
@@ -39,11 +41,11 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
       .observe([Breakpoints.Small, Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          this.tamano = { col : 0, row : 1};
-          this.tamano2 = { col : 3, row : 1};
-        }else{
-          this.tamano = { col : 1, row : 1};
-          this.tamano2 = { col : 1, row : 1};
+          this.tamano = { col: 0, row: 1 };
+          this.tamano2 = { col: 3, row: 1 };
+        } else {
+          this.tamano = { col: 1, row: 1 };
+          this.tamano2 = { col: 1, row: 1 };
         }
       });
   }
@@ -55,7 +57,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
       this.LoginService.login(this.form.value).subscribe({
         next: (req) => {
           this.LoginService.setToken(req);
-            this.router.navigate(["/index/consulta"]);
+          this.router.navigate(["/index/consulta"]);
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -66,7 +68,7 @@ export class LoginComponent extends BaseFormComponent implements OnInit  {
     }
   }
 
-  cancelar(){
+  cancelar() {
     this.router.navigate(["/main"]);
   }
 }

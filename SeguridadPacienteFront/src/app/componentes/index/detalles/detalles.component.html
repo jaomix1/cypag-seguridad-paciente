@@ -98,41 +98,20 @@
             </mat-error>
         </mat-form-field>
     </div>
+    </form>
+    
     <br>
-      <h2 >Responsables de la investigacion</h2>
-      <mat-form-field class="example-chip-list" appearance="outline">
-        <mat-label>¿Quién o quienes?</mat-label>
-            <mat-chip-list #chipList aria-label="User selection"  [disabled]="realizado">
-          <mat-chip
-            *ngFor="let user of responsables"
-            (removed)="remove(user)">
-            {{user}}
-            <button matChipRemove>
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-          <input
-            [disabled]="realizado"
-            placeholder="Seleccione....."
-            #UserInput
-            [formControl]="UserCtrl"
-            [matAutocomplete]="auto"
-            [matChipInputFor]="chipList"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="add($event)">
-        </mat-chip-list>
-        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-          <mat-option *ngFor="let user of filteredUsers | async" [value]="user">
-            {{user.NombreCompleto}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
+      <h2 >Responsables de la investigacion</h2>     
+        <mat-form-field>
+          <mat-select placeholder="Responsables" multiple [disabled]="realizado" [(ngModel)]="responsables">
+            <mat-option *ngFor="let user of users" [value]="user.NombreCompleto">{{user.NombreCompleto}}</mat-option>
+          </mat-select>
+        </mat-form-field>
       <div class="row" *ngIf="!realizado">
         <div class="col">
-          <button mat-button class="bg-primary" style="margin-bottom: 10px">Guardar</button>
+          <button mat-button class="bg-primary" style="margin-bottom: 10px" (click)="submit()">Guardar</button>
         </div>
       </div>
-    </form>
     <div class="col" *ngIf="realizado">
       <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="delet()">Borrar</button>
     </div>

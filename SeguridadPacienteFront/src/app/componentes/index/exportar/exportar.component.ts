@@ -53,8 +53,6 @@ export class ExportarComponent extends BaseFormComponent implements OnInit, Afte
 
   submit(): void {
 
-    //console.log(this.myForm.value.Start_Date.toISOString().substring(0, 9))
-
     if (this.myForm.valid) {
       this.myForm.disable();
       this.loadingMain = true;

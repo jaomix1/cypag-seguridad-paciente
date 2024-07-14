@@ -20,7 +20,7 @@ const InvestigacionesLondresModel = require("../../models/forms/investigacionesL
 const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesNaranjo");
 const MasterModel = require("../../models/forms/master");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
-const UsuarioModel = require("../../models/seguridad/usuarios");
+const ResponsablesModel = require("../../models/combos/responsables");
 
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
@@ -160,9 +160,9 @@ exports.getAllData = async (req, res) => {
         raw: true,
         nest: true,
         include: [{
-          model: UsuarioModel,
+          model: ResponsablesModel,
           as: "Responsable_Join",
-          where: { Estado: "ACT" },
+          where: { Estado: { [Op.or]: ["ACT", "INA"] } },
           attributes: ["NombreCompleto"],
         }],
       });
