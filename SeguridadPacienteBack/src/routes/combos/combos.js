@@ -7,6 +7,7 @@ const { obtenerTiposNovedad } = require("../../controllers/combos/tiposNovedad")
 const { obtenerServicios } = require("../../controllers/combos/servicios");
 const { obtenerResponsables } = require("../../controllers/combos/responsables");
 const { obtenerCausasByNovedades } = require("../../controllers/combos/novedadCausa");
+const { obtenerClasificacionReporte } = require("../../controllers/combos/clasificacionReporte");
 
 const router = express.Router();
 
@@ -20,5 +21,6 @@ router.route("/tipos-novedad").get(obtenerTiposNovedad);
 router.route("/servicios").get(obtenerServicios);
 router.route("/responsables").get(obtenerResponsables);
 router.route("/causas/:nodedadId").get(obtenerCausasByNovedades);
+router.route("/clasificaciones").get(obtenerClasificacionReporte);
 
 module.exports = router;

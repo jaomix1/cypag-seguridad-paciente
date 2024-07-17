@@ -1,6 +1,7 @@
 const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
 const TiposNovedadModel = require("../combos/tiposNovedad");
+const ClasificacionReporteModel = require("../combos/clasificacionReporte");
 
 class DetallesModel extends Model {}
 
@@ -28,6 +29,7 @@ DetallesModel.init(
     Fecha_Creacion: { type: DataTypes.DATE, defaultValue: sequelize.literal("getdate()"), allowNull: false },
     Fecha_Modificacion: { type: DataTypes.DATE, defaultValue: null, allowNull: true },
     Agente: { type: DataTypes.STRING(50), allowNull: true },
+    Clasificacion_Reporte_Id: { type: DataTypes.INTEGER, allowNull: true },
   },
   {
     sequelize,
@@ -39,5 +41,6 @@ DetallesModel.init(
 );
 
 DetallesModel.belongsTo(TiposNovedadModel, { foreignKey: "Tipo_Novedad", as: "Tipo_Novedad_Join", onDelete: "NO ACTION" });
+DetallesModel.belongsTo(ClasificacionReporteModel, { foreignKey: "Clasificacion_Reporte_Id", as: "Clasificacion_Reporte_Id_Join", onDelete: "NO ACTION" });
 
 module.exports = DetallesModel;
