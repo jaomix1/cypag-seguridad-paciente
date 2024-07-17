@@ -4,7 +4,7 @@ import { catchError, map, retry, tap } from 'rxjs/operators';
 import { BaseService } from '../baseService';
 import { ResponseContract } from 'src/app/modelos/responseContract';
 import { Observable } from 'rxjs';
-import { ComboText, Combo, ComboBoolean } from 'src/app/modelos/combos/combo';
+import { Combo, ComboBoolean, ComboText } from 'src/app/modelos/combos/combo';
 
 @Injectable({
   providedIn: 'root',
@@ -26,7 +26,7 @@ export class ComboService extends BaseService {
       Descripcion: "No"
     }
   ];
-  public comboSexo : ComboText[] = [
+  public comboSexo: ComboText[] = [
     {
       Id: "M",
       Descripcion: "Masculino"
@@ -36,7 +36,7 @@ export class ComboService extends BaseService {
       Descripcion: "Femenino"
     }
   ];
-  public comboSeveridad : ComboText[] = [
+  public comboSeveridad: ComboText[] = [
     {
       Id: "leve",
       Descripcion: "Leve"
@@ -44,12 +44,25 @@ export class ComboService extends BaseService {
     {
       Id: "Moderado",
       Descripcion: "Moderado"
-    },    
+    },
     {
       Id: "Centinela",
       Descripcion: "Centinela"
     },
   ];
+
+  getClasificaciones(): Observable<Combo[]> {
+    return this.http
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "clasificaciones")
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('consulta de novedades');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
 
   getNovedades(): Observable<Combo[]> {
     return this.http
@@ -64,7 +77,20 @@ export class ComboService extends BaseService {
       );
   }
 
-  getIdentificacion(): Observable<Combo[]>  {
+  getCausas(id: number): Observable<Combo[]> {
+    return this.http
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "causas/" + id)
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('consulta de novedades');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
+
+  getIdentificacion(): Observable<Combo[]> {
     return this.http
       .get<Combo[]>(this._baseUrl + this.apiUrl + "tipos-id")
       .pipe(
@@ -90,9 +116,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getSedes(empresa:number): Observable<Combo[]> {
+  getSedes(empresa: number): Observable<Combo[]> {
     return this.http
-      .get<Combo[]>(this._baseUrl + this.apiUrl + "sedes?empresa=" +empresa)
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "sedes?empresa=" + empresa)
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -103,9 +129,9 @@ export class ComboService extends BaseService {
       );
   }
 
-  getServicios(empresa:number): Observable<Combo[]> {
+  getServicios(empresa: number): Observable<Combo[]> {
     return this.http
-      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios?empresa=" +empresa)
+      .get<Combo[]>(this._baseUrl + this.apiUrl + "servicios?empresa=" + empresa)
       .pipe(
         map((response) => response),
         tap((a) => {

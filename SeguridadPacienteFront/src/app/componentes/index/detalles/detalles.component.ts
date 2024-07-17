@@ -22,6 +22,7 @@ import { BaseFormComponent } from '../../baseComponent';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { environment } from 'src/environments/environment';
+import { InfoComponent } from '../../info/info.component';
 
 @Component({
   selector: 'app-detalles',
@@ -45,6 +46,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   Alldata: any;
   UserCtrl = new FormControl('');
   novedades: Combo[] = [];
+  clasificaciones: Combo[] = [];
   @ViewChild('UserInput')
   UserInput!: ElementRef<HTMLInputElement>;
 
@@ -55,6 +57,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
     Tipo_Detalle: new FormControl(null, [Validators.required]),
     Tipo_Novedad: new FormControl(null, [Validators.required]),
+    Clasificaciones: new FormControl(null, [Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
   });
 
@@ -80,6 +83,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   ngAfterViewInit(): void {
     this.getResponsables();
     this.cargaNovedades();
+    this.cargaClasificaciones();
   }
 
   obtenerMaster(id: string) {
@@ -336,6 +340,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     this.comboService.getNovedades().subscribe({
       next: (req) => {
         this.novedades = req;
+        // kc
       },
       error: (err: string) => {
         this.loadingMain = false;
@@ -343,6 +348,34 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       },
       complete: () => (this.loadingMain = false),
     })
+  }
+
+  cargaClasificaciones() {
+    this.comboService.getClasificaciones().subscribe({
+      next: (req) => {
+        this.clasificaciones = req;
+        // kc
+      },
+      error: (err: string) => {
+        this.loadingMain = false;
+        this.mainService.showToast(err, 'error');
+      },
+      complete: () => (this.loadingMain = false),
+    })
+  }
+
+  info_Eventos() {
+    let data: any = {
+      title: 'Información',
+      message: 'eventos'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '500px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
   }
 
   validate(nameInput: string) {

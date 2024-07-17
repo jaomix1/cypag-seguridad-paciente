@@ -30,6 +30,7 @@ export class MainComponent extends BaseFormComponent implements OnInit {
 
   //combos
   novedades!: Combo[];
+  causas!: Combo[];
   sedes!: Combo[];
   empresas!: Combo[];
   identificaciones!: Combo[];
@@ -98,6 +99,9 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     ]),
     EdadMeses: new FormControl(false, []),
     Tipo_Novedad: new FormControl('', [
+      Validators.required
+    ]),
+    Novedad_Id: new FormControl('', [
       Validators.required
     ]),
     Preg_Que: new FormControl('', [
@@ -269,6 +273,16 @@ export class MainComponent extends BaseFormComponent implements OnInit {
 
   cargaNovedades() {
     this.comboService.getNovedades().subscribe((data: any) => {
+      this.novedades = data;
+      console.log('estas son las novedades: ', this.novedades)
+      this.novedades.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+    });
+  }
+
+  cargaCausas(id: number) {
+    console.log('el id es: ', id)
+    this.comboService.getCausas(id).subscribe((data: any) => {
+      console.log('el id es: ', id, 'y la resp es: ', data)
       this.novedades = data;
       this.novedades.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
     });
