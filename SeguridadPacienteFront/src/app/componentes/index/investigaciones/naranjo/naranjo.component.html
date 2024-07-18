@@ -5,7 +5,9 @@
   <div class="row">
     <div class="col">
       <div class="row">
-        <label class="example-margin center"> <h2> <b>Tipo:</b></h2> </label>
+        <label class="example-margin center">
+          <h2> <b>Tipo:</b></h2>
+        </label>
         <div class="col center my-3">
           <a mat-raised-button class="bg-secondary" (click)="tipo('leve')" [ngClass]="{
             'bg-primary': form.value.Evento_Adverso_Tipo == 'leve'
@@ -25,7 +27,9 @@
     </div>
     <div class="col">
       <div class="row">
-        <label class="example-margin center"> <h2> <b>Estado:</b></h2> </label>
+        <label class="example-margin center">
+          <h2> <b>Estado:</b></h2>
+        </label>
         <div class="col center my-3">
           <a mat-raised-button class="bg-secondary" (click)="estado('prevenible')" [ngClass]="{
             'bg-primary': form.value.Evento_Adverso_Estado == 'prevenible'
@@ -67,7 +71,8 @@
       </mat-error> -->
     </div>
     <div class="col">
-      <mat-label>La reacción adversa ¿mejoró al interrumpirse el tratamiento o cuando se administró un antagonista específico?</mat-label>
+      <mat-label>La reacción adversa ¿mejoró al interrumpirse el tratamiento o cuando se administró un antagonista
+        específico?</mat-label>
       <section class="example-section">
         <mat-radio-group formControlName="Naranjo_3">
           <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
@@ -108,7 +113,7 @@
       </mat-error> -->
     </div>
     <div class="col">
-      <mat-label>¿Se ha detectado el fármaco en sangre  en una concentración cuya toxicidad es conocida?</mat-label>
+      <mat-label>¿Se ha detectado el fármaco en sangre en una concentración cuya toxicidad es conocida?</mat-label>
       <section class="example-section">
         <mat-radio-group formControlName="Naranjo_6">
           <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
@@ -136,7 +141,8 @@
       </mat-error> -->
     </div>
     <div class="col">
-      <mat-label>¿Tuvo el paciente una reacción similar al mismo fármaco o a fármacos análogos en alguna exposición previa?</mat-label>
+      <mat-label>¿Tuvo el paciente una reacción similar al mismo fármaco o a fármacos análogos en alguna exposición
+        previa?</mat-label>
       <section class="example-section">
         <mat-radio-group formControlName="Naranjo_8">
           <mat-radio-button class="example-margin" value="SI">Sí</mat-radio-button>
@@ -180,13 +186,14 @@
       <mat-label>Observacion</mat-label>
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Observacion</mat-label>
-        <textarea matInput placeholder="max. 250 crarcteres" formControlName="Naranjo_Observaciones" maxlength="50"></textarea>
+        <textarea matInput placeholder="max. 250 crarcteres" formControlName="Naranjo_Observaciones"
+          maxlength="200"></textarea>
       </mat-form-field>
     </div>
   </div>
   <div class="row">
     <div class="col">
-      <button type='button' mat-raised-button color="warn"  (click)="cancelar()">Cancelar</button>
+      <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
     </div>
     <div class="col" *ngIf="!realizado">
       <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Guardar</button>
@@ -198,6 +205,6 @@
     <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
   </div> -->
   <div class="col">
-    <button type='button' mat-raised-button class="bg-secondary"  (click)="mejoras()">Oportunidades Mejoras</button>
+    <button type='button' mat-raised-button class="bg-secondary" (click)="mejoras()">Oportunidades Mejoras</button>
   </div>
 </div>

@@ -94,7 +94,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Otro servicio</mat-label>
             <textarea matInput #Otro_Servicio placeholder="Especifique el otro servicio" formControlName="Otro_Servicio"
-              required maxlength="200"></textarea>
+              required maxlength="800"></textarea>
             <mat-hint align="end">{{Otro_Servicio.value.length}} / 200</mat-hint>
             <mat-error *ngIf="validate('Otro_Servicio')">
               {{ check('Otro_Servicio') }}
@@ -107,11 +107,23 @@
           <mat-form-field class="full-width" appearance="outline" style="padding-bottom: 0px !important">
             <mat-label>Tipo de novedad de seguridad</mat-label>
             <mat-select placeholder="Tipo de novedad de seguridad" formControlName="Tipo_Novedad" required>
-              <mat-option *ngFor="let c of novedades" value={{c.Id}}>{{c.Descripcion}}</mat-option>
+              <mat-option *ngFor="let item of novedades" value={{item.Id}}
+                (click)="cargaCausas(item.Id)">{{item.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
           <mat-error *ngIf="validate('Tipo_Novedad')">
             {{ check('Tipo_Novedad') }}
+          </mat-error>
+        </div>
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline" style="padding-bottom: 0px !important">
+            <mat-label>Casusas sobre novedad</mat-label>
+            <mat-select placeholder="Casusas sobre novedad" formControlName="Novedad_Id" required>
+              <mat-option *ngFor="let item of causas" value={{item.Id}}>{{item.Descripcion}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-error *ngIf="validate('Novedad_Id')">
+            {{ check('Novedad_Id') }}
           </mat-error>
         </div>
         <div class="col" style="max-width: 20px;">
@@ -182,7 +194,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Qué pasó?</mat-label>
             <textarea matInput #Preg_Que placeholder="¿Qué pasó?" formControlName="Preg_Que" required
-              maxlength="300"></textarea>
+              maxlength="900"></textarea>
             <mat-hint align="end">{{Preg_Que.value.length}} / 300</mat-hint>
             <mat-error *ngIf="validate('Preg_Que')">
               {{ check('Preg_Que') }}
@@ -195,7 +207,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>¿Cómo pasó?</mat-label>
             <textarea matInput #Preg_Como placeholder="¿Cómo pasó?" formControlName="Preg_Como" required
-              maxlength="500"></textarea>
+              maxlength="1500"></textarea>
             <mat-hint align="end">{{Preg_Como.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Preg_Como')">
               {{ check('Preg_Como') }}
@@ -300,7 +312,7 @@
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Accion inmediatamente tomada</mat-label>
             <textarea matInput #Accion_Tomada placeholder="Accion inmediatamente tomada" formControlName="Accion_Tomada"
-              required maxlength="500"></textarea>
+              required maxlength="1500"></textarea>
             <mat-hint align="end">{{Accion_Tomada.value.length}} / 500</mat-hint>
             <mat-error *ngIf="validate('Accion_Tomada')">
               {{ check('Accion_Tomada') }}
