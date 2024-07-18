@@ -13,7 +13,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-select placeholder="Responsable" formControlName="Responsables">
-          <mat-option *ngFor="let data of responsables" [value]="data.id">
+          <mat-option *ngFor="let data of responsables" [value]="data.Id">
             {{ data.NombreCompleto }}
           </mat-option>
         </mat-select>
@@ -27,9 +27,8 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Cual?</mat-label>
-        <textarea matInput #oportunidad placeholder="¿Cual?" formControlName="Cual" maxlength="1500"
-          required></textarea>
-        <mat-hint align="end">{{oportunidad.value.length}} / 300</mat-hint>
+        <textarea matInput #oportunidad placeholder="¿Cual?" formControlName="Cual" maxlength="500" required></textarea>
+        <mat-hint align="end">{{oportunidad.value.length}} / 500</mat-hint>
         <mat-error *ngIf="validate('Cual')">
           {{ check('Cual') }}
         </mat-error>
@@ -43,7 +42,6 @@
       (click)="agregar()">Agregar</button>
   </div>
 </div>
-{{form.value | json}}
 
 <div class="mat-elevation-z8" *ngIf="this.mejoras.length > 0">
   <table #table mat-table class="full-width" [dataSource]="mejoras" matSort aria-label="Elements">

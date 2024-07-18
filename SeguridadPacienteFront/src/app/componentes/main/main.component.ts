@@ -73,7 +73,7 @@ export class MainComponent extends BaseFormComponent implements OnInit {
       Validators.required
     ]),
     Otro_Servicio: new FormControl('', [
-      Validators.maxLength(200),
+      Validators.maxLength(300),
       Validators.pattern(this.latin),
     ]),
     Nombre_Paciente: new FormControl('', [
@@ -106,12 +106,12 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     ]),
     Preg_Que: new FormControl('', [
       Validators.required,
-      Validators.maxLength(300),
+      Validators.maxLength(1500),
       Validators.pattern(this.latinExt),
     ]),
     Preg_Como: new FormControl('', [
       Validators.required,
-      Validators.maxLength(500),
+      Validators.maxLength(1500),
       Validators.pattern(this.latinExt),
     ]),
     Preg_Hay_Testigos: new FormControl(Boolean, [
@@ -128,13 +128,13 @@ export class MainComponent extends BaseFormComponent implements OnInit {
       Validators.required
     ]),
     Preg_Dano_Generado: new FormControl('', [
-      Validators.maxLength(300),
+      Validators.maxLength(1500),
       Validators.pattern(this.latin),
     ]),
     Preg_Dano_Severidad: new FormControl('', []),
     Accion_Tomada: new FormControl('', [
       Validators.required,
-      Validators.maxLength(500),
+      Validators.maxLength(1500),
       Validators.pattern(this.latin),
     ]),
     Imagen_Evidencia: new FormControl(null, []),
