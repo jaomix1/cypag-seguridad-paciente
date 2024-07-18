@@ -224,9 +224,12 @@
             }">Moderado</a>
         </div>
         <div class="col center my-3">
-          <a mat-raised-button class="bg-secondary" (click)="tipo('centinela')" [ngClass]="{
-              'bg-primary': form.value.Evento_Adverso_Tipo == 'centinela'
-            }">Centinela</a>
+          <a mat-raised-button class="bg-secondary" (click)="tipo('grave o centinela')" [ngClass]="{
+              'bg-primary': form.value.Evento_Adverso_Tipo == 'grave o centinela'
+            }">GRAVE O CENTINELA</a>
+        </div>
+        <div class="col" style="max-width: 20px;">
+          <a type="button" (click)="info_Eventos()"><mat-icon>info</mat-icon></a>
         </div>
       </div>
     </div>

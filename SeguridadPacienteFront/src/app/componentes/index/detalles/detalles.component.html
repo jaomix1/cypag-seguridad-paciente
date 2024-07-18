@@ -18,6 +18,7 @@
     <p> <span> <b>Sexo:</b> </span> {{data?.Sexo}}</p>
     <p> <span> <b>Edad:</b> </span> {{data?.Edad}}</p>
     <p> <span> <b>Novedad:</b> </span> {{data?.Tipo_Novedad_Join ? data!.Tipo_Novedad_Join.Descripcion : ""}}</p>
+    <p> <span> <b>Causa:</b> </span> {{data?.Novedad_Id_Join ? data!.Novedad_Id_Join.Descripcion : ""}}</p>
     <p> <span> <b>¿Qué Pasó?:</b> </span> {{data?.Preg_Que}}</p>
     <p> <span> <b>¿Comó Pasó?:</b> </span> {{data?.Preg_Como}}</p>
     <p> <span> <b>Testigos:</b> </span> {{data?.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>
@@ -99,13 +100,13 @@
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
-            <mat-select placeholder="Clasificaciones" formControlName="Clasificaciones">
+            <mat-select placeholder="Clasificacion_Reporte_Id" formControlName="Clasificacion_Reporte_Id">
               <mat-option *ngFor="let data of clasificaciones" [value]="data.Id">
                 {{ data.Descripcion }}
               </mat-option>
             </mat-select>
-            <mat-error *ngIf="validate('Clasificaciones')">
-              {{ check('Clasificaciones') }}
+            <mat-error *ngIf="validate('Clasificacion_Reporte_Id')">
+              {{ check('Clasificacion_Reporte_Id') }}
             </mat-error>
           </mat-form-field>
         </div>

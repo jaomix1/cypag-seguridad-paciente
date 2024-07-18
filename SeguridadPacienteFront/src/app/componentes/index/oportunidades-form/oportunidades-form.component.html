@@ -43,6 +43,7 @@
       (click)="agregar()">Agregar</button>
   </div>
 </div>
+{{form.value | json}}
 
 <div class="mat-elevation-z8" *ngIf="this.mejoras.length > 0">
   <table #table mat-table class="full-width" [dataSource]="mejoras" matSort aria-label="Elements">

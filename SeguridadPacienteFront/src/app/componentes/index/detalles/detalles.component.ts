@@ -57,7 +57,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
     Tipo_Detalle: new FormControl(null, [Validators.required]),
     Tipo_Novedad: new FormControl(null, [Validators.required]),
-    Clasificaciones: new FormControl(null, [Validators.required]),
+    Clasificacion_Reporte_Id: new FormControl(null, [Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
   });
 

@@ -1,5 +1,5 @@
 <h1 mat-dialog-title> <strong>{{data.title}}</strong> </h1>
-<div *ngIf="data.message != 'daño' && data.message != 'eventos'">
+<div *ngIf="data.message != 'daño' && data.message != 'eventos' && data.message != 'londres'">
   <div mat-dialog-content>
     <p><strong>Accidentes de paciente</strong></p>
     <div>
@@ -178,3 +178,26 @@
       </div>
     </div>
   </div>
+</div>
+
+<div *ngIf="data.message == 'londres'">
+  <div mat-dialog-content>
+    <p><strong>Leve</strong></p>
+    <p>*Requiere cuidados básicos adicionales no programados inicialmente secundarios al daño.
+      *Ocasiona lesión o complicación sin prolongación de la estancia hospitalaria</p>
+    <p><strong>Moderado</strong></p>
+    <p>*Daño temporal que requiere intervención adicional como procedimientos con anestesia local o general.
+      *Prolonga la estancia hospitalaria adicional a su tratamiento médico inicial
+      *Se requiere de una intervención clínica para sostener la vida del paciente</p>
+    <p><strong>Grave o Centinela</strong></p>
+    <p>*Como consecuencia del daño hay una discapacidad permanente o perdida de una función
+      *El daño conduce a la muerte del paciente</p>
+    <div>
+      <div class="row">
+        <div class="col">
+          <button type='button' mat-button (click)="close()" class="bg-secondary"> Cerrar </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

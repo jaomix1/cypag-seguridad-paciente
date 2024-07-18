@@ -283,8 +283,8 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     console.log('el id es: ', id)
     this.comboService.getCausas(id).subscribe((data: any) => {
       console.log('el id es: ', id, 'y la resp es: ', data)
-      this.novedades = data;
-      this.novedades.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.causas = data;
+      this.causas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
     });
   }
 

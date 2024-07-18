@@ -7,6 +7,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { LondresService } from 'src/app/servicios/investigaciones/londres.service';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
 import { PdfComponent } from '../../../pdf/pdf.component';
+import { InfoComponent } from 'src/app/componentes/info/info.component';
 @Component({
   selector: 'app-londres',
   templateUrl: './londres.component.html',
@@ -227,5 +228,19 @@ export class LondresComponent implements OnInit {
         tmp = tmp.replace(e.source.value, "")
     }
     this.form.controls['Fase1_Medio'].setValue(tmp);
+  }
+
+  info_Eventos() {
+    let data: any = {
+      title: 'Información',
+      message: 'londres'
+    }
+    const dialogRef = this.dialog.open(InfoComponent, {
+      width: '500px',
+      data: data,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+    });
   }
 }
