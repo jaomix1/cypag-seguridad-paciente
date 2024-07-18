@@ -21,6 +21,7 @@ const InvestigacionesNaranjoModel = require("../../models/forms/investigacionesN
 const MasterModel = require("../../models/forms/master");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
 const ResponsablesModel = require("../../models/combos/responsables");
+const NovedadCausaModel = require("../../models/combos/novedadCausa");
 
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
@@ -137,6 +138,11 @@ exports.getAllData = async (req, res) => {
       }, {
         model: ServiciosModel,
         as: "Servicio_Id_Join",
+        where: { Estado: "ACT" },
+        attributes: ["Descripcion"],
+      }, {
+        model: NovedadCausaModel,
+        as: "Novedad_Id_Join",
         where: { Estado: "ACT" },
         attributes: ["Descripcion"],
       }],
