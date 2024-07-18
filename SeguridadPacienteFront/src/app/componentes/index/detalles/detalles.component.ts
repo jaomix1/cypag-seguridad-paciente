@@ -91,9 +91,11 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       next: (req) => {
         this.Alldata = req;
         this.data = req.Master;
-        console.log(this.data)
-        if (this.Alldata.Detalle)
+        console.log('easdasd', this.Alldata)
+        if (this.Alldata.Detalle) {
           this.form.controls['Tipo_Novedad'].setValue(this.Alldata.Detalle.Tipo_Novedad);
+          this.form.controls['Clasificacion_Reporte_Id'].setValue(this.Alldata.Detalle.Clasificacion_Reporte_Id);
+        }
         if (req.Detalle) {
           this.realizado = true;
           this.form.disable()
@@ -110,6 +112,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   getDetalle() {
     this.DetallesService.get(this.masterId).subscribe({
       next: (req) => {
+        console.log('Esta es la es: ', req)
         this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
         this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
         this.form.controls['Triada_Atencion_Salud'].setValue(req.Triada_Atencion_Salud);
