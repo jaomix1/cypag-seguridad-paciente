@@ -139,7 +139,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
                 Resuelto: this.calcularPorcentaje(c.Op_Mejora_Join)
               }
             });
-          console.log(data)
+          console.log('esta es la data', data)
 
           this.dataSource.data = data;
           setTimeout(() => {
