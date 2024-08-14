@@ -19,10 +19,10 @@ export class OportunidadesFormComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
   public masterId: string;
-  mejoras: any = [];
+  acciones: any = [];
   responsables: any = [];
 
-  displayedColumns = ['Codigo', 'Descripcion', 'Accion'];
+  displayedColumns = ['Descripcion', 'Accion'];
 
   constructor(
     public mainService: MainService,
@@ -34,9 +34,9 @@ export class OportunidadesFormComponent implements OnInit {
   }
 
   form = new FormGroup({
-    Code: new FormControl(null, [Validators.maxLength(30), Validators.required]),
-    Cual: new FormControl(null, [Validators.maxLength(500), Validators.required]),
-    Responsables: new FormControl(null, [Validators.required]),
+    Code: new FormControl(''),
+    Descripcion: new FormControl(null, [Validators.maxLength(500), Validators.required]),
+    Responsable: new FormControl(null, [Validators.required]),
   });
 
 
@@ -57,41 +57,23 @@ export class OportunidadesFormComponent implements OnInit {
   }
 
   submit() {
-    if (this.mejoras.length > 0) {
-      this.OpportunityService.create(this.mejoras).subscribe({
-        next: (req: any) => {
-          this.mainService.showToast('Guardado Correctamente', 'success');
-        },
-        error: (err: string) => {
-          this.mainService.showToast(err, 'error');
-        },
-      });
-    }
+    // if (this.mejoras.length > 0) {
+    this.OpportunityService.create(this.form.value).subscribe({
+      next: (req: any) => {
+        this.mainService.showToast('Guardado Correctamente', 'success');
+        this.dialogRef.close()
+      },
+      error: (err: string) => {
+        this.mainService.showToast(err, 'error');
+      },
+    });
+    // }
   }
-  sending: boolean = false;
-  agregar() {
-    this.sending = true;
-    if (this.mejoras.length >= 1) {
-      if (this.mejoras.find((mejora: any) => mejora.Codigo_Externo == this.form.value.Code)) {
-        this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
-        this.form.reset();
-      }
-    }
-    if (this.form.valid) {
-      let object = {
-        Id_Master: this.masterId,
-        Codigo_Externo: this.form.value.Code,
-        Descripcion: this.form.value.Cual,
-        Responsable: this.form.value.Responsables
-      }
 
-      this.mejoras.push(object);
-      if (this.mejoras.length > 1) {
-        this.table.renderRows();
-      }
-      this.form.reset();
-    }
-    this.sending = false;
+
+  sending: boolean = false;
+  agregarAccion() {
+
   }
 
   validate(nameInput: string) {
@@ -103,7 +85,7 @@ export class OportunidadesFormComponent implements OnInit {
   }
 
   eliminar(codigo: any) {
-    this.mejoras = this.mejoras.filter((item: any) => item.Codigo_Externo !== codigo)
+    this.acciones = this.acciones.filter((item: any) => item.Codigo_Externo !== codigo)
 
   }
 }

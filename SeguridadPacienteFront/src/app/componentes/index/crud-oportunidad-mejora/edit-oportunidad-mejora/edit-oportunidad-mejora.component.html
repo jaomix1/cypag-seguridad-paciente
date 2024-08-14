@@ -1,28 +1,25 @@
 <div class="card">
   <h1 class="center"><b>Editar</b></h1>
   <div class="container-edit">
-    <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
       <mat-label>Oportunidad de mejora</mat-label>
       <input matInput type="text" min="0" max="100" [(ngModel)]="descripcion" placeholder="Digite el nuevo nombre">
     </mat-form-field>
-    <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
       <mat-select placeholder="Responsable" [(ngModel)]="responsable">
         <mat-option *ngFor="let item of responsables" [value]="item.Id">
           {{ item.NombreCompleto }}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
       <mat-label>Porcentaje de mejora</mat-label>
       <input matInput type="number" min="0" max="100" [(ngModel)]="percent" [ngModelOptions]="{standalone: true}"
         placeholder="Seleccione.....">
     </mat-form-field>
 
-    <button mat-button class="bg-primary" style="margin-bottom: 10px; width: 200px;"
+    <button mat-button class="bg-primary" style="margin-bottom: 10px; width: 100%;"
       (click)="cancel()">Actualizar</button>
-    <button mat-button class="bg-primary" style="margin-bottom: 10px; width: 200px;"
-      (click)="cancel()">Cancelar</button>
-
-
+    <button mat-button class="bg-danger" style="margin-bottom: 10px; width: 100%;" (click)="cancel()">Cancelar</button>
   </div>
 </div>

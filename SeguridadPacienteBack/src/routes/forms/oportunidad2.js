@@ -9,11 +9,11 @@ const {
     getAllOportunidades,
 } = require("../../controllers/forms/oportunidades2");
 
-router.route("/")
+router.route("/create")
     .post(seguridad, crearOpotunidad);
 
 
-router.route("/")
-    .get(seguridad, getAllOportunidades);
+router.route("/getAll")
+    .post(seguridad, getAllOportunidades);
 
 module.exports = router;

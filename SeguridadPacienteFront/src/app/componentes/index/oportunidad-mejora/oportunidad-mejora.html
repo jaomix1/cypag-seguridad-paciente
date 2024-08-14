@@ -5,7 +5,7 @@
     <div class="col">
     </div>
     <div class="col">
-        <button mat-raised-button color="primary">Nueva</button>
+        <button mat-raised-button color="primary" (click)="newMejora()">Nueva</button>
     </div>
 </div>
 <ng-container *ngIf="loadingMain">
@@ -22,19 +22,19 @@
         </ng-container> -->
 
             <!-- Name Column -->
-            <ng-container matColumnDef="responsable">
+            <ng-container matColumnDef="Responsable">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
-                <td mat-cell *matCellDef="let row">{{row.Responsable_Join.NombreCompleto}}</td>
+                <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="oportunidad">
+            <ng-container matColumnDef="Descripcion">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Oportunidad</th>
                 <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
             </ng-container>
 
             <!-- Name Column -->
-            <ng-container matColumnDef="porcentaje">
+            <ng-container matColumnDef="Porcentaje_Mejora">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>porcentaje</th>
                 <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
             </ng-container>
@@ -42,9 +42,10 @@
             <ng-container matColumnDef="accion">
                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                 <td mat-cell *matCellDef="let row">
-                    <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="accent"
+                    <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="basic"
                         (click)="edit(row.Id)">Editar</button>
-                    <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary">Agregar</button>
+                    <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary"
+                        (click)="aggAccion(row.Id)">Agregar</button>
                 </td>
             </ng-container>
 

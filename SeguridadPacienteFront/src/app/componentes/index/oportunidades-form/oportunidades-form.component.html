@@ -1,7 +1,7 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
   <h2> <b> Oportunidades de mejora {{this.masterId}}</b></h2>
   <div class="row">
-    <div class="col">
+    <!-- <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>Código</mat-label>
         <input matInput placeholder="¿Código?" formControlName="Code" maxlength="10" required>
@@ -9,16 +9,16 @@
           {{ check('Code') }}
         </mat-error>
       </mat-form-field>
-    </div>
+    </div> -->
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-select placeholder="Responsable" formControlName="Responsables">
+        <mat-select placeholder="Responsable" formControlName="Responsable">
           <mat-option *ngFor="let data of responsables" [value]="data.Id">
             {{ data.NombreCompleto }}
           </mat-option>
         </mat-select>
-        <mat-error *ngIf="validate('Responsables')">
-          {{ check('Responsables') }}
+        <mat-error *ngIf="validate('Responsable')">
+          {{ check('Responsable') }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -26,11 +26,12 @@
   <div class="row">
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
-        <mat-label>¿Cual?</mat-label>
-        <textarea matInput #oportunidad placeholder="¿Cual?" formControlName="Cual" maxlength="500" required></textarea>
+        <mat-label>Descripción</mat-label>
+        <textarea matInput #oportunidad placeholder="¿Cual?" formControlName="Descripcion" maxlength="500"
+          required></textarea>
         <mat-hint align="end">{{oportunidad.value.length}} / 500</mat-hint>
-        <mat-error *ngIf="validate('Cual')">
-          {{ check('Cual') }}
+        <mat-error *ngIf="validate('Descripcion')">
+          {{ check('Descripcion') }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -38,17 +39,18 @@
 </form>
 <div class="row my-3">
   <div class="col">
-    <button type='button' mat-raised-button class="bg-secondary" [disabled]="sending"
-      (click)="agregar()">Agregar</button>
+    <button type='button' mat-raised-button class="bg-secondary" (click)="agregarAccion()">Agregar</button>
   </div>
 </div>
 
-<div class="mat-elevation-z8" *ngIf="this.mejoras.length > 0">
+{{this.form.value | json}}
+
+<!-- <ng-container matColumnDef="Codigo">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+  <td mat-cell *matCellDef="let row">{{row.Codigo_Externo }}</td>
+</ng-container> -->
+<!-- <div class="mat-elevation-z8" *ngIf="this.mejoras.length > 0">
   <table #table mat-table class="full-width" [dataSource]="mejoras" matSort aria-label="Elements">
-    <ng-container matColumnDef="Codigo">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
-      <td mat-cell *matCellDef="let row">{{row.Codigo_Externo }}</td>
-    </ng-container>
 
     <ng-container matColumnDef="Descripcion">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Mejoras</th>
@@ -74,4 +76,4 @@
   <div class="col">
     <button type='button' mat-raised-button class="bg-primary" (click)="submit()">Enviar</button>
   </div>
-</div>
+</div> -->

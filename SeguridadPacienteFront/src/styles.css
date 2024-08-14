@@ -18,11 +18,19 @@ button {
 .bg-primary {
   background-color: #00a19c !important;
   border-color: #00a19c !important;
+  color: #FFFFFF !important;
+
 }
 
 .bg-secondary {
   background-color: #182748;
   border-color: #182748 !important;
+  color: #FFFFFF !important;
+}
+
+.bg-danger {
+  background-color: rgba(180, 2, 2, 0.693);
+  border-color: rgba(180, 2, 2, 0.693) !important;
   color: #FFFFFF !important;
 }
 
