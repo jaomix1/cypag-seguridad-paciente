@@ -49,6 +49,8 @@ import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confi
 import { InfoComponent } from '../info/info.component';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 import { ExportarComponent } from './exportar/exportar.component';
+import { OportunidaMejoraComponent } from './oportunidad-mejora/oportunidad-mejora.component';
+import { EditOportunidadMejoraComponent } from './crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { ExportarComponent } from './exportar/exportar.component';
     DialogConfirmacionComponent,
     InfoComponent,
     DialogMainComponent,
+    OportunidaMejoraComponent,
+    EditOportunidadMejoraComponent
   ],
   imports: [
     CommonModule,

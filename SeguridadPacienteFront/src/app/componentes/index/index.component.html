@@ -7,8 +7,11 @@
                 routerLinkActive="mat-list-single-selected-option">Consulta</a>
             <a mat-list-item [routerLink]="['/index/exportar']"
                 routerLinkActive="mat-list-single-selected-option">Exportar</a>
-                <a mat-list-item [routerLink]="['/admin/usuarios']" *ngIf="this.m.datosUsuario.PerfilId == '733209DA-5F31-4BAE-A7CD-E6CCC20C8BA8'"
-                    routerLinkActive="mat-list-single-selected-option">Usuarios</a>
+            <a mat-list-item [routerLink]="['/index/oportunidad-mejora']"
+                routerLinkActive="mat-list-single-selected-option">Op Mejoras</a>
+            <a mat-list-item [routerLink]="['/admin/usuarios']"
+                *ngIf="this.m.datosUsuario.PerfilId == '733209DA-5F31-4BAE-A7CD-E6CCC20C8BA8'"
+                routerLinkActive="mat-list-single-selected-option">Usuarios</a>
         </mat-nav-list>
     </mat-sidenav>
     <mat-sidenav-content>

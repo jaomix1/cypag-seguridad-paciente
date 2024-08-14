@@ -12,6 +12,7 @@ import { FormularioComponent } from './demos/formulario/formulario.component';
 import { ExportarComponent } from './exportar/exportar.component';
 import { AdminComponent } from '../admin/admin.component';
 import { AccesoAdmin } from 'src/app/control/accesoAdmin';
+import { OportunidaMejoraComponent } from './oportunidad-mejora/oportunidad-mejora.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
       {
         path: 'exportar',
         component: ExportarComponent,
+        canActivate: [Acceso]
+      },
+      {
+        path: 'oportunidad-mejora',
+        component: OportunidaMejoraComponent,
         canActivate: [Acceso]
       },
     ]

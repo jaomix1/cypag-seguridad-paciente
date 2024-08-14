@@ -27,7 +27,12 @@ button {
 }
 
 .primary {
-  color: #00a19c !important;
+  color: #00d7d0 !important;
+}
+
+.warning {
+  color: #d8cb15 !important;
+
 }
 
 .center {
