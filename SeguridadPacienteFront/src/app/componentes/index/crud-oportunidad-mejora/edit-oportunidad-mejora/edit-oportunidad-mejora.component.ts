@@ -29,17 +29,13 @@ export class EditOportunidadMejoraComponent implements OnInit {
 
   ngOnInit(): void {
     this.getResponsables();
-    this.getOportunidad();
+    this.getDetailOportunity();
   }
 
-  getOportunidad() {
-    this.OpportunityService.get({ Id: this.guid }).subscribe({
+  getDetailOportunity() {
+    this.OpportunityService.get(this.guid).subscribe({
       next: (req: any) => {
-        console.log(req);
-        this.datos = req[0];
-        this.percent = this.datos.Porcentaje_Mejora;
-        this.descripcion = this.datos.Descripcion;
-        this.responsable = this.datos.Responsable;
+        console.log('esta es la es: ', req);
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');

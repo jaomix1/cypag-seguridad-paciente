@@ -47,8 +47,21 @@ export class AccionFormComponent implements OnInit {
 
     ngOnInit(): void {
         this.getResponsables();
+        this.getDetailOportunity();
     }
 
+    getDetailOportunity() {
+        this.OpportunityService.get(this.guid).subscribe({
+            next: (req: any) => {
+                console.log('esta es la es: ', req);
+            },
+            error: (err: string) => {
+                this.mainService.showToast(err, 'error');
+            },
+            complete: () => {
+            }
+        });
+    }
 
     getResponsables() {
         this.UsersService.get().subscribe({
