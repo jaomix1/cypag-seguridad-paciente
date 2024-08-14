@@ -51,6 +51,7 @@ import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 import { ExportarComponent } from './exportar/exportar.component';
 import { OportunidaMejoraComponent } from './oportunidad-mejora/oportunidad-mejora.component';
 import { EditOportunidadMejoraComponent } from './crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
+import { AccionFormComponent } from './accion-form/accion-form.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { EditOportunidadMejoraComponent } from './crud-oportunidad-mejora/edit-o
     LondresComponent,
     SelectInvestigacionComponent,
     OportunidadesFormComponent,
+    AccionFormComponent,
     M5Component,
     P5Component,
     EditOportunidadComponent,

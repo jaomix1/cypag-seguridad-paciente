@@ -11,6 +11,8 @@ import { BaseFormComponent } from '../../baseComponent';
 import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
 import { TablaItem, TablaDataSource } from '../demos/tabla/tabla-datasource';
 import { EditOportunidadMejoraComponent } from '../crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
+import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
+import { AccionFormComponent } from '../accion-form/accion-form.component';
 
 @Component({
     selector: 'app-oportunidad-mejora',
@@ -23,7 +25,7 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-    displayedColumns = ['responsable', 'oportunidad', 'porcentaje', 'accion'];
+    displayedColumns = ['Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
 
     datos: any = [];
     private masterId: string = "9620C3D4-8420-47EE-B6DC-70923A9ED0B6";
@@ -36,7 +38,7 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
         // @Inject(MAT_DIALOG_DATA) public guid: string,
         public dialog: MatDialog) {
         super();
-        this.submit(this.masterId)
+        this.submit(this.masterId);
     }
 
     ngOnInit(): void {
@@ -45,9 +47,11 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
 
     submit(masterId: any): void {
         this.loadingMain = true;
-        this.OpportunityService.getAll({ Id_Master: masterId }).subscribe({
+        this.OpportunityService.getAll({
+            Page: 0, RowsByPag: 5
+        }).subscribe({
             next: (req: any) => {
-                this.datos = req;
+                this.datos = req.data;
                 this.loadingMain = false;
                 if (this.datos.length < 1) {
                     this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
@@ -65,10 +69,34 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
 
     edit(guid: any) {
         const dialogRef = this.dialog.open(EditOportunidadMejoraComponent, {
-            width: '600px',
-            height: '250px',
+            width: '70%',
+            height: '50%',
             data: guid,
             disableClose: false
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+            this.submit(this.masterId);
+        });
+    }
+
+    aggAccion(guid: any) {
+        const dialogRef = this.dialog.open(AccionFormComponent, {
+            width: '100%',
+            height: '100%',
+            data: guid,
+            disableClose: false
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+            this.submit(this.masterId);
+        });
+    }
+
+    newMejora() {
+        const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+            width: '100%',
+            height: '100%',
+            disableClose: false,
+            data: this.masterId
         });
         dialogRef.afterClosed().subscribe((result: any) => {
             this.submit(this.masterId);

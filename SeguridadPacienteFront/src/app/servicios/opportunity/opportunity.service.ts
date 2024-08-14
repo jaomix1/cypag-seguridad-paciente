@@ -10,14 +10,14 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class OpportunityService extends BaseService {
-  private apiUrl: string = '/api/master/mejoras/';
+  private apiUrl: string = '/api/oportunidadesMejora/';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
 
-  getAll(data:any): Observable<any[]> {
+  getAll(data: any): Observable<any[]> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "registros", data)
+      .post<any>(this._baseUrl + this.apiUrl + "getAll", data)
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -43,7 +43,7 @@ export class OpportunityService extends BaseService {
 
   create(data: any): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl, data)
+      .post<any>(this._baseUrl + this.apiUrl + "create", data)
       .pipe(
         map((response) => response),
         tap((a) => {

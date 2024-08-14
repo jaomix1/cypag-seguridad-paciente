@@ -16,7 +16,7 @@ router.route("/create")
 
 
 router.route("/getAll")
-    .get(seguridad, getAllOportunidades);
+    .post(seguridad, getAllOportunidades);
 
 router.route("/getOne/:Id")
     .get(seguridad, getOportunidad);
