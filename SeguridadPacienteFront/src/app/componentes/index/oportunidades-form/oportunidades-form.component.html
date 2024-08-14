@@ -13,7 +13,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-select placeholder="Responsable" formControlName="Responsables">
-          <mat-option *ngFor="let data of responsables" [value]="data.id">
+          <mat-option *ngFor="let data of responsables" [value]="data.Id">
             {{ data.NombreCompleto }}
           </mat-option>
         </mat-select>
@@ -43,8 +43,6 @@
       (click)="agregar()">Agregar</button>
   </div>
 </div>
-{{form.value | json}}
-
 <div class="mat-elevation-z8" *ngIf="this.mejoras.length > 0">
   <table #table mat-table class="full-width" [dataSource]="mejoras" matSort aria-label="Elements">
     <ng-container matColumnDef="Codigo">

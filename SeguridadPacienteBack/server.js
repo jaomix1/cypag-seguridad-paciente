@@ -18,7 +18,14 @@ const connectDatabase = require("./config/db");
 connectDatabase.connectDatabase();
 
 // Middlewares
-app.use(cors());
+const corsOptions = {
+  origin: ["http://aplicaciones.cypagsa.com:5441", "http://aplicaciones.cypagsa.com:5441/", "http://192.168.2.251:8079", "http://192.168.2.251:8079/", "http://localhost:8079/", "http://localhost:8079"],
+  optionsSuccessStatus: 200,
+  methods: "GET, HEAD, PUT, PATCH, POST, DELETE",
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(bodyParser.json());

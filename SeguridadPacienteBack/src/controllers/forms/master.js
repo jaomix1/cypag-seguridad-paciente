@@ -143,6 +143,7 @@ exports.getAllData = async (req, res) => {
       }, {
         model: NovedadCausaModel,
         as: "Novedad_Id_Join",
+        required: false,
         where: { Estado: "ACT" },
         attributes: ["Descripcion"],
       }],
