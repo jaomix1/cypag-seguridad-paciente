@@ -56,8 +56,6 @@ exports.getOportunidad = async (req, res) => {
         const result2 = await pool.request()
             .input("Id", sql.UniqueIdentifier, req.params.Id)
             .execute("SeguridadPaciente.dbo.getOportunidad");
-
-        console.log(result2.recordsets);
         let data = result2.recordsets[0][0];
         data.Planes = result2.recordsets[1];
         res.status(200).send(data);
@@ -78,6 +76,7 @@ exports.crearOpotunidadPlan = async (req, res) => {
             .input("FechaFin", sql.DateTime, req.body.FechaFin)
             .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
             .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
+            .input("PorcentajeMejora", sql.VarChar, req.body.PorcentajeMejora)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
             .execute("SeguridadPaciente.dbo.createOpotunidadPlan");
         res.status(200).send(result2.recordsets[0][0]);
