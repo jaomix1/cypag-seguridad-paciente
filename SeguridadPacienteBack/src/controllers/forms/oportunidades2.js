@@ -76,7 +76,7 @@ exports.crearOpotunidadPlan = async (req, res) => {
             .input("FechaFin", sql.DateTime, req.body.FechaFin)
             .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
             .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
-            .input("PorcentajeMejora", sql.VarChar, req.body.PorcentajeMejora)
+            .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
             .execute("SeguridadPaciente.dbo.createOpotunidadPlan");
         res.status(200).send(result2.recordsets[0][0]);
