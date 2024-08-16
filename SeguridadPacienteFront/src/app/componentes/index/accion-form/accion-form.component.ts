@@ -1,3 +1,4 @@
+import { ActionService } from './../../../servicios/actions/action.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
@@ -16,51 +17,38 @@ export class AccionFormComponent implements OnInit {
     @ViewChild(MatTable) table!: MatTable<any>;
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     dataSource: any;
-    public masterId: string;
+    public idOportunity: string;
     actions: any = [];
     responsables: any = [];
     maxDate: Date = new Date();
 
+    //url: string = oportunidadesMejora/create/plan/2F79A711-3BC5-4935-A9AA-D3B6324839E5;
 
     displayedColumns = ['Descripcion', 'Accion'];
 
     constructor(
         public mainService: MainService,
         public OpportunityService: OpportunityService,
+        public ActionService: ActionService,
         public UsersService: ResponsableService,
-        @Inject(MAT_DIALOG_DATA) public guid: string,
+        @Inject(MAT_DIALOG_DATA) public data: string,
         public dialogRef: MatDialogRef<AccionFormComponent>,) {
-        this.masterId = guid;
+        this.idOportunity = data;
     }
 
     form = new FormGroup({
-        Code: new FormControl(''),
         Accion: new FormControl(null, [Validators.maxLength(500), Validators.required]),
-        Responsables: new FormControl(null, [Validators.required]),
-        FechaIni: new FormControl(null, [Validators.required]),
+        Responsable: new FormControl(null, [Validators.required]),
+        FechaInicio: new FormControl(null, [Validators.required]),
         FechaFin: new FormControl(null, [Validators.required]),
-        Evidencia: new FormControl(null, [Validators.required]),
-        Seguimiento: new FormControl(null, [Validators.required]),
-        Estado: new FormControl(null, [Validators.required]),
+        EvidenciaCierre: new FormControl(null, [Validators.required]),
+        PorcentajeMejora: new FormControl(0),
     });
 
 
     ngOnInit(): void {
         this.getResponsables();
-        this.getDetailOportunity();
-    }
-
-    getDetailOportunity() {
-        this.OpportunityService.get(this.guid).subscribe({
-            next: (req: any) => {
-                console.log('esta es la es: ', req);
-            },
-            error: (err: string) => {
-                this.mainService.showToast(err, 'error');
-            },
-            complete: () => {
-            }
-        });
+        // this.getDetailOportunity();
     }
 
     getResponsables() {
@@ -75,10 +63,10 @@ export class AccionFormComponent implements OnInit {
     }
 
     submit() {
-        if (this.actions.length > 0) {
-            this.OpportunityService.create(this.actions).subscribe({
+        if (this.form.valid) {
+            this.ActionService.create(this.idOportunity, this.form.value).subscribe({
                 next: (req: any) => {
-                    this.mainService.showToast('Guardado Correctamente', 'success');
+                    this.mainService.showToast('Accion creada con exito', 'success');
                     this.dialogRef.close()
                 },
                 error: (err: string) => {
@@ -89,31 +77,31 @@ export class AccionFormComponent implements OnInit {
     }
 
 
-    sending: boolean = false;
-    agregar() {
-        this.sending = true;
-        if (this.actions.length >= 1) {
-            if (this.actions.find((mejora: any) => mejora.Codigo_Externo == this.form.value.Code)) {
-                this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
-                this.form.reset();
-            }
-        }
-        if (this.form.valid) {
-            let object = {
-                Id_Master: this.masterId,
-                Codigo_Externo: this.form.value.Code,
-                Descripcion: this.form.value.Cual,
-                Responsable: this.form.value.Responsables
-            }
+    // sending: boolean = false;
+    // agregar() {
+    //     this.sending = true;
+    //     if (this.actions.length >= 1) {
+    //         if (this.actions.find((mejora: any) => mejora.Codigo_Externo == this.form.value.Code)) {
+    //             this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
+    //             this.form.reset();
+    //         }
+    //     }
+    //     if (this.form.valid) {
+    //         let object = {
+    //             // Id_Master: this.masterId,
+    //             Codigo_Externo: this.form.value.Code,
+    //             Descripcion: this.form.value.Cual,
+    //             Responsable: this.form.value.Responsables
+    //         }
 
-            this.actions.push(object);
-            if (this.actions.length > 1) {
-                this.table.renderRows();
-            }
-            this.form.reset();
-        }
-        this.sending = false;
-    }
+    //         this.actions.push(object);
+    //         if (this.actions.length > 1) {
+    //             this.table.renderRows();
+    //         }
+    //         this.form.reset();
+    //     }
+    //     this.sending = false;
+    // }
 
     validate(nameInput: string) {
         return this.mainService.validateInput(this.form, nameInput);

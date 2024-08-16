@@ -1,0 +1,32 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+    <h2> <b> Agregar accion a {{this.data}}</b></h2>
+    <div class="row">
+        <div class="col">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Descrpcion</mat-label>
+                <input matInput placeholder="Seguimiento" formControlName="Seguimiento" maxlength="100" required>
+                <mat-error *ngIf="validate('Seguimiento')">
+                    {{ check('Seguimiento') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-select placeholder="Responsable" formControlName="UsuarioCreacionId">
+                    <mat-option *ngFor="let data of responsables" [value]="data.Id">
+                        {{ data.NombreCompleto }}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="validate('UsuarioCreacionId')">
+                    {{ check('UsuarioCreacionId') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+</form>
+<!--  {{this.form.value | json}} -->
+<div class="row my-3">
+    <div class="col">
+        <button type='button' mat-raised-button class="bg-secondary" (click)="submit()">Agregar</button>
+    </div>
+</div>

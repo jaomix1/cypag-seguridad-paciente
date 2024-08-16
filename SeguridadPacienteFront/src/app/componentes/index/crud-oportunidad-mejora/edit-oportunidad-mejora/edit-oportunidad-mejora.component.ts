@@ -1,8 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
+import { AccionFormComponent } from '../../accion-form/accion-form.component';
+import { ListFollowsComponent } from '../../list_follows/list-follows.component';
 
 @Component({
   selector: 'app-edit-oportunidad-mejora',
@@ -11,11 +13,13 @@ import { ResponsableService } from 'src/app/servicios/usuarios/responsable.servi
 })
 export class EditOportunidadMejoraComponent implements OnInit {
 
-  datos: any;
+  datos: any = [];
   percent: number = 0;
   descripcion: string = '';
   responsable: string = '';
   responsables: any = [];
+  loading: boolean = false;
+  columns = ['Accion', 'Estado', 'EvidenciaCierre', 'Responsable', 'acciones'];
 
 
   constructor(
@@ -23,8 +27,8 @@ export class EditOportunidadMejoraComponent implements OnInit {
     public mainService: MainService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public UsersService: ResponsableService,
-    public dialogRef: MatDialogRef<EditOportunidadMejoraComponent> // Inyección de MatDialogRef
-
+    public dialogRef: MatDialogRef<EditOportunidadMejoraComponent>, // Inyección de MatDialogRef
+    public dialog: MatDialog
   ) { }
 
   ngOnInit(): void {
@@ -33,12 +37,16 @@ export class EditOportunidadMejoraComponent implements OnInit {
   }
 
   getDetailOportunity() {
+    this.loading = true;
     this.OpportunityService.get(this.guid).subscribe({
       next: (req: any) => {
-        console.log('esta es la es: ', req);
+        this.datos = req.Planes;
+        console.log('esta es la es: ', this.datos);
+        this.loading = false;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
+        this.loading = false;
       },
       complete: () => {
       }
@@ -46,36 +54,42 @@ export class EditOportunidadMejoraComponent implements OnInit {
   }
 
   getResponsables() {
+    this.loading = true;
     this.UsersService.get().subscribe({
       next: (req) => {
         this.responsables = req;
+        this.loading = false;
       },
       error: (err: string) => {
         this.mainService.showToast(err, 'error');
+        this.loading = false;
       }
     });
   }
 
-  submit() {
-    if (this.percent <= 100 && this.percent >= 0) {
-      let object = {
-        Id: this.datos.Id,
-        Porcentaje_Mejora: this.percent,
-        Descripcion: this.descripcion,
-      }
-      this.OpportunityService.edit(object).subscribe({
-        next: (req: any) => {
-          this.mainService.showToast(req.message);
-        },
-        error: (err: string) => {
-          this.mainService.showToast(err, 'error');
-        },
-        complete: () => {
-        }
-      });
-    } else {
-      this.mainService.showToast("No se puede ingresar un porcentaje mayor a 100 o menor a 0", 'error');
-    }
+  newAccion() {
+    const dialogRef = this.dialog.open(AccionFormComponent, {
+      width: '100%',
+      height: '80%',
+      data: this.guid,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.getResponsables();
+      this.getDetailOportunity();
+    });
+  }
+
+  listSeguimientos(id: number) {
+    const dialogRef = this.dialog.open(ListFollowsComponent, {
+      width: '100%',
+      height: '80%',
+      data: id,
+      disableClose: false
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+
+    });
   }
 
   cancel() {

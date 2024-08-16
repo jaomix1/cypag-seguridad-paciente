@@ -1,15 +1,6 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
   <h2> <b> Oportunidades de mejora {{this.masterId}}</b></h2>
   <div class="row">
-    <!-- <div class="col">
-      <mat-form-field class="full-width" appearance="outline">
-        <mat-label>Código</mat-label>
-        <input matInput placeholder="¿Código?" formControlName="Code" maxlength="10" required>
-        <mat-error *ngIf="validate('Code')">
-          {{ check('Code') }}
-        </mat-error>
-      </mat-form-field>
-    </div> -->
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-select placeholder="Responsable" formControlName="Responsable">
@@ -36,14 +27,15 @@
       </mat-form-field>
     </div>
   </div>
-</form>
-<div class="row my-3">
-  <div class="col">
-    <button type='button' mat-raised-button class="bg-secondary" (click)="agregarAccion()">Agregar</button>
+  <div class="row my-3">
+    <div class="col">
+      <button type='submit' mat-raised-button class="bg-secondary">Agregar</button>
+    </div>
   </div>
-</div>
+</form>
 
-{{this.form.value | json}}
+<!-- {{this.form.value | json}} -->
+
 
 <!-- <ng-container matColumnDef="Codigo">
   <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>

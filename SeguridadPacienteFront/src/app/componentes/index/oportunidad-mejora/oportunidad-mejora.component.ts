@@ -67,7 +67,7 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
         });
     }
 
-    edit(guid: any) {
+    openDetail(guid: any) {
         const dialogRef = this.dialog.open(EditOportunidadMejoraComponent, {
             width: '70%',
             height: '50%',

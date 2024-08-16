@@ -46,6 +46,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   Alldata: any;
   UserCtrl = new FormControl('');
   novedades: Combo[] = [];
+  causas!: Combo[];
   clasificaciones: Combo[] = [];
   @ViewChild('UserInput')
   UserInput!: ElementRef<HTMLInputElement>;
@@ -56,6 +57,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
     Tipo_Detalle: new FormControl(null, [Validators.required]),
+    Novedad_Id: new FormControl(null, [Validators.required]),
     Tipo_Novedad: new FormControl(null, [Validators.required]),
     Clasificacion_Reporte_Id: new FormControl(null, [Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
@@ -351,6 +353,15 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       },
       complete: () => (this.loadingMain = false),
     })
+  }
+
+  cargaCausas(id: number) {
+    console.log('el id es: ', id)
+    this.comboService.getCausas(id).subscribe((data: any) => {
+      console.log('el id es: ', id, 'y la resp es: ', data)
+      this.causas = data;
+      this.causas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+    });
   }
 
   cargaClasificaciones() {

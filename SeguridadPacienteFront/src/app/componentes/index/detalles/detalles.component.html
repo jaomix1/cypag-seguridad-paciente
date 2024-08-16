@@ -87,12 +87,25 @@
       <div class="col">
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Tipo de novedad" formControlName="Tipo_Novedad">
-            <mat-option *ngFor="let data of novedades" [value]="data.Id">
+            <mat-option *ngFor="let data of novedades" [value]="data.Id" (click)="cargaCausas(data.Id)">
               {{ data.Descripcion }}
             </mat-option>
           </mat-select>
           <mat-error *ngIf="validate('Tipo_Novedad')">
             {{ check('Tipo_Novedad') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <h2>Causa</h2>
+      <div class="col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-select placeholder="Tipo de novedad" formControlName="Novedad_Id">
+            <mat-option *ngFor="let data of causas" [value]="data.Id">
+              {{ data.Descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="validate('Novedad_Id')">
+            {{ check('Novedad_Id') }}
           </mat-error>
         </mat-form-field>
       </div>

@@ -32,7 +32,7 @@ exports.crearPlan = async (req, res) => {
             .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
             .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.createOpotunidadPlan");
+            .execute("SeguridadPaciente.dbo.createPlan");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);

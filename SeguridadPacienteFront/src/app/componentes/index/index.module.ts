@@ -52,6 +52,8 @@ import { ExportarComponent } from './exportar/exportar.component';
 import { OportunidaMejoraComponent } from './oportunidad-mejora/oportunidad-mejora.component';
 import { EditOportunidadMejoraComponent } from './crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
 import { AccionFormComponent } from './accion-form/accion-form.component';
+import { ListFollowsComponent } from './list_follows/list-follows.component';
+import { CreateFollowFormComponent } from './create-follow-form/create-follow-form.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { AccionFormComponent } from './accion-form/accion-form.component';
     InfoComponent,
     DialogMainComponent,
     OportunidaMejoraComponent,
-    EditOportunidadMejoraComponent
+    EditOportunidadMejoraComponent,
+    ListFollowsComponent,
+    CreateFollowFormComponent
   ],
   imports: [
     CommonModule,

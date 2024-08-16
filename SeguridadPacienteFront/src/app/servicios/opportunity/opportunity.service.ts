@@ -28,9 +28,9 @@ export class OpportunityService extends BaseService {
       );
   }
 
-  get(dato: any): Observable<any> {
+  get(id: any): Observable<any> {
     return this.http
-      .get<any>(this._baseUrl + this.apiUrl + "getOne/" + dato)
+      .get<any>(this._baseUrl + this.apiUrl + "getOne/" + id)
       .pipe(
         map((response) => response),
         tap((a) => {

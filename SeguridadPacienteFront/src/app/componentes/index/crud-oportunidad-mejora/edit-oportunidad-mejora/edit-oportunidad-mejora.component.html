@@ -1,25 +1,51 @@
-<div class="card">
-  <h1 class="center"><b>Editar</b></h1>
-  <div class="container-edit">
-    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
-      <mat-label>Oportunidad de mejora</mat-label>
-      <input matInput type="text" min="0" max="100" [(ngModel)]="descripcion" placeholder="Digite el nuevo nombre">
-    </mat-form-field>
-    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
-      <mat-select placeholder="Responsable" [(ngModel)]="responsable">
-        <mat-option *ngFor="let item of responsables" [value]="item.Id">
-          {{ item.NombreCompleto }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field class="example-chip-list" appearance="outline" style="width: 100%;">
-      <mat-label>Porcentaje de mejora</mat-label>
-      <input matInput type="number" min="0" max="100" [(ngModel)]="percent" [ngModelOptions]="{standalone: true}"
-        placeholder="Seleccione.....">
-    </mat-form-field>
-
-    <button mat-button class="bg-primary" style="margin-bottom: 10px; width: 100%;"
-      (click)="cancel()">Actualizar</button>
-    <button mat-button class="bg-danger" style="margin-bottom: 10px; width: 100%;" (click)="cancel()">Cancelar</button>
+<div class="row" style="margin-bottom: 10px; margin-top: 10px;">
+  <div class="col">
+    <h2><b>Acciones de: {{this.guid}}</b></h2>
+  </div>
+  <div class="col">
+    <button mat-raised-button color="primary" (click)="newAccion()">Nueva</button>
   </div>
 </div>
+<ng-container *ngIf="loading">
+  <p style="margin-top: 20px; margin-left: 20px;">Cargando...</p>
+</ng-container>
+<ng-container *ngIf="!loading">
+  <div class="mat-elevation-z8">
+    <ng-container *ngIf="datos.length <=0">
+      <p class="center" style="padding: 5px;"><b>'No tiene planes de acción esta oportunidad'</b></p>
+    </ng-container>
+    <ng-container *ngIf="datos.length >0">
+      <p class="" style="padding: 5px;"><b>Tiene {{datos.length}} planes de accón</b></p>
+
+      <table mat-table class="full-width-table" [dataSource]="datos" matSort aria-label="Elements">
+        <ng-container matColumnDef="Accion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Accion</th>
+          <td mat-cell *matCellDef="let row">{{row.Accion}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Responsable">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
+          <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+        </ng-container>
+        <ng-container matColumnDef="Estado">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
+          <td mat-cell *matCellDef="let row">{{row.Estado}}</td>
+        </ng-container>
+        <ng-container matColumnDef="EvidenciaCierre">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Evidencia de cierre</th>
+          <td mat-cell *matCellDef="let row">{{row.EvidenciaCierre}}</td>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+          <th mat-header-cell *matHeaderCellDef> Acciones </th>
+          <td mat-cell *matCellDef="let row">
+            <button mat-raised-button color="basic" (click)="listSeguimientos(row.Id)">Ver Seguimiento</button>
+          </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+        <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+      </table>
+      <mat-paginator #paginator [length]="datos?.data?.length" [pageIndex]="0" [pageSize]="10"
+        [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
+      </mat-paginator>
+    </ng-container>
+  </div>
+</ng-container>
