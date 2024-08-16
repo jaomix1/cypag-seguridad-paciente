@@ -42,7 +42,8 @@ const master = require("./src/routes/forms/master");
 const detalles = require("./src/routes/forms/detalles");
 const investigaciones = require("./src/routes/forms/investigaciones");
 const usuarios = require("./src/routes/seguridad/usuarios");
-const oportunidadesMejora = require("./src/routes/forms/oportunidad2");
+const oportunidadesMejora = require("./src/routes/forms/oportunidad/oportunidad2");
+const planes = require("./src/routes/forms/oportunidad/plan");
 
 dotenv.config();
 
@@ -53,6 +54,7 @@ app.use("/v1/api/usuarios", usuarios);
 app.use("/v1/api/detalle", detalles);
 app.use("/v1/api/investigaciones", investigaciones);
 app.use("/v1/api/oportunidadesMejora", oportunidadesMejora);
+app.use("/v1/api/plan", planes);
 
 app.get("/", (req, res) => {
   res.send("20220913 2047");

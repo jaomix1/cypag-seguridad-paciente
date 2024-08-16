@@ -63,24 +63,3 @@ exports.getOportunidad = async (req, res) => {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
-
-
-exports.crearOpotunidadPlan = async (req, res) => {
-    try {
-        const pool = await sql.connect(config);
-        // Stored procedure
-        const result2 = await pool.request()
-            .input("Accion", sql.VarChar, req.body.Accion)
-            .input("Responsable", sql.UniqueIdentifier, req.body.Responsable)
-            .input("FechaInicio", sql.DateTime, req.body.FechaInicio)
-            .input("FechaFin", sql.DateTime, req.body.FechaFin)
-            .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
-            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
-            .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
-            .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.createOpotunidadPlan");
-        res.status(200).send(result2.recordsets[0][0]);
-    } catch (err) {
-        res.status(400).send(`${err} ${req.body}`);
-    }
-};
