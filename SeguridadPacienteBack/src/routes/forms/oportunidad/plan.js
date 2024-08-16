@@ -6,9 +6,8 @@ const { seguridad } = require("../../../middleware/seguridad");
 
 const {
     crearPlan,
-    // getAllPlanes,
     getPlan,
-    //crearOpotunidadPlan,
+    crearSeguimiento,
 } = require("../../../controllers/forms/oportunidad/plan");
 
 
@@ -22,7 +21,7 @@ router.route("/create/:OportunidadId")
 router.route("/getOne/:Id")
     .get(seguridad, getPlan);
 
-// router.route("/create/plan/:OportunidadId")
-//     .post(seguridad, crearOpotunidadPlan);
+router.route("/create/seguimiento/:PlanId")
+    .post(seguridad, crearSeguimiento);
 
 module.exports = router;
