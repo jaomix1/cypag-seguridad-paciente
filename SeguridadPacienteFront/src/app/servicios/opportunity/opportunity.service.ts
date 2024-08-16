@@ -30,7 +30,7 @@ export class OpportunityService extends BaseService {
 
   get(dato: any): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "one", dato)
+      .get<any>(this._baseUrl + this.apiUrl + "getOne/" + dato)
       .pipe(
         map((response) => response),
         tap((a) => {
