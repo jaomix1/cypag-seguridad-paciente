@@ -12,6 +12,7 @@ const ResponsablesModel = require("../../models/combos/responsables");
 
 exports.createDetail = async (req, res) => {
   const entry = { ...req.body };
+  console.log(entry);
   entry.Agente = req.Usuario.user.Usuario;
   try {
     const regExistente = await DetallesModel.findOne({

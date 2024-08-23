@@ -50,12 +50,12 @@ exports.getAnswers = async (req, res) => {
     const answers = await MasterModel.findAll({
       where: {
         [Op.and]: [
-          { Codigo: ((Codigo != '' && Codigo != null) ? Codigo : {[Op.not]: null}) },
-          { Numero_Id: ((Numero_Id != '' && Numero_Id != null) ? Numero_Id : {[Op.not]: null}) },
-          { Tipo_Novedad: ((Tipo_Novedad != '' && Tipo_Novedad != null) ? Tipo_Novedad : {[Op.not]: null}) },
-          { Empresa: ((Empresa != '' && Empresa != null) ? Empresa : {[Op.not]: null}) },
-          { Sede: ((Sede != '' && Sede != null) ? Sede : {[Op.not]: null}) },
-          { Fecha_Incidente : ( (Start_Date_F != null && End_Date_F != null ) ? { [Op.between]: [Start_Date_F, End_Date_F] } : {[Op.not]: null}  )}
+          { Codigo: ((Codigo != '' && Codigo != null) ? Codigo : { [Op.not]: null }) },
+          { Numero_Id: ((Numero_Id != '' && Numero_Id != null) ? Numero_Id : { [Op.not]: null }) },
+          { Tipo_Novedad: ((Tipo_Novedad != '' && Tipo_Novedad != null) ? Tipo_Novedad : { [Op.not]: null }) },
+          { Empresa: ((Empresa != '' && Empresa != null) ? Empresa : { [Op.not]: null }) },
+          { Sede: ((Sede != '' && Sede != null) ? Sede : { [Op.not]: null }) },
+          { Fecha_Incidente: ((Start_Date_F != null && End_Date_F != null) ? { [Op.between]: [Start_Date_F, End_Date_F] } : { [Op.not]: null }) }
         ],
       },
       order: [["Fecha_Incidente", "DESC"]],
@@ -87,7 +87,7 @@ exports.getAnswers = async (req, res) => {
       }, {
         model: OportunidadesMejoraModel,
         as: "Op_Mejora_Join",
-        required:false,
+        required: false,
         where: { Estado: "ACT" },
         attributes: ["Porcentaje_Mejora"],
       }],
@@ -155,6 +155,12 @@ exports.getAllData = async (req, res) => {
         include: [{
           model: TiposNovedadModel,
           as: "Tipo_Novedad_Join",
+          where: { Estado: "ACT" },
+          attributes: ["Descripcion"],
+        },
+        {
+          model: NovedadCausaModel,
+          as: "Novedad_Causa_Join",
           where: { Estado: "ACT" },
           attributes: ["Descripcion"],
         }],

@@ -2,8 +2,9 @@ const { DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../../../config/db");
 const TiposNovedadModel = require("../combos/tiposNovedad");
 const ClasificacionReporteModel = require("../combos/clasificacionReporte");
+const NovedadCausaModel = require("../combos/novedadCausa");
 
-class DetallesModel extends Model {}
+class DetallesModel extends Model { }
 
 DetallesModel.init(
   {
@@ -23,6 +24,7 @@ DetallesModel.init(
     Tipo_Novedad: { type: DataTypes.INTEGER, allowNull: false },
     Tipo_Detalle: { type: DataTypes.STRING(40), allowNull: true },
     Responsables: { type: DataTypes.STRING(500), allowNull: true },
+    Novedad_Causa: { type: DataTypes.INTEGER, allowNull: true },
     Estado: {
       type: DataTypes.STRING(3), defaultValue: "ACT", allowNull: false, validate: { isIn: [["ACT", "INA"]] },
     },
@@ -42,5 +44,6 @@ DetallesModel.init(
 
 DetallesModel.belongsTo(TiposNovedadModel, { foreignKey: "Tipo_Novedad", as: "Tipo_Novedad_Join", onDelete: "NO ACTION" });
 DetallesModel.belongsTo(ClasificacionReporteModel, { foreignKey: "Clasificacion_Reporte_Id", as: "Clasificacion_Reporte_Id_Join", onDelete: "NO ACTION" });
+DetallesModel.belongsTo(NovedadCausaModel, { foreignKey: "Novedad_Causa", as: "Novedad_Causa_Join", onDelete: "NO ACTION" });
 
 module.exports = DetallesModel;
