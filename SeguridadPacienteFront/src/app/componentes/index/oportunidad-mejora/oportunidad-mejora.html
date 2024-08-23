@@ -12,8 +12,64 @@
     <p style="margin-top: 20px; margin-left: 20px;">Cargando...</p>
 </ng-container>
 <ng-container *ngIf="!loadingMain">
-    <div class="mat-elevation-z8">
 
+    <form novalidate (ngSubmit)="submit()" [formGroup]="form">
+        <mat-card class="shipping-card">
+            <mat-card-header>
+                <mat-card-title>Filtra una oportunidad de mejora</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ingresa la fecha</mat-label>
+                            <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                                <input matStartDate formControlName="Start_Date" [max]="maxDate"
+                                    placeholder="fecha Inicio">
+                                <input matEndDate formControlName="End_Date" [max]="maxDate" placeholder="fecha Fin">
+                            </mat-date-range-input>
+                            <mat-hint>DD/MM/YYYY</mat-hint>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-date-range-picker picker #picker></mat-date-range-picker>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-label>Descripcion</mat-label>
+                            <input matInput placeholder="Descripcion" formControlName="Descripcion" maxlength="100"
+                                required>
+                            <mat-error *ngIf="validate('Descripcion')">
+                                {{ check('Descripcion') }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="full-width" appearance="outline">
+                            <mat-select placeholder="Responsables" formControlName="Responsable">
+                                <mat-option *ngFor="let data of responsables" [value]="data.Id">
+                                    {{ data.NombreCompleto }}
+                                </mat-option>
+                            </mat-select>
+                            <mat-error *ngIf="validate('Descripcion')">
+                                {{ check('Descripcion') }}
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="row">
+                    <div class="col">
+                        <button mat-raised-button color="primary" [disabled]="loadingMain"
+                            type="submit">Consultar</button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </form>
+
+    <div class="mat-elevation-z8">
         <table mat-table class="full-width-table" [dataSource]="datos" matSort aria-label="Elements">
             <!-- Id Column -->
             <!-- <ng-container matColumnDef="externo">
@@ -50,8 +106,11 @@
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
         </table>
-        <mat-paginator #paginator [length]="datos?.data?.length" [pageIndex]="0" [pageSize]="10"
-            [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
-        </mat-paginator>
+        <div *ngIf="totalObjects > 0">
+            <mat-paginator #paginator showFirstLastButtons [length]="totalObjects" [pageIndex]="pageIndex"
+                [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
+                (page)="pageEvent($event)">
+            </mat-paginator>
+        </div>
     </div>
 </ng-container>

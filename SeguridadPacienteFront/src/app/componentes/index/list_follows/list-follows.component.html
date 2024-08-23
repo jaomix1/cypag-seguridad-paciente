@@ -33,9 +33,9 @@
                 <tr mat-header-row *matHeaderRowDef="columns"></tr>
                 <tr mat-row *matRowDef="let row; columns: columns;"></tr>
             </table>
-            <mat-paginator #paginator [length]="datos?.data?.length" [pageIndex]="0" [pageSize]="10"
+            <!-- <mat-paginator #paginator [length]="datos?.data?.length" [pageIndex]="0" [pageSize]="10"
                 [pageSizeOptions]="[5, 10, 20]" aria-label="Select page">
-            </mat-paginator>
+            </mat-paginator> -->
         </ng-container>
     </div>
 </ng-container>

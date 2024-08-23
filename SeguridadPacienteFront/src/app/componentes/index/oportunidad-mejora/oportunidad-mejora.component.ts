@@ -28,7 +28,23 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
     displayedColumns = ['Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
 
     datos: any = [];
+    responsables: any = [];
     private masterId: string = "9620C3D4-8420-47EE-B6DC-70923A9ED0B6";
+    totalObjects: number = 0;
+    pageIndex: number = 0;
+    pageSize: number = 5;
+    maxDate: Date;
+
+
+    form = new FormGroup({
+        Page: new FormControl(0),
+        RowsByPag: new FormControl(5),
+        Start_Date: new FormControl(null),
+        End_Date: new FormControl(null),
+        Descripcion: new FormControl(null),
+        Responsable: new FormControl(null),
+    });
+
 
 
     constructor(
@@ -38,20 +54,21 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
         // @Inject(MAT_DIALOG_DATA) public guid: string,
         public dialog: MatDialog) {
         super();
-        this.submit(this.masterId);
+        this.submit();
+        this.maxDate = new Date();
     }
 
     ngOnInit(): void {
+        this.getResponsables();
 
     }
 
-    submit(masterId: any): void {
+    submit(): void {
         this.loadingMain = true;
-        this.OpportunityService.getAll({
-            Page: 0, RowsByPag: 5
-        }).subscribe({
+        this.OpportunityService.getAll(this.form.value).subscribe({
             next: (req: any) => {
                 this.datos = req.data;
+                this.totalObjects = req.count
                 this.loadingMain = false;
                 if (this.datos.length < 1) {
                     this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
@@ -67,15 +84,37 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
         });
     }
 
+    getResponsables() {
+        this.loading = true;
+        this.UsersService.get().subscribe({
+            next: (req) => {
+                this.responsables = req;
+                console.log(this.responsables);
+                this.loading = false;
+            },
+            error: (err: string) => {
+                this.mainService.showToast(err, 'error');
+                this.loading = false;
+            }
+        });
+    }
+
+    pageEvent(event: any) {
+        this.form.get('Page')?.setValue(event.pageIndex)
+        this.form.get('RowsByPag')?.setValue(event.pageSize)
+        this.submit();
+    }
+
     openDetail(guid: any) {
         const dialogRef = this.dialog.open(EditOportunidadMejoraComponent, {
             width: '70%',
-            height: '50%',
+            height: '100%',
             data: guid,
             disableClose: false
         });
         dialogRef.afterClosed().subscribe((result: any) => {
-            this.submit(this.masterId);
+            this.submit();
+
         });
     }
 
@@ -87,7 +126,8 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
             disableClose: false
         });
         dialogRef.afterClosed().subscribe((result: any) => {
-            this.submit(this.masterId);
+            this.submit();
+
         });
     }
 
@@ -99,8 +139,17 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
             data: this.masterId
         });
         dialogRef.afterClosed().subscribe((result: any) => {
-            this.submit(this.masterId);
+            this.submit();
+
         });
+    }
+
+    validate(nameInput: string) {
+        return this.mainService.validateInput(this.form, nameInput);
+    }
+
+    check(nameInput: string) {
+        return this.mainService.checkInput(this.form, nameInput);
     }
 
 

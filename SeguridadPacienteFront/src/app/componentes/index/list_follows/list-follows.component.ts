@@ -61,6 +61,7 @@ export class ListFollowsComponent implements OnInit {
             disableClose: false
         });
         dialogRef.afterClosed().subscribe((result: any) => {
+            this.getFollows();
             //   this.getResponsables();
             //   this.getDetailOportunity();
         });

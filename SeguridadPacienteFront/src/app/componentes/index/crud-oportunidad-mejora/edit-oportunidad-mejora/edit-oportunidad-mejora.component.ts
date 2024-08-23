@@ -83,7 +83,7 @@ export class EditOportunidadMejoraComponent implements OnInit {
   listSeguimientos(id: number) {
     const dialogRef = this.dialog.open(ListFollowsComponent, {
       width: '100%',
-      height: '80%',
+      height: '90%',
       data: id,
       disableClose: false
     });
