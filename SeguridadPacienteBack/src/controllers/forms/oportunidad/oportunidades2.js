@@ -39,6 +39,10 @@ exports.getAllOportunidades = async (req, res) => {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
+            .input("Descripcion", sql.VarChar, req.body.Descripcion)
+            .input("Responsable", sql.UniqueIdentifier, req.body.Responsable)
+            .input("Fecha_Inicial", sql.Int, req.body.Start_Date)
+            .input("Fecha_Final", sql.Int, req.body.End_Date)
             .input("Page", sql.Int, req.body.Page)
             .input("RowsByPag", sql.Int, req.body.RowsByPag)
             .execute("SeguridadPaciente.dbo.getAllOportunidades");
