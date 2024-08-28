@@ -77,7 +77,7 @@ exports.getAllOportunidadesByMasterId = async (req, res) => {
             .input("MasterId", sql.UniqueIdentifier, req.params.MasterId)
             .execute("SeguridadPaciente.dbo.getAllOportunidadesByMasterId");
         // eslint-disable-next-line max-len
-        res.status(200).send({ news: result2.recordsets[0], Olds: result2.recordsets[1] });
+        res.status(200).send({ news: result2.recordsets[0], olds: result2.recordsets[1] });
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);
     }
