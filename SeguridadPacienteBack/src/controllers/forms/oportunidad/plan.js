@@ -70,3 +70,19 @@ exports.crearSeguimiento = async (req, res) => {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
+
+
+exports.UpdatePlan = async (req, res) => {
+    try {
+        const pool = await sql.connect(config);
+        // Stored procedure
+        const result2 = await pool.request()
+            .input("PlanId", sql.Int, req.body.PlanId)
+            .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
+            .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
+            .execute("SeguridadPaciente.dbo.updatePlan");
+        res.status(200).send(result2.recordsets[0][0]);
+    } catch (err) {
+        res.status(400).send(`${err} ${req.body}`);
+    }
+};

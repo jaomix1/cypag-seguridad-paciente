@@ -87,10 +87,10 @@ exports.createMasterOpotunidad = async (req, res) => {
     try {
 
         const table = new sql.Table();
-        table.columns.add('Value', sql.UniqueIdentifier, { nullable: false });
+        table.columns.add("Value", sql.UniqueIdentifier, { nullable: false });
 
         req.body.forEach(dato => {
-            table.rows.add(dato.Id)
+            table.rows.add(dato.Id);
         });
 
         const pool = await sql.connect(config);
@@ -105,4 +105,3 @@ exports.createMasterOpotunidad = async (req, res) => {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
-
