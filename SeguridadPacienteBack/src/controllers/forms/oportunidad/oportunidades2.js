@@ -60,9 +60,24 @@ exports.getOportunidad = async (req, res) => {
         const result2 = await pool.request()
             .input("Id", sql.UniqueIdentifier, req.params.Id)
             .execute("SeguridadPaciente.dbo.getOportunidad");
-        let data = result2.recordsets[0][0];
+        const data = result2.recordsets[0][0];
+        // eslint-disable-next-line prefer-destructuring
         data.Planes = result2.recordsets[1];
         res.status(200).send(data);
+    } catch (err) {
+        res.status(400).send(`${err} ${req.body}`);
+    }
+};
+
+exports.getAllOportunidadesByMasterId = async (req, res) => {
+    try {
+        const pool = await sql.connect(config);
+        // Stored procedure
+        const result2 = await pool.request()
+            .input("MasterId", sql.UniqueIdentifier, req.params.MasterId)
+            .execute("SeguridadPaciente.dbo.getAllOportunidadesByMasterId");
+        // eslint-disable-next-line max-len
+        res.status(200).send(result2.recordsets[0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);
     }
