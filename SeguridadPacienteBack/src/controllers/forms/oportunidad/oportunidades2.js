@@ -82,3 +82,27 @@ exports.getAllOportunidadesByMasterId = async (req, res) => {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
+
+exports.createMasterOpotunidad = async (req, res) => {
+    try {
+
+        const table = new sql.Table();
+        table.columns.add('Value', sql.UniqueIdentifier, { nullable: false });
+
+        req.body.forEach(dato => {
+            table.rows.add(dato.Id)
+        });
+
+        const pool = await sql.connect(config);
+        // Stored procedure
+        const result2 = await pool.request()
+            .input("MasterId", sql.UniqueIdentifier, req.params.MasterId)
+            .input("Oportunidades", table)
+            .execute("SeguridadPaciente.dbo.createMasterOpotunidad");
+        // eslint-disable-next-line max-len
+        res.status(200).send({ estado: result2.recordsets[0][0].estado });
+    } catch (err) {
+        res.status(400).send(`${err} ${req.body}`);
+    }
+};
+
