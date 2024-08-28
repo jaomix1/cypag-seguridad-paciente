@@ -54,36 +54,6 @@
         <button type='button' mat-raised-button class="bg-secondary" (click)="submit()">Agregar</button>
     </div>
 </div>
-
-<!-- <ng-container matColumnDef="Codigo">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
-    <td mat-cell *matCellDef="let row">{{row.Codigo_Externo }}</td>
-  </ng-container> -->
-<!-- <div class="mat-elevation-z8" *ngIf="this.actions.length > 0">
-    <table #table mat-table class="full-width" [dataSource]="actions" matSort aria-label="Elements">
-
-        <ng-container matColumnDef="Descripcion">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header>Mejoras</th>
-            <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
-        </ng-container>
-
-        <ng-container matColumnDef="Accion">
-            <th mat-header-cell *matHeaderCellDef> Acciones </th>
-            <td mat-cell *matCellDef="let row"> <button mat-raised-button color="warn"
-                    (click)="eliminar(row.Codigo_Externo)">Eliminar</button></td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-
-    <mat-paginator #paginator [length]="actions?.length" [pageIndex]="0" [pageSize]="10" [pageSizeOptions]="[5, 10, 20]"
-        aria-label="Select page">
-    </mat-paginator>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
 </div>
-
-<div class="row my-3" *ngIf="this.actions.length > 0">
-    <div class="col">
-        <button type='button' mat-raised-button class="bg-primary" (click)="submit()">Enviar</button>
-    </div>
-</div> -->

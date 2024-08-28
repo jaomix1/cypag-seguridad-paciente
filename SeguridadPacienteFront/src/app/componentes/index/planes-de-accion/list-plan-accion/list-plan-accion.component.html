@@ -30,6 +30,10 @@
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
           <td mat-cell *matCellDef="let row">{{row.Estado}}</td>
         </ng-container>
+        <ng-container matColumnDef="Porcentaje">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Porcentaje</th>
+          <td mat-cell *matCellDef="let row">{{row.PorcentajeMejora}}%</td>
+        </ng-container>
         <ng-container matColumnDef="EvidenciaCierre">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Evidencia de cierre</th>
           <td mat-cell *matCellDef="let row">{{row.EvidenciaCierre}}</td>
@@ -37,7 +41,10 @@
         <ng-container matColumnDef="acciones">
           <th mat-header-cell *matHeaderCellDef> Acciones </th>
           <td mat-cell *matCellDef="let row">
-            <button mat-raised-button color="basic" (click)="listSeguimientos(row.Id)">Ver Seguimiento</button>
+            <button mat-raised-button color="basic" class="my-2" (click)="listSeguimientos(row.Id)">Ver
+              Seguimiento</button>
+            <button mat-raised-button color="primary" (click)="editPlan(row.Id ,row.PorcentajeMejora)">Editar
+              Plan</button>
           </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
@@ -49,3 +56,6 @@
     </ng-container>
   </div>
 </ng-container>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>

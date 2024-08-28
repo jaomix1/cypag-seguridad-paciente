@@ -8,7 +8,6 @@ import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.se
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { BaseFormComponent } from '../../../baseComponent';
-import { EditOportunidadComponent } from '../../edit-oportunidad/edit-oportunidad.component';
 import { TablaItem, TablaDataSource } from '../../demos/tabla/tabla-datasource';
 import { ListPlanAccionComponent } from '../../planes-de-accion/list-plan-accion/list-plan-accion.component';
 import { CreateOportunidadesFormComponent } from '../create-oportunidades-form/create-oportunidades-form.component';
@@ -25,7 +24,7 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-    displayedColumns = ['Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
+    displayedColumns = ['Descripcion', 'Responsable', 'Fecha', 'Porcentaje_Mejora', 'accion'];
 
     datos: any = [];
     responsables: any = [];
@@ -37,8 +36,8 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
 
 
     form = new FormGroup({
-        Page: new FormControl(0),
-        RowsByPag: new FormControl(5),
+        Page: new FormControl(this.pageIndex),
+        RowsByPag: new FormControl(this.pageSize),
         Start_Date: new FormControl(null),
         End_Date: new FormControl(null),
         Descripcion: new FormControl(null),
@@ -70,7 +69,7 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
                 this.datos = req.data;
                 this.totalObjects = req.count
                 this.loadingMain = false;
-                if (this.datos.length < 1) {
+                if (this.datos.length === 0) {
                     this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
                 }
             },
@@ -100,8 +99,21 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
     }
 
     pageEvent(event: any) {
-        this.form.get('Page')?.setValue(event.pageIndex)
-        this.form.get('RowsByPag')?.setValue(event.pageSize)
+        this.pageIndex = event.pageIndex
+        this.pageSize = event.pageSize
+        this.form.get('Page')?.setValue(this.pageIndex)
+        this.form.get('RowsByPag')?.setValue(this.pageSize)
+        this.submit();
+    }
+
+    cancelar() {
+        this.pageIndex = 0
+        this.form.get('Descripcion')?.setValue(null)
+        this.form.get('Responsable')?.setValue(null)
+        this.form.get('Start_Date')?.setValue(null)
+        this.form.get('End_Date')?.setValue(null)
+        this.form.get('Page')?.setValue(this.pageIndex)
+        this.form.get('RowsByPag')?.setValue(this.pageSize)
         this.submit();
     }
 
@@ -110,7 +122,8 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
             width: '70%',
             height: '100%',
             data: guid,
-            disableClose: false
+            disableClose: true
+
         });
         dialogRef.afterClosed().subscribe((result: any) => {
             this.submit();
@@ -123,7 +136,8 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
             width: '100%',
             height: '100%',
             data: guid,
-            disableClose: false
+            disableClose: true
+
         });
         dialogRef.afterClosed().subscribe((result: any) => {
             this.submit();
@@ -135,7 +149,8 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
         const dialogRef = this.dialog.open(CreateOportunidadesFormComponent, {
             width: '100%',
             height: '100%',
-            disableClose: false,
+            disableClose: true
+            ,
             data: this.masterId
         });
         dialogRef.afterClosed().subscribe((result: any) => {

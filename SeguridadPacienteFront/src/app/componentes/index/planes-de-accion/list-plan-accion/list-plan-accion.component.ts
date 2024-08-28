@@ -5,6 +5,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { ListFollowsComponent } from '../../list_follows/list-follows.component';
 import { AccionFormComponent } from '../accion-form/accion-form.component';
+import { EditPlanAccionComponent } from '../../oportunidades-de-mejora/edit-plan-accion/edit-plan.accion.component';
 
 @Component({
   selector: 'app-list-plan-accion',
@@ -19,7 +20,7 @@ export class ListPlanAccionComponent implements OnInit {
   responsable: string = '';
   responsables: any = [];
   loading: boolean = false;
-  columns = ['Accion', 'Estado', 'EvidenciaCierre', 'Responsable', 'acciones'];
+  columns = ['Accion', 'Estado', 'Porcentaje', 'EvidenciaCierre', 'Responsable', 'acciones'];
 
 
   constructor(
@@ -72,7 +73,8 @@ export class ListPlanAccionComponent implements OnInit {
       width: '100%',
       height: '80%',
       data: this.guid,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       this.getResponsables();
@@ -85,10 +87,23 @@ export class ListPlanAccionComponent implements OnInit {
       width: '100%',
       height: '90%',
       data: id,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+    });
+  }
 
+  editPlan(id: number, porcentaje: number) {
+    const dialogRef = this.dialog.open(EditPlanAccionComponent, {
+      width: '40%',
+      height: '50%',
+      data: { id: id, porcentaje: porcentaje },
+      disableClose: true
+
+    });
+    dialogRef.afterClosed().subscribe((result: any) => {
+      this.getDetailOportunity();
     });
   }
 

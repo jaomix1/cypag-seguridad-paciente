@@ -107,8 +107,9 @@ export class P5Component implements OnInit {
     const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
-      data: this.data?.all_data.Master.Id
+      disableClose: true
+      ,
+      data: this.data.all_data.Detalle.Id_Master
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

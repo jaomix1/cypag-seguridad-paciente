@@ -9,7 +9,7 @@ import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
-import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
+import { ListPlanAccionComponent } from '../planes-de-accion/list-plan-accion/list-plan-accion.component';
 
 @Component({
   selector: 'app-opportunity',
@@ -21,32 +21,20 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-  displayedColumns = ['externo', 'responsable', 'oportunidad', 'porcentaje', 'accion'];
+  displayedColumns = ['oportunidad', 'responsable', 'porcentaje', 'accion'];
 
-  //responsables: any;
+  option: string = 'new';
   datos: any = [];
-  private masterId: string;
-
-
-  // form = new FormGroup({
-  //   Id: new FormControl(null),
-  //   Id_Master: new FormControl(null),
-  //   Codigo_Externo: new FormControl(null, [Validators.maxLength(30)]),
-  //   Start_Date: new FormControl(null),
-  //   End_Date: new FormControl(null),
-  //   Responsable: new FormControl(null),
-  // });
 
 
   constructor(
     private OpportunityService: OpportunityService,
     public mainService: MainService,
     public UsersService: ResponsableService,
-    @Inject(MAT_DIALOG_DATA) public guid: string,
+    @Inject(MAT_DIALOG_DATA) public id: string,
     public dialog: MatDialog) {
     super();
-    this.masterId = guid;
-    this.submit(this.masterId)
+    this.submit(this.id)
   }
 
   ngAfterViewInit(): void {
@@ -56,9 +44,9 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
   ngOnInit(): void {
   }
 
-  submit(masterId: any): void {
+  submit(id: any): void {
     this.loadingMain = true;
-    this.OpportunityService.getAll({ Id_Master: masterId }).subscribe({
+    this.OpportunityService.getOpportunitiesCurrent(id).subscribe({
       next: (req: any) => {
         this.datos = req;
         this.loadingMain = false;
@@ -76,17 +64,20 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
     });
   }
 
-  edit(guid: any) {
-    const dialogRef = this.dialog.open(EditOportunidadComponent, {
-      width: '600px',
-      height: '250px',
+  openDetail(guid: any) {
+    const dialogRef = this.dialog.open(ListPlanAccionComponent, {
+      width: '70%',
+      height: '100%',
       data: guid,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
-      this.submit(this.masterId);
+      this.submit(this.id);
+
     });
   }
+
 
   // cancelar() {
   //   this.form.reset();

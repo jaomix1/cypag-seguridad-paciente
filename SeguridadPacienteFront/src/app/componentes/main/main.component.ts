@@ -189,7 +189,8 @@ export class MainComponent extends BaseFormComponent implements OnInit {
           this.uploadFiles();
           this.mainService.showToast('Creado Correctamente');
           this.dialog.open(DialogMainComponent, {
-            disableClose: false,
+            disableClose: true
+            ,
             width: '300px',
             data: {
               response: req,
@@ -228,7 +229,8 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
       data: data,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -242,7 +244,8 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
       data: data,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

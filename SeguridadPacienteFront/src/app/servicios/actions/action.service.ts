@@ -53,16 +53,16 @@ export class ActionService extends BaseService {
             );
     }
 
-    //   edit(data: any): Observable<any> {
-    //     return this.http
-    //       .post<any>(this._baseUrl + this.apiUrl + "actualizar", data)
-    //       .pipe(
-    //         map((response) => response),
-    //         tap((a) => {
-    //           this.logs('Actualizar Oportunidad');
-    //           this.logs(a);
-    //         }),
-    //         catchError(this.errorMgmt)
-    //       );
-    //   }
+    edit(data: any): Observable<any> {
+        return this.http
+            .post<any>(this._baseUrl + this.apiUrl + "update", data)
+            .pipe(
+                map((response) => response),
+                tap((a) => {
+                    this.logs('Actualizar Oportunidad');
+                    this.logs(a);
+                }),
+                catchError(this.errorMgmt)
+            );
+    }
 }

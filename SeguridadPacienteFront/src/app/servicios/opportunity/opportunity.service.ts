@@ -54,26 +54,39 @@ export class OpportunityService extends BaseService {
       );
   }
 
-  edit(data: any): Observable<any> {
+  // edit(data: any): Observable<any> {
+  //   return this.http
+  //     .post<any>(this._baseUrl + this.apiUrl + "actualizar", data)
+  //     .pipe(
+  //       map((response) => response),
+  //       tap((a) => {
+  //         this.logs('Actualizar Oportunidad');
+  //         this.logs(a);
+  //       }),
+  //       catchError(this.errorMgmt)
+  //     );
+  // }
+
+  addOportunitiesById(id: string, data: any) {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "actualizar", data)
+      .post<any>(this._baseUrl + this.apiUrl + "AsignarAMaster/" + id, data)
       .pipe(
         map((response) => response),
         tap((a) => {
-          this.logs('Actualizar Oportunidad');
+          this.logs('Oportunidades agregadas correctamente');
           this.logs(a);
         }),
         catchError(this.errorMgmt)
       );
   }
 
-  addOportunitiesById(id: string, data: any) {
+  getOpportunitiesCurrent(id: any): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + id, data)
+      .get<any>(this._baseUrl + this.apiUrl + "byMaster/" + id)
       .pipe(
         map((response) => response),
         tap((a) => {
-          this.logs('Oportunidades agregadas correctamente');
+          this.logs('consulta de Opportunities');
           this.logs(a);
         }),
         catchError(this.errorMgmt)

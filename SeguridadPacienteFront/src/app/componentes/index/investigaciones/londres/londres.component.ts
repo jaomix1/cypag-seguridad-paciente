@@ -65,7 +65,7 @@ export class LondresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    console.log(this.data.all_data.Detalle.Id_Master)
     if (this.data.all_data.Londres != null) {
       this.londres = this.data.all_data.Londres;
       this.realizado = true;
@@ -177,8 +177,9 @@ export class LondresComponent implements OnInit {
     const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
-      data: this.data?.all_data.Master.Id
+      disableClose: true
+      ,
+      data: this.data.all_data.Detalle.Id_Master
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -188,7 +189,8 @@ export class LondresComponent implements OnInit {
     const dialogRef = this.dialog.open(PdfComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: this.data.all_data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -238,7 +240,8 @@ export class LondresComponent implements OnInit {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
       data: data,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

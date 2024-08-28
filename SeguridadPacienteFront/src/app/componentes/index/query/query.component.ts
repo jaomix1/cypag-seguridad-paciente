@@ -172,7 +172,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       width: '100%',
       height: '100%',
       data: guid,
-      disableClose: false
+      disableClose: true
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });
@@ -183,7 +183,8 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
       width: '100%',
       height: '100%',
       data: guid,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

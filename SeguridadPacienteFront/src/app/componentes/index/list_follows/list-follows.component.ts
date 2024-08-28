@@ -58,7 +58,8 @@ export class ListFollowsComponent implements OnInit {
             width: '100%',
             height: '80%',
             data: this.idAccion,
-            disableClose: false
+            disableClose: true
+
         });
         dialogRef.afterClosed().subscribe((result: any) => {
             this.getFollows();

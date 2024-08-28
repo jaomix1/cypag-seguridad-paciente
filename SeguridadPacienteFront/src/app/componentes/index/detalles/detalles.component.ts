@@ -258,7 +258,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(SelectInvestigacionComponent, {
       width: '80%',
       height: '50%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -273,7 +274,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(NaranjoComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -289,7 +291,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(LondresComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -301,7 +304,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: this.Id_Detalle
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -316,7 +320,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(M5Component, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -332,7 +337,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(P5Component, {
       width: '100%',
       height: '100%',
-      disableClose: false,
+      disableClose: true
+      ,
       data: data
     });
     dialogRef.afterClosed().subscribe((result: any) => {
@@ -388,7 +394,8 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     const dialogRef = this.dialog.open(InfoComponent, {
       width: '500px',
       data: data,
-      disableClose: false
+      disableClose: true
+
     });
     dialogRef.afterClosed().subscribe((result: any) => {
     });

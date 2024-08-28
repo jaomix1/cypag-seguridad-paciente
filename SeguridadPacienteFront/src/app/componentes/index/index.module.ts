@@ -44,7 +44,6 @@ import { SelectInvestigacionComponent } from './investigaciones/select-investiga
 import { CreateOportunidadesFormComponent } from './oportunidades-de-mejora/create-oportunidades-form/create-oportunidades-form.component';
 import { M5Component } from './investigaciones/m5/m5.component';
 import { P5Component } from './investigaciones/p5/p5.component';
-import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.component';
 import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
 import { InfoComponent } from '../info/info.component';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
@@ -55,6 +54,7 @@ import { ListFollowsComponent } from './list_follows/list-follows.component';
 import { CreateFollowFormComponent } from './create-follow-form/create-follow-form.component';
 import { AggOportunityComponent } from './oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 import { AccionFormComponent } from './planes-de-accion/accion-form/accion-form.component';
+import { EditPlanAccionComponent } from './oportunidades-de-mejora/edit-plan-accion/edit-plan.accion.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +72,6 @@ import { AccionFormComponent } from './planes-de-accion/accion-form/accion-form.
     AccionFormComponent,
     M5Component,
     P5Component,
-    EditOportunidadComponent,
     DialogConfirmacionComponent,
     InfoComponent,
     DialogMainComponent,
@@ -80,7 +79,8 @@ import { AccionFormComponent } from './planes-de-accion/accion-form/accion-form.
     ListPlanAccionComponent,
     ListFollowsComponent,
     CreateFollowFormComponent,
-    AggOportunityComponent
+    AggOportunityComponent,
+    EditPlanAccionComponent
   ],
   imports: [
     CommonModule,

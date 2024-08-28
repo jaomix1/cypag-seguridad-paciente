@@ -2,84 +2,148 @@
     <p style="margin-top: 20px; margin-left: 20px;">Cargando...</p>
 </ng-container>
 <ng-container *ngIf="!loadingMain">
-    <div class="row">
-        <div class="col">
-            <div class="mat-elevation-z8">
-                <p class="">Listado actual</p>
-                <table mat-table class="full-width" [dataSource]="datos" matSort aria-label="Elements">
-                    <ng-container matColumnDef="Responsable">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
-                        <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="Descripcion">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Oportunidad</th>
-                        <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="Porcentaje_Mejora">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>porcentaje</th>
-                        <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
-                    </ng-container>
-                    <ng-container matColumnDef="accion">
-                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                        <td mat-cell *matCellDef="let row">
-                            <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary"
-                                (click)="addOportunityToTable(row)">Agregar</button>
-                        </td>
-                    </ng-container>
-
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-                </table>
-                <div *ngIf="totalObjects > 0">
-                    <mat-paginator #paginator showFirstLastButtons [length]="totalObjects" [pageIndex]="pageIndex"
-                        [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
-                        (page)="pageEvent($event)">
-                    </mat-paginator>
-                </div>
+    <div class="container-fluid">
+        <h1 class="text-center fw-semibold">Agregar oportunidades de mejora</h1>
+        <div class="row py-2">
+            <div class="col-12 col-md-6">
+                <form novalidate (ngSubmit)="submit()" [formGroup]="form">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row my-2">
+                                <div class="col-12">
+                                    <h2>Filtra una oportunidad de mejora</h2>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Ingresa la fecha</mat-label>
+                                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                                            <input matStartDate formControlName="Start_Date" [max]="maxDate"
+                                                placeholder="fecha Inicio">
+                                            <input matEndDate formControlName="End_Date" [max]="maxDate"
+                                                placeholder="fecha Fin">
+                                        </mat-date-range-input>
+                                        <mat-hint>DD/MM/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker picker #picker></mat-date-range-picker>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Descripcion</mat-label>
+                                        <input matInput placeholder="Descripcion" formControlName="Descripcion"
+                                            maxlength="100">
+                                        <mat-error *ngIf="validate('Descripcion')">
+                                            {{ check('Descripcion') }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-12 col-md-4">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-select placeholder="Responsables" formControlName="Responsable">
+                                            <mat-option *ngFor="let data of responsables" [value]="data.Id">
+                                                {{ data.NombreCompleto }}
+                                            </mat-option>
+                                        </mat-select>
+                                        <mat-error *ngIf="validate('Descripcion')">
+                                            {{ check('Descripcion') }}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button mat-raised-button color="warn" [disabled]="loadingMain" type="button"
+                                            (click)="cancelar()">Limpiar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button mat-raised-button color="primary" [disabled]="loadingMain"
+                                            type="submit">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ng-container *ngIf="datos.length>0">
+                    <h2 class="fw-semibold mt-3">Listada de oportunidades</h2>
+                    <table mat-table class="full-width" [dataSource]="datos" matSort aria-label="Elements">
+                        <ng-container matColumnDef="Responsable">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
+                            <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Descripcion">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Oportunidad</th>
+                            <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Fecha">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
+                            <td mat-cell *matCellDef="let row">{{row.FechaCreacion | date:'YYY-MM-dd'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Porcentaje_Mejora">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>porcentaje</th>
+                            <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
+                        </ng-container>
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                            <td mat-cell *matCellDef="let row">
+                                <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary"
+                                    (click)="addOportunityToTable(row)">Agregar</button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+                    <!-- <div *ngIf="totalObjects > 0">
+                        <mat-paginator #paginator showFirstLastButtons [length]="totalObjects" [pageIndex]="pageIndex"
+                            [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
+                            (page)="pageEvent($event)">
+                        </mat-paginator>
+                    </div> -->
+                </ng-container>
+                <ng-container *ngIf="datos.length===0">
+                    <h3 class="mt-4">No hay oportunidades de mejoras creadas</h3>
+                    <button mat-raised-button color="primary" routerLink="/admin/usuarios">Crear una</button>
+                </ng-container>
             </div>
-        </div>
-        <div class="col">
-            <!-- <mat-form-field appearance="fill">
-                <mat-label>Toppings</mat-label>
-                <mat-select multiple [(ngModel)]="oportunidad" placeholder="Tipo de novedad">
-                    <mat-option *ngFor="let oportunity of datos" [value]="oportunity">{{ oportunity.Descripcion
-                        }}</mat-option>
-                </mat-select>
-            </mat-form-field> 
-            <button mat-button class="bg-primary" style="margin-bottom: 10px"
-                (click)="addOportunityToTable()">Agregar</button>-->
-            {{datos2 | json}}
-            <ng-container *ngIf="datos2.length > 0 && loanding2 === false">
-                <table mat-table class="full-width" [dataSource]="datos2" matSort aria-label="Elements">
-                    <ng-container matColumnDef="index">
-                        <th mat-header-cell *matHeaderCellDef>#</th>
-                        <td mat-cell *matCellDef="let row; let i = index">{{ i + 1 }}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="Responsable">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
-                        <td mat-cell *matCellDef="let row">{{ row.Responsable }}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="Descripcion">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Oportunidad</th>
-                        <td mat-cell *matCellDef="let row">{{ row.Descripcion }}</td>
-                    </ng-container>
-                    <ng-container matColumnDef="Porcentaje_Mejora">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Porcentaje</th>
-                        <td mat-cell *matCellDef="let row">{{ row.Porcentaje_Mejora }}%</td>
-                    </ng-container>
-                    <ng-container matColumnDef="accion">
-                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
-                        <td mat-cell *matCellDef="let row; let i = index">
-                            <button mat-raised-button color="danger" (click)="elimiarFromTable(i)">Eliminar</button>
-                        </td>
-                    </ng-container>
-                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
-                    <tr mat-row *matRowDef="let row; let i = index; columns: displayedColumns2;"></tr>
-                </table>
-                <!-- <button mat-raised-button style="margin-bottom: 10px; margin-top: 10px" color="primary"
-                    (click)="submit()">Guardar</button> -->
-            </ng-container>
-
+            <div class="col-12 col-md-6">
+                <ng-container *ngIf="datos2.length > 0 && loanding2 === false">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="fw-semibold">Listado actual</h2>
+                            <table class="table table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Oportunidad</th>
+                                        <th scope="col">Responsable</th>
+                                        <th scope="col">Porcentaje</th>
+                                        <th scope="col">Acciones</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of datos2; let i = index">
+                                        <td>{{item.Descripcion}}</td>
+                                        <td>{{item.Responsable}}</td>
+                                        <td>{{item.Porcentaje_Mejora}} %</td>
+                                        <td>
+                                            <button class="btn btn-danger" (click)="elimiarFromTable(i)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
+                                                    viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                                                    <path
+                                                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
+                                                </svg>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button mat-raised-button style="margin-bottom: 10px; margin-top: 10px" color="primary"
+                                (click)="submit()">Guardar</button>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
         </div>
     </div>
 </ng-container>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>
