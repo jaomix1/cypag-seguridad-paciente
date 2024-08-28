@@ -2,12 +2,12 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CombosLondresService } from 'src/app/servicios/combo/combos-londres.service';
-import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 import { MainService } from 'src/app/servicios/main.service';
 import { LondresService } from 'src/app/servicios/investigaciones/londres.service';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
 import { PdfComponent } from '../../../pdf/pdf.component';
 import { InfoComponent } from 'src/app/componentes/info/info.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 @Component({
   selector: 'app-londres',
   templateUrl: './londres.component.html',
@@ -174,7 +174,7 @@ export class LondresComponent implements OnInit {
   }
 
   mejoras() {
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

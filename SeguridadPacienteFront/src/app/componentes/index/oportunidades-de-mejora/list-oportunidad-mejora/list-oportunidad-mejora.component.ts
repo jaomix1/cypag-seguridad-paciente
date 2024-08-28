@@ -7,19 +7,19 @@ import { MainService } from 'src/app/servicios/main.service';
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
-import { BaseFormComponent } from '../../baseComponent';
-import { EditOportunidadComponent } from '../edit-oportunidad/edit-oportunidad.component';
-import { TablaItem, TablaDataSource } from '../demos/tabla/tabla-datasource';
-import { EditOportunidadMejoraComponent } from '../crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
-import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
-import { AccionFormComponent } from '../accion-form/accion-form.component';
+import { BaseFormComponent } from '../../../baseComponent';
+import { EditOportunidadComponent } from '../../edit-oportunidad/edit-oportunidad.component';
+import { TablaItem, TablaDataSource } from '../../demos/tabla/tabla-datasource';
+import { ListPlanAccionComponent } from '../../planes-de-accion/list-plan-accion/list-plan-accion.component';
+import { CreateOportunidadesFormComponent } from '../create-oportunidades-form/create-oportunidades-form.component';
+import { AccionFormComponent } from '../../planes-de-accion/accion-form/accion-form.component';
 
 @Component({
-    selector: 'app-oportunidad-mejora',
-    templateUrl: './oportunidad-mejora.html',
-    styleUrls: ['./oportunidad-mejora.css']
+    selector: 'app-list-oportunidad-mejora',
+    templateUrl: './list-oportunidad-mejora.html',
+    styleUrls: ['./list-oportunidad-mejora.css']
 })
-export class OportunidaMejoraComponent extends BaseFormComponent implements OnInit {
+export class ListOportunidaMejoraComponent extends BaseFormComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
@@ -106,7 +106,7 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
     }
 
     openDetail(guid: any) {
-        const dialogRef = this.dialog.open(EditOportunidadMejoraComponent, {
+        const dialogRef = this.dialog.open(ListPlanAccionComponent, {
             width: '70%',
             height: '100%',
             data: guid,
@@ -132,7 +132,7 @@ export class OportunidaMejoraComponent extends BaseFormComponent implements OnIn
     }
 
     newMejora() {
-        const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+        const dialogRef = this.dialog.open(CreateOportunidadesFormComponent, {
             width: '100%',
             height: '100%',
             disableClose: false,

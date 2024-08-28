@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { PqService } from 'src/app/servicios/investigaciones/pq.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 import { T } from '@angular/cdk/keycodes';
+import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-p5',
@@ -23,7 +23,7 @@ export class P5Component implements OnInit {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
   }
   realizado: boolean = false;
-  pq:any;
+  pq: any;
 
   form = new FormGroup({
     Id_Detalle: new FormControl(''),
@@ -36,18 +36,18 @@ export class P5Component implements OnInit {
 
 
   ngOnInit(): void {
-    
-    if (this.data.all_data.P5 != null){
+
+    if (this.data.all_data.P5 != null) {
       this.pq = this.data.all_data.P5;
       this.realizado = true;
       this.form.disable();
       this.setData();
-    }else{
+    } else {
       this.realizado = false;
     }
   }
 
-  setData(){
+  setData() {
     this.form.controls['P5_1'].setValue(this.pq?.P5_1);
     this.form.controls['P5_2'].setValue(this.pq?.P5_2);
     this.form.controls['P5_3'].setValue(this.pq?.P5_3);
@@ -57,10 +57,10 @@ export class P5Component implements OnInit {
 
   submit() {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
-    
+
     if (this.form.valid) {
       this.PqService.send(this.form.value).subscribe({
-        next: (req:any) => {
+        next: (req: any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
           this.realizado = true;
           this.form.disable();
@@ -73,17 +73,17 @@ export class P5Component implements OnInit {
     }
   }
 
-  borrar(){
+  borrar() {
     this.PqService.borrar(this.data?.id_detalle).subscribe({
-      next: (req:any) => {
-        
+      next: (req: any) => {
+
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
         this.form.enable();
       },
       error: (err: string) => {
-        
+
         this.mainService.showToast(err, 'error');
       },
       complete: () => {
@@ -99,12 +99,12 @@ export class P5Component implements OnInit {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  mejoras(){
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+  mejoras() {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

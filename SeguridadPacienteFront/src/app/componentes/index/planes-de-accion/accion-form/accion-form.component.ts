@@ -1,4 +1,3 @@
-import { ActionService } from './../../../servicios/actions/action.service';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
@@ -7,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { ActionService } from 'src/app/servicios/actions/action.service';
 
 @Component({
     selector: 'app-accion-form',

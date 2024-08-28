@@ -11,7 +11,6 @@ import { DialogConfirmacionComponent } from '../../dialog-confirmacion/dialog-co
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
-import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
@@ -23,6 +22,7 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { environment } from 'src/environments/environment';
 import { InfoComponent } from '../../info/info.component';
+import { AggOportunityComponent } from '../oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-detalles',
@@ -298,7 +298,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   mejoras() {
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

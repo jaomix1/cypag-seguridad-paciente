@@ -1,9 +1,9 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { MsService } from 'src/app/servicios/investigaciones/ms.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-m5',
@@ -22,7 +22,7 @@ export class M5Component implements OnInit {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
   }
   realizado: boolean = false;
-  m5:any;
+  m5: any;
 
   form = new FormGroup({
     Id_Detalle: new FormControl(''),
@@ -36,13 +36,13 @@ export class M5Component implements OnInit {
 
 
   ngOnInit(): void {
-    
-    if (this.data.all_data.M5 != null){
+
+    if (this.data.all_data.M5 != null) {
       this.m5 = this.data.all_data.M5;
       this.realizado = true;
       this.form.disable();
       this.setData();
-    }else{
+    } else {
       this.realizado = false;
     }
   }
@@ -58,10 +58,10 @@ export class M5Component implements OnInit {
 
   submit() {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
-    
+
     if (this.form.valid) {
       this.MsService.send(this.form.value).subscribe({
-        next: (req:any) => {
+        next: (req: any) => {
           this.mainService.showToast('Guardado Correctamente', 'success');
           this.realizado = true;
           this.form.disable();
@@ -74,17 +74,17 @@ export class M5Component implements OnInit {
     }
   }
 
-  borrar(){
+  borrar() {
     this.MsService.borrar(this.data?.id_detalle).subscribe({
-      next: (req:any) => {
-        
+      next: (req: any) => {
+
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
         this.form.enable();
       },
       error: (err: string) => {
-        
+
         this.mainService.showToast(err, 'error');
       },
       complete: () => {
@@ -100,12 +100,12 @@ export class M5Component implements OnInit {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  mejoras(){
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+  mejoras() {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,

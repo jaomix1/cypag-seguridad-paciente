@@ -3,15 +3,15 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
-import { AccionFormComponent } from '../../accion-form/accion-form.component';
 import { ListFollowsComponent } from '../../list_follows/list-follows.component';
+import { AccionFormComponent } from '../accion-form/accion-form.component';
 
 @Component({
-  selector: 'app-edit-oportunidad-mejora',
-  templateUrl: './edit-oportunidad-mejora.component.html',
-  styleUrls: ['./edit-oportunidad-mejora.component.css']
+  selector: 'app-list-plan-accion',
+  templateUrl: './list-plan-accion.component.html',
+  styleUrls: ['./list-plan-accion.component.css']
 })
-export class EditOportunidadMejoraComponent implements OnInit {
+export class ListPlanAccionComponent implements OnInit {
 
   datos: any = [];
   percent: number = 0;
@@ -27,7 +27,7 @@ export class EditOportunidadMejoraComponent implements OnInit {
     public mainService: MainService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public UsersService: ResponsableService,
-    public dialogRef: MatDialogRef<EditOportunidadMejoraComponent>, // Inyección de MatDialogRef
+    public dialogRef: MatDialogRef<ListPlanAccionComponent>, // Inyección de MatDialogRef
     public dialog: MatDialog
   ) { }
 

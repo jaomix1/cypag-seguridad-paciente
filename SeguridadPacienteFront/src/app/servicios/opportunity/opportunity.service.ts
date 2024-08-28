@@ -66,4 +66,18 @@ export class OpportunityService extends BaseService {
         catchError(this.errorMgmt)
       );
   }
+
+  addOportunitiesById(id: string, data: any) {
+    return this.http
+      .post<any>(this._baseUrl + this.apiUrl + id, data)
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('Oportunidades agregadas correctamente');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
+  }
+
 }
