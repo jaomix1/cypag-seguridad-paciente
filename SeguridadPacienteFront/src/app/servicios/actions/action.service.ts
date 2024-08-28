@@ -39,6 +39,20 @@ export class ActionService extends BaseService {
             );
     }
 
+
+    createFollow(id: any, data: any): Observable<any> {
+        return this.http
+            .post<any>(this._baseUrl + this.apiUrl + "create/seguimiento/" + id, data)
+            .pipe(
+                map((response) => response),
+                tap((a) => {
+                    this.logs('crear Opportunity');
+                    this.logs(a);
+                }),
+                catchError(this.errorMgmt)
+            );
+    }
+
     //   edit(data: any): Observable<any> {
     //     return this.http
     //       .post<any>(this._baseUrl + this.apiUrl + "actualizar", data)

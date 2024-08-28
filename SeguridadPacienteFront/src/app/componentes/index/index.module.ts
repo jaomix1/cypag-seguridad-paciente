@@ -41,7 +41,7 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
-import { OportunidadesFormComponent } from './oportunidades-form/oportunidades-form.component';
+import { CreateOportunidadesFormComponent } from './oportunidades-de-mejora/create-oportunidades-form/create-oportunidades-form.component';
 import { M5Component } from './investigaciones/m5/m5.component';
 import { P5Component } from './investigaciones/p5/p5.component';
 import { EditOportunidadComponent } from './edit-oportunidad/edit-oportunidad.component';
@@ -49,11 +49,12 @@ import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confi
 import { InfoComponent } from '../info/info.component';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 import { ExportarComponent } from './exportar/exportar.component';
-import { OportunidaMejoraComponent } from './oportunidad-mejora/oportunidad-mejora.component';
-import { EditOportunidadMejoraComponent } from './crud-oportunidad-mejora/edit-oportunidad-mejora/edit-oportunidad-mejora.component';
-import { AccionFormComponent } from './accion-form/accion-form.component';
+import { ListOportunidaMejoraComponent } from './oportunidades-de-mejora/list-oportunidad-mejora/list-oportunidad-mejora.component';
+import { ListPlanAccionComponent } from './planes-de-accion/list-plan-accion/list-plan-accion.component';
 import { ListFollowsComponent } from './list_follows/list-follows.component';
 import { CreateFollowFormComponent } from './create-follow-form/create-follow-form.component';
+import { AggOportunityComponent } from './oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { AccionFormComponent } from './planes-de-accion/accion-form/accion-form.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { CreateFollowFormComponent } from './create-follow-form/create-follow-fo
     NaranjoComponent,
     LondresComponent,
     SelectInvestigacionComponent,
-    OportunidadesFormComponent,
+    CreateOportunidadesFormComponent,
     AccionFormComponent,
     M5Component,
     P5Component,
@@ -75,10 +76,11 @@ import { CreateFollowFormComponent } from './create-follow-form/create-follow-fo
     DialogConfirmacionComponent,
     InfoComponent,
     DialogMainComponent,
-    OportunidaMejoraComponent,
-    EditOportunidadMejoraComponent,
+    ListOportunidaMejoraComponent,
+    ListPlanAccionComponent,
     ListFollowsComponent,
-    CreateFollowFormComponent
+    CreateFollowFormComponent,
+    AggOportunityComponent
   ],
   imports: [
     CommonModule,

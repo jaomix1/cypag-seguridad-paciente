@@ -11,7 +11,6 @@ import { DialogConfirmacionComponent } from '../../dialog-confirmacion/dialog-co
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { DetallesService } from 'src/app/servicios/Detalles/detalles.service';
-import { OportunidadesFormComponent } from '../oportunidades-form/oportunidades-form.component';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { map, startWith } from 'rxjs/operators';
@@ -23,6 +22,7 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { environment } from 'src/environments/environment';
 import { InfoComponent } from '../../info/info.component';
+import { AggOportunityComponent } from '../oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-detalles',
@@ -57,7 +57,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     Triada_Genero_Dano: new FormControl(null, [Validators.required]),
     Triada_Atencion_Salud: new FormControl(null, [Validators.required]),
     Tipo_Detalle: new FormControl(null, [Validators.required]),
-    Novedad_Id: new FormControl(null, [Validators.required]),
+    Novedad_Causa: new FormControl(null, [Validators.required]),
     Tipo_Novedad: new FormControl(null, [Validators.required]),
     Clasificacion_Reporte_Id: new FormControl(null, [Validators.required]),
     Responsables: new FormControl(null, [Validators.required]),
@@ -94,10 +94,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
         this.Alldata = req;
         this.data = req.Master;
         console.log('easdasd', this.Alldata)
-        if (this.Alldata.Detalle) {
-          this.form.controls['Tipo_Novedad'].setValue(this.Alldata.Detalle.Tipo_Novedad);
-          this.form.controls['Clasificacion_Reporte_Id'].setValue(this.Alldata.Detalle.Clasificacion_Reporte_Id);
-        }
         if (req.Detalle) {
           this.realizado = true;
           this.form.disable()
@@ -118,6 +114,9 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
         this.form.controls['Triada_Involuntario'].setValue(req.Triada_Involuntario);
         this.form.controls['Triada_Genero_Dano'].setValue(req.Triada_Genero_Dano);
         this.form.controls['Triada_Atencion_Salud'].setValue(req.Triada_Atencion_Salud);
+        this.form.controls['Tipo_Novedad'].setValue(this.Alldata.Detalle.Tipo_Novedad);
+        this.cargaCausas(this.Alldata.Detalle.Tipo_Novedad);
+        this.form.controls['Clasificacion_Reporte_Id'].setValue(this.Alldata.Detalle.Clasificacion_Reporte_Id);
         this.type = req.Tipo_Detalle;
         this.form.controls['Tipo_Detalle'].setValue(req.Tipo_Detalle);
         let arr = req.Responsables.split(';');
@@ -299,7 +298,7 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
   }
 
   mejoras() {
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,
@@ -361,6 +360,9 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
       console.log('el id es: ', id, 'y la resp es: ', data)
       this.causas = data;
       this.causas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+      if (this.Alldata?.Detalle?.Novedad_Causa) {
+        this.form.controls['Novedad_Causa'].setValue(this.Alldata.Detalle.Novedad_Causa);
+      }
     });
   }
 

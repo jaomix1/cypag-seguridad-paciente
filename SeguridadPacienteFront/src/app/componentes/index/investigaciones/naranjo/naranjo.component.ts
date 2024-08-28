@@ -1,10 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {FormBuilder,FormControl,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { OportunidadesFormComponent } from '../../oportunidades-form/oportunidades-form.component';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -39,26 +39,26 @@ export class NaranjoComponent implements OnInit {
     Evento_Adverso_Estado: new FormControl(''),
   });
   realizado: boolean = false;
-  naranjo:any;
+  naranjo: any;
 
   ngOnInit(): void {
-    
-    if (this.data.all_data.Naranjo != null){
+
+    if (this.data.all_data.Naranjo != null) {
       this.naranjo = this.data.all_data.Naranjo;
       this.realizado = true;
       this.setData();
       this.form.disable();
-    }else{
+    } else {
       this.realizado = false;
     }
   }
 
   submit() {
     this.form.controls['Id_Detalle'].setValue(this.data?.id_detalle);
-    
+
     if (this.form.valid) {
       this.NaranjoService.send(this.form.value).subscribe({
-        next: (req:any) => {
+        next: (req: any) => {
           this.mainService.showToast('Guardado Correctamente');
           this.realizado = true;
           this.form.disable();
@@ -79,50 +79,50 @@ export class NaranjoComponent implements OnInit {
     return this.mainService.checkInput(this.form, nameInput);
   }
 
-  cancelar(){
+  cancelar() {
     this.dialogRef.close();
   }
 
-  tipo(option: string){
-    if(!this.realizado){
+  tipo(option: string) {
+    if (!this.realizado) {
       this.dialog.open(DialogConfirmacionComponent, {
         disableClose: true,
         width: '300px',
-        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+        data: { message: '¿Estas seguro de escoger el tipo: ' + option + '?' }
       })
-      .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if(confirmado){
-          this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
+            this.form.controls['Evento_Adverso_Tipo'].setValue(option);
+          }
         }
-      }
-    );
-    }else{
+        );
+    } else {
       this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
   }
 
-  estado(option: string){
-    if(!this.realizado){
+  estado(option: string) {
+    if (!this.realizado) {
       this.dialog.open(DialogConfirmacionComponent, {
         disableClose: true,
         width: '300px',
-        data: {message: '¿Estas seguro de escoger el tipo: '+ option +'?'}
+        data: { message: '¿Estas seguro de escoger el tipo: ' + option + '?' }
       })
-      .afterClosed()
-      .subscribe((confirmado: Boolean) => {
-        if(confirmado){
-          this.form.controls['Evento_Adverso_Estado'].setValue(option);
+        .afterClosed()
+        .subscribe((confirmado: Boolean) => {
+          if (confirmado) {
+            this.form.controls['Evento_Adverso_Estado'].setValue(option);
+          }
         }
-      }
-    );
-    }else{
+        );
+    } else {
       this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
   }
 
-  mejoras(){
-    const dialogRef = this.dialog.open(OportunidadesFormComponent, {
+  mejoras() {
+    const dialogRef = this.dialog.open(AggOportunityComponent, {
       width: '100%',
       height: '100%',
       disableClose: false,
@@ -132,7 +132,7 @@ export class NaranjoComponent implements OnInit {
     });
   }
 
-  setData(){
+  setData() {
     this.form.controls['Naranjo_1'].setValue(this.naranjo.Naranjo_1);
     this.form.controls['Naranjo_2'].setValue(this.naranjo.Naranjo_2);
     this.form.controls['Naranjo_3'].setValue(this.naranjo.Naranjo_3);
@@ -148,17 +148,17 @@ export class NaranjoComponent implements OnInit {
     this.form.controls['Evento_Adverso_Estado'].setValue(this.naranjo.Evento_Adverso_Estado);
   }
 
-  borrar(){
+  borrar() {
     this.NaranjoService.borrar(this.data?.id_detalle).subscribe({
-      next: (req:any) => {
-        
+      next: (req: any) => {
+
         this.form.reset();
         this.mainService.showToast('Eliminado Correctamente');
         this.realizado = false;
         this.form.enable();
       },
       error: (err: string) => {
-        
+
         this.mainService.showToast(err, 'error');
       },
       complete: () => {

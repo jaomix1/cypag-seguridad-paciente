@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OportunidadesFormComponent } from './oportunidades-form.component';
+import { OportunidadesFormComponent } from './create-oportunidades-form.component';
 
 describe('OportunidadesFormComponent', () => {
   let component: OportunidadesFormComponent;
@@ -8,9 +8,9 @@ describe('OportunidadesFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ OportunidadesFormComponent ]
+      declarations: [OportunidadesFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

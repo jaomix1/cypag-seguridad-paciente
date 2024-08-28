@@ -99,13 +99,13 @@
       <h2>Causa</h2>
       <div class="col">
         <mat-form-field class="full-width" appearance="outline">
-          <mat-select placeholder="Tipo de novedad" formControlName="Novedad_Id">
+          <mat-select placeholder="Causa" formControlName="Novedad_Causa">
             <mat-option *ngFor="let data of causas" [value]="data.Id">
               {{ data.Descripcion }}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="validate('Novedad_Id')">
-            {{ check('Novedad_Id') }}
+          <mat-error *ngIf="validate('Novedad_Causa')">
+            {{ check('Novedad_Causa') }}
           </mat-error>
         </mat-form-field>
       </div>

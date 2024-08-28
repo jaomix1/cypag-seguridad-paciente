@@ -1,0 +1,10 @@
+.full-width {
+    width: 100%;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+}

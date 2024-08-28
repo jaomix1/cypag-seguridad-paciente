@@ -10,11 +10,11 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 
 @Component({
-  selector: 'app-oportunidades-form',
-  templateUrl: './oportunidades-form.component.html',
-  styleUrls: ['./oportunidades-form.component.css']
+  selector: 'app-create-oportunidades-form',
+  templateUrl: './create-oportunidades-form.component.html',
+  styleUrls: ['./create-oportunidades-form.component.css']
 })
-export class OportunidadesFormComponent implements OnInit {
+export class CreateOportunidadesFormComponent implements OnInit {
   @ViewChild(MatTable) table!: MatTable<any>;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   dataSource: any;
@@ -29,7 +29,7 @@ export class OportunidadesFormComponent implements OnInit {
     public OpportunityService: OpportunityService,
     public UsersService: ResponsableService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
-    public dialogRef: MatDialogRef<OportunidadesFormComponent>,) {
+    public dialogRef: MatDialogRef<CreateOportunidadesFormComponent>,) {
     this.masterId = guid;
   }
 

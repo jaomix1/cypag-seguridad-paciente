@@ -32,30 +32,28 @@ export class CreateFollowFormComponent implements OnInit {
 
     form = new FormGroup({
         Seguimiento: new FormControl(null, [Validators.maxLength(500), Validators.required]),
-        UsuarioCreacionId: new FormControl(null, [Validators.required]),
-        FechaCreacion: new FormControl(this.maxDate),
     });
 
 
     ngOnInit(): void {
-        this.getResponsables();
+        // this.getResponsables();
         // this.getDetailOportunity();
     }
 
-    getResponsables() {
-        this.UsersService.get().subscribe({
-            next: (req) => {
-                this.responsables = req;
-            },
-            error: (err: string) => {
-                this.mainService.showToast(err, 'error');
-            }
-        });
-    }
+    // getResponsables() {
+    //     this.UsersService.get().subscribe({
+    //         next: (req) => {
+    //             this.responsables = req;
+    //         },
+    //         error: (err: string) => {
+    //             this.mainService.showToast(err, 'error');
+    //         }
+    //     });
+    // }
 
     submit() {
         if (this.form.valid) {
-            this.ActionService.create(this.data, this.form.value).subscribe({
+            this.ActionService.createFollow(this.data, this.form.value).subscribe({
                 next: (req: any) => {
                     this.mainService.showToast('Accion creada con exito', 'success');
                     this.dialogRef.close()
