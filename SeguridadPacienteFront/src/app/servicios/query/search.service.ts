@@ -15,22 +15,22 @@ export class QueryService extends BaseService {
     super(baseUrl);
   }
 
-  getAll(data:any): Observable<any> {
+  getAll(data: any): Observable<any> {
     return this.http
-    .post<any>(this._baseUrl + this.apiUrl + "registros", data)
-    .pipe(
-      map((response) => response),
-      tap((a) => {
-        this.logs('Buscar todos registros');
-        this.logs(a);
-      }),
-      catchError(this.errorMgmt)
-    );
+      .post<any>(this._baseUrl + this.apiUrl + "registrosV2", data)
+      .pipe(
+        map((response) => response),
+        tap((a) => {
+          this.logs('Buscar todos registros');
+          this.logs(a);
+        }),
+        catchError(this.errorMgmt)
+      );
   }
 
   get(id: string): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "det-inv", {Id_Master: id})
+      .post<any>(this._baseUrl + this.apiUrl + "det-inv", { Id_Master: id })
       .pipe(
         map((response) => response),
         tap((a) => {

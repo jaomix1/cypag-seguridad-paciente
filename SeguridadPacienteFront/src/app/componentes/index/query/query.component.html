@@ -84,7 +84,7 @@
 </form>
 
 <div class="mat-elevation-z8" *ngIf="this.dataSource.data.length > 0">
-    <table mat-table [dataSource]="dataSource" matSort #empTbSort="matSort" matSortActive="Resuelto"
+    <table mat-table [dataSource]="dataSource" matSort #empTbSort="matSort" matSortActive="Oportunidades"
         matSortDirection="asc" (matSortChange)="announceSortChange($event)" aria-label="Elements">
 
         <ng-container matColumnDef="Codigo">
@@ -94,17 +94,17 @@
 
         <ng-container matColumnDef="Fecha_Creacion">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha del Registro</th>
-            <td mat-cell *matCellDef="let row">{{row.Fecha_Creacion | date:'dd/MM/yyyy H:mm'}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Fecha_Creacion | date:'yyyy-MM-dd H:mm'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Fecha_Incidente">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Incidente</th>
-            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'dd/MM/yyyy H:mm'}}</td>
+            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'yyyy-MM-dd H:mm'}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Nombre_Paciente">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Nombre</th>
-            <td mat-cell *matCellDef="let row">{{row.Nombre_Paciente | uppercase}}</td>
+            <td mat-cell *matCellDef="let row" class="ellipsis">{{row.Nombre_Paciente | uppercase}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Numero_Id">
@@ -119,7 +119,7 @@
 
         <ng-container matColumnDef="Novedad">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>Novedad</th>
-            <td mat-cell *matCellDef="let row">{{row.Novedad}}</td>
+            <td mat-cell *matCellDef="let row" class="ellipsis">{{row.Novedad}}</td>
         </ng-container>
 
         <ng-container matColumnDef="Oportunidades">
@@ -127,16 +127,16 @@
             <td mat-cell *matCellDef="let row" align="center">{{ row.Oportunidades}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="Resuelto">
+        <!-- <ng-container matColumnDef="Resuelto">
             <th mat-header-cell *matHeaderCellDef mat-sort-header>%</th>
             <td mat-cell *matCellDef="let row" align="right">{{ row.Resuelto | percent }}</td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="accion">
             <th mat-header-cell *matHeaderCellDef> Acciones </th>
             <td mat-cell *matCellDef="let row">
-                <button mat-raised-button color="primary" (click)="detalles(row.Id)">Detalles</button>
-                <button mat-stroked-button color="accent" (click)="Oportunidades(row.Id)">Oportunidades</button>
+                <button mat-raised-button color="primary" class="my-1" (click)="detalles(row.Id)">Detalles</button>
+                <button mat-stroked-button color="accent" class="my-1" (click)="Oportunidades(row.Id)">Oportunidades</button>
             </td>
         </ng-container>
 

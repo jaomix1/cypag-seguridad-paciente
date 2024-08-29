@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 /* eslint-disable no-param-reassign */
@@ -8,6 +9,8 @@ const fs = require("fs");
 const path = require("path");
 const AdmZip = require("adm-zip");
 const { Op } = require("sequelize");
+const sql = require("mssql");
+const dotenv = require("dotenv");
 const EmpresasModel = require("../../models/combos/empresas");
 const SedesModel = require("../../models/combos/sedes");
 const ServiciosModel = require("../../models/combos/servicios");
@@ -22,6 +25,18 @@ const MasterModel = require("../../models/forms/master");
 const OportunidadesMejoraModel = require("../../models/forms/oportunidadesMejora");
 const ResponsablesModel = require("../../models/combos/responsables");
 const NovedadCausaModel = require("../../models/combos/novedadCausa");
+
+dotenv.config();
+const config = {
+  user: process.env.USER,
+  password: process.env.PASS,
+  server: process.env.SERVER_SQL,
+  database: process.env.BDLogin,
+  options: {
+    encrypt: false,
+    enableArithAbort: true,
+  },
+};
 
 // #### FORMULARIO MASTER ####
 exports.createEntry = async (req, res) => {
@@ -92,10 +107,41 @@ exports.getAnswers = async (req, res) => {
         attributes: ["Porcentaje_Mejora"],
       }],
     });
+
+    console.log(answers.length);
     return res.status(200).json(answers);
   } catch (err) {
     // Implementar Error Responses
     return res.status(503).send("No fue posible consultar la tabla: ", err);
+  }
+};
+
+exports.getAnswers2 = async (req, res) => {
+  const { Start_Date, End_Date } = req.body;
+  const Start_Date_F = Start_Date ? Start_Date.split("T")[0] : null;
+  const End_Date_F = End_Date ? End_Date.split("T")[0] : null;
+  const Codigo = req.body.Codigo !== "" ? req.body.Codigo : null;
+  const Numero_Id = req.body.Numero_Id !== "" ? req.body.Numero_Id : null;
+  const Tipo_Novedad = req.body.Tipo_Novedad !== "" ? req.body.Tipo_Novedad : null;
+  const Empresa = req.body.Empresa !== "" ? req.body.Empresa : null;
+  const Sede = req.body.Sede !== "" ? req.body.Sede : null;
+  try {
+    const pool = await sql.connect(config);
+    // Stored procedure
+    const result2 = await pool.request()
+      .input("Codigo", sql.VarChar, Codigo)
+      .input("Numero_Id", sql.Int, Numero_Id)
+      .input("Tipo_Novedad", sql.Int, Tipo_Novedad)
+      .input("Empresa", sql.Int, Empresa)
+      .input("Sede", sql.Int, Sede)
+      .input("Start_Date_F", sql.Date, Start_Date_F)
+      .input("End_Date_F", sql.Date, End_Date_F)
+      .execute("SeguridadPaciente.dbo.getAllMaster");
+    // eslint-disable-next-line max-len
+    console.log(result2.recordsets[0].length);
+    res.status(200).send(result2.recordsets[0]);
+  } catch (err) {
+    res.status(400).send(`${err} ${req.body}`);
   }
 };
 

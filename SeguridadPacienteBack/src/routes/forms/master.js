@@ -6,6 +6,7 @@ const { seguridad } = require("../../middleware/seguridad");
 
 const {
   getAnswers,
+  getAnswers2,
   createEntry,
   getAllData,
   fileUpload,
@@ -27,6 +28,9 @@ router.route("/det-inv")
 
 router.route("/registros")
   .post(seguridad, getAnswers);
+
+router.route("/registrosV2")
+  .post(seguridad, getAnswers2);
 
 router.route("/mejoras")
   .post(seguridad, createMejora);

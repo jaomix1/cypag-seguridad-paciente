@@ -23,8 +23,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('empTbSort') sort!: MatSort;
 
-  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente', 'Numero_Id', 'Sede', 'Novedad', 'Oportunidades', 'Resuelto', 'accion'];
-  //displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente' ];
+  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente', 'Numero_Id', 'Sede', 'Novedad', 'Oportunidades', 'accion'];
 
   novedades: Combo[] = [];
   empresas: Combo[] = [];
@@ -133,10 +132,10 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
                 Fecha_Incidente: c.Fecha_Incidente + " " + c.Hora_Incidente,
                 Nombre_Paciente: c.Nombre_Paciente,
                 Numero_Id: c.Numero_Id,
-                Sede: c.Sede_Join.Descripcion,
-                Novedad: c.Tipo_Novedad_Join.Descripcion,
-                Oportunidades: (this.calcularProcesadas(c.Op_Mejora_Join) + "/" + c.Op_Mejora_Join.length),
-                Resuelto: this.calcularPorcentaje(c.Op_Mejora_Join)
+                Sede: c.Sede,
+                Novedad: c.Novedad,
+                Oportunidades: c.Oportunidades,
+                //Resuelto: 0//this.calcularPorcentaje(c.Op_Mejora_Join)
               }
             });
           console.log('esta es la data', data)
