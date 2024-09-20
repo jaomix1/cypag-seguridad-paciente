@@ -108,7 +108,6 @@ exports.getAnswers = async (req, res) => {
       }],
     });
 
-    console.log(answers.length);
     return res.status(200).json(answers);
   } catch (err) {
     // Implementar Error Responses
@@ -138,7 +137,6 @@ exports.getAnswers2 = async (req, res) => {
       .input("End_Date_F", sql.Date, End_Date_F)
       .execute("SeguridadPaciente.dbo.getAllMaster");
     // eslint-disable-next-line max-len
-    console.log(result2.recordsets[0].length);
     res.status(200).send(result2.recordsets[0]);
   } catch (err) {
     res.status(400).send(`${err} ${req.body}`);

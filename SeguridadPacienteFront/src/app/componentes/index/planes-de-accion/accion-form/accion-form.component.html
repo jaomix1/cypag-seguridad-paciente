@@ -1,5 +1,5 @@
 <form novalidate (ngSubmit)="submit()" [formGroup]="form">
-    <h2> <b> Agregar accion a {{this.idOportunity}}</b></h2>
+    <h2> <b> Agregar nuevo plan de accion</b></h2>
     <div class="row">
         <div class="col">
             <mat-form-field class="full-width" appearance="outline">
@@ -12,7 +12,7 @@
         </div>
         <div class="col">
             <mat-form-field class="full-width" appearance="outline">
-                <mat-select placeholder="Responsable" formControlName="Responsable">
+                <mat-select placeholder="Responsable" formControlName="Responsable" required>
                     <mat-option *ngFor="let data of responsables" [value]="data.Id">
                         {{ data.NombreCompleto }}
                     </mat-option>

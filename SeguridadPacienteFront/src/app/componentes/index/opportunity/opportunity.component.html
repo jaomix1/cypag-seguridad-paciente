@@ -4,7 +4,7 @@
             <h1 class="text-center">Estas son tus oporunidades actuales</h1>
             <div class="d-flex flex-row gap-2">
                 <button mat-raised-button color="primary" (click)="option = 'new'">Nuevas</button>
-                <button mat-raised-button color="primary" (click)="option = 'old'">Viejas</button>
+                <button mat-raised-button color="primary" (click)="option = 'old'">Antiguas</button>
             </div>
         </div>
         <ng-container *ngIf="option === 'new'">
@@ -46,7 +46,7 @@
                 </ng-container>
                 <ng-container matColumnDef="accion">
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
-                    <td mat-cell *matCellDef="let row"> 
+                    <td mat-cell *matCellDef="let row">
                         <!-- <button mat-raised-button color="primary" (click)="openDetail(row.Id)">Ver detalles</button> -->
                     </td>
                 </ng-container>
