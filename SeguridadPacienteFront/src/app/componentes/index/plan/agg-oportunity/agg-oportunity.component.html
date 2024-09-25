@@ -3,17 +3,17 @@
 </ng-container>
 <ng-container *ngIf="!loadingMain">
     <div class="container-fluid">
-        <h1 class="text-center fw-semibold">Agregar oportunidades de mejora</h1>
+        <h1 class="text-center fw-semibold">Asociar quejas a plan</h1>
         <div class="row py-2">
             <div class="col-12 col-md-6">
-                <form novalidate (ngSubmit)="submit()" [formGroup]="form">
+                <form novalidate (ngSubmit)="getAllQuejas()" [formGroup]="form">
                     <div class="card">
                         <div class="card-body">
                             <div class="row my-2">
                                 <div class="col-12">
-                                    <h2>Filtra una oportunidad de mejora</h2>
+                                    <h2>Filtra quejas</h2>
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <div class="col-12 col-md-12">
                                     <mat-form-field appearance="outline">
                                         <mat-label>Ingresa la fecha</mat-label>
                                         <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
@@ -27,7 +27,7 @@
                                         <mat-date-range-picker picker #picker></mat-date-range-picker>
                                     </mat-form-field>
                                 </div>
-                                <div class="col-12 col-md-4">
+                                <!--  <div class="col-12 col-md-4">
                                     <mat-form-field class="full-width" appearance="outline">
                                         <mat-label>Descripcion</mat-label>
                                         <input matInput placeholder="Descripcion" formControlName="Descripcion"
@@ -48,7 +48,7 @@
                                             {{ check('Descripcion') }}
                                         </mat-error>
                                     </mat-form-field>
-                                </div>
+                                </div> -->
                                 <div class="row">
                                     <div class="col">
                                         <button mat-raised-button color="warn" [disabled]="loadingMain" type="button"
@@ -63,45 +63,36 @@
                         </div>
                     </div>
                 </form>
-                <ng-container *ngIf="datos.length>0">
-                    <h2 class="fw-semibold mt-3">Listada de oportunidades</h2>
+                <ng-container *ngIf="datos.length > 0">
                     <table mat-table class="full-width" [dataSource]="datos" matSort aria-label="Elements">
-                        <ng-container matColumnDef="Responsable">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
-                            <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+                        <ng-container matColumnDef="Empresa">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
+                            <td mat-cell *matCellDef="let row">{{row.Empresa}}</td>
                         </ng-container>
-                        <ng-container matColumnDef="Descripcion">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Oportunidad</th>
-                            <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
+                        <ng-container matColumnDef="Sede">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
+                            <td mat-cell *matCellDef="let row">{{row.Sede}}</td>
                         </ng-container>
-                        <ng-container matColumnDef="Fecha">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha</th>
-                            <td mat-cell *matCellDef="let row">{{row.FechaCreacion | date:'YYY-MM-dd'}}</td>
-                        </ng-container>
-                        <ng-container matColumnDef="Porcentaje_Mejora">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>porcentaje</th>
-                            <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
+                        <ng-container matColumnDef="Fecha Incidente">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Incidente</th>
+                            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
                         </ng-container>
                         <ng-container matColumnDef="accion">
                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
                             <td mat-cell *matCellDef="let row">
-                                <button mat-raised-button *ngIf="row.Porcentaje_Mejora<100" color="primary"
-                                    (click)="addOportunityToTable(row)">Agregar</button>
+                                <button mat-raised-button color="primary"
+                                    (click)="addQuejaToTable(row)">Agregar</button>
                             </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                     </table>
-                    <!-- <div *ngIf="totalObjects > 0">
+                    <div *ngIf="totalObjects > 0">
                         <mat-paginator #paginator showFirstLastButtons [length]="totalObjects" [pageIndex]="pageIndex"
                             [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
                             (page)="pageEvent($event)">
                         </mat-paginator>
-                    </div> -->
-                </ng-container>
-                <ng-container *ngIf="datos.length===0">
-                    <h3 class="mt-4">No hay oportunidades de mejoras creadas</h3>
-                    <button mat-raised-button color="primary" routerLink="/admin/usuarios">Crear una</button>
+                    </div>
                 </ng-container>
             </div>
             <div class="col-12 col-md-6">
@@ -112,25 +103,25 @@
                             <table class="table table-striped w-100">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Oportunidad</th>
-                                        <th scope="col">Responsable</th>
-                                        <th scope="col">Porcentaje</th>
+                                        <th scope="col">Empresa</th>
+                                        <th scope="col">Sede</th>
+                                        <th scope="col">Fecha Incidente</th>
                                         <th scope="col">Acciones</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of datos2; let i = index">
-                                        <td>{{item.Descripcion}}</td>
-                                        <td>{{item.Responsable}}</td>
-                                        <td>{{item.Porcentaje_Mejora}} %</td>
+                                        <td>{{item.Empresa}}</td>
+                                        <td>{{item.Sede}}</td>
+                                        <td>{{item.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
                                         <td>
-                                            <button class="btn btn-danger" (click)="elimiarFromTable(i)">
+                                            <!-- <button class="btn btn-danger" (click)="elimiarFromTable(i)">
                                                 <svg xmlns="http://www.w3.org/2000/svg" height="24px"
                                                     viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
                                                     <path
                                                         d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
                                                 </svg>
-                                            </button>
+                                            </button> -->
                                         </td>
                                     </tr>
                                 </tbody>

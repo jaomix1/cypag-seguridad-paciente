@@ -1,5 +1,5 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { AfterViewInit, Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { FormControl, FormGroup, Validators, } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -8,65 +8,69 @@ import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.se
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { BaseFormComponent } from '../../../baseComponent';
-import { TablaItem } from '../../demos/tabla/tabla-datasource';
+import { TablaItem, TablaDataSource } from '../../demos/tabla/tabla-datasource';
+import { ListPlanAccionComponent } from '../../accion/list-plan-accion/list-plan-accion.component';
+import { CreateOportunidadesFormComponent } from '../create-oportunidades-form/create-oportunidades-form.component';
+import { AccionFormComponent } from '../../accion/accion-form/accion-form.component';
+import { AggOportunityComponent } from '../agg-oportunity/agg-oportunity.component';
 
 @Component({
-    selector: 'app-agg-oportunity',
-    templateUrl: './agg-oportunity.component.html',
-    styleUrls: ['./agg-oportunity.component.css']
+    selector: 'app-list-oportunidad-mejora',
+    templateUrl: './list-oportunidad-mejora.html',
+    styleUrls: ['./list-oportunidad-mejora.css']
 })
-export class AggOportunityComponent extends BaseFormComponent implements OnInit {
+export class ListOportunidaMejoraComponent extends BaseFormComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator!: MatPaginator;
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
     displayedColumns = ['Descripcion', 'Responsable', 'Fecha', 'Porcentaje_Mejora', 'accion'];
-    displayedColumns2 = ['index', 'Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
+
     datos: any = [];
-    datos2: any = [];
     responsables: any = [];
+    private masterId: string = "9620C3D4-8420-47EE-B6DC-70923A9ED0B6";
     totalObjects: number = 0;
     pageIndex: number = 0;
     pageSize: number = 5;
     maxDate: Date;
-    oportunidad: any = [];
+
 
     form = new FormGroup({
-        Page: new FormControl(0),
-        RowsByPag: new FormControl(5),
+        Page: new FormControl(this.pageIndex),
+        RowsByPag: new FormControl(this.pageSize),
         Start_Date: new FormControl(null),
         End_Date: new FormControl(null),
         Descripcion: new FormControl(null),
         Responsable: new FormControl(null),
     });
 
+
+
     constructor(
         private OpportunityService: OpportunityService,
         public mainService: MainService,
         public UsersService: ResponsableService,
-        @Inject(MAT_DIALOG_DATA) public id: string,
+        // @Inject(MAT_DIALOG_DATA) public guid: string,
         public dialog: MatDialog) {
         super();
+        this.submit();
         this.maxDate = new Date();
     }
 
     ngOnInit(): void {
-        this.getAllOportunity();
-        this.getOpportunitiesById();
         this.getResponsables();
 
     }
 
-    getAllOportunity(): void {
+    submit(): void {
         this.loadingMain = true;
         this.OpportunityService.getAll(this.form.value).subscribe({
             next: (req: any) => {
-                this.totalObjects = req.count
                 this.datos = req.data;
-                console.log(this.datos);
+                this.totalObjects = req.count
                 this.loadingMain = false;
-                if (this.datos.length < 1) {
+                if (this.datos.length === 0) {
                     this.mainService.showToast("No se han encontrado oportunidades de mejoras para esta solicitud", 'error');
                 }
             },
@@ -76,22 +80,6 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
             },
             complete: () => {
                 this.loadingMain = false;
-            }
-        });
-    }
-
-
-    getOpportunitiesById() {
-        this.loading = true;
-        this.OpportunityService.getOpportunitiesCurrent(this.id).subscribe({
-            next: (res: any) => {
-                console.log(res);
-                this.datos2 = res.news;
-                this.loading = false;
-            },
-            error: (err: string) => {
-                this.mainService.showToast(err, 'error');
-                this.loading = false;
             }
         });
     }
@@ -111,31 +99,6 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         });
     }
 
-    submit() {
-        this.OpportunityService.addOportunitiesById(this.id, this.datos2).subscribe((res: any) => {
-            this.getAllOportunity();
-            this.mainService.showToast('Agregadas correctamente');
-        }, error => console.log(error))
-    }
-
-    addOportunityToTable(object: any) {
-        this.loanding2 = true;
-        console.log(object);
-        if (this.datos2.filter((oportunity: any) => oportunity.Id === object.Id).length === 0) {
-            this.datos2.push(object);
-        } else {
-            this.mainService.showToast('Esta oportunidad ya habia sido agregada', 'error');
-        }
-        this.loanding2 = false;
-    }
-
-    elimiarFromTable(id: number) {
-        this.loanding2 = true;
-        this.datos2.splice(id, 1)
-        this.loanding2 = false;
-    }
-
-
     pageEvent(event: any) {
         this.pageIndex = event.pageIndex
         this.pageSize = event.pageSize
@@ -152,7 +115,61 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         this.form.get('End_Date')?.setValue(null)
         this.form.get('Page')?.setValue(this.pageIndex)
         this.form.get('RowsByPag')?.setValue(this.pageSize)
-        this.getAllOportunity();
+        this.submit();
+    }
+
+    openDetail(guid: any) {
+        const dialogRef = this.dialog.open(ListPlanAccionComponent, {
+            width: '70%',
+            height: '100%',
+            data: guid,
+            disableClose: true
+
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+            this.submit();
+
+        });
+    }
+
+    aggAccion(guid: any) {
+        const dialogRef = this.dialog.open(AccionFormComponent, {
+            width: '100%',
+            height: '100%',
+            data: guid,
+            disableClose: true
+
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+            this.submit();
+
+        });
+    }
+
+    newMejora() {
+        const dialogRef = this.dialog.open(CreateOportunidadesFormComponent, {
+            width: '100%',
+            height: '100%',
+            disableClose: true
+            ,
+            data: this.masterId
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+            this.submit();
+
+        });
+    }
+
+    asociar(guid: any) {
+        const dialogRef = this.dialog.open(AggOportunityComponent, {
+            width: '100%',
+            height: '100%',
+            disableClose: true
+            ,
+            data: guid
+        });
+        dialogRef.afterClosed().subscribe((result: any) => {
+        });
     }
 
     validate(nameInput: string) {

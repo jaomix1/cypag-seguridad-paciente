@@ -193,6 +193,18 @@
   </div>
   <div class="row">
     <div class="col">
+      <mat-label> Requiere oportunidad de mejora?</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Oportunidad_Mejora">
+          <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
       <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
     </div>
     <div class="col" *ngIf="!realizado">
@@ -204,7 +216,7 @@
   <!-- <div class="col" *ngIf="realizado">
     <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
   </div> -->
-  <div class="col">
+  <!-- <div class="col">
     <button type='button' mat-raised-button class="bg-secondary" (click)="mejoras()">Oportunidades Mejoras</button>
-  </div>
+  </div> -->
 </div>

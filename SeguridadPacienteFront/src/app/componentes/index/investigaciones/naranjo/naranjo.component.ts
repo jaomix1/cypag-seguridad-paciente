@@ -4,7 +4,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
-import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -12,6 +12,9 @@ import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-
   styleUrls: ['./naranjo.component.css']
 })
 export class NaranjoComponent implements OnInit {
+
+  oportunidad_Mejora: boolean = false;
+
   constructor(
     public mainService: MainService,
     public NaranjoService: NaranjoService,
@@ -37,6 +40,7 @@ export class NaranjoComponent implements OnInit {
     Naranjo_Observaciones: new FormControl(''),
     Evento_Adverso_Tipo: new FormControl(''),
     Evento_Adverso_Estado: new FormControl(''),
+    Oportunidad_Mejora: new FormControl('', [Validators.required]),
   });
   realizado: boolean = false;
   naranjo: any;
@@ -45,6 +49,7 @@ export class NaranjoComponent implements OnInit {
 
     if (this.data.all_data.Naranjo != null) {
       this.naranjo = this.data.all_data.Naranjo;
+      this.oportunidad_Mejora = this.data.all_data.Detalle.Oportunidad_Mejora;
       this.realizado = true;
       this.setData();
       this.form.disable();
@@ -62,7 +67,7 @@ export class NaranjoComponent implements OnInit {
           this.mainService.showToast('Guardado Correctamente');
           this.realizado = true;
           this.form.disable();
-          this.mejoras();
+          //this.mejoras();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -121,17 +126,17 @@ export class NaranjoComponent implements OnInit {
     }
   }
 
-  mejoras() {
-    const dialogRef = this.dialog.open(AggOportunityComponent, {
-      width: '100%',
-      height: '100%',
-      disableClose: true
-      ,
-      data: this.data.all_data.Detalle.Id_Master
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-    });
-  }
+  // mejoras() {
+  //   const dialogRef = this.dialog.open(AggOportunityComponent, {
+  //     width: '100%',
+  //     height: '100%',
+  //     disableClose: true
+  //     ,
+  //     data: this.data.all_data.Detalle.Id_Master
+  //   });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //   });
+  // }
 
   setData() {
     this.form.controls['Naranjo_1'].setValue(this.naranjo.Naranjo_1);
@@ -147,6 +152,7 @@ export class NaranjoComponent implements OnInit {
     this.form.controls['Naranjo_Observaciones'].setValue(this.naranjo.Naranjo_Observaciones);
     this.form.controls['Evento_Adverso_Tipo'].setValue(this.naranjo.Evento_Adverso_Tipo);
     this.form.controls['Evento_Adverso_Estado'].setValue(this.naranjo.Evento_Adverso_Estado);
+    this.form.controls['Oportunidad_Mejora'].setValue(this.oportunidad_Mejora);
   }
 
   borrar() {

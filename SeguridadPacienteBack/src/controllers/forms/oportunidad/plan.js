@@ -26,11 +26,11 @@ exports.crearPlan = async (req, res) => {
         const result2 = await pool.request()
             .input("Accion", sql.VarChar, req.body.Accion)
             .input("Responsable", sql.UniqueIdentifier, req.body.Responsable)
-            .input("FechaInicio", sql.DateTime, req.body.FechaInicio)
-            .input("FechaFin", sql.DateTime, req.body.FechaFin)
-            .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
+            // .input("FechaInicio", sql.DateTime, req.body.FechaInicio)
+            // .input("FechaFin", sql.DateTime, req.body.FechaFin)
+            // .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
             .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
-            .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
+            //.input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
             .execute("SeguridadPaciente.dbo.createPlan");
         res.status(200).send(result2.recordsets[0][0]);

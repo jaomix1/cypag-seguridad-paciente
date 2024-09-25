@@ -41,20 +41,19 @@ import { MatNativeDateModule, MAT_DATE_LOCALE } from '@angular/material/core';
 import { NaranjoComponent } from './investigaciones/naranjo/naranjo.component';
 import { LondresComponent } from './investigaciones/londres/londres.component';
 import { SelectInvestigacionComponent } from './investigaciones/select-investigacion/select-investigacion.component';
-import { CreateOportunidadesFormComponent } from './oportunidades-de-mejora/create-oportunidades-form/create-oportunidades-form.component';
+import { CreateOportunidadesFormComponent } from './plan/create-oportunidades-form/create-oportunidades-form.component';
 import { M5Component } from './investigaciones/m5/m5.component';
 import { P5Component } from './investigaciones/p5/p5.component';
 import { DialogConfirmacionComponent } from '../dialog-confirmacion/dialog-confirmacion.component';
 import { InfoComponent } from '../info/info.component';
 import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 import { ExportarComponent } from './exportar/exportar.component';
-import { ListOportunidaMejoraComponent } from './oportunidades-de-mejora/list-oportunidad-mejora/list-oportunidad-mejora.component';
-import { ListPlanAccionComponent } from './planes-de-accion/list-plan-accion/list-plan-accion.component';
+import { ListOportunidaMejoraComponent } from './plan/list-oportunidad-mejora/list-oportunidad-mejora.component';
+import { ListPlanAccionComponent } from './accion/list-plan-accion/list-plan-accion.component';
 import { ListFollowsComponent } from './list_follows/list-follows.component';
 import { CreateFollowFormComponent } from './create-follow-form/create-follow-form.component';
-import { AggOportunityComponent } from './oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
-import { AccionFormComponent } from './planes-de-accion/accion-form/accion-form.component';
-import { EditPlanAccionComponent } from './oportunidades-de-mejora/edit-plan-accion/edit-plan.accion.component';
+import { AggOportunityComponent } from './plan/agg-oportunity/agg-oportunity.component';
+import { AccionFormComponent } from './accion/accion-form/accion-form.component';
 
 @NgModule({
   declarations: [
@@ -80,7 +79,7 @@ import { EditPlanAccionComponent } from './oportunidades-de-mejora/edit-plan-acc
     ListFollowsComponent,
     CreateFollowFormComponent,
     AggOportunityComponent,
-    EditPlanAccionComponent
+
   ],
   imports: [
     CommonModule,

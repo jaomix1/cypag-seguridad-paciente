@@ -9,7 +9,7 @@ import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
-import { ListPlanAccionComponent } from '../planes-de-accion/list-plan-accion/list-plan-accion.component';
+import { ListPlanAccionComponent } from '../accion/list-plan-accion/list-plan-accion.component';
 
 @Component({
   selector: 'app-opportunity',

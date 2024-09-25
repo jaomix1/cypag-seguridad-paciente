@@ -20,7 +20,7 @@ export class AccionFormComponent implements OnInit {
     public idOportunity: string;
     actions: any = [];
     responsables: any = [];
-    maxDate: Date = new Date();
+    minDate: Date = new Date();
 
     //url: string = oportunidadesMejora/create/plan/2F79A711-3BC5-4935-A9AA-D3B6324839E5;
 
@@ -34,15 +34,16 @@ export class AccionFormComponent implements OnInit {
         @Inject(MAT_DIALOG_DATA) public data: string,
         public dialogRef: MatDialogRef<AccionFormComponent>,) {
         this.idOportunity = data;
+        this.minDate = new Date();
     }
 
     form = new FormGroup({
         Accion: new FormControl(null, [Validators.maxLength(500), Validators.required]),
         Responsable: new FormControl(null, [Validators.required]),
-        FechaInicio: new FormControl(null, [Validators.required]),
-        FechaFin: new FormControl(null, [Validators.required]),
-        EvidenciaCierre: new FormControl(null, [Validators.required]),
-        PorcentajeMejora: new FormControl(0),
+        // FechaInicio: new FormControl(null, [Validators.required]),
+        // FechaFin: new FormControl(null, [Validators.required]),
+        //EvidenciaCierre: new FormControl(null, [Validators.required]),
+        //PorcentajeMejora: new FormControl(0),
     });
 
 

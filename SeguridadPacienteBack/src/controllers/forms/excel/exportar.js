@@ -118,6 +118,7 @@ exports.reporte = async (req, res) => {
 
                 workbook.sheet("Sheet1").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Sheet1").column("C").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Sheet1").column("Z").style("numberFormat", "yyyy-mm-dd");
 
                 workbook.sheet("Investigaciones_P5").column("C").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Investigaciones_P5").column("D").style("numberFormat", "yyyy-mm-dd");

@@ -11,6 +11,7 @@ const {
     getOportunidad,
     getAllOportunidadesByMasterId,
     createMasterOpotunidad,
+    getQuejasAsociadasByOportunidadId,
 } = require("../../../controllers/forms/oportunidad/oportunidades2");
 
 router.route("/create")
@@ -25,7 +26,10 @@ router.route("/getOne/:Id")
 router.route("/byMaster/:MasterId")
     .get(seguridad, getAllOportunidadesByMasterId);
 
-router.route("/AsignarAMaster/:MasterId")
+router.route("/byOportunidad/:OportunidadId")
+    .get(seguridad, getQuejasAsociadasByOportunidadId);
+
+router.route("/AsignarAOportunidad/:OportunidadId")
     .post(seguridad, createMasterOpotunidad);
 
 module.exports = router;

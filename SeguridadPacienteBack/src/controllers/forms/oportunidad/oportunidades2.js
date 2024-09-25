@@ -83,6 +83,20 @@ exports.getAllOportunidadesByMasterId = async (req, res) => {
     }
 };
 
+exports.getQuejasAsociadasByOportunidadId = async (req, res) => {
+    try {
+        const pool = await sql.connect(config);
+        // Stored procedure
+        const result2 = await pool.request()
+            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
+            .execute("SeguridadPaciente.dbo.getAllQuejasAsociadasByOportunidadId");
+        // eslint-disable-next-line max-len
+        res.status(200).send(result2.recordsets[0]);
+    } catch (err) {
+        res.status(400).send(`${err} ${req.body}`);
+    }
+};
+
 exports.createMasterOpotunidad = async (req, res) => {
     try {
 
@@ -96,8 +110,8 @@ exports.createMasterOpotunidad = async (req, res) => {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("MasterId", sql.UniqueIdentifier, req.params.MasterId)
-            .input("Oportunidades", table)
+            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
+            .input("Quejas", table)
             .execute("SeguridadPaciente.dbo.createMasterOpotunidad");
         // eslint-disable-next-line max-len
         res.status(200).send({ estado: result2.recordsets[0][0].estado });

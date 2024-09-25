@@ -7,7 +7,7 @@ import { LondresService } from 'src/app/servicios/investigaciones/londres.servic
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
 import { PdfComponent } from '../../../pdf/pdf.component';
 import { InfoComponent } from 'src/app/componentes/info/info.component';
-import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/plan/agg-oportunity/agg-oportunity.component';
 @Component({
   selector: 'app-londres',
   templateUrl: './londres.component.html',
@@ -20,6 +20,7 @@ export class LondresComponent implements OnInit {
   options: any;
   realizado: boolean = false;
   londres: any;
+  oportunidad_Mejora: boolean = false;
 
   form = new FormGroup({
     Id_Detalle: new FormControl(''),
@@ -47,6 +48,7 @@ export class LondresComponent implements OnInit {
     Fase3_Acciones_Segunda: new FormControl('', [Validators.maxLength(255)]),
     Fase3_Preg_Tercera: new FormControl('', [Validators.required]),
     Fase3_Acciones_Tercera: new FormControl('', [Validators.maxLength(255)]),
+    Oportunidad_Mejora: new FormControl('', [Validators.required]),
   });
 
 
@@ -65,9 +67,9 @@ export class LondresComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.data.all_data.Detalle.Id_Master)
     if (this.data.all_data.Londres != null) {
       this.londres = this.data.all_data.Londres;
+      this.oportunidad_Mejora = this.data.all_data.Detalle.Oportunidad_Mejora;
       this.realizado = true;
       this.form.disable()
       this.setData();
@@ -103,6 +105,7 @@ export class LondresComponent implements OnInit {
     this.form.controls['Fase3_Acciones_Segunda'].setValue(this.londres.Fase3_Acciones_Segunda);
     this.form.controls['Fase3_Preg_Tercera'].setValue(this.londres.Fase3_Preg_Tercera);
     this.form.controls['Fase3_Acciones_Tercera'].setValue(this.londres.Fase3_Acciones_Tercera);
+    this.form.controls['Oportunidad_Mejora'].setValue(this.oportunidad_Mejora);
   }
 
   cargaOptions() {
@@ -116,7 +119,7 @@ export class LondresComponent implements OnInit {
         next: (req: any) => {
           this.realizado = true;
           this.form.disable();
-          this.mejoras();
+          //this.mejoras();
           this.mainService.showToast('Guardado Correctamente');
         },
         error: (err: string) => {
@@ -173,29 +176,29 @@ export class LondresComponent implements OnInit {
     }
   }
 
-  mejoras() {
-    const dialogRef = this.dialog.open(AggOportunityComponent, {
-      width: '100%',
-      height: '100%',
-      disableClose: true
-      ,
-      data: this.data.all_data.Detalle.Id_Master
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-    });
-  }
+  // mejoras() {
+  //   const dialogRef = this.dialog.open(AggOportunityComponent, {
+  //     width: '100%',
+  //     height: '100%',
+  //     disableClose: true
+  //     ,
+  //     data: this.data.all_data.Detalle.Id_Master
+  //   });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //   });
+  // }
 
-  pdf() {
-    const dialogRef = this.dialog.open(PdfComponent, {
-      width: '100%',
-      height: '100%',
-      disableClose: true
-      ,
-      data: this.data.all_data
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-    });
-  }
+  // pdf() {
+  //   const dialogRef = this.dialog.open(PdfComponent, {
+  //     width: '100%',
+  //     height: '100%',
+  //     disableClose: true
+  //     ,
+  //     data: this.data.all_data
+  //   });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //   });
+  // }
 
 
   borrar() {

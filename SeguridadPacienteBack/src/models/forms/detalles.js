@@ -25,6 +25,7 @@ DetallesModel.init(
     Tipo_Detalle: { type: DataTypes.STRING(40), allowNull: true },
     Responsables: { type: DataTypes.STRING(500), allowNull: true },
     Novedad_Causa: { type: DataTypes.INTEGER, allowNull: true },
+    Oportunidad_Mejora: { type: DataTypes.BOOLEAN, allowNull: true },
     Estado: {
       type: DataTypes.STRING(3), defaultValue: "ACT", allowNull: false, validate: { isIn: [["ACT", "INA"]] },
     },

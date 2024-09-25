@@ -17,6 +17,7 @@ exports.createInvM5 = async (req, res) => {
       const result = await InvestigacionesM5Model.create(entry);
       await DetallesModel.update({
         Tipo_Investigacion: "Investigaciones_M5",
+        Oportunidad_Mejora: entry.Oportunidad_Mejora,
       }, {
         where: { id: entry.Id_Detalle },
       });
@@ -69,6 +70,7 @@ exports.createInvP5 = async (req, res) => {
       const result = await InvestigacionesP5Model.create(entry);
       await DetallesModel.update({
         Tipo_Investigacion: "Investigaciones_P5",
+        Oportunidad_Mejora: entry.Oportunidad_Mejora,
       }, {
         where: { id: entry.Id_Detalle },
       });
@@ -121,6 +123,7 @@ exports.createInvNaranjo = async (req, res) => {
       const result = await InvestigacionesNaranjoModel.create(entry);
       await DetallesModel.update({
         Tipo_Investigacion: "Investigaciones_Naranjo",
+        Oportunidad_Mejora: entry.Oportunidad_Mejora,
       }, {
         where: { id: entry.Id_Detalle },
       });
@@ -173,6 +176,7 @@ exports.createInvLondres = async (req, res) => {
       const result = await InvestigacionesLondresModel.create(entry);
       await DetallesModel.update({
         Tipo_Investigacion: "Investigaciones_Londres",
+        Oportunidad_Mejora: entry.Oportunidad_Mejora,
       }, {
         where: { id: entry.Id_Detalle },
       });

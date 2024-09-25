@@ -4,10 +4,7 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { MatDialog } from '@angular/material/dialog';
-import { DetallesComponent } from '../detalles/detalles.component';
-import { OpportunityComponent } from '../opportunity/opportunity.component';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
-import { ExportarService } from 'src/app/servicios/exportar/search.service';
 import { ExcelService } from 'src/app/servicios/ExcelService';
 import { environment } from 'src/environments/environment';
 
@@ -31,7 +28,6 @@ export class ExportarComponent extends BaseFormComponent implements OnInit, Afte
   });
 
   constructor(
-    private ExportarService: ExportarService,
     public mainService: MainService,
     private comboService: ComboService,
     public dialog: MatDialog,

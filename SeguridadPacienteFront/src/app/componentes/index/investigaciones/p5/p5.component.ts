@@ -4,7 +4,7 @@ import { MainService } from 'src/app/servicios/main.service';
 import { PqService } from 'src/app/servicios/investigaciones/pq.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { T } from '@angular/cdk/keycodes';
-import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { AggOportunityComponent } from 'src/app/componentes/index/plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-p5',
@@ -12,6 +12,7 @@ import { AggOportunityComponent } from 'src/app/componentes/index/oportunidades-
   styleUrls: ['./p5.component.css']
 })
 export class P5Component implements OnInit {
+  oportunidad_Mejora: boolean = false;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -32,6 +33,7 @@ export class P5Component implements OnInit {
     P5_3: new FormControl(''),
     P5_4: new FormControl(''),
     P5_5: new FormControl(''),
+    Oportunidad_Mejora: new FormControl('', [Validators.required]),
   });
 
 
@@ -39,6 +41,7 @@ export class P5Component implements OnInit {
 
     if (this.data.all_data.P5 != null) {
       this.pq = this.data.all_data.P5;
+      this.oportunidad_Mejora = this.data.all_data.Detalle.Oportunidad_Mejora;
       this.realizado = true;
       this.form.disable();
       this.setData();
@@ -53,6 +56,7 @@ export class P5Component implements OnInit {
     this.form.controls['P5_3'].setValue(this.pq?.P5_3);
     this.form.controls['P5_4'].setValue(this.pq?.P5_4);
     this.form.controls['P5_5'].setValue(this.pq?.P5_5);
+    this.form.controls['Oportunidad_Mejora'].setValue(this.oportunidad_Mejora);
   }
 
   submit() {
@@ -64,7 +68,7 @@ export class P5Component implements OnInit {
           this.mainService.showToast('Guardado Correctamente', 'success');
           this.realizado = true;
           this.form.disable();
-          this.mejoras();
+          //this.mejoras();
         },
         error: (err: string) => {
           this.mainService.showToast(err, 'error');
@@ -103,16 +107,16 @@ export class P5Component implements OnInit {
     this.dialogRef.close();
   }
 
-  mejoras() {
-    const dialogRef = this.dialog.open(AggOportunityComponent, {
-      width: '100%',
-      height: '100%',
-      disableClose: true
-      ,
-      data: this.data.all_data.Detalle.Id_Master
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
-    });
-  }
+  // mejoras() {
+  //   const dialogRef = this.dialog.open(AggOportunityComponent, {
+  //     width: '100%',
+  //     height: '100%',
+  //     disableClose: true
+  //     ,
+  //     data: this.data.all_data.Detalle.Id_Master
+  //   });
+  //   dialogRef.afterClosed().subscribe((result: any) => {
+  //   });
+  // }
 
 }

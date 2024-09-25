@@ -7,8 +7,8 @@ import { QueryComponent } from './query/query.component';
 import { ExportarComponent } from './exportar/exportar.component';
 import { AdminComponent } from '../admin/admin.component';
 import { AccesoAdmin } from 'src/app/control/accesoAdmin';
-import { ListOportunidaMejoraComponent } from './oportunidades-de-mejora/list-oportunidad-mejora/list-oportunidad-mejora.component';
-import { AggOportunityComponent } from './oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { ListOportunidaMejoraComponent } from './plan/list-oportunidad-mejora/list-oportunidad-mejora.component';
+import { AggOportunityComponent } from './plan/agg-oportunity/agg-oportunity.component';
 
 const routes: Routes = [
   {

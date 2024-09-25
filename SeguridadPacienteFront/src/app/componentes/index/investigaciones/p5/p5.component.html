@@ -4,7 +4,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Por qué?</mat-label>
-        <input matInput placeholder="¿Por qué?" formControlName="P5_1" maxlength="50" required>
+        <input matInput placeholder="¿Por qué?" formControlName="P5_1" maxlength="200" required>
         <!-- <mat-error *ngIf="validate('P51')">
           {{ check('P51') }}
         </mat-error> -->
@@ -13,7 +13,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Por qué?</mat-label>
-        <input matInput placeholder="¿Por qué?" formControlName="P5_2" maxlength="50" required>
+        <input matInput placeholder="¿Por qué?" formControlName="P5_2" maxlength="200" required>
         <!-- <mat-error *ngIf="validate('P5_2')">
           {{ check('P5_2') }}
         </mat-error> -->
@@ -24,7 +24,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Por qué?</mat-label>
-        <input matInput placeholder="¿Por qué?" formControlName="P5_3" maxlength="50" required>
+        <input matInput placeholder="¿Por qué?" formControlName="P5_3" maxlength="200" required>
         <!-- <mat-error *ngIf="validate('P5_3')">
           {{ check('P5_3') }}
         </mat-error> -->
@@ -33,7 +33,7 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Por qué?</mat-label>
-        <input matInput placeholder="¿Por qué?" formControlName="P5_4" maxlength="50" required>
+        <input matInput placeholder="¿Por qué?" formControlName="P5_4" maxlength="200" required>
         <!-- <mat-error *ngIf="validate('P5_4')">
           {{ check('P5_4') }}
         </mat-error> -->
@@ -44,13 +44,25 @@
     <div class="col">
       <mat-form-field class="full-width" appearance="outline">
         <mat-label>¿Por qué?</mat-label>
-        <input matInput placeholder="¿Por qué?" formControlName="P5_5" maxlength="50" required>
+        <input matInput placeholder="¿Por qué?" formControlName="P5_5" maxlength="200" required>
         <!-- <mat-error *ngIf="validate('P5_5')">
           {{ check('P5_5') }}
         </mat-error> -->
       </mat-form-field>
     </div>
   </div>
+  <div class="row">
+    <div class="col">
+      <mat-label> Requiere oportunidad de mejora?</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Oportunidad_Mejora">
+          <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+  </div>
+  <br>
   <div class="row">
     <div class="col">
       <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
@@ -64,7 +76,7 @@
   <!-- <div class="col" *ngIf="realizado">
     <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
   </div> -->
-  <div class="col">
+  <!-- <div class="col">
     <button type='button' mat-raised-button class="bg-secondary" (click)="mejoras()">Oportunidades Mejoras</button>
-  </div>
+  </div> -->
 </div>

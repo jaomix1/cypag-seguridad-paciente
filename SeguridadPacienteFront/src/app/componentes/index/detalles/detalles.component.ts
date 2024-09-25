@@ -22,7 +22,7 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { environment } from 'src/environments/environment';
 import { InfoComponent } from '../../info/info.component';
-import { AggOportunityComponent } from '../oportunidades-de-mejora/agg-oportunity/agg-oportunity.component';
+import { AggOportunityComponent } from '../plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-detalles',
@@ -297,18 +297,6 @@ export class DetallesComponent extends BaseFormComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result: any) => {
       this.obtenerMaster(this.masterId)
-    });
-  }
-
-  mejoras() {
-    const dialogRef = this.dialog.open(AggOportunityComponent, {
-      width: '100%',
-      height: '100%',
-      disableClose: true
-      ,
-      data: this.Id_Detalle
-    });
-    dialogRef.afterClosed().subscribe((result: any) => {
     });
   }
 

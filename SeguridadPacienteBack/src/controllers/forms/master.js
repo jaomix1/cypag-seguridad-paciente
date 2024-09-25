@@ -56,62 +56,32 @@ exports.createEntry = async (req, res) => {
 };
 
 exports.getAnswers = async (req, res) => {
-  const {
-    Codigo, Numero_Id, Start_Date, End_Date, Tipo_Novedad, Empresa, Sede,
-  } = req.body;
+  const { Start_Date, End_Date } = req.body;
   const Start_Date_F = Start_Date ? Start_Date.split("T")[0] : null;
   const End_Date_F = End_Date ? End_Date.split("T")[0] : null;
+  // const Codigo = req.body.Codigo !== "" ? req.body.Codigo : null;
+  // const Numero_Id = req.body.Numero_Id !== "" ? req.body.Numero_Id : null;
+  // const Tipo_Novedad = req.body.Tipo_Novedad !== "" ? req.body.Tipo_Novedad : null;
+  // const Empresa = req.body.Empresa !== "" ? req.body.Empresa : null;
+  // const Sede = req.body.Sede !== "" ? req.body.Sede : null;
   try {
-    const answers = await MasterModel.findAll({
-      where: {
-        [Op.and]: [
-          { Codigo: ((Codigo != '' && Codigo != null) ? Codigo : { [Op.not]: null }) },
-          { Numero_Id: ((Numero_Id != '' && Numero_Id != null) ? Numero_Id : { [Op.not]: null }) },
-          { Tipo_Novedad: ((Tipo_Novedad != '' && Tipo_Novedad != null) ? Tipo_Novedad : { [Op.not]: null }) },
-          { Empresa: ((Empresa != '' && Empresa != null) ? Empresa : { [Op.not]: null }) },
-          { Sede: ((Sede != '' && Sede != null) ? Sede : { [Op.not]: null }) },
-          { Fecha_Incidente: ((Start_Date_F != null && End_Date_F != null) ? { [Op.between]: [Start_Date_F, End_Date_F] } : { [Op.not]: null }) }
-        ],
-      },
-      order: [["Fecha_Incidente", "DESC"]],
-      include: [{
-        model: TiposNovedadModel,
-        as: "Tipo_Novedad_Join",
-        where: { Estado: "ACT" },
-        attributes: ["Descripcion"],
-      }, {
-        model: EmpresasModel,
-        as: "Empresa_Join",
-        where: { Estado: "ACT" },
-        attributes: ["Descripcion"],
-      }, {
-        model: SedesModel,
-        as: "Sede_Join",
-        where: { Estado: "ACT" },
-        attributes: ["Descripcion"],
-      }, {
-        model: TiposIdModel,
-        as: "Tipo_Id_Join",
-        where: { Estado: "ACT" },
-        attributes: ["Descripcion"],
-      }, {
-        model: ServiciosModel,
-        as: "Servicio_Id_Join",
-        where: { Estado: "ACT" },
-        attributes: ["Descripcion"],
-      }, {
-        model: OportunidadesMejoraModel,
-        as: "Op_Mejora_Join",
-        required: false,
-        where: { Estado: "ACT" },
-        attributes: ["Porcentaje_Mejora"],
-      }],
-    });
-
-    return res.status(200).json(answers);
+    const pool = await sql.connect(config);
+    // Stored procedure
+    const result2 = await pool.request()
+      //.input("Codigo", sql.VarChar, Codigo)
+      //.input("Numero_Id", sql.Int, Numero_Id)
+      //.input("Tipo_Novedad", sql.Int, Tipo_Novedad)
+      //.input("Empresa", sql.Int, Empresa)
+      //.input("Sede", sql.Int, Sede)
+      .input("Start_Date_F", sql.Date, Start_Date_F)
+      .input("End_Date_F", sql.Date, End_Date_F)
+      .input("Page", sql.Int, req.body.Page)
+      .input("RowsByPag", sql.Int, req.body.RowsByPag)
+      .execute("SeguridadPaciente.dbo.getAllMasterRequiereOportunidad");
+    // eslint-disable-next-line max-len
+    res.status(200).send({ count: result2.recordsets[0][0].Count, data: result2.recordsets[1] });
   } catch (err) {
-    // Implementar Error Responses
-    return res.status(503).send("No fue posible consultar la tabla: ", err);
+    res.status(400).send(`${err} ${req.body}`);
   }
 };
 
