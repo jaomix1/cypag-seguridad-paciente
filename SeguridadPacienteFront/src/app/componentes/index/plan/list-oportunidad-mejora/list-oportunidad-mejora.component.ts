@@ -160,13 +160,13 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
         });
     }
 
-    asociar(guid: any) {
+    asociar(guid: any, porcentajeMejora: number) {
         const dialogRef = this.dialog.open(AggOportunityComponent, {
             width: '100%',
             height: '100%',
             disableClose: true
             ,
-            data: guid
+            data: { guid, porcentajeMejora }
         });
         dialogRef.afterClosed().subscribe((result: any) => {
         });

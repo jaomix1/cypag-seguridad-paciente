@@ -10,7 +10,9 @@ const {
   createEntry,
   getAllData,
   fileUpload,
+  fileUploadSeguimiento,
   fileDownload,
+  fileDownloadSeguimiento,
 } = require("../../controllers/forms/master");
 
 const {
@@ -47,7 +49,13 @@ router.route("/mejoras/actualizar")
 router.route("/fileupload/:IdMaster")
   .post(fileUpload);
 
+router.route("/fileUploadSeguimiento/:accionId/:seguimientoId")
+  .post(fileUploadSeguimiento);
+
 router.route("/filedownload/:IdMaster")
   .get(fileDownload);
+
+router.route("/filedownloadSeguimiento/:accionId/:seguimientoId")
+  .get(fileDownloadSeguimiento);
 
 module.exports = router;

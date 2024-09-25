@@ -32,12 +32,20 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     pageSize: number = 5;
     maxDate: Date;
     // oportunidad: any = [];
+    planId: string = '';
+    porcentajeMejora: number = 0;
+
+    getStartDate(): Date {
+        const currentDate = new Date();
+        currentDate.setDate(currentDate.getDate() - 30);
+        return currentDate;
+    }
 
     form = new FormGroup({
         Page: new FormControl(0),
         RowsByPag: new FormControl(5),
-        Start_Date: new FormControl(null),
-        End_Date: new FormControl(null),
+        Start_Date: new FormControl(this.getStartDate()),
+        End_Date: new FormControl(new Date()),
         //Descripcion: new FormControl(null),
         //Responsable: new FormControl(null),
     });
@@ -47,15 +55,17 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         private OpportunityService: OpportunityService,
         public mainService: MainService,
         public UsersService: ResponsableService,
-        @Inject(MAT_DIALOG_DATA) public id: string,
+        @Inject(MAT_DIALOG_DATA) public data: any,
         public dialog: MatDialog) {
         super();
         this.maxDate = new Date();
+        this.planId = data.guid;
+        this.porcentajeMejora = data.porcentajeMejora;
     }
 
     ngOnInit(): void {
-        this.getAllQuejas();
         this.getOpportunitiesById();
+        this.getAllQuejas();
         //     this.getResponsables();
 
     }
@@ -84,7 +94,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     getOpportunitiesById() {
         this.loading = true;
-        this.OpportunityService.getQuejasAsociadasByOportunidadId(this.id).subscribe({
+        this.OpportunityService.getQuejasAsociadasByOportunidadId(this.planId).subscribe({
             next: (res: any) => {
                 console.log(res);
                 this.datos2 = res;
@@ -114,7 +124,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     submit() {
 
-        this.OpportunityService.addQuejasByOportunidadId(this.id, this.datos2).subscribe((res: any) => {
+        this.OpportunityService.addQuejasByOportunidadId(this.planId, this.datos2).subscribe((res: any) => {
             this.getAllQuejas();
             this.mainService.showToast('Agregadas correctamente');
         }, error => console.log(error))

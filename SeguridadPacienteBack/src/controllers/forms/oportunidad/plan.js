@@ -55,7 +55,6 @@ exports.getPlan = async (req, res) => {
     }
 };
 
-
 exports.crearSeguimiento = async (req, res) => {
     try {
         const pool = await sql.connect(config);
@@ -64,6 +63,8 @@ exports.crearSeguimiento = async (req, res) => {
             .input("PlanId", sql.Int, req.params.PlanId)
             .input("Seguimiento", sql.VarChar, req.body.Seguimiento)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
+            .input("TieneEvidencia", sql.Bit, req.body.TieneEvidencia)
+            .input("EsCierre", sql.Bit, req.body.EsCierre)
             .execute("SeguridadPaciente.dbo.createSeguimiento");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {

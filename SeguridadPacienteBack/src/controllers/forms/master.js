@@ -257,10 +257,63 @@ exports.fileUpload = async (req, res) => {
   }
 };
 
+exports.fileUploadSeguimiento = async (req, res) => {
+  const guid = req.params.accionId;
+  const seguimientoId = req.params.seguimientoId;
+  try {
+    const form = new formidable.IncomingForm();
+    const carpeta = path.join(process.cwd(), "src", "uploads", "_accion", guid, seguimientoId);
+    await fs.rmSync(carpeta, { recursive: true, force: true });
+    await fs.mkdir(carpeta, { recursive: true }, (error) => {
+      if (error) {
+        return console.error(error);
+      }
+      return console.log("Directory created successfully!");
+    });
+    await form.parse(req)
+      .on("fileBegin", (name, file) => {
+        file.filepath = `${carpeta}/${file.originalFilename}`;
+      })
+      .on("file", (name, file) => {
+        console.log("Uploaded file");
+      });
+
+    return res.status(200).send("Ok");
+  } catch (err) {
+    return res.status(503).send("No fue posible guardar la imagen: ", err);
+  }
+};
+
 exports.fileDownload = async (req, res) => {
   try {
     const guid = req.params.IdMaster;
     const carpeta = path.join(process.cwd(), "src", "uploads", guid);
+    const uploadDir = fs.readdirSync(carpeta);
+    if (uploadDir.length > 0) {
+      const zip = new AdmZip();
+      uploadDir.forEach((file) => {
+        if (file !== "segpac-files.zip") {
+          zip.addLocalFile(path.join(carpeta, file));
+        }
+      });
+      const data = zip.toBuffer();
+      zip.writeZip(path.join(carpeta, "segpac-files.zip"));
+    }
+    const fileExists = fs.existsSync(carpeta);
+    if (fileExists) {
+      return res.status(200).download(path.join(carpeta, "segpac-files.zip"));
+    }
+    return res.status(503).send("El registro de archivos para esta investigacion no existe");
+  } catch (error) {
+    return res.status(503).send("Hubo un error en la busqueda: ", error);
+  }
+};
+
+exports.fileDownloadSeguimiento = async (req, res) => {
+  try {
+    const guid = req.params.accionId;
+    const seguimientoId = req.params.seguimientoId;
+    const carpeta = path.join(process.cwd(), "src", "uploads", "_accion", guid, seguimientoId);
     const uploadDir = fs.readdirSync(carpeta);
     if (uploadDir.length > 0) {
       const zip = new AdmZip();

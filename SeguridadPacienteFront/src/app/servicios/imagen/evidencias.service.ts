@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class EvidenciasService extends BaseService{
+export class EvidenciasService extends BaseService {
 
   private apiUrl: string = '/api/master';
 
@@ -15,7 +15,7 @@ export class EvidenciasService extends BaseService{
     super(baseUrl);
   }
 
-  upload(data: any, id_master:string): Observable<any> {
+  upload(data: any, id_master: string): Observable<any> {
     return this.http
       .post<any>(this._baseUrl + this.apiUrl + "/fileupload/" + id_master, data, {
         reportProgress: true,
@@ -32,17 +32,36 @@ export class EvidenciasService extends BaseService{
   }
 
 
-
-  downlod(id_Imagen: string): Observable<any> {
+  uploadEvidenciaSeguimiento(data: any, accionId: string, seguimientoId: number): Observable<any> {
     return this.http
-      .get<any>(this._baseUrl + this.apiUrl + "/filedownload/" + id_Imagen)
+      .post<any>(this._baseUrl + this.apiUrl + "/fileUploadSeguimiento/" + accionId + "/" + seguimientoId, data, {
+        reportProgress: true,
+        observe: 'events'
+      })
       .pipe(
         map((response) => response),
         tap((a) => {
-          this.logs('Descargar imagen');
+          this.logs('subir imagen de evidencias');
           this.logs(a);
         }),
         catchError(this.errorMgmt)
       );
   }
+
+
+
+
+
+  // downlod(id_Imagen: string): Observable<any> {
+  //   return this.http
+  //     .get<any>(this._baseUrl + this.apiUrl + "/filedownload/" + id_Imagen)
+  //     .pipe(
+  //       map((response) => response),
+  //       tap((a) => {
+  //         this.logs('Descargar imagen');
+  //         this.logs(a);
+  //       }),
+  //       catchError(this.errorMgmt)
+  //     );
+  // }
 }

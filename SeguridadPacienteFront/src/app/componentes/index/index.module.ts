@@ -50,8 +50,8 @@ import { DialogMainComponent } from '../dialog-main/dialog-main.component';
 import { ExportarComponent } from './exportar/exportar.component';
 import { ListOportunidaMejoraComponent } from './plan/list-oportunidad-mejora/list-oportunidad-mejora.component';
 import { ListPlanAccionComponent } from './accion/list-plan-accion/list-plan-accion.component';
-import { ListFollowsComponent } from './list_follows/list-follows.component';
-import { CreateFollowFormComponent } from './create-follow-form/create-follow-form.component';
+import { ListFollowsComponent } from './follow/list_follows/list-follows.component';
+import { CreateFollowFormComponent } from './follow/create-follow-form/create-follow-form.component';
 import { AggOportunityComponent } from './plan/agg-oportunity/agg-oportunity.component';
 import { AccionFormComponent } from './accion/accion-form/accion-form.component';
 

@@ -1,9 +1,10 @@
-import { ActionService } from '../../../servicios/actions/action.service';
+import { ActionService } from '../../../../servicios/actions/action.service';
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { CreateFollowFormComponent } from '../create-follow-form/create-follow-form.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
     selector: 'app-list-follows',
@@ -18,7 +19,8 @@ export class ListFollowsComponent implements OnInit {
     responsable: string = '';
     responsables: any = [];
     loading: boolean = false;
-    columns = ['Descripcion_Seguimiento', 'Usuario', 'Fecha'];
+    porcentajeMejora: number = 0;
+    columns = ['Id', 'Descripcion_Seguimiento', 'Usuario', 'Fecha', 'Evidencia', 'Descargar'];
 
 
     constructor(
@@ -35,10 +37,11 @@ export class ListFollowsComponent implements OnInit {
     }
 
     getFollows() {
+        this.porcentajeMejora = 0;
         this.loading = true;
-        console.log(this.idAccion);
         this.ActionService.getOne(this.idAccion).subscribe({
             next: (req: any) => {
+                this.porcentajeMejora = req.PorcentajeMejora;
                 this.datos = req.Seguimientos;
                 console.log('esto son los seguiminetos: ', this.datos);
                 this.loading = false;
@@ -73,4 +76,7 @@ export class ListFollowsComponent implements OnInit {
         this.dialogRef.close(false); // Cierra el modal
     }
 
+    downloadImage(seguimientoId: number) {
+        window.open(environment.apiUrl + "/v1/api/master/filedownloadSeguimiento/" + this.idAccion + "/" + seguimientoId, '_blank');
+    }
 }

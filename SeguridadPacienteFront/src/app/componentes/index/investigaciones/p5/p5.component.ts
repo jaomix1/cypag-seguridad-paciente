@@ -3,8 +3,6 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { MainService } from 'src/app/servicios/main.service';
 import { PqService } from 'src/app/servicios/investigaciones/pq.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { T } from '@angular/cdk/keycodes';
-import { AggOportunityComponent } from 'src/app/componentes/index/plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-p5',
@@ -106,17 +104,4 @@ export class P5Component implements OnInit {
   cancelar() {
     this.dialogRef.close();
   }
-
-  // mejoras() {
-  //   const dialogRef = this.dialog.open(AggOportunityComponent, {
-  //     width: '100%',
-  //     height: '100%',
-  //     disableClose: true
-  //     ,
-  //     data: this.data.all_data.Detalle.Id_Master
-  //   });
-  //   dialogRef.afterClosed().subscribe((result: any) => {
-  //   });
-  // }
-
 }

@@ -3,7 +3,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dial
 import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
-import { ListFollowsComponent } from '../../list_follows/list-follows.component';
+import { ListFollowsComponent } from '../../follow/list_follows/list-follows.component';
 import { AccionFormComponent } from '../accion-form/accion-form.component';
 
 @Component({
@@ -74,6 +74,7 @@ export class ListPlanAccionComponent implements OnInit {
 
     });
     dialogRef.afterClosed().subscribe((result: any) => {
+      this.getDetailOportunity();
     });
   }
 

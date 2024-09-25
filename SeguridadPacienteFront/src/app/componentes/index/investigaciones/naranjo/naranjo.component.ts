@@ -4,7 +4,6 @@ import { MainService } from 'src/app/servicios/main.service';
 import { NaranjoService } from 'src/app/servicios/investigaciones/naranjo.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { DialogConfirmacionComponent } from 'src/app/componentes/dialog-confirmacion/dialog-confirmacion.component';
-import { AggOportunityComponent } from 'src/app/componentes/index/plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-naranjo',
@@ -125,18 +124,6 @@ export class NaranjoComponent implements OnInit {
       this.mainService.showToast("Borra el registro actual para poder editarlo", 'error');
     }
   }
-
-  // mejoras() {
-  //   const dialogRef = this.dialog.open(AggOportunityComponent, {
-  //     width: '100%',
-  //     height: '100%',
-  //     disableClose: true
-  //     ,
-  //     data: this.data.all_data.Detalle.Id_Master
-  //   });
-  //   dialogRef.afterClosed().subscribe((result: any) => {
-  //   });
-  // }
 
   setData() {
     this.form.controls['Naranjo_1'].setValue(this.naranjo.Naranjo_1);

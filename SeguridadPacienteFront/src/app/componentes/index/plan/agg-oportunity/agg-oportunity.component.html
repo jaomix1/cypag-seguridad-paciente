@@ -127,7 +127,9 @@
                                 </tbody>
                             </table>
                             <button mat-raised-button style="margin-bottom: 10px; margin-top: 10px" color="primary"
-                                (click)="submit()">Guardar</button>
+                                [disabled]="porcentajeMejora!=0" (click)="submit()">Guardar</button>
+                            <span *ngIf="porcentajeMejora!=0">No se pueden guadar los cambios, el plan de accion esta al
+                                100%</span>
                         </div>
                     </div>
                 </ng-container>

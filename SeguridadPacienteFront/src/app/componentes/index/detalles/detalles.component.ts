@@ -22,7 +22,6 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { environment } from 'src/environments/environment';
 import { InfoComponent } from '../../info/info.component';
-import { AggOportunityComponent } from '../plan/agg-oportunity/agg-oportunity.component';
 
 @Component({
   selector: 'app-detalles',
