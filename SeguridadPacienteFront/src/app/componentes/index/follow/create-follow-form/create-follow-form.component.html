@@ -22,7 +22,7 @@
     </div>
     <div class="row">
         <div class="col">
-            <mat-label>Adjuntar evidencia (imagen, foto)</mat-label>
+            <mat-label>Adjuntar evidencia (imagen, pfd)</mat-label>
             <ul>
                 <li *ngFor="let file of files">
                     <span id="file-label">
@@ -31,15 +31,18 @@
                 </li>
             </ul>
             <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
-            <button type="button" mat-raised-button (click)="cargar()">Agregar adjunto</button>
+            <button type="button" mat-raised-button color="primary" (click)="cargar()">Agregar adjunto</button>
             <br>
             <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button
                 (click)="borrararchivos()">Borrar archivos</button>
             <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
-            <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
-                accept=".jpg,.pdf,.zip,.rar" style="display:none;" />
+            <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept=".jpg,.pdf"
+                style="display:none;" />
             <br>
             <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
+        </div>
+        <div class="col">
+
         </div>
     </div>
 </form>
