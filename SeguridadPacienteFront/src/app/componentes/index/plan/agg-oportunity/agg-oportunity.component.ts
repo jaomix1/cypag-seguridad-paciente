@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { BaseFormComponent } from '../../../baseComponent';
@@ -22,7 +22,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     // @ViewChild(MatSort) sort!: MatSort;
     // @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-    displayedColumns = ['Empresa', 'Sede', 'Fecha Incidente', 'accion'];
+    displayedColumns = ['Codigo', 'Servicio', 'Fecha Incidente', 'Tipo_Novedad_2', 'Causa_2', 'accion'];
     // displayedColumns2 = ['index', 'Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
     datos: any = [];
     datos2: any = [];
@@ -52,7 +52,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     constructor(
         private query: QueryService,
-        private OpportunityService: OpportunityService,
+        private PlanDeAccionService: PlanDeAccionService,
         public mainService: MainService,
         public UsersService: ResponsableService,
         @Inject(MAT_DIALOG_DATA) public data: any,
@@ -72,7 +72,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     getAllQuejas(): void {
         this.loadingMain = true;
-        this.query.getAllRequierePlan(this.form.value).subscribe({
+        this.query.getAllRequierePlanAccion(this.form.value).subscribe({
             next: (req: any) => {
                 this.totalObjects = req.count
                 this.datos = req.data;
@@ -94,7 +94,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     getOpportunitiesById() {
         this.loading = true;
-        this.OpportunityService.getQuejasAsociadasByOportunidadId(this.planId).subscribe({
+        this.PlanDeAccionService.getQuejasAsociadasByOportunidadId(this.planId).subscribe({
             next: (res: any) => {
                 console.log(res);
                 this.datos2 = res;
@@ -124,7 +124,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
 
     submit() {
 
-        this.OpportunityService.addQuejasByOportunidadId(this.planId, this.datos2).subscribe((res: any) => {
+        this.PlanDeAccionService.addQuejasByOportunidadId(this.planId, this.datos2).subscribe((res: any) => {
             this.getAllQuejas();
             this.mainService.showToast('Agregadas correctamente');
         }, error => console.log(error))

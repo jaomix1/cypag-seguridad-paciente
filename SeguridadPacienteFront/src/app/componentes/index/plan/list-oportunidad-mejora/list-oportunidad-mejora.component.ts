@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { BaseFormComponent } from '../../../baseComponent';
@@ -25,7 +25,7 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
     @ViewChild(MatSort) sort!: MatSort;
     @ViewChild(MatTable) table!: MatTable<TablaItem>;
 
-    displayedColumns = ['Descripcion', 'Responsable', 'Fecha', 'Porcentaje_Mejora', 'accion'];
+    displayedColumns = ['Codigo', 'Descripcion', 'Responsable', 'Fecha', 'Porcentaje_Mejora', 'Fecha_Vencimiento', 'accion'];
 
     datos: any = [];
     responsables: any = [];
@@ -48,7 +48,7 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
 
 
     constructor(
-        private OpportunityService: OpportunityService,
+        private PlanDeAccionService: PlanDeAccionService,
         public mainService: MainService,
         public UsersService: ResponsableService,
         // @Inject(MAT_DIALOG_DATA) public guid: string,
@@ -65,7 +65,7 @@ export class ListOportunidaMejoraComponent extends BaseFormComponent implements 
 
     submit(): void {
         this.loadingMain = true;
-        this.OpportunityService.getAll(this.form.value).subscribe({
+        this.PlanDeAccionService.getAll(this.form.value).subscribe({
             next: (req: any) => {
                 this.datos = req.data;
                 this.totalObjects = req.count

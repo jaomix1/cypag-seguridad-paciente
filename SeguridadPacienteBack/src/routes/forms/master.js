@@ -5,7 +5,7 @@ const router = express.Router();
 const { seguridad } = require("../../middleware/seguridad");
 
 const {
-  getAnswers,
+  GetAllMasterRequiereOportunidad,
   getAnswers2,
   createEntry,
   getAllData,
@@ -28,8 +28,8 @@ router.route("/")
 router.route("/det-inv")
   .post(seguridad, getAllData);
 
-router.route("/registros")
-  .post(seguridad, getAnswers);
+router.route("/registrosRequierePlanAccion")
+  .post(seguridad, GetAllMasterRequiereOportunidad);
 
 router.route("/registrosV2")
   .post(seguridad, getAnswers2);
@@ -49,13 +49,13 @@ router.route("/mejoras/actualizar")
 router.route("/fileupload/:IdMaster")
   .post(fileUpload);
 
-router.route("/fileUploadSeguimiento/:accionId/:seguimientoId")
+router.route("/fileUploadSeguimiento/:seguimientoId")
   .post(fileUploadSeguimiento);
 
 router.route("/filedownload/:IdMaster")
   .get(fileDownload);
 
-router.route("/filedownloadSeguimiento/:accionId/:seguimientoId")
+router.route("/filedownloadSeguimiento/:seguimientoId")
   .get(fileDownloadSeguimiento);
 
 module.exports = router;

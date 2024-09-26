@@ -3,7 +3,7 @@
 </ng-container>
 <ng-container *ngIf="!loadingMain">
     <div class="container-fluid">
-        <h1 class="text-center fw-semibold">Asociar quejas a plan</h1>
+        <h1 class="text-center fw-semibold">Asociar eventos a plan de accion</h1>
         <div class="row py-2">
             <div class="col-12 col-md-6">
                 <form novalidate (ngSubmit)="getAllQuejas()" [formGroup]="form">
@@ -11,7 +11,7 @@
                         <div class="card-body">
                             <div class="row my-2">
                                 <div class="col-12">
-                                    <h2>Filtra quejas</h2>
+                                    <h2>Filtra evento</h2>
                                 </div>
                                 <div class="col-12 col-md-12">
                                     <mat-form-field appearance="outline">
@@ -27,28 +27,6 @@
                                         <mat-date-range-picker picker #picker></mat-date-range-picker>
                                     </mat-form-field>
                                 </div>
-                                <!--  <div class="col-12 col-md-4">
-                                    <mat-form-field class="full-width" appearance="outline">
-                                        <mat-label>Descripcion</mat-label>
-                                        <input matInput placeholder="Descripcion" formControlName="Descripcion"
-                                            maxlength="100">
-                                        <mat-error *ngIf="validate('Descripcion')">
-                                            {{ check('Descripcion') }}
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <mat-form-field class="full-width" appearance="outline">
-                                        <mat-select placeholder="Responsables" formControlName="Responsable">
-                                            <mat-option *ngFor="let data of responsables" [value]="data.Id">
-                                                {{ data.NombreCompleto }}
-                                            </mat-option>
-                                        </mat-select>
-                                        <mat-error *ngIf="validate('Descripcion')">
-                                            {{ check('Descripcion') }}
-                                        </mat-error>
-                                    </mat-form-field>
-                                </div> -->
                                 <div class="row">
                                     <div class="col">
                                         <button mat-raised-button color="warn" [disabled]="loadingMain" type="button"
@@ -65,17 +43,25 @@
                 </form>
                 <ng-container *ngIf="datos.length > 0">
                     <table mat-table class="full-width" [dataSource]="datos" matSort aria-label="Elements">
-                        <ng-container matColumnDef="Empresa">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Empresa</th>
-                            <td mat-cell *matCellDef="let row">{{row.Empresa}}</td>
+                        <ng-container matColumnDef="Codigo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+                            <td mat-cell *matCellDef="let row">{{row.Codigo}}</td>
                         </ng-container>
-                        <ng-container matColumnDef="Sede">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Sede</th>
-                            <td mat-cell *matCellDef="let row">{{row.Sede}}</td>
+                        <ng-container matColumnDef="Servicio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</th>
+                            <td mat-cell *matCellDef="let row">{{row.Servicio}}</td>
                         </ng-container>
                         <ng-container matColumnDef="Fecha Incidente">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha Incidente</th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha evento</th>
                             <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Tipo_Novedad_2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo novedad 2</th>
+                            <td mat-cell *matCellDef="let row">{{row.Tipo_Novedad_2}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Causa_2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Causa 2</th>
+                            <td mat-cell *matCellDef="let row">{{row.Causa_2}}</td>
                         </ng-container>
                         <ng-container matColumnDef="accion">
                             <th mat-header-cell *matHeaderCellDef> Acciones </th>
@@ -103,31 +89,29 @@
                             <table class="table table-striped w-100">
                                 <thead>
                                     <tr>
-                                        <th scope="col">Empresa</th>
-                                        <th scope="col">Sede</th>
-                                        <th scope="col">Fecha Incidente</th>
-                                        <th scope="col">Acciones</th>
+                                        <th scope="col">Codigo</th>
+                                        <th scope="col">Proceso</th>
+                                        <th scope="col">Fecha evento</th>
+                                        <th scope="col">Tipo novedad 2</th>
+                                        <th scope="col">Causa 2</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <tr *ngFor="let item of datos2; let i = index">
-                                        <td>{{item.Empresa}}</td>
-                                        <td>{{item.Sede}}</td>
+                                        <td>{{item.Codigo}}</td>
+                                        <td>{{item.Servicio}}</td>
                                         <td>{{item.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
                                         <td>
-                                            <!-- <button class="btn btn-danger" (click)="elimiarFromTable(i)">
-                                                <svg xmlns="http://www.w3.org/2000/svg" height="24px"
-                                                    viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
-                                                    <path
-                                                        d="M280-120q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520ZM360-280h80v-360h-80v360Zm160 0h80v-360h-80v360ZM280-720v520-520Z" />
-                                                </svg>
-                                            </button> -->
+                                            {{item.Tipo_Novedad_2}}
+                                        </td>
+                                        <td>
+                                            {{item.Causa_2}}
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                             <button mat-raised-button style="margin-bottom: 10px; margin-top: 10px" color="primary"
-                                [disabled]="porcentajeMejora!=0" (click)="submit()">Guardar</button>
+                                [disabled]="porcentajeMejora===100" (click)="submit()">Guardar</button>
                             <span *ngIf="porcentajeMejora!=0">No se pueden guadar los cambios, el plan de accion esta al
                                 100%</span>
                         </div>

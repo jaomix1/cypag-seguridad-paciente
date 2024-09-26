@@ -19,20 +19,17 @@ const config = {
     },
 };
 
-exports.crearPlan = async (req, res) => {
+exports.crearAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("Accion", sql.VarChar, req.body.Accion)
+            .input("Descripcion", sql.VarChar, req.body.Descripcion)
             .input("Responsable", sql.UniqueIdentifier, req.body.Responsable)
-            // .input("FechaInicio", sql.DateTime, req.body.FechaInicio)
-            // .input("FechaFin", sql.DateTime, req.body.FechaFin)
-            // .input("EvidenciaCierre", sql.VarChar, req.body.EvidenciaCierre)
-            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
-            //.input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
+            .input("FechaVencimiento", sql.DateTime, req.body.FechaVencimiento)
+            .input("PlanAccionId", sql.UniqueIdentifier, req.params.PlanAccionId)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.createPlan");
+            .execute("SeguridadPaciente.dbo.SP_CreateAccion");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);
@@ -40,13 +37,13 @@ exports.crearPlan = async (req, res) => {
 };
 
 
-exports.getPlan = async (req, res) => {
+exports.getAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("PlanId", sql.Int, req.params.Id)
-            .execute("SeguridadPaciente.dbo.getPlan");
+            .input("AccionId", sql.Int, req.params.Id)
+            .execute("SeguridadPaciente.dbo.SP_GetAccion");
         let data = result2.recordsets[0][0];
         data.Seguimientos = result2.recordsets[1];
         res.status(200).send(data);
@@ -60,12 +57,12 @@ exports.crearSeguimiento = async (req, res) => {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("PlanId", sql.Int, req.params.PlanId)
-            .input("Seguimiento", sql.VarChar, req.body.Seguimiento)
+            .input("AccionId", sql.Int, req.params.AccionId)
+            .input("Descripcion", sql.VarChar, req.body.Seguimiento)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
             .input("TieneEvidencia", sql.Bit, req.body.TieneEvidencia)
             .input("EsCierre", sql.Bit, req.body.EsCierre)
-            .execute("SeguridadPaciente.dbo.createSeguimiento");
+            .execute("SeguridadPaciente.dbo.SP_CreateAccionSeguimiento");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);
@@ -73,15 +70,15 @@ exports.crearSeguimiento = async (req, res) => {
 };
 
 
-exports.UpdatePlan = async (req, res) => {
+exports.UpdateAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("PlanId", sql.Int, req.body.PlanId)
+            .input("AccionId", sql.Int, req.body.AccionId)
             .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.updatePlan");
+            .execute("SeguridadPaciente.dbo.SP_UpdateAccion");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);

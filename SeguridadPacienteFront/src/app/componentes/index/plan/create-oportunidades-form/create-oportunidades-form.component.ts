@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { MatPaginator } from '@angular/material/paginator';
@@ -26,7 +26,7 @@ export class CreateOportunidadesFormComponent implements OnInit {
 
   constructor(
     public mainService: MainService,
-    public OpportunityService: OpportunityService,
+    public PlanDeAccionService: PlanDeAccionService,
     public UsersService: ResponsableService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public dialogRef: MatDialogRef<CreateOportunidadesFormComponent>,) {
@@ -58,7 +58,7 @@ export class CreateOportunidadesFormComponent implements OnInit {
 
   submit() {
     // if (this.mejoras.length > 0) {
-    this.OpportunityService.create(this.form.value).subscribe({
+    this.PlanDeAccionService.create(this.form.value).subscribe({
       next: (req: any) => {
         this.mainService.showToast('Guardado Correctamente', 'success');
         this.dialogRef.close()

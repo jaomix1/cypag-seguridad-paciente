@@ -19,7 +19,7 @@ const config = {
     },
 };
 
-exports.crearOpotunidad = async (req, res) => {
+exports.createPlanAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
@@ -27,14 +27,14 @@ exports.crearOpotunidad = async (req, res) => {
             .input("Descripcion", sql.VarChar, req.body.Descripcion)
             .input("Responsable", sql.UniqueIdentifier, req.body.Responsable)
             .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.createOpotunidad");
+            .execute("SeguridadPaciente.dbo.SP_CreatePlanAccion");
         res.status(200).send(result2.recordsets[0][0]);
     } catch (err) {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
 
-exports.getAllOportunidades = async (req, res) => {
+exports.getAllPlanAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
@@ -45,7 +45,7 @@ exports.getAllOportunidades = async (req, res) => {
             .input("Fecha_Final", sql.Date, req.body.End_Date ? req.body.End_Date : null)
             .input("Page", sql.Int, req.body.Page)
             .input("RowsByPag", sql.Int, req.body.RowsByPag)
-            .execute("SeguridadPaciente.dbo.getAllOportunidades");
+            .execute("SeguridadPaciente.dbo.SP_GetAllPlanAccion");
         // eslint-disable-next-line max-len
         res.status(200).send({ count: result2.recordsets[0][0].Count, data: result2.recordsets[1] });
     } catch (err) {
@@ -53,13 +53,13 @@ exports.getAllOportunidades = async (req, res) => {
     }
 };
 
-exports.getOportunidad = async (req, res) => {
+exports.getPlanAccion = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("Id", sql.UniqueIdentifier, req.params.Id)
-            .execute("SeguridadPaciente.dbo.getOportunidad");
+            .input("PlanAccionId", sql.UniqueIdentifier, req.params.Id)
+            .execute("SeguridadPaciente.dbo.SP_GetPlanAccion");
         const data = result2.recordsets[0][0];
         // eslint-disable-next-line prefer-destructuring
         data.Planes = result2.recordsets[1];
@@ -69,13 +69,13 @@ exports.getOportunidad = async (req, res) => {
     }
 };
 
-exports.getAllOportunidadesByMasterId = async (req, res) => {
+exports.getAllPlanesAccionByMasterId = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
             .input("MasterId", sql.UniqueIdentifier, req.params.MasterId)
-            .execute("SeguridadPaciente.dbo.getAllOportunidadesByMasterId");
+            .execute("SeguridadPaciente.dbo.SP_GetAllPlanesAccionByMasterId");
         // eslint-disable-next-line max-len
         res.status(200).send({ news: result2.recordsets[0], olds: result2.recordsets[1] });
     } catch (err) {
@@ -83,13 +83,13 @@ exports.getAllOportunidadesByMasterId = async (req, res) => {
     }
 };
 
-exports.getQuejasAsociadasByOportunidadId = async (req, res) => {
+exports.getAllQuejasAsociadasByPlanId = async (req, res) => {
     try {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
-            .execute("SeguridadPaciente.dbo.getAllQuejasAsociadasByOportunidadId");
+            .input("PlanAccionId", sql.UniqueIdentifier, req.params.PlanAccionId)
+            .execute("SeguridadPaciente.dbo.SP_GetAllQuejasAsociadasByPlanId");
         // eslint-disable-next-line max-len
         res.status(200).send(result2.recordsets[0]);
     } catch (err) {
@@ -97,7 +97,7 @@ exports.getQuejasAsociadasByOportunidadId = async (req, res) => {
     }
 };
 
-exports.createMasterOpotunidad = async (req, res) => {
+exports.createMasterPlanAccion = async (req, res) => {
     try {
 
         const table = new sql.Table();
@@ -110,9 +110,9 @@ exports.createMasterOpotunidad = async (req, res) => {
         const pool = await sql.connect(config);
         // Stored procedure
         const result2 = await pool.request()
-            .input("OportunidadId", sql.UniqueIdentifier, req.params.OportunidadId)
+            .input("PlanAccionId", sql.UniqueIdentifier, req.params.PlanAccionId)
             .input("Quejas", table)
-            .execute("SeguridadPaciente.dbo.createMasterOpotunidad");
+            .execute("SeguridadPaciente.dbo.SP_CreateMasterPlanAccion");
         // eslint-disable-next-line max-len
         res.status(200).send({ estado: result2.recordsets[0][0].estado });
     } catch (err) {

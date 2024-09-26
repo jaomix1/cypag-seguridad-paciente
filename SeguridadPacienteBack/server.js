@@ -42,8 +42,8 @@ const master = require("./src/routes/forms/master");
 const detalles = require("./src/routes/forms/detalles");
 const investigaciones = require("./src/routes/forms/investigaciones");
 const usuarios = require("./src/routes/seguridad/usuarios");
-const oportunidadesMejora = require("./src/routes/forms/oportunidad/oportunidad2");
-const planes = require("./src/routes/forms/oportunidad/plan");
+const planDeAccion = require("./src/routes/forms/oportunidad/planDeAccion");
+const acciones = require("./src/routes/forms/oportunidad/acciones");
 const exportar = require("./src/routes/forms/excel/exportar");
 
 dotenv.config();
@@ -54,8 +54,8 @@ app.use("/v1/api/master", master);
 app.use("/v1/api/usuarios", usuarios);
 app.use("/v1/api/detalle", detalles);
 app.use("/v1/api/investigaciones", investigaciones);
-app.use("/v1/api/oportunidadesMejora", oportunidadesMejora);
-app.use("/v1/api/plan", planes);
+app.use("/v1/api/planDeAccion", planDeAccion);
+app.use("/v1/api/accion", acciones);
 app.use("/v1/api/exportar", exportar);
 
 app.get("/", (req, res) => {

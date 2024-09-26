@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { BaseFormComponent } from '../../baseComponent';
 import { TablaDataSource, TablaItem } from '../demos/tabla/tabla-datasource';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -28,7 +28,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
 
   constructor(
-    private OpportunityService: OpportunityService,
+    private PlanDeAccionService: PlanDeAccionService,
     public mainService: MainService,
     public UsersService: ResponsableService,
     @Inject(MAT_DIALOG_DATA) public id: string,
@@ -46,7 +46,7 @@ export class OpportunityComponent extends BaseFormComponent implements OnInit, A
 
   submit(id: any): void {
     this.loadingMain = true;
-    this.OpportunityService.getOpportunitiesCurrent(id).subscribe({
+    this.PlanDeAccionService.getOpportunitiesCurrent(id).subscribe({
       next: (req: any) => {
         this.datos = req;
         this.loadingMain = false;

@@ -2,7 +2,7 @@ import { ActionService } from '../../../../servicios/actions/action.service';
 import { Component, ElementRef, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -112,7 +112,7 @@ export class CreateFollowFormComponent implements OnInit {
             formData.append('file', file[index].data);
         }
 
-        this.uploadService.uploadEvidenciaSeguimiento(formData, this.data, this.seguimientoId).pipe(
+        this.uploadService.uploadEvidenciaSeguimiento(formData, this.seguimientoId).pipe(
             map(event => {
                 switch (event.type) {
                     case HttpEventType.UploadProgress:

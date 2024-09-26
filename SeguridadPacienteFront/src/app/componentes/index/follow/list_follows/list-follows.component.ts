@@ -77,6 +77,6 @@ export class ListFollowsComponent implements OnInit {
     }
 
     downloadImage(seguimientoId: number) {
-        window.open(environment.apiUrl + "/v1/api/master/filedownloadSeguimiento/" + this.idAccion + "/" + seguimientoId, '_blank');
+        window.open(environment.apiUrl + "/v1/api/master/filedownloadSeguimiento/" + seguimientoId, '_blank');
     }
 }

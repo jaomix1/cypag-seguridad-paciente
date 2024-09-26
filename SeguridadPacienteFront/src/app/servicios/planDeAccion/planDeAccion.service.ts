@@ -2,15 +2,13 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { catchError, map, retry, tap } from 'rxjs/operators';
 import { BaseService } from '../baseService';
-import { Opportunity } from 'src/app/modelos/opportunity/opportunity';
-import { ResponseContract } from 'src/app/modelos/responseContract';
 import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class OpportunityService extends BaseService {
-  private apiUrl: string = '/api/oportunidadesMejora/';
+export class PlanDeAccionService extends BaseService {
+  private apiUrl: string = '/api/planDeAccion/';
   constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
     super(baseUrl);
   }
@@ -69,7 +67,7 @@ export class OpportunityService extends BaseService {
 
   addQuejasByOportunidadId(oportunidadId: string, data: any) {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "AsignarAOportunidad/" + oportunidadId, data)
+      .post<any>(this._baseUrl + this.apiUrl + "AsignarAPlanAccion/" + oportunidadId, data)
       .pipe(
         map((response) => response),
         tap((a) => {
@@ -96,7 +94,7 @@ export class OpportunityService extends BaseService {
 
   getQuejasAsociadasByOportunidadId(id: any): Observable<any> {
     return this.http
-      .get<any>(this._baseUrl + this.apiUrl + "byOportunidad/" + id)
+      .get<any>(this._baseUrl + this.apiUrl + "QuejasAsociadasByPlanAccionId/" + id)
       .pipe(
         map((response) => response),
         tap((a) => {

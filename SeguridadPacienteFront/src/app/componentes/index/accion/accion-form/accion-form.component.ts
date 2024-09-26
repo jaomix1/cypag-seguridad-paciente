@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MainService } from 'src/app/servicios/main.service';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -28,7 +28,7 @@ export class AccionFormComponent implements OnInit {
 
     constructor(
         public mainService: MainService,
-        public OpportunityService: OpportunityService,
+        public PlanDeAccionService: PlanDeAccionService,
         public ActionService: ActionService,
         public UsersService: ResponsableService,
         @Inject(MAT_DIALOG_DATA) public data: string,
@@ -38,9 +38,9 @@ export class AccionFormComponent implements OnInit {
     }
 
     form = new FormGroup({
-        Accion: new FormControl(null, [Validators.maxLength(500), Validators.required]),
+        Descripcion: new FormControl(null, [Validators.maxLength(500), Validators.required]),
         Responsable: new FormControl(null, [Validators.required]),
-        // FechaInicio: new FormControl(null, [Validators.required]),
+        FechaVencimiento: new FormControl(null, [Validators.required]),
         // FechaFin: new FormControl(null, [Validators.required]),
         //EvidenciaCierre: new FormControl(null, [Validators.required]),
         //PorcentajeMejora: new FormControl(0),

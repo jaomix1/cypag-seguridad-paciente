@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
-import { OpportunityService } from 'src/app/servicios/opportunity/opportunity.service';
+import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MainService } from 'src/app/servicios/main.service';
 import { ResponsableService } from 'src/app/servicios/usuarios/responsable.service';
 import { ListFollowsComponent } from '../../follow/list_follows/list-follows.component';
@@ -19,11 +19,11 @@ export class ListPlanAccionComponent implements OnInit {
   responsable: string = '';
   responsables: any = [];
   loading: boolean = false;
-  columns = ['Accion', 'Estado', 'Porcentaje', 'Responsable', 'acciones'];
+  columns = ['Descripcion', 'Estado', 'Porcentaje', 'Responsable', 'acciones'];
 
 
   constructor(
-    private OpportunityService: OpportunityService,
+    private PlanDeAccionService: PlanDeAccionService,
     public mainService: MainService,
     @Inject(MAT_DIALOG_DATA) public guid: string,
     public UsersService: ResponsableService,
@@ -37,7 +37,7 @@ export class ListPlanAccionComponent implements OnInit {
 
   getDetailOportunity() {
     this.loading = true;
-    this.OpportunityService.get(this.guid).subscribe({
+    this.PlanDeAccionService.get(this.guid).subscribe({
       next: (req: any) => {
         this.datos = req.Planes;
         console.log('esta es la es: ', this.datos);

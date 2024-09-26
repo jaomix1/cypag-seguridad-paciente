@@ -30,9 +30,9 @@ export class QueryService extends BaseService {
 
 
 
-  getAllRequierePlan(data: any): Observable<any> {
+  getAllRequierePlanAccion(data: any): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "registros", data)
+      .post<any>(this._baseUrl + this.apiUrl + "registrosRequierePlanAccion", data)
       .pipe(
         map((response) => response),
         tap((a) => {

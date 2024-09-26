@@ -32,9 +32,9 @@ export class EvidenciasService extends BaseService {
   }
 
 
-  uploadEvidenciaSeguimiento(data: any, accionId: string, seguimientoId: number): Observable<any> {
+  uploadEvidenciaSeguimiento(data: any, seguimientoId: number): Observable<any> {
     return this.http
-      .post<any>(this._baseUrl + this.apiUrl + "/fileUploadSeguimiento/" + accionId + "/" + seguimientoId, data, {
+      .post<any>(this._baseUrl + this.apiUrl + "/fileUploadSeguimiento/" + seguimientoId, data, {
         reportProgress: true,
         observe: 'events'
       })

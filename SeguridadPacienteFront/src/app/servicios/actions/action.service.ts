@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
     providedIn: 'root',
 })
 export class ActionService extends BaseService {
-    private apiUrl: string = '/api/plan/';
+    private apiUrl: string = '/api/accion/';
     constructor(@Inject('UrlApi') baseUrl: string, private http: HttpClient) {
         super(baseUrl);
     }

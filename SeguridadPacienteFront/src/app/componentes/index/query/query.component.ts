@@ -23,7 +23,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('empTbSort') sort!: MatSort;
 
-  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente', 'Numero_Id', 'Sede', 'Novedad', 'Oportunidades', 'accion'];
+  displayedColumns = ['Codigo', 'Fecha_Creacion', 'Fecha_Incidente', 'Nombre_Paciente', 'Numero_Id', 'Sede', 'Servicio', 'Novedad', 'accion'];
 
   novedades: Combo[] = [];
   empresas: Combo[] = [];
@@ -134,7 +134,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
                 Numero_Id: c.Numero_Id,
                 Sede: c.Sede,
                 Novedad: c.Novedad,
-                Oportunidades: c.Oportunidades,
+                Servicio: c.Servicio,
                 //Resuelto: 0//this.calcularPorcentaje(c.Op_Mejora_Join)
               }
             });

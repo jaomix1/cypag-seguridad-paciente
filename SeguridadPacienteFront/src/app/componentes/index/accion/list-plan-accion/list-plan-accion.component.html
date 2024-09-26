@@ -18,17 +18,17 @@
       <p class="" style="padding: 5px;"><b>Tiene {{datos.length}} planes de accón</b></p>
 
       <table mat-table class="full-width-table" [dataSource]="datos" matSort aria-label="Elements">
-        <ng-container matColumnDef="Accion">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Accion</th>
-          <td mat-cell *matCellDef="let row">{{row.Accion}}</td>
+        <ng-container matColumnDef="Descripcion">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Descripcion</th>
+          <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
         </ng-container>
         <ng-container matColumnDef="Responsable">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Responsable</th>
           <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
         </ng-container>
         <ng-container matColumnDef="Estado">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header>Estado</th>
-          <td mat-cell *matCellDef="let row">{{row.Estado}}</td>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha de vencimiento</th>
+          <td mat-cell *matCellDef="let row">{{row.FechaVencimiento | date:'YYY-MM-dd'}}</td>
         </ng-container>
         <ng-container matColumnDef="Porcentaje">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Porcentaje</th>
