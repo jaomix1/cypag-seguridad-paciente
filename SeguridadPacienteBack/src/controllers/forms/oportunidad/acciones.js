@@ -68,19 +68,3 @@ exports.crearSeguimiento = async (req, res) => {
         res.status(400).send(`${err} ${req.body}`);
     }
 };
-
-
-exports.UpdateAccion = async (req, res) => {
-    try {
-        const pool = await sql.connect(config);
-        // Stored procedure
-        const result2 = await pool.request()
-            .input("AccionId", sql.Int, req.body.AccionId)
-            .input("PorcentajeMejora", sql.Int, req.body.PorcentajeMejora)
-            .input("UsuarioCreacion", sql.VarChar, req.Usuario.user.Id)
-            .execute("SeguridadPaciente.dbo.SP_UpdateAccion");
-        res.status(200).send(result2.recordsets[0][0]);
-    } catch (err) {
-        res.status(400).send(`${err} ${req.body}`);
-    }
-};
