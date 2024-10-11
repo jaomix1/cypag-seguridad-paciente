@@ -36,7 +36,7 @@ export class UsuarioService extends BaseService {
 
     crearUsuario(dato: Usuario) {
         return this.http.post<Usuario>(
-            this._baseUrl + `/Usuarios/Create`, dato
+            this._baseUrl + `/api/Usuarios/Create`, dato
         ).pipe(
             catchError(this.errorMgmt)
         );

@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  //apiUrl: 'http://aplicaciones.cypagsa.com:5442' //'http://192.168.2.251:8088' //
-  apiUrl: 'http://localhost:8088' //'http://192.168.2.251:8088' //
+  apiUrl: 'http://aplicaciones.cypagsa.com:5442'
+  //apiUrl: 'http://localhost:8088'
+  //apiUrl: 'http://192.168.2.251:8088'
 };
 
 /*
