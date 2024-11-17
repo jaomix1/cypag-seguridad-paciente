@@ -156,8 +156,8 @@ export class MainComponent extends BaseFormComponent implements OnInit {
 
   ngAfterViewInit(): void {
     this.cargaEmpresas();
-    this.cargaIdentificaciones();
-    this.cargaNovedades();
+
+
   }
 
   ngOnInit(): void { }
@@ -266,41 +266,46 @@ export class MainComponent extends BaseFormComponent implements OnInit {
     }
   }
 
-  cargaIdentificaciones() {
-    this.comboService.getIdentificacion().subscribe((data: any) => {
-      this.identificaciones = data;
+  cargaEmpresas() {
+    this.loanding = true;
+    this.comboService.getEmpresas().subscribe((data: any) => {
+      this.empresas = data;
+      this.empresas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.cargaIdentificaciones();
     });
   }
 
-
+  cargaIdentificaciones() {
+    this.comboService.getIdentificacion().subscribe((data: any) => {
+      this.identificaciones = data;
+      this.cargaNovedades();
+    });
+  }
 
   cargaNovedades() {
     this.comboService.getNovedades().subscribe((data: any) => {
       this.novedades = data;
-      console.log('estas son las novedades: ', this.novedades)
       this.novedades.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+
+      this.loanding = false;
     });
   }
 
+  loandingcargaCausas: boolean = false;
   cargaCausas(id: number) {
-    console.log('el id es: ', id)
+    this.loandingcargaCausas = true;
     this.comboService.getCausas(id).subscribe((data: any) => {
-      console.log('el id es: ', id, 'y la resp es: ', data)
       this.causas = data;
       this.causas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
-    });
-  }
-
-  cargaEmpresas() {
-    this.comboService.getEmpresas().subscribe((data: any) => {
-      this.empresas = data;
-      this.empresas.sort((a, b) => a.Descripcion.localeCompare(b.Descripcion))
+      this.loandingcargaCausas = false;
     });
   }
 
   loandingCargaSedes: boolean = false;
   loandingCargaServicios: boolean = false;
   cargarDatosEmpresa(empresa: any) {
+    this.loandingCargaSedes = true;
+    this.loandingCargaServicios = true;
     this.sede(empresa);
     this.cargaServicios(empresa);
   }

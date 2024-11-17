@@ -8,7 +8,11 @@
         <h2> <b> Reporte de seguridad del Paciente </b></h2>
       </mat-card-title>
     </mat-card-header>
-    <mat-card-content>
+    <mat-card-content *ngIf="loanding">
+      Cargando informacion...
+      <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    </mat-card-content>
+    <mat-card-content *ngIf="!loanding">
       <div class="row">
         <div class="col">
           <mat-form-field class="full-width" appearance="outline">
@@ -63,11 +67,10 @@
           </mat-form-field>
         </div>
         <div class="col">
-          <mat-progress-bar *ngIf="loandingCargaSedes || loandingCargaServicios"
-            mode="indeterminate"></mat-progress-bar>
+          <mat-progress-bar *ngIf="loandingCargaSedes" mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Sede donde se presento el incidente</mat-label>
-            <mat-select [disabled]="loandingCargaSedes" formControlName="Sede"
+            <mat-select [disabled]="loandingCargaSedes" [disabled]="!sedes" formControlName="Sede"
               placeholder="Sede donde presento el incidente" required>
               <mat-option *ngFor="let c of sedes" value={{c.Id}}>{{c.Descripcion}}</mat-option>
             </mat-select>
@@ -77,9 +80,10 @@
           </mat-form-field>
         </div>
         <div class="col">
+          <mat-progress-bar *ngIf="loandingCargaServicios" mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline">
             <mat-label>Servicios</mat-label>
-            <mat-select formControlName="Servicio_Id" placeholder="Servicio" required>
+            <mat-select formControlName="Servicio_Id" [disabled]="!servicios" placeholder="Servicio" required>
               <mat-option *ngFor="let c of servicios" value={{c.Id}}
                 (click)="viewOtroServicio(c.Id)">{{c.Descripcion}}</mat-option>
             </mat-select>
@@ -116,9 +120,10 @@
           </mat-error>
         </div>
         <div class="col">
+          <mat-progress-bar *ngIf="loandingcargaCausas" mode="indeterminate"></mat-progress-bar>
           <mat-form-field class="full-width" appearance="outline" style="padding-bottom: 0px !important">
             <mat-label>Causas de novedad</mat-label>
-            <mat-select placeholder="Causas sobre novedad" formControlName="Novedad_Id" required>
+            <mat-select placeholder="Causas sobre novedad" [disabled]="!causas" formControlName="Novedad_Id" required>
               <mat-option *ngFor="let item of causas" value={{item.Id}}>{{item.Descripcion}}</mat-option>
             </mat-select>
           </mat-form-field>
@@ -330,12 +335,10 @@
               </span>
             </li>
           </ul>
-          <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
           <button type="button" mat-raised-button (click)="cargar()">Seleccionar</button>
           <br>
           <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button
             (click)="borrararchivos()">Borrar archivos</button>
-          <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
           <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple"
             accept=".jpg,.pdf,.zip,.rar" style="display:none;" />
           <br>
@@ -343,7 +346,7 @@
         </div>
       </div>
     </mat-card-content>
-    <mat-card-actions>
+    <mat-card-actions *ngIf="!loanding">
       <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
       <div class="row my-3">
         <div class="col">
