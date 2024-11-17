@@ -21,6 +21,7 @@ export class AccionFormComponent implements OnInit {
     actions: any = [];
     responsables: any = [];
     minDate: Date = new Date();
+    loading: boolean = false;
 
     //url: string = oportunidadesMejora/create/plan/2F79A711-3BC5-4935-A9AA-D3B6324839E5;
 
@@ -65,44 +66,20 @@ export class AccionFormComponent implements OnInit {
 
     submit() {
         if (this.form.valid) {
+            this.loading = true;
             this.ActionService.create(this.idOportunity, this.form.value).subscribe({
                 next: (req: any) => {
                     this.mainService.showToast('Accion creada con exito', 'success');
+                    this.loading = false;
                     this.dialogRef.close()
                 },
                 error: (err: string) => {
                     this.mainService.showToast(err, 'error');
+                    this.loading = false;
                 },
             });
         }
     }
-
-
-    // sending: boolean = false;
-    // agregar() {
-    //     this.sending = true;
-    //     if (this.actions.length >= 1) {
-    //         if (this.actions.find((mejora: any) => mejora.Codigo_Externo == this.form.value.Code)) {
-    //             this.mainService.showToast("El codigo externo debe ser un valor unico", 'error')
-    //             this.form.reset();
-    //         }
-    //     }
-    //     if (this.form.valid) {
-    //         let object = {
-    //             // Id_Master: this.masterId,
-    //             Codigo_Externo: this.form.value.Code,
-    //             Descripcion: this.form.value.Cual,
-    //             Responsable: this.form.value.Responsables
-    //         }
-
-    //         this.actions.push(object);
-    //         if (this.actions.length > 1) {
-    //             this.table.renderRows();
-    //         }
-    //         this.form.reset();
-    //     }
-    //     this.sending = false;
-    // }
 
     validate(nameInput: string) {
         return this.mainService.validateInput(this.form, nameInput);

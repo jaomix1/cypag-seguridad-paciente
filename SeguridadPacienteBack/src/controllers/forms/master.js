@@ -59,20 +59,10 @@ exports.GetAllMasterRequiereOportunidad = async (req, res) => {
   const { Start_Date, End_Date } = req.body;
   const Start_Date_F = Start_Date ? Start_Date.split("T")[0] : null;
   const End_Date_F = End_Date ? End_Date.split("T")[0] : null;
-  // const Codigo = req.body.Codigo !== "" ? req.body.Codigo : null;
-  // const Numero_Id = req.body.Numero_Id !== "" ? req.body.Numero_Id : null;
-  // const Tipo_Novedad = req.body.Tipo_Novedad !== "" ? req.body.Tipo_Novedad : null;
-  // const Empresa = req.body.Empresa !== "" ? req.body.Empresa : null;
-  // const Sede = req.body.Sede !== "" ? req.body.Sede : null;
   try {
     const pool = await sql.connect(config);
     // Stored procedure
     const result2 = await pool.request()
-      //.input("Codigo", sql.VarChar, Codigo)
-      //.input("Numero_Id", sql.Int, Numero_Id)
-      //.input("Tipo_Novedad", sql.Int, Tipo_Novedad)
-      //.input("Empresa", sql.Int, Empresa)
-      //.input("Sede", sql.Int, Sede)
       .input("Start_Date_F", sql.Date, Start_Date_F)
       .input("End_Date_F", sql.Date, End_Date_F)
       .input("Page", sql.Int, req.body.Page)
@@ -162,6 +152,8 @@ exports.getAllData = async (req, res) => {
         attributes: ["Descripcion"],
       }],
     });
+    console.log("--------------------------------------");
+    console.log(masterData.Id);
 
     if (masterData) {
       detalleData = await DetallesModel.findOne({
@@ -175,6 +167,7 @@ exports.getAllData = async (req, res) => {
         {
           model: NovedadCausaModel,
           as: "Novedad_Causa_Join",
+          required: false,
           where: { Estado: "ACT" },
           attributes: ["Descripcion"],
         }],
@@ -194,6 +187,8 @@ exports.getAllData = async (req, res) => {
         }],
       });
     }
+    console.log("--------------------------------------");
+    console.log(detalleData.id);
 
     if (detalleData) {
       InvestigacionM5Data = await InvestigacionesM5Model.findOne({

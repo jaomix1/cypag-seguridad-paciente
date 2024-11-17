@@ -10,6 +10,8 @@
                 </mat-error>
             </mat-form-field>
         </div>
+    </div>
+    <div class="row">
         <div class="col">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-select placeholder="Responsable" formControlName="Responsable" required>
@@ -22,12 +24,11 @@
                 </mat-error>
             </mat-form-field>
         </div>
-    </div>
-    <div class="row">
         <div class="col">
             <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Fecha vencimiento</mat-label>
-                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="FechaVencimiento" required>
+                <input matInput [matDatepicker]="picker" [min]="minDate" formControlName="FechaVencimiento" required
+                    placeholder="Fecha Vencimiento">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
                 <mat-error *ngIf="validate('FechaVencimiento')">
@@ -41,10 +42,14 @@
 <!-- {{this.form.value | json}} -->
 
 <div class="row my-3">
+    <ng-container *ngIf="loading">
+        <p style="margin-top: 20px; margin-left: 20px;">Guardando por favor espere...</p>
+    </ng-container>
     <div class="col">
-        <button type='button' mat-raised-button class="bg-secondary" (click)="submit()">Agregar</button>
+        <button type='button' [disabled]="loading" mat-raised-button class="bg-secondary"
+            (click)="submit()">Agregar</button>
     </div>
 </div>
 <div mat-dialog-actions>
-    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+    <button mat-raised-button mat-dialog-close color="warn" [disabled]="loading">Cerrar</button>
 </div>
