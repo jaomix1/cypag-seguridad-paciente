@@ -152,8 +152,6 @@ exports.getAllData = async (req, res) => {
         attributes: ["Descripcion"],
       }],
     });
-    console.log("--------------------------------------");
-    console.log(masterData.Id);
 
     if (masterData) {
       detalleData = await DetallesModel.findOne({
@@ -187,8 +185,6 @@ exports.getAllData = async (req, res) => {
         }],
       });
     }
-    console.log("--------------------------------------");
-    console.log(detalleData.id);
 
     if (detalleData) {
       InvestigacionM5Data = await InvestigacionesM5Model.findOne({
