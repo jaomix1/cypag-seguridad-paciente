@@ -66,10 +66,7 @@ exports.GetAllMasterRequiereOportunidad = async (req, res) => {
       .input("Start_Date_F", sql.Date, Start_Date_F)
       .input("End_Date_F", sql.Date, End_Date_F)
       .input("Sede", sql.Int, Sede)
-      .input("Page", sql.Int, req.body.Page)
-      .input("RowsByPag", sql.Int, req.body.RowsByPag)
       .execute("SeguridadPaciente.dbo.SP_GetAllMasterRequiereOportunidad");
-    // eslint-disable-next-line max-len
     res.status(200).send({ count: result2.recordsets[0][0].Count, data: result2.recordsets[1] });
   } catch (err) {
     res.status(400).send(`${err} ${req.body}`);

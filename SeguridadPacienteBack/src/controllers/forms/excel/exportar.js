@@ -118,19 +118,27 @@ exports.reporte = async (req, res) => {
 
                 workbook.sheet("Sheet1").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Sheet1").column("C").style("numberFormat", "yyyy-mm-dd");
-                workbook.sheet("Sheet1").column("Z").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Sheet1").column("AN").style("numberFormat", "yyyy-mm-dd");
 
+                workbook.sheet("Investigaciones_P5").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Investigaciones_P5").column("C").style("numberFormat", "yyyy-mm-dd");
-                workbook.sheet("Investigaciones_P5").column("D").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_P5").column("S").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_P5").column("T").style("numberFormat", "yyyy-mm-dd");
 
+                workbook.sheet("Investigaciones_Londres").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Investigaciones_Londres").column("C").style("numberFormat", "yyyy-mm-dd");
-                workbook.sheet("Investigaciones_Londres").column("D").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_Londres").column("S").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_Londres").column("T").style("numberFormat", "yyyy-mm-dd");
 
+                workbook.sheet("Investigaciones_M5").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Investigaciones_M5").column("C").style("numberFormat", "yyyy-mm-dd");
-                workbook.sheet("Investigaciones_M5").column("D").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_M5").column("S").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_M5").column("T").style("numberFormat", "yyyy-mm-dd");
 
+                workbook.sheet("Investigaciones_Naranjo").column("B").style("numberFormat", "yyyy-mm-dd");
                 workbook.sheet("Investigaciones_Naranjo").column("C").style("numberFormat", "yyyy-mm-dd");
-                workbook.sheet("Investigaciones_Naranjo").column("D").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_Naranjo").column("S").style("numberFormat", "yyyy-mm-dd");
+                workbook.sheet("Investigaciones_Naranjo").column("T").style("numberFormat", "yyyy-mm-dd");
 
                 if (reportes.length > 0) {
                     workbook.sheet("Sheet1").row(1).style("bold", true);
