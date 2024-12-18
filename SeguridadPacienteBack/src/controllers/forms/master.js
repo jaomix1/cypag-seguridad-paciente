@@ -56,7 +56,7 @@ exports.createEntry = async (req, res) => {
 };
 
 exports.GetAllMasterRequiereOportunidad = async (req, res) => {
-  const { Start_Date, End_Date } = req.body;
+  const { Start_Date, End_Date, Sede } = req.body;
   const Start_Date_F = Start_Date ? Start_Date.split("T")[0] : null;
   const End_Date_F = End_Date ? End_Date.split("T")[0] : null;
   try {
@@ -65,6 +65,7 @@ exports.GetAllMasterRequiereOportunidad = async (req, res) => {
     const result2 = await pool.request()
       .input("Start_Date_F", sql.Date, Start_Date_F)
       .input("End_Date_F", sql.Date, End_Date_F)
+      .input("Sede", sql.Int, Sede)
       .input("Page", sql.Int, req.body.Page)
       .input("RowsByPag", sql.Int, req.body.RowsByPag)
       .execute("SeguridadPaciente.dbo.SP_GetAllMasterRequiereOportunidad");
@@ -249,7 +250,7 @@ exports.fileUpload = async (req, res) => {
 };
 
 exports.fileUploadSeguimiento = async (req, res) => {
-  const seguimientoId = req.params.seguimientoId;
+  const { seguimientoId } = req.params;
   try {
     const form = new formidable.IncomingForm();
     const carpeta = path.join(process.cwd(), "src", "uploads", "_accion", seguimientoId);
@@ -301,7 +302,7 @@ exports.fileDownload = async (req, res) => {
 
 exports.fileDownloadSeguimiento = async (req, res) => {
   try {
-    const seguimientoId = req.params.seguimientoId;
+    const { seguimientoId } = req.params;
     const carpeta = path.join(process.cwd(), "src", "uploads", "_accion", seguimientoId);
     const uploadDir = fs.readdirSync(carpeta);
     if (uploadDir.length > 0) {

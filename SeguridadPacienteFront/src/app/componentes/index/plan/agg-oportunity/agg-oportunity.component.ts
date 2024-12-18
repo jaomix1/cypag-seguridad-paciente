@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTable } from '@angular/material/table';
@@ -10,6 +10,8 @@ import { ResponsableService } from 'src/app/servicios/usuarios/responsable.servi
 import { BaseFormComponent } from '../../../baseComponent';
 import { TablaItem } from '../../demos/tabla/tabla-datasource';
 import { QueryService } from 'src/app/servicios/query/search.service';
+import { Combo } from 'src/app/modelos/combos/combo';
+import { ComboService } from 'src/app/servicios/combo/combo.service';
 
 @Component({
     selector: 'app-agg-oportunity',
@@ -18,20 +20,17 @@ import { QueryService } from 'src/app/servicios/query/search.service';
 })
 export class AggOportunityComponent extends BaseFormComponent implements OnInit {
 
-    // @ViewChild(MatPaginator) paginator!: MatPaginator;
-    // @ViewChild(MatSort) sort!: MatSort;
-    // @ViewChild(MatTable) table!: MatTable<TablaItem>;
+
+    sedes: Combo[] = [];
+    empresas: Combo[] = [];
 
     displayedColumns = ['Codigo', 'Servicio', 'Fecha Incidente', 'Tipo_Novedad_2', 'Causa_2', 'accion'];
-    // displayedColumns2 = ['index', 'Descripcion', 'Responsable', 'Porcentaje_Mejora', 'accion'];
     datos: any = [];
     datos2: any = [];
-    // responsables: any = [];
     totalObjects: number = 0;
     pageIndex: number = 0;
     pageSize: number = 5;
     maxDate: Date;
-    // oportunidad: any = [];
     planId: string = '';
     porcentajeMejora: number = 0;
 
@@ -44,8 +43,10 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     form = new FormGroup({
         Page: new FormControl(0),
         RowsByPag: new FormControl(5),
-        Start_Date: new FormControl(this.getStartDate()),
-        End_Date: new FormControl(new Date()),
+        Start_Date: new FormControl(this.getStartDate(), [Validators.required]),
+        End_Date: new FormControl(new Date(), [Validators.required]),
+        Empresa: new FormControl(null, [Validators.required]),
+        Sede: new FormControl(null, [Validators.required]),
         //Descripcion: new FormControl(null),
         //Responsable: new FormControl(null),
     });
@@ -55,6 +56,7 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         private PlanDeAccionService: PlanDeAccionService,
         public mainService: MainService,
         public UsersService: ResponsableService,
+        private comboService: ComboService,
         @Inject(MAT_DIALOG_DATA) public data: any,
         public dialog: MatDialog) {
         super();
@@ -64,31 +66,32 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     }
 
     ngOnInit(): void {
+        this.cargaEmpresas();
         this.getOpportunitiesById();
-        this.getAllQuejas();
-        //     this.getResponsables();
-
     }
 
     getAllQuejas(): void {
-        this.loadingMain = true;
-        this.query.getAllRequierePlanAccion(this.form.value).subscribe({
-            next: (req: any) => {
-                this.totalObjects = req.count
-                this.datos = req.data;
-                this.loadingMain = false;
-                if (this.datos.length === 0) {
-                    this.mainService.showToast("No se han encontrado reportes con plan de accion requerido", 'error');
+        if (this.form.valid) {
+            this.loadingMain = true;
+            this.query.getAllRequierePlanAccion(this.form.value).subscribe({
+                next: (req: any) => {
+                    this.totalObjects = req.count
+                    this.datos = req.data;
+                    this.loadingMain = false;
+                    if (this.datos.length === 0) {
+                        this.mainService.showToast("No se han encontrado reportes con plan de accion requerido", 'error');
+                    }
+                },
+                error: (err: string) => {
+                    this.mainService.showToast(err, 'error');
+                    this.loadingMain = false;
+                },
+                complete: () => {
+                    this.loadingMain = false;
                 }
-            },
-            error: (err: string) => {
-                this.mainService.showToast(err, 'error');
-                this.loadingMain = false;
-            },
-            complete: () => {
-                this.loadingMain = false;
-            }
-        });
+            });
+        }
+
     }
 
 
@@ -107,20 +110,32 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         });
     }
 
-    // getResponsables() {
-    //     this.loading = true;
-    //     this.UsersService.get().subscribe({
-    //         next: (req) => {
-    //             this.responsables = req;
-    //             console.log(this.responsables);
-    //             this.loading = false;
-    //         },
-    //         error: (err: string) => {
-    //             this.mainService.showToast(err, 'error');
-    //             this.loading = false;
-    //         }
-    //     });
-    // }
+    cargaEmpresas() {
+        this.comboService.getEmpresas().subscribe({
+            next: (req) => {
+                this.empresas = req;
+            },
+            error: (err: string) => {
+                this.loadingMain = false;
+                this.mainService.showToast(err, 'error');
+            },
+            complete: () => (this.loadingMain = false),
+        })
+    }
+
+    cargaSedes(empresa: any) {
+        this.comboService.getSedes(empresa).subscribe({
+            next: (req) => {
+                this.sedes = req;
+                this.form.patchValue({ Sede: null });
+            },
+            error: (err: string) => {
+                this.loadingMain = false;
+                this.mainService.showToast(err, 'error');
+            },
+            complete: () => (this.loadingMain = false),
+        })
+    }
 
     submit() {
 
@@ -140,13 +155,6 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         this.loanding2 = false;
     }
 
-    elimiarFromTable(id: number) {
-        //     this.loanding2 = true;
-        //     this.datos2.splice(id, 1)
-        //     this.loanding2 = false;
-    }
-
-
     pageEvent(event: any) {
         this.pageIndex = event.pageIndex
         this.pageSize = event.pageSize
@@ -156,14 +164,12 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     }
 
     cancelar() {
-        //     this.pageIndex = 0
-        //     this.form.get('Descripcion')?.setValue(null)
-        //     this.form.get('Responsable')?.setValue(null)
-        //     this.form.get('Start_Date')?.setValue(null)
-        //     this.form.get('End_Date')?.setValue(null)
-        //     this.form.get('Page')?.setValue(this.pageIndex)
-        //     this.form.get('RowsByPag')?.setValue(this.pageSize)
-        //     this.getAllQuejas();
+        this.form.get('Page')?.setValue(0);
+        this.form.get('RowsByPag')?.setValue(5);
+        this.form.get('Start_Date')?.setValue(this.getStartDate());
+        this.form.get('End_Date')?.setValue(new Date());
+        this.form.get('Empresa')?.setValue(null);
+        this.form.get('Sede')?.setValue(null);
     }
 
     validate(nameInput: string) {
