@@ -43,7 +43,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
   });
 
   constructor(
-    private QueryService: QueryService,
+    private queryService: QueryService,
     public mainService: MainService,
     private comboService: ComboService,
     public dialog: MatDialog,
@@ -121,7 +121,7 @@ export class QueryComponent extends BaseFormComponent implements OnInit, AfterVi
     if (this.myForm.valid) {
       this.myForm.disable();
       this.loadingMain = true;
-      this.QueryService.getAll(this.myForm.value).subscribe({
+      this.queryService.getAll(this.myForm.value).subscribe({
         next: (req) => {
           let data = req.map(
             (c: any) => {

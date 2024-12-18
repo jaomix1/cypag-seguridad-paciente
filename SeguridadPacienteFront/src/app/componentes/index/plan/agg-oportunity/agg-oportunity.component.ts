@@ -1,8 +1,8 @@
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTable } from '@angular/material/table';
+import { MatSort, Sort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { MainService } from 'src/app/servicios/main.service';
 import { PlanDeAccionService } from 'src/app/servicios/planDeAccion/planDeAccion.service';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -12,6 +12,7 @@ import { TablaItem } from '../../demos/tabla/tabla-datasource';
 import { QueryService } from 'src/app/servicios/query/search.service';
 import { Combo } from 'src/app/modelos/combos/combo';
 import { ComboService } from 'src/app/servicios/combo/combo.service';
+import { LiveAnnouncer } from '@angular/cdk/a11y';
 
 @Component({
     selector: 'app-agg-oportunity',
@@ -19,13 +20,14 @@ import { ComboService } from 'src/app/servicios/combo/combo.service';
     styleUrls: ['./agg-oportunity.component.css']
 })
 export class AggOportunityComponent extends BaseFormComponent implements OnInit {
-
+    @ViewChild(MatPaginator) paginator!: MatPaginator;
+    @ViewChild('empTbSort') sort!: MatSort;
 
     sedes: Combo[] = [];
     empresas: Combo[] = [];
 
     displayedColumns = ['Codigo', 'Servicio', 'Fecha Incidente', 'Tipo_Novedad_2', 'Causa_2', 'accion'];
-    datos: any = [];
+    datos = new MatTableDataSource();;
     datos2: any = [];
     totalObjects: number = 0;
     pageIndex: number = 0;
@@ -41,8 +43,6 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
     }
 
     form = new FormGroup({
-        Page: new FormControl(0),
-        RowsByPag: new FormControl(5),
         Start_Date: new FormControl(this.getStartDate(), [Validators.required]),
         End_Date: new FormControl(new Date(), [Validators.required]),
         Empresa: new FormControl(null, [Validators.required]),
@@ -58,11 +58,24 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
         public UsersService: ResponsableService,
         private comboService: ComboService,
         @Inject(MAT_DIALOG_DATA) public data: any,
-        public dialog: MatDialog) {
+        public dialog: MatDialog,
+        private _liveAnnouncer: LiveAnnouncer) {
         super();
         this.maxDate = new Date();
         this.planId = data.guid;
         this.porcentajeMejora = data.porcentajeMejora;
+    }
+
+    announceSortChange(sortState: Sort) {
+        // This example uses English messages. If your application supports
+        // multiple language, you would internationalize these strings.
+        // Furthermore, you can customize the message to add additional
+        // details about the values being sorted.
+        if (sortState.direction) {
+            this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
+        } else {
+            this._liveAnnouncer.announce('Sorting cleared');
+        }
     }
 
     ngOnInit(): void {
@@ -76,9 +89,14 @@ export class AggOportunityComponent extends BaseFormComponent implements OnInit 
             this.query.getAllRequierePlanAccion(this.form.value).subscribe({
                 next: (req: any) => {
                     this.totalObjects = req.count
-                    this.datos = req.data;
+                    this.datos.data = req.data;
                     this.loadingMain = false;
-                    if (this.datos.length === 0) {
+                    setTimeout(() => {
+                        this.sort.disableClear = true;
+                        this.datos.paginator = this.paginator;
+                        this.datos.sort = this.sort;
+                    })
+                    if (this.datos.data.length === 0) {
                         this.mainService.showToast("No se han encontrado reportes con plan de accion requerido", 'error');
                     }
                 },
