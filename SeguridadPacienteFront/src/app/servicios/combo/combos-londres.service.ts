@@ -340,6 +340,10 @@ export class CombosLondresService {
     },
     {
       type: 11,
+      option: 'Rampa'
+    },
+    {
+      type: 11,
       option: 'Escaleras/Escalones'
     },
     {
