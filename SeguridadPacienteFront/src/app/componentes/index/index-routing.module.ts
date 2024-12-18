@@ -9,6 +9,7 @@ import { AdminComponent } from '../admin/admin.component';
 import { AccesoAdmin } from 'src/app/control/accesoAdmin';
 import { ListOportunidaMejoraComponent } from './plan/list-oportunidad-mejora/list-oportunidad-mejora.component';
 import { AggOportunityComponent } from './plan/agg-oportunity/agg-oportunity.component';
+import { HandwashingComponent } from './handwashing/handwashing.component';
 
 const routes: Routes = [
   {
@@ -37,6 +38,11 @@ const routes: Routes = [
       {
         path: 'listado',
         component: AggOportunityComponent,
+        canActivate: [Acceso]
+      },
+      {
+        path: 'handwashing',
+        component: HandwashingComponent,
         canActivate: [Acceso]
       },
     ]
