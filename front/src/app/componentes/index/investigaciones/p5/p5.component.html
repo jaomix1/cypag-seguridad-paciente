@@ -1,0 +1,67 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+  <h2> <b> Investigación 5Porque`s </b></h2>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <textarea matInput placeholder="¿Por qué?" formControlName="P5_1" rows="5" maxlength="255" required></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <textarea matInput placeholder="¿Por qué?" formControlName="P5_2" rows="5" maxlength="255" required></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <textarea matInput placeholder="¿Por qué?" formControlName="P5_3" rows="5" maxlength="255" required></textarea>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <textarea matInput placeholder="¿Por qué?" formControlName="P5_4" rows="5" maxlength="255" required></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>¿Por qué?</mat-label>
+        <textarea matInput placeholder="¿Por qué?" formControlName="P5_5" rows="5" maxlength="255" required></textarea>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-label>Requiere plan de accion</mat-label>
+      <section class="example-section">
+        <mat-radio-group formControlName="Oportunidad_Mejora">
+          <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+          <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+        </mat-radio-group>
+      </section>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col">
+      <button type='button' mat-raised-button color="warn" (click)="cancelar()">Cancelar</button>
+    </div>
+    <div class="col" *ngIf="!realizado">
+      <button mat-raised-button class="bg-primary" type="submit" style="color: #fff">Enviar</button>
+    </div>
+  </div>
+</form>
+<div class="row my-3">
+  <!-- <div class="col" *ngIf="realizado">
+    <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="borrar()">Borrar</button>
+  </div> -->
+  <!-- <div class="col">
+    <button type='button' mat-raised-button class="bg-secondary" (click)="mejoras()">Oportunidades Mejoras</button>
+  </div> -->
+</div>

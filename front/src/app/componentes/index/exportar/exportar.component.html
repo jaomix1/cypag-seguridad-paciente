@@ -1,0 +1,35 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="myForm">
+    <mat-card class="shipping-card">
+        <mat-card-header>
+            <mat-card-title>Exportar registros de seguridad del paciente</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Ingresa la fecha</mat-label>
+                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                            <input matStartDate formControlName="Start_Date" [max]="maxDate" placeholder="fecha Inicio">
+                            <input matEndDate formControlName="End_Date" [max]="maxDate" placeholder="fecha Fin">
+                        </mat-date-range-input>
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-date-range-picker #picker></mat-date-range-picker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <div class="row">
+                <div class="col">
+                    <button type='button' mat-raised-button color="warn" [disabled]="loadingMain"
+                        (click)="cancelar()">Limpiar</button>
+                </div>
+                <div class="col">
+                    <button mat-raised-button color="primary" [disabled]="loadingMain" type="submit">Consultar</button>
+                </div>
+            </div>
+        </mat-card-actions>
+    </mat-card>
+</form>

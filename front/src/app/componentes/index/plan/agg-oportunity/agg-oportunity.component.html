@@ -1,0 +1,154 @@
+<ng-container *ngIf="loadingMain">
+    <p style="margin-top: 20px; margin-left: 20px;">Cargando...</p>
+</ng-container>
+<ng-container *ngIf="!loadingMain">
+    <div class="container-fluid">
+        <h1 class="text-center fw-semibold">Asociar eventos a plan de accion</h1>
+        <div class="row py-2">
+            <div class="col-12 col-md-6">
+                <form novalidate (ngSubmit)="getAllQuejas()" [formGroup]="form">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row my-2">
+                                <div class="col-12">
+                                    <h2>Filtra evento</h2>
+                                </div>
+                                <div class="col-12 col-md-12">
+                                    <mat-form-field appearance="outline">
+                                        <mat-label>Ingresa la fecha</mat-label>
+                                        <mat-date-range-input [rangePicker]="picker" [max]="maxDate">
+                                            <input matStartDate formControlName="Start_Date" [max]="maxDate"
+                                                placeholder="fecha Inicio">
+                                            <input matEndDate formControlName="End_Date" [max]="maxDate"
+                                                placeholder="fecha Fin">
+                                        </mat-date-range-input>
+                                        <mat-hint>DD/MM/YYYY</mat-hint>
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-date-range-picker picker #picker></mat-date-range-picker>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Empresa a la cual pertenece</mat-label>
+                                        <mat-select formControlName="Empresa" placeholder="Empresa a la cual pertenece">
+                                            <mat-option *ngFor="let c of empresas" value={{c.Id}}
+                                                (click)="cargaSedes(c.Id)">{{c.Descripcion}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="full-width" appearance="outline">
+                                        <mat-label>Sede donde se presento el incidente</mat-label>
+                                        <mat-select formControlName="Sede"
+                                            placeholder="Sede donde presento el incidente">
+                                            <mat-option *ngFor="let c of sedes"
+                                                value={{c.Id}}>{{c.Descripcion}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <button mat-raised-button color="warn" [disabled]="loadingMain" type="button"
+                                            (click)="cancelar()">Limpiar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button mat-raised-button color="primary" [disabled]="loadingMain"
+                                            type="submit">Consultar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <ng-container *ngIf="datos.data.length > 0">
+                    <table mat-table [dataSource]="datos" matSort #empTbSort="matSort" matSortActive="Fecha_Incidente"
+                        matSortDirection="asc" (matSortChange)="announceSortChange($event)" class="full-width"
+                        aria-label="Elements">
+                        <ng-container matColumnDef="Codigo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Codigo</th>
+                            <td mat-cell *matCellDef="let row">{{row.Codigo}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Servicio">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Proceso</th>
+                            <td mat-cell *matCellDef="let row">{{row.Servicio}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Fecha Incidente">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Fecha evento</th>
+                            <td mat-cell *matCellDef="let row">{{row.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Tipo_Novedad_2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo novedad 2</th>
+                            <td mat-cell *matCellDef="let row">{{row.Tipo_Novedad_2}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="Causa_2">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Causa 2</th>
+                            <td mat-cell *matCellDef="let row">{{row.Causa_2}}</td>
+                        </ng-container>
+                        <ng-container matColumnDef="accion">
+                            <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                            <td mat-cell *matCellDef="let row">
+                                <button mat-raised-button color="primary" (click)="addQuejaToTable(row)"
+                                    [disabled]="">Agregar</button>
+                            </td>
+                        </ng-container>
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+
+                    <div *ngIf="totalObjects > 0">
+                        <mat-paginator #paginator showFirstLastButtons [length]="datos.data?.length" [pageSize]="5"
+                            [pageSizeOptions]="[5, 10, 25]" aria-label="Select page">
+                        </mat-paginator>
+                        <!-- <mat-paginator #paginator showFirstLastButtons [length]="totalObjects" [pageIndex]="pageIndex"
+                            [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 25]" aria-label="Select page"
+                            (page)="pageEvent($event)">
+                        </mat-paginator> -->
+                    </div>
+                </ng-container>
+            </div>
+            <div class="col-12 col-md-6">
+                <ng-container *ngIf="datos2.length > 0 && loanding2 === false">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="fw-semibold">Listado actual</h2>
+                            <table class="table table-striped w-100">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Codigo</th>
+                                        <th scope="col">Proceso</th>
+                                        <th scope="col">Fecha evento</th>
+                                        <th scope="col">Tipo novedad 2</th>
+                                        <th scope="col">Causa 2</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let item of datos2; let i = index">
+                                        <td>{{item.Codigo}}</td>
+                                        <td>{{item.Servicio}}</td>
+                                        <td>{{item.Fecha_Incidente | date:'YYY-MM-dd'}}</td>
+                                        <td>
+                                            {{item.Tipo_Novedad_2}}
+                                        </td>
+                                        <td>
+                                            {{item.Causa_2}}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button mat-raised-button style="margin-bottom: 10px; margin-top: 10px" color="primary"
+                                [disabled]="porcentajeMejora===100" (click)="submit()">Guardar</button>
+                            <span *ngIf="porcentajeMejora!=0">No se pueden guadar los cambios, el plan de accion esta al
+                                100%</span>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+</ng-container>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>

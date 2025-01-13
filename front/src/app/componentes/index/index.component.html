@@ -1,0 +1,34 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === true">
+        <mat-toolbar>Menu</mat-toolbar>
+        <mat-nav-list>
+            <a mat-list-item [routerLink]="['/index/consulta']"
+                routerLinkActive="mat-list-single-selected-option">Consulta</a>
+            <a mat-list-item [routerLink]="['/index/exportar']"
+                routerLinkActive="mat-list-single-selected-option">Exportar</a>
+            <a mat-list-item [routerLink]="['/index/oportunidad-mejora']"
+                routerLinkActive="mat-list-single-selected-option">Plan de accion</a>
+            <a mat-list-item [routerLink]="['/admin/usuarios']"
+                *ngIf="this.m.datosUsuario.PerfilId == '733209DA-5F31-4BAE-A7CD-E6CCC20C8BA8'"
+                routerLinkActive="mat-list-single-selected-option">Usuarios</a>
+            <!-- <a mat-list-item [routerLink]="['/index/handwashing']"
+                routerLinkActive="mat-list-single-selected-option">Lavado de manos</a> -->
+        </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <mat-toolbar class="bg-primary">
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+            </button>
+            <span>SEGURIDAD DEL PACIENTE</span>
+            <span class="example-spacer"></span>
+            <span class="example-spacer"></span>
+            <button type="button" mat-icon-button (click)="Logout()">
+                <mat-icon aria-label="Side nav toggle icon">exit_to_app</mat-icon>
+            </button>
+        </mat-toolbar>
+        <!-- Add Content Here -->
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

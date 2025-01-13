@@ -1,0 +1,60 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {},
+	"launch": {
+		"version": "0.2.0",
+		"configurations": [
+			// {
+			// 	"name": "Launch Chrome",
+			// 	"type": "msedge",
+			// 	"request": "launch",
+			// 	"url": "http://localhost:4200/#",
+			// 	"webRoot": "${workspaceFolder}/front/web",
+			// 	"preLaunchTask": "front",
+			// },
+			// {
+			// 	"name": "Launch Backend",
+			// 	"program": "${workspaceFolder}/back/server.js",
+			// 	"envFile": "${workspaceFolder}/back/.env",
+			// 	"request": "launch",
+			// 	"skipFiles": [
+			// 		"<node_internals>/**"
+			// 	],
+			// 	"type": "node"
+			// }
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			// {
+			// 	"type": "npm",
+			// 	"script": "start",
+			// 	"path": "front/web",
+			// 	"problemMatcher": [],
+			// 	"label": "front",
+			// 	"detail": "set NODE_OPTIONS=--openssl-legacy-provider && ng serve -o ",
+			// 	"group": {
+			// 		"kind": "build",
+			// 		"isDefault": true
+			// 	}
+			// },
+			// {
+			// 	"type": "npm",
+			// 	"script": "start",
+			// 	"path": "back",
+			// 	"problemMatcher": [],
+			// 	"label": "back2",
+			// 	"detail": "node server.js",
+			// 	"group": {
+			// 		"kind": "build",
+			// 		"isDefault": true
+			// 	}
+			// }
+		]
+	}
+}

@@ -1,0 +1,61 @@
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h1 class="text-center">Planes de accion asociados al evento</h1>
+            <div class="d-flex flex-row gap-2">
+                <button mat-raised-button color="primary" (click)="option = 'new'">Nuevas</button>
+                <button mat-raised-button color="primary" (click)="option = 'old'">Antiguas</button>
+            </div>
+        </div>
+        <ng-container *ngIf="option === 'new'">
+            <table mat-table class="full-width-table" [dataSource]="datos.news" matSort aria-label="Elements">
+                <ng-container matColumnDef="oportunidad">
+                    <th mat-header-cell *matHeaderCellDef>Oportunidad</th>
+                    <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="responsable">
+                    <th mat-header-cell *matHeaderCellDef>Responsable</th>
+                    <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+                </ng-container>
+                <ng-container matColumnDef="porcentaje">
+                    <th mat-header-cell *matHeaderCellDef>porcentaje</th>
+                    <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
+                </ng-container>
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let row"> <button mat-raised-button color="primary"
+                            (click)="openDetail(row.Id)">Ver detalles</button></td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </ng-container>
+        <ng-container *ngIf="option === 'old'">
+            <table mat-table class="full-width-table" [dataSource]="datos.olds" matSort aria-label="Elements">
+                <ng-container matColumnDef="oportunidad">
+                    <th mat-header-cell *matHeaderCellDef>Oportunidad</th>
+                    <td mat-cell *matCellDef="let row">{{row.Descripcion}}</td>
+                </ng-container>
+                <ng-container matColumnDef="responsable">
+                    <th mat-header-cell *matHeaderCellDef>Responsable</th>
+                    <td mat-cell *matCellDef="let row">{{row.Responsable}}</td>
+                </ng-container>
+                <ng-container matColumnDef="porcentaje">
+                    <th mat-header-cell *matHeaderCellDef>porcentaje</th>
+                    <td mat-cell *matCellDef="let row">{{row.Porcentaje_Mejora}}%</td>
+                </ng-container>
+                <ng-container matColumnDef="accion">
+                    <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                    <td mat-cell *matCellDef="let row">
+                        <!-- <button mat-raised-button color="primary" (click)="openDetail(row.Id)">Ver detalles</button> -->
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </ng-container>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>

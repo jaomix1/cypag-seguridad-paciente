@@ -1,0 +1,57 @@
+<form novalidate (ngSubmit)="submit()" [formGroup]="form">
+    <h2> <b> Agregar nuevo seguimiento</b></h2>
+    <div class="row">
+        <div class="col">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Descripcion</mat-label>
+                <input matInput placeholder="Seguimiento" formControlName="Seguimiento" maxlength="100" required>
+                <mat-error *ngIf="validate('Seguimiento')">
+                    {{ check('Seguimiento') }}
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div class="col">
+            <mat-label>Es seguimiento de cierre?</mat-label>
+            <section class="example-section">
+                <mat-radio-group formControlName="EsCierre">
+                    <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+                    <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+                </mat-radio-group>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-label>Adjuntar evidencia (imagen, pfd)</mat-label>
+            <ul>
+                <li *ngFor="let file of files">
+                    <span id="file-label">
+                        {{file.data.name}}
+                    </span>
+                </li>
+            </ul>
+            <!-- <button type="button" mat-raised-button (click)="fileInput.click()">Seleccionar</button> -->
+            <button type="button" mat-raised-button color="primary" (click)="cargar()">Agregar adjunto</button>
+            <br>
+            <button *ngIf="this.files.length > 0" type="button" color="warn" mat-raised-button
+                (click)="borrararchivos()">Borrar archivos</button>
+            <!-- <input hidden (change)="seleccionarImagen($event)" #fileInput accept="image/*" type="file"> -->
+            <input type="file" #fileUpload id="fileUpload" name="fileUpload" multiple="multiple" accept=".jpg,.pdf"
+                style="display:none;" />
+            <br>
+            <span class="file-name my-3" *ngIf="imagen">Archivo seleccionado: {{imagen?.name}}</span>
+        </div>
+        <div class="col">
+
+        </div>
+    </div>
+</form>
+<!--  {{this.form.value | json}} -->
+<div class="row my-3">
+    <div class="col">
+        <button type='button' mat-raised-button class="bg-primary" (click)="submit()">Guardar</button>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>

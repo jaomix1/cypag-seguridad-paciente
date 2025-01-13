@@ -1,0 +1,38 @@
+<mat-grid-list cols="3" rowHeight="1:1">
+    <mat-grid-tile class="example-container" [colspan]="this.tamano.col">
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="this.tamano2.col" style="height:100vh">
+        <mat-card class="dashboard-card">
+            <mat-card-header class="center">
+                <mat-card-title>
+                    <h2 class="primary"> <b> Ingresar </b></h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <form [formGroup]="form" (ngSubmit)="login()">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Usuario</mat-label>
+                        <input matInput formControlName="Usuario" placeholder="User" maxlength="60" required>
+                        <mat-error *ngIf="!form.valid">error</mat-error>
+                        <mat-icon matSuffix>person_outline</mat-icon>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Contraseña</mat-label>
+                        <input matInput formControlName="Clave" [type]="hidePassword ? 'password' : 'text'" required>
+                        <mat-error *ngIf="!form.valid">error</mat-error>
+                        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword"
+                            [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    <mat-card-actions align="end">
+                        <mat-progress-bar *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
+                        <button mat-button class="btn bg-primary" [disabled]="!form.valid"
+                            *ngIf="!loadingMain">Ingresar</button>
+                    </mat-card-actions>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>

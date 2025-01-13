@@ -1,0 +1,174 @@
+<h1 class="center"><b>Clasificación</b></h1>
+<mat-progress-bar class="my-3" *ngIf="loadingMain" mode="indeterminate"></mat-progress-bar>
+<div class="row">
+  <div class="col">
+    <p> <span> <b>Fecha y hora del incidente:</b> </span> {{data?.Fecha_Incidente}} {{data?.Hora_Incidente}}</p>
+    <p> <span> <b>Nombre de quien reporta:</b> </span> {{data?.Nombre_Quien_Reporta}}</p>
+    <p> <span> <b>Cargo de quien reporta:</b> </span> {{data?.Cargo_Quien_Reporta}}</p>
+    <p> <span> <b>Empresa a la cual pertenece:</b> </span> {{data?.Empresa_Join ? data.Empresa_Join.Descripcion : ""}}
+    </p>
+    <p> <span> <b>Sede donde se presento el incidente:</b> </span> {{data?.Sede_Join ? data.Sede_Join.Descripcion : ""}}
+    </p>
+    <p> <span> <b>Servicio:</b> </span> {{data?.Servicio_Id_Join ? data.Servicio_Id_Join.Descripcion : ""}}</p>
+    <p *ngIf="data?.Servicio_Id_Join.Descripcion == 'OTRO' && data.Otro_Servicio"> <span> <b>Otro servicio:</b> </span>
+      {{data?.Otro_Servicio}}</p>
+    <p> <span> <b>Nombre completo del paciente:</b> </span> {{data?.Nombre_Paciente}}</p>
+    <p> <span> <b>Identificación:</b> </span> {{data?.Tipo_Id_Join ? data.Tipo_Id_Join.Descripcion : ""}}
+      {{data?.Numero_Id}}</p>
+    <p> <span> <b>Sexo:</b> </span> {{data?.Sexo}}</p>
+    <p> <span> <b>Edad:</b> </span> {{data?.Edad}}</p>
+    <p> <span> <b>Novedad:</b> </span> {{data?.Tipo_Novedad_Join ? data!.Tipo_Novedad_Join.Descripcion : ""}}</p>
+    <p> <span> <b>Causa:</b> </span> {{data?.Novedad_Id_Join ? data!.Novedad_Id_Join.Descripcion : ""}}</p>
+    <p> <span> <b>¿Qué Pasó?:</b> </span> {{data?.Preg_Que}}</p>
+    <p> <span> <b>¿Comó Pasó?:</b> </span> {{data?.Preg_Como}}</p>
+    <p> <span> <b>Testigos:</b> </span> {{data?.Preg_Hay_Testigos ? data!.Preg_Quien : "No hay testigos"}}</p>
+    <p> <span> <b>Producido durante el proceso de atención:</b> </span> {{data?.Preg_En_Atencion ? "Sí" : "No"}}</p>
+    <p> <span> <b>Involuntario:</b> </span> {{data?.Preg_Involuntario ? "Sí" : "No"}}</p>
+    <p> <span> <b>Daños en el paciente:</b> </span> {{data?.Preg_Genero_Dano ? "Severidad: (" +
+      data!.Preg_Dano_Severidad + ") " + data!.Preg_Dano_Generado : "No se genero daño en el paciente"}}</p>
+    <p> <span> <b>Accion tomada:</b> </span> {{data?.Accion_Tomada}}</p>
+    <p> <button (click)="downloadImage()"> Ver evidencias </button>
+
+  </div>
+  <div class="col">
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <h2>Triada</h2>
+      <div class="row">
+        <div class="col">
+          <mat-label>Involuntario</mat-label>
+          <section class="example-section">
+            <mat-radio-group formControlName="Triada_Involuntario">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div class="col">
+          <mat-label>Daño en el paciente</mat-label>
+          <section class="example-section">
+            <mat-radio-group formControlName="Triada_Genero_Dano">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+        <div class="col">
+          <mat-label>Atencion en salud</mat-label>
+          <section class="example-section">
+            <mat-radio-group formControlName="Triada_Atencion_Salud">
+              <mat-radio-button class="example-margin" [value]="true">Sí</mat-radio-button>
+              <mat-radio-button class="example-margin" [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+          </section>
+        </div>
+      </div>
+      <h2>Selecciona un tipo</h2>
+      <mat-grid-list cols="2" rowHeight="40px">
+        <mat-grid-tile>
+          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Farmacovigilancia')" [ngClass]="{
+            'bg-primary': type == 'Farmacovigilancia'
+          }"> Farmacovigilancia </a>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Gestion Clinica')" [ngClass]="{
+            'bg-primary': type == 'Gestion_Clinica'
+          }"> Gestión clinica </a> </mat-grid-tile>
+        <mat-grid-tile>
+          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Reactivovigilancia')" [ngClass]="{
+            'bg-primary': type == 'Reactivovigilancia'
+          }"> Reactivovigilancia </a> </mat-grid-tile>
+        <mat-grid-tile>
+          <a mat-button class="bg-secondary full-width" (click)="obtenerTipo('Tecnovigilancia')" [ngClass]="{
+            'bg-primary': type == 'Tecnovigilancia'
+          }"> Tecnovigilancia </a> </mat-grid-tile>
+      </mat-grid-list>
+      <br>
+      <h2>Tipo de novedad</h2>
+      <div class="col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-select placeholder="Tipo de novedad" formControlName="Tipo_Novedad">
+            <mat-option *ngFor="let data of novedades" [value]="data.Id" (click)="cargaCausas(data.Id)">
+              {{ data.Descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="validate('Tipo_Novedad')">
+            {{ check('Tipo_Novedad') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <h2>Causa</h2>
+      <div class="col">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-select placeholder="Causa" formControlName="Novedad_Causa">
+            <mat-option *ngFor="let data of causas" [value]="data.Id">
+              {{ data.Descripcion }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="validate('Novedad_Causa')">
+            {{ check('Novedad_Causa') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <h2>Clasificación del reporte</h2>
+      <div class="row">
+        <div class="col">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-select placeholder="Clasificacion_Reporte_Id" formControlName="Clasificacion_Reporte_Id">
+              <mat-option *ngFor="let data of clasificaciones" [value]="data.Id">
+                {{ data.Descripcion }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="validate('Clasificacion_Reporte_Id')">
+              {{ check('Clasificacion_Reporte_Id') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col" style="max-width: 20px;">
+          <a type="button" (click)="info_Eventos()"><mat-icon>info</mat-icon></a>
+        </div>
+      </div>
+    </form>
+
+    <br>
+    <h2>Responsables de la investigacion</h2>
+    <mat-form-field>
+      <mat-select placeholder="Responsables" multiple [disabled]="realizado" [(ngModel)]="responsables">
+        <mat-option *ngFor="let user of users" [value]="user.NombreCompleto">{{user.NombreCompleto}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div class="row" *ngIf="!realizado">
+      <div class="col">
+        <button mat-button class="bg-primary" style="margin-bottom: 10px" (click)="submit()">Guardar</button>
+      </div>
+    </div>
+    <div class="col" *ngIf="realizado">
+      <button mat-button class="bg-secondary" style="margin-bottom: 10px" (click)="delet()">Borrar</button>
+    </div>
+  </div>
+</div>
+<div class="row" *ngIf="realizado">
+  <!-- *ngIf="detalle?.Tipo_Investigacion == null" -->
+  <div class="col"
+    *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Naranjo' || detalle?.Tipo_Investigacion == null">
+    <button mat-button (click)="naranjo()" class="bg-secondary"> Naranjo </button>
+  </div>
+  <!--  -->
+  <div class="col"
+    *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres' || detalle?.Tipo_Investigacion == null">
+    <button mat-button (click)="londres()" class="bg-secondary"> Londres </button>
+  </div>
+  <!--  -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_M5' || detalle?.Tipo_Investigacion == null">
+    <button mat-button (click)="m5()" class="bg-secondary"> 5 Ms </button>
+  </div>
+  <!--  -->
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_P5' || detalle?.Tipo_Investigacion == null">
+    <button mat-button (click)="p5()" class="bg-secondary"> 5 Porque's </button>
+  </div>
+  <div class="col" *ngIf="detalle?.Tipo_Investigacion == 'Investigaciones_Londres'">
+    <button type='button' mat-raised-button color="warn" (click)="pdf()">Generar pdf</button>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-raised-button mat-dialog-close color="warn">Cerrar</button>
+</div>
