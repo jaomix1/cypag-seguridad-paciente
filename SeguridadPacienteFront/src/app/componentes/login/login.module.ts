@@ -18,19 +18,19 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   imports: [
     CommonModule,
-    FormsModule, 
+    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    
-    MatGridListModule, 
+
+    MatGridListModule,
     MatCardModule,
     MatIconModule,
     MatInputModule,
     MatProgressBarModule,
     MatButtonModule
   ],
-  exports :[
+  exports: [
     LoginComponent,
- ]
+  ]
 })
 export class LoginModule { }
