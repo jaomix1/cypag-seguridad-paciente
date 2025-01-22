@@ -54,7 +54,6 @@ import { ListFollowsComponent } from './follow/list_follows/list-follows.compone
 import { CreateFollowFormComponent } from './follow/create-follow-form/create-follow-form.component';
 import { AggOportunityComponent } from './plan/agg-oportunity/agg-oportunity.component';
 import { AccionFormComponent } from './accion/accion-form/accion-form.component';
-import { HandwashingComponent } from './handwashing/handwashing.component';
 
 @NgModule({
   declarations: [
@@ -80,8 +79,6 @@ import { HandwashingComponent } from './handwashing/handwashing.component';
     ListFollowsComponent,
     CreateFollowFormComponent,
     AggOportunityComponent,
-    HandwashingComponent,
-
   ],
   imports: [
     CommonModule,
